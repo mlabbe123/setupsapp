@@ -1,0 +1,13 @@
+div(class="setupList-wrapper {{sim_name}}")
+    Welcome to {{sim_name}}
+
+    a(href="cars") cars
+    a(href="tracks") tracks
+
+    div(ng-controller="setupListCtrl as setups")
+        ul
+            li(ng-repeat="setup in setups | orderBy:'author'")
+                td {{ setup.car }} |
+                td {{ setup.track }} |
+                td {{ setup.author }} |
+                td {{ setup.type }} |
