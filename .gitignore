@@ -1,2 +1,7 @@
+# sass files #
 .sass-cache
 *.css.map
+
+# node files #
+node_modules/
+npm-debug.log
