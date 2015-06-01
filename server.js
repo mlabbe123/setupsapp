@@ -1,11 +1,37 @@
 var express = require('express'),
     app = express(),
     mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    passport = require('passport'),
+    flash = require('connect-flash'),
 
+    session = require('express-session');
+
+// DB Config
 mongoose.connect('mongodb://localhost/setups_app');
 
+// Express config
 app.use(express.static('builds/development'));
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/builds/development/');
+
+// Passport config
+require('./config/passport')(passport);
+
+app.use(session({
+    secret: "cookie_secret",
+    name: "cookie_name",
+    //store: sessionStore, // connect-mongo session store
+    //proxy: true,
+    resave: true,
+    saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+// Routes config
+require('./app/routes.js')(app, passport);
 
 var server = app.listen(3000, function () {
 
@@ -13,27 +39,6 @@ var server = app.listen(3000, function () {
     var port = server.address().port;
 
     console.log('Example app listening at http://%s:%s', host, port);
-});
-
-require('./models/user.js');
-
-var User = require('./models/user').User;
-
-var dummyuser1 = new User({
-    email: 'm@m.lab',
-    password: 'pass',
-    display_name: 'IamM',
-    nationality: 'Canada',
-    join_date: '2015/05/10'
-});
-
-dummyuser1.save(function (err) {
-  if (err) return handleError(err);
-  // saved!
-});
-
-User.find(function(err, user){
-    console.log(user)
 });
 
 // USERS API

@@ -1,0 +1,21 @@
+$xlarge-min-width: 1201px;
+$xlarge-max-width: 1600px;
+$huge-min-width: 1601px;
+
+@mixin xlarge-only {
+  @media (min-width: #{$xlarge-min-width}) and (max-width: #{$xlarge-max-width}) {
+    @content;
+  }
+}
+
+@mixin xlarge-and-above {
+  @media (min-width: #{$xlarge-min-width}) {
+    @content;
+  }
+}
+
+@mixin huge {
+  @media (min-width: #{$huge-min-width}) {
+    @content;
+  }
+}

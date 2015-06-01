@@ -1,6 +1,10 @@
 {
   "dependencies": {
+    "bcrypt": "^0.8.3",
+    "connect-flash": "^0.1.1",
+    "ejs": "^2.3.1",
     "express": "^4.12.3",
+    "express-session": "^1.11.2",
     "gulp": "^3.8.11",
     "gulp-concat": "^2.5.2",
     "gulp-gzip": "^1.1.0",
@@ -9,6 +13,8 @@
     "gulp-sass": "^2.0.0",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.2.0",
-    "mongoose": "^4.0.2"
+    "mongoose": "^4.0.2",
+    "passport": "^0.2.1",
+    "passport-local": "^1.0.0"
   }
 }

@@ -3,10 +3,32 @@
 @import 'mixins';
 @import 'fonts';
 
+@import 'susy_config';
+
+@import 'grid_mixins';
+
 /* declarations */
 html,
 body {
     height: 100%;
+}
+
+.mainContainer {
+    min-width: 1024px
+}
+
+// Site Header
+header {
+    @include clearfix();
+}
+
+.login-box {
+    float: right;
+}
+
+// Main site area
+.mainWrapper {
+
 }
 
 .selector-container {

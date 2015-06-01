@@ -8,31 +8,35 @@ html(ng-app="setupsSharingApp")
 		link(rel="shortcut icon", href="images/favicon.ico")
 		// CSS FILES
 		link(href="css/style.css", type="text/css", rel="stylesheet")
+		link(rel="stylesheet", href="https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css")
 	body
-		header
-			span Sign in
-			span Register
+		div.mainContainer
+			header
+				div.login-box
+					span.md-button Sign in
+					span Register
 
-		div(class="mainWrapper")
-			h1 The place to find setups
-			span Welcome to < insert site name here >. Choose your sim.
+			div(class="mainWrapper")
+				h1 The place to find setups
+				span Welcome to < insert site name here >. Choose your sim.
 
-			div(class="simSelectionWrapper")
-				a(href="#/iRacing") iRacing
-				a(href="#/ac") AC
-				a(href="#/pcars") Pcars
-				a(href="#/r3e") R3E
+				div(class="simSelectionWrapper")
+					a(href="#/iRacing") iRacing
+					a(href="#/ac") AC
+					a(href="#/pcars") Pcars
+					a(href="#/r3e") R3E
 
-			div(ng-view)
+				div(ng-view)
 
-		//- div(class="selector-container")
+			//- div(class="selector-container")
 
 		footer
 
 		script(src="js/load.js")
-		//script(src="js/lib/require.js")
-		//script(src="js/require.config.js")
-		script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.js")
-		script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular-route.js")
+		script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js")
+		script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.js")
+		script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js")
+		script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js")
+		script(src="https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.js")
 		script(src="js/app.js")
 		script(src="js/controllers.js")

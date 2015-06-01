@@ -5,3 +5,9 @@
 # node files #
 node_modules/
 npm-debug.log
+
+# bower files #
+bower_components/
+
+# compiled builds files #
+builds/

@@ -1,0 +1,15 @@
+{
+  "name": "setupsapp",
+  "version": "0.0.0",
+  "homepage": "https://github.com/mlabbe123/setupsapp",
+  "authors": [
+    "Mathieu Labbé <mathieu.labbe@hotmail.com>"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "susy": "~2.2.3"
+  }
+}
