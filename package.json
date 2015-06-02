@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "bcrypt": "^0.8.3",
+    "body-parser": "^1.12.4",
     "connect-flash": "^0.1.1",
     "ejs": "^2.3.1",
     "express": "^4.12.3",
