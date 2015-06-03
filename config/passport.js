@@ -15,7 +15,7 @@ module.exports = function(passport) {
         });
     });
 
-    // Local Signup.
+    // Local Register.
     passport.use('local-register', new LocalStrategy({
         usernameField : 'email',
         passwordField : 'password',
@@ -48,14 +48,17 @@ module.exports = function(passport) {
                         }
                         return done(null, newUser);
                     });
+
+                    console.log('User ' + newUser.email + 'successfully created.')
                 } else {
                     console.log('That email is already taken.')
-                    return done(null, false, request.flash('signupMessage', 'That email is already taken.'));
+                    return done(null, false, request.flash('registerMessage', 'That email is already taken.'));
                 }
             });
         });
     }));
 
+    // Local login.
     passport.use('local-login', new LocalStrategy({
         usernameField : 'email',
         passwordField : 'password',
@@ -85,8 +88,7 @@ module.exports = function(passport) {
             }
 
             // all is well, return successful user
-            console.log('Welclome ');
-            console.log(request)
+            console.log('Welcome');
             return done(null, user);
         });
 

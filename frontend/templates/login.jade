@@ -1,6 +1,13 @@
-form(action="/login", method="post")
-    input(type="Email", name="email")
-    input(type="Password", name="password")
+extends ./root_base
 
-    button(type="submit").
-        Login please
+block mainContent
+    div(class="mainWrapper")
+        if message && message.length
+                strong #{message}
+
+        form(action="/login", method="post")
+            input(type="Email", name="email")
+            input(type="Password", name="password")
+
+            button(type="submit").
+                Login please

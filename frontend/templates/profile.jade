@@ -1,1 +1,10 @@
-This is your profile bro.
+extends ./root_base
+
+block mainContent
+    div(class="mainWrapper")
+        span This is your profile page bro.
+
+        if user
+            span #{user.email} is logged in
+        else
+            span no user logged in
