@@ -11,8 +11,8 @@ mongoose.connect('mongodb://localhost/setups_app');
 
 // Express config
 app.use(express.static('builds/development'));
-app.set('view engine', 'ejs');
-app.set('views', __dirname + '/builds/development/');
+app.set('view engine', 'jade');
+app.set('views', __dirname + '/frontend/templates/');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 require('./config/passport')(passport);
 
 // Static dir config
-var statidDir = "/Users/mathieu/projects/setupsapp/"
+var statidDir = "/Users/mathieu/web/setupsapp/"
 
 // Express session config
 app.use(session({

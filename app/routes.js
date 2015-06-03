@@ -2,12 +2,12 @@ module.exports = function(app, passport, statidDir) {
 
     // Home page
     app.get('/', function(request, response) {
-        response.sendFile('builds/development/index.html', { root: statidDir });
+        response.render('index');
     });
 
     // Login page
     app.get('/login', function(request, response) {
-        response.sendFile('builds/development/login.html', { root: statidDir });
+        response.render('login');
     });
 
     // Signup page
