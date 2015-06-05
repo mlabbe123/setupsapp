@@ -1,12 +1,31 @@
 div(class="setupList-wrapper {{sim_name}}")
-    Welcome to {{sim_name}}
+    span Welcome to {{sim_name}} page
 
-    a(href="cars") cars
-    a(href="tracks") tracks
+    select(ng-model="filter_query.car")
+        option(value="") - Select a car -
+        option(value="McLaren F1 GTR") McLaren F1 GTR
+        option(value="McLaren P1") McLaren P1
+        option(value="BMW E30") BMW E30
+        option(value="Nissan GTR GT3") Nissan GTR GT3
 
-    div(ng-controller="setupListCtrl as setups")
+    select(ng-model="filter_query.track")
+        option(value="") - Select a track -
+        option(value="SPA") SPA
+        option(value="Silverstone") Silverstone
+        option(value="Nordschleife") Nordschleife
+
+    input(type="text", placeholder="Enter an author", ng-model="filter_query.author")
+
+    label(for="type_base") base
+    input(type="radio", name="type", value="base", id="type_base", ng-model="filter_query.type")
+    label(for="type_qualy") qualy
+    input(type="radio", name="type", value="qualy", id="type_qualy", ng-model="filter_query.type")
+    label(for="type_race") race
+    input(type="radio", name="type", value="race", id="type_race", ng-model="filter_query.type")
+
+    div
         ul
-            li(ng-repeat="setup in setups | orderBy:'author'")
+            li(ng-repeat="setup in setups | filter:filter_query | orderBy:'author'")
                 td {{ setup.car }} |
                 td {{ setup.track }} |
                 td {{ setup.author }} |

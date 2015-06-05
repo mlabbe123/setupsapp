@@ -3,13 +3,18 @@ var setupsSharingApp = angular.module('setupsSharingApp', [
     'setupsSharingAppControllers'
 ]);
 
-setupsSharingApp.config(['$routeProvider', function($routeProvider) {
+setupsSharingApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider
-        .when('/:simName', {
+        .when('/', {
+            templateUrl: 'partials/home.html'
+        })
+        .when('/setups/:simName', {
             templateUrl: 'partials/simpage.html',
             controller: 'setupListCtrl'
         })
         .otherwise({
             redirectTo: '/'
         })
+
+    //$locationProvider.html5Mode(true);
 }]);

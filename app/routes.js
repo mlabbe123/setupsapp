@@ -2,7 +2,10 @@ module.exports = function(app, passport, statidDir) {
 
     // Home page
     app.get('/', function(request, response) {
-        response.render('index');
+        console.log('u there?')
+        // response.render('index', {
+        //     user: request.user
+        // });
     });
 
     // Login page
@@ -44,6 +47,14 @@ module.exports = function(app, passport, statidDir) {
         request.logout();
         response.redirect('/');
     });
+
+    // ==============================
+    // API SECTION
+    // ==============================
+    // app.get('/api/get-setups', function(request, response) {
+    //     console.log('Please get those setups')
+
+    // });
 
     // Function to verify if user is logged in.
     function isUserLoggedIn(request, response, next) {

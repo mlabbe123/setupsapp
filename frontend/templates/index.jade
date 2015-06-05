@@ -1,16 +1,4 @@
 extends ./root_base
 
 block mainContent
-	div(class="mainWrapper")
-        h1 The place to find setups
-        span Welcome to < insert site name here >. Choose your sim.
-
-        div(class="simSelectionWrapper")
-            a(href="#/iRacing") iRacing
-            a(href="#/ac") AC
-            a(href="#/pcars") Pcars
-            a(href="#/r3e") R3E
-
-        div(ng-view)
-
-    	//- div(class="selector-container")
+	div(class="mainWrapper", ng-view)
