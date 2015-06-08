@@ -1,11 +1,11 @@
-module.exports = function(app, passport, statidDir) {
+module.exports = function(app, passport) {
 
     // Home page
     app.get('/', function(request, response) {
         console.log('u there?')
-        // response.render('index', {
-        //     user: request.user
-        // });
+        response.render('index', {
+            user: request.user
+        });
     });
 
     // Login page

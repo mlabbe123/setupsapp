@@ -25,6 +25,12 @@ html(ng-app="setupsSharingApp")
                                 a(href="/login").md-button Sign in
                                 a(href="/register") Register
 
+                block mainNav
+                    a(href="/") Home
+                    if user
+                        a(href="/profile") Profile
+                        a(href="/submit-setup") Submit Setup
+
                 block mainContent
 
                 block footer

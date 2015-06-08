@@ -19,9 +19,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Passport config
 require('./config/passport')(passport);
 
-// Static dir config
-var statidDir = "/Users/mathieu/web/setupsapp/"
-
 // Express session config
 app.use(session({
     secret: "cookie_secret",
@@ -38,7 +35,7 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // Routes config
-require('./app/routes.js')(app, passport, statidDir);
+require('./app/routes.js')(app, passport);
 
 // Start the server
 var server = app.listen(3000, function () {
