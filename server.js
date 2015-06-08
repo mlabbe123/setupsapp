@@ -6,6 +6,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     session = require('express-session');
 
+    _ = require('lodash');
+
 // DB Config
 mongoose.connect('mongodb://localhost/setups_app');
 
@@ -60,10 +62,10 @@ app.get('/api/users', function(request, response) {
 var Setup = require('./app/models/setup');
 
 // var newSetup = new Setup();
-// newSetup.author = "setupmasta@hotmail.com";
-// newSetup.type = "race";
-// newSetup.car = "Nissan GTR GT3";
-// newSetup.track = "Nordschleife";
+// newSetup.author = "mathieu@hotmail.com";
+// newSetup.type = "qualy";
+// newSetup.car = "Alfa Romeo 4C";
+// newSetup.track = "Mugello";
 // newSetup.sim_name = "ac";
 // newSetup.save(function(err) {
 //     if(err) {
@@ -87,17 +89,51 @@ app.get('/api/get-setups/:simname', function(request, response) {
 });
 
 // API route to retrieve every setups for the filters in setups listing page.
-app.get('/api/get-setups-filters', function(request, response) {
+app.get('/api/get-setups-filters/:simname', function(request, response) {
     console.log('Please get every setups, then return me a list of every unique documents row, to populate the filters');
 
-    Setup.find(function(err, setups) {
-       if(err){
+    Setup.find({ sim_name: request.params.simname }, function(err, setups) {
+        var setup_filters = {};
+
+        if(err){
             return console.log(err);
         } else {
-            console.log(setups)
-            for(setup in setups) {
-                console.log(setup)
-            }
+            var car_filter = [];
+            var track_filter = [];
+            var author_filter = [];
+            var type_filter = [];
+
+            // Loop through every setup returned to build the filters arrays
+            _.forEach(setups, function(setup) {
+                car_filter.push(setup.car);
+                track_filter.push(setup.track);
+                author_filter.push(setup.author);
+                type_filter.push(setup['type']);
+            });
+
+            // Remove every duplicates.
+            // car_filter = _.uniq(car_filter);
+            // track_filter = _.uniq(track_filter);
+            // author_filter = _.uniq(author_filter);
+            // type_filter = _.uniq(type_filter);
+
+            var type_filter_dict = [{'value': '', 'label': 'All'}];
+
+            _.forEach(_.uniq(type_filter), function(type) {
+                type_filter_dict.push({
+                    'value': type,
+                    'label': type
+                });
+            });  
+
+            setup_filters.car_filters = _.uniq(car_filter);
+            setup_filters.track_filters = _.uniq(track_filter);
+            setup_filters.author_filters = _.uniq(author_filter);
+            setup_filters.type_filters = type_filter_dict;
+
+            console.log(setup_filters)
+
+            return response.send(setup_filters);
         }
     });
 });
