@@ -2,29 +2,20 @@ div(class="setupList-wrapper {{sim_name}}")
     span Welcome to {{sim_name}} page
 
     select(ng-model="filter_query.car", ng-options="car_filters for car_filters in setup_filters.car_filters")
-        option(value="") - No car filter -
+        option(value="") - Every cars -
 
     select(ng-model="filter_query.track", ng-options="track_filters for track_filters in setup_filters.track_filters")
-        option(value="") - No track filter -
+        option(value="") - Every tracks -
 
     input(type="text", placeholder="Enter an author", ng-model="filter_query.author")
 
     span(ng-repeat="type_filter in setup_filters.type_filters")
-        label(for="type_{{ type_filter }}"){{ type_filter }}
-        input(type="radio", name="type" id="type_{{ type_filter }}", value="{{ type_filter }}", ng-model="$parent.filter_query.type")
-
-    //- label(for="type_any") any
-    //- input(type="radio", name="type", value="", id="type_any", ng-model="filter_query.type", checked="checked")
-    //- label(for="type_base") base
-    //- input(type="radio", name="type", value="base", id="type_base", ng-model="filter_query.type")
-    //- label(for="type_qualy") qualy
-    //- input(type="radio", name="type", value="qualy", id="type_qualy", ng-model="filter_query.type")
-    //- label(for="type_race") race
-    //- input(type="radio", name="type", value="race", id="type_race", ng-model="filter_query.type")
+        label(for="type_{{ type_filter.label }}") {{ type_filter.label }}
+        input(type="radio", name="type" id="type_{{ type_filter.label }}", value="{{ type_filter.value }}", ng-model="$parent.filter_query.type")
 
     div
         ul
-            li(ng-repeat="setup in setups | filter:{ car:filter_query.car||undefined, track:filter_query.track||undefined, author: filter_query.author, type:filter_query.type } | orderBy:'author'")
+            li(ng-repeat="setup in setups | filter:{ car:filter_query.car||undefined, track:filter_query.track||undefined, author: filter_query.author, type:filter_query.type||undefined } | orderBy:'author'")
                 td {{ setup.car }} |
                 td {{ setup.track }} |
                 td {{ setup.author }} |

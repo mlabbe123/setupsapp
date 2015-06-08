@@ -104,54 +104,35 @@ app.get('/api/get-setups-filters/:simname', function(request, response) {
             var car_filter = [];
             var track_filter = [];
             var author_filter = [];
-            var type_filter = ['all'];
+            var type_filter = [];
 
             // Loop through every setup returned to build the filters arrays
-            for(var i = 0; i < setups.length; i++) {  
-                car_filter.push(setups[i].car);
-                track_filter.push(setups[i].track);
-                author_filter.push(setups[i].author);
-                type_filter.push(setups[i]['type']);
-            }
+            _.forEach(setups, function(setup) {
+                car_filter.push(setup.car);
+                track_filter.push(setup.track);
+                author_filter.push(setup.author);
+                type_filter.push(setup['type']);
+            });
 
             // Remove every duplicates.
-            car_filter = _.uniq(car_filter);
-            track_filter = _.uniq(track_filter);
-            author_filter = _.uniq(author_filter);
-            type_filter = _.uniq(type_filter);
+            // car_filter = _.uniq(car_filter);
+            // track_filter = _.uniq(track_filter);
+            // author_filter = _.uniq(author_filter);
+            // type_filter = _.uniq(type_filter);
 
-            // var car_filters_formatted = [];
-            // var track_filters_formatted = [];
-            // var author_filters_formatted = [];
-            // var type_filters_formatted = [];
+            var type_filter_dict = [{'value': '', 'label': 'All'}];
 
-            // // Building objects in the format angular needs for ng-options.
-            // for(var i = 0; i < car_filter.length; i++) {
-            //     car_filters_formatted.push({
-            //         'id': i,
-            //         'label': car_filter[i]
-            //     });
+            _.forEach(_.uniq(type_filter), function(type) {
+                type_filter_dict.push({
+                    'value': type,
+                    'label': type
+                });
+            });  
 
-            //     track_filters_formatted.push({
-            //         'id': i,
-            //         'label': track_filter[i]
-            //     });
-
-            //     author_filters_formatted.push({
-            //         'id': i,
-            //         'label': author_filter[i]
-            //     });
-
-            //     type_filters_formatted.push({
-            //         'id': i,
-            //         'label': type_filter[i]
-            //     });
-            // }
-
-            setup_filters.car_filters = car_filter;
-            setup_filters.track_filters = track_filter;
-            setup_filters.author_filters = author_filter;
-            setup_filters.type_filters = type_filter;
+            setup_filters.car_filters = _.uniq(car_filter);
+            setup_filters.track_filters = _.uniq(track_filter);
+            setup_filters.author_filters = _.uniq(author_filter);
+            setup_filters.type_filters = type_filter_dict;
 
             console.log(setup_filters)
 
