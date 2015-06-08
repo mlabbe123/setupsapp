@@ -12,7 +12,7 @@ var gulp = require('gulp'),
 
     // paths for src files
     paths = {
-        jade: 'frontend/templates/**/*.jade',
+        jade: 'frontend/templates/partials/*.jade',
         sass: 'frontend/sass/**/*.scss',
         js: 'frontend/js/**/*.js',
         jstoconcat: ['frontend/js/lib/jquery-1.11.1.js', 'frontend/js/lib/respond.js', 'frontend/js/lib/modernizr.loadonly.js', 'frontend/js/common/app.modernizr.js']
@@ -24,7 +24,7 @@ gulp.task('jadedev', function() {
         .pipe(jade({
             pretty: true
         }))
-        .pipe(gulp.dest('builds/development'));
+        .pipe(gulp.dest('builds/development/partials/'));
 });
 
 // jade prod task
@@ -46,7 +46,7 @@ gulp.task('jshint', function() {
 gulp.task('jsdev', function() {
     gulp.src([
             'frontend/js/lib/require.js',
-            'frontend/js/lib/angular.min.js'        
+            'frontend/js/lib/angular.min.js'
         ])
         .pipe(gulp.dest('builds/development/js/lib/'));
 
@@ -80,7 +80,7 @@ gulp.task('sassdev', function () {
 
     return gulp.src(paths.sass)
         .pipe(sass(config))
-        .pipe(gulp.dest('builds/development/css'));   
+        .pipe(gulp.dest('builds/development/css'));
 });
 
 // Sass prod dev
@@ -91,7 +91,7 @@ gulp.task('sassprod', function () {
 
     return gulp.src(paths.sass)
         .pipe(sass(config))
-        .pipe(gulp.dest('builds/production/css'));   
+        .pipe(gulp.dest('builds/production/css'));
 });
 
 // Rerun the task when a file changes
