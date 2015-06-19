@@ -1,10 +1,10 @@
 extends ./root_base
 
 block mainContent
-    div(class="mainWrapper")
+    div(class="mainWrapper", ng-controller="userProfileCtrl")
         span This is your profile page bro.
 
         if user
-            span #{user.email} is logged in
+            span #{user.display_name} is logged in
         else
             span no user logged in

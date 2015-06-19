@@ -12,6 +12,16 @@ setupsSharingApp.config(['$routeProvider', '$locationProvider', function($routeP
             templateUrl: 'partials/simpage.html',
             controller: 'setupListCtrl'
         })
+        // Setup detail page.
+        .when('/setups/:simName/:setupId', {
+            templateUrl: 'partials/simpage.html',
+            controller: 'setupListCtrl'
+        })
+        // Author detail page.
+        // .when('/setups/:simName/:setupId', {
+        //     templateUrl: 'partials/simpage.html',
+        //     controller: 'setupListCtrl'
+        // })
         .otherwise({
             redirectTo: '/'
         })

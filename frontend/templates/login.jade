@@ -6,8 +6,22 @@ block mainContent
                 strong #{message}
 
         form(action="/login", method="post")
-            input(type="Email", name="email")
-            input(type="Password", name="password")
+            div.field-block
+                input(id="email-field", type="Email", name="email")
+                i.field-helperIcon
+                span.msg-box
+
+            div.field-block
+                input(id="password-field", type="Password", name="password")
+                i.field-helperIcon
+                span.msg-box
 
             button(type="submit").
                 Login please
+
+block jsIncludes
+//-     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js")
+//-     script.
+//-         //- console.log(window.jQuery)
+//-         //- if(!window.jQuery)document.write("<script src='js/lib/jquery-1.11.3.min.js'></script>")
+//-     script(src="js/pages/login.js")

@@ -1,0 +1,40 @@
+extends ./root_base
+
+block mainContent
+    div(class="mainWrapper", ng-controller="submitSetupCtrl")
+        if message && message.length
+                strong #{message}
+
+        form(action="/upload", method="post")
+            input(id="author-field", type="hidden", name="email", value="#{user._id}")
+
+            div.field-block
+                select(ng-model="sim", ng-options="sim.name for sim in sims track by sim._id")
+
+            div.field-block
+                select(ng-model="cars", ng-options="car.name for car in sim track by car._id")
+
+            div(ng-repeat="sim in sims").
+                {{ sim.name }}, {{ sim.cars }}
+
+            div.field-block
+                //car
+                i.field-helperIcon
+                span.msg-box
+
+            div.field-block
+                //track
+                i.field-helperIcon
+                span.msg-box
+
+            div.field-block
+                //Type
+
+            div.field-block
+                // Best time
+
+            div.field-block
+                //Comments
+
+            button(type="submit").
+                Submit

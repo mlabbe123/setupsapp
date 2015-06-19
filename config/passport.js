@@ -2,6 +2,13 @@ var LocalStrategy = require('passport-local').Strategy;
 
 var User = require('../app/models/user');
 
+Date.prototype.yyyymmdd = function() {
+    var yyyy = this.getFullYear().toString();
+    var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+    var dd  = this.getDate().toString();
+    return yyyy + '/' + (mm[1]?mm:"0"+mm[0]) + '/' + (dd[1]?dd:"0"+dd[0]); // padding
+};
+
 module.exports = function(passport) {
     // Serialize the user for the session.
     passport.serializeUser(function(user, done) {
@@ -39,6 +46,9 @@ module.exports = function(passport) {
                     // set the user's local credentials
                     newUser.email = email;
                     newUser.password = newUser.generateHash(password);
+                    newUser.display_name = request.body.username;
+                    var now = new Date();
+                    newUser.join_date = now.yyyymmdd();
 
                     // save the user
                     newUser.save(function(err) {

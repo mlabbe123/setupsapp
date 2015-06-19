@@ -14,8 +14,7 @@ var gulp = require('gulp'),
     paths = {
         jade: 'frontend/templates/partials/*.jade',
         sass: 'frontend/sass/**/*.scss',
-        js: 'frontend/js/**/*.js',
-        jstoconcat: ['frontend/js/lib/jquery-1.11.1.js', 'frontend/js/lib/respond.js', 'frontend/js/lib/modernizr.loadonly.js', 'frontend/js/common/app.modernizr.js']
+        js: 'frontend/js/**/*.js'
     };
  
 // jade dev task
@@ -44,25 +43,8 @@ gulp.task('jshint', function() {
 
 // JS dev task
 gulp.task('jsdev', function() {
-    gulp.src([
-            'frontend/js/lib/require.js',
-            'frontend/js/lib/angular.min.js'
-        ])
-        .pipe(gulp.dest('builds/development/js/lib/'));
-
-    gulp.src([
-            'frontend/js/require.config.js',
-            'frontend/js/app.js',
-            'frontend/js/controllers.js'
-        ])
+    gulp.src(paths.js)
         .pipe(gulp.dest('builds/development/js/'));
-
-    gulp.src(paths.jstoconcat)
-        .pipe(sourcemaps.init())
-            .pipe(gulpconcat('load.js'))
-            .pipe(uglify())
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest('builds/development/js/'));
 });
 
 // JS prod task

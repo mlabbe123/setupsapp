@@ -1,8 +1,10 @@
 module.exports = function(app, passport) {
 
+    // ===========================
+    // GET requests
+
     // Home page
     app.get('/', function(request, response) {
-        console.log('u there?')
         response.render('index', {
             user: request.user
         });
@@ -22,7 +24,24 @@ module.exports = function(app, passport) {
         });
     });
 
-    // Post requests
+    // Submit setup page
+    app.get('/submit-setup', isUserLoggedIn, function(request, response) {
+        response.render('submit', {
+            user: request.user,
+            message: request.flash('submitSetupMessage')
+        });
+    });
+
+    // Profile page.
+    app.get('/profile', isUserLoggedIn, function(request, response) {
+        response.render('profile', {
+            user: request.user
+        });
+    });
+
+    // ===========================
+    // POST requests
+    // ===========================
     app.post('/register', passport.authenticate('local-register', {
         successRedirect: '/profile', // redirect to the secure profile section
         failureRedirect: '/register', // redirect back to the signup page if there is an error
@@ -35,12 +54,11 @@ module.exports = function(app, passport) {
         failureFlash: true // allow flash messages
     }));
 
-    // Profile page.
-    app.get('/profile', isUserLoggedIn, function(request, response) {
-        response.render('profile', {
-            user: request.user
-        });
-    });
+    app.post('/upload-setup', passport.authenticate('local-login', {
+        successRedirect: '/', // redirect to the secure profile section
+        failureRedirect: '/login', // redirect back to the signup page if there is an error
+        failureFlash: true // allow flash messages
+    }));
 
     // Logout page.
     app.get('/logout', function(request, response) {
