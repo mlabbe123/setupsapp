@@ -5,36 +5,42 @@ block mainContent
         if message && message.length
                 strong #{message}
 
-        form(action="/upload", method="post")
-            input(id="author-field", type="hidden", name="email", value="#{user._id}")
+        form(action="/submit-setup", method="post", enctype = "multipart/form-data")
+            input(id="author-field", type="hidden", name="user_id", value="#{user._id}")
 
             div.field-block
-                select(ng-model="sim", ng-options="sim.name for sim in sims track by sim._id")
+                label(for="simSelect") Simulation:
+                select(id="simSelect", name="sim", ng-model="sim", ng-options="sim.name for sim in sims track by sim.id")
+                    option(value="") - Select -
 
             div.field-block
-                select(ng-model="cars", ng-options="car.name for car in sim track by car._id")
-
-            div(ng-repeat="sim in sims").
-                {{ sim.name }}, {{ sim.cars }}
-
-            div.field-block
-                //car
-                i.field-helperIcon
-                span.msg-box
+                label(for="simSelect") Car:
+                select(id="carSelect", name="car", ng-model="cars", ng-options="car.name for car in sim.cars track by car._id", ng-disabled="!sim")
+                    option(value="") - Select -
 
             div.field-block
-                //track
-                i.field-helperIcon
-                span.msg-box
+                label(for="simSelect") Track:
+                select(id="trackSelect", name="track", ng-model="tracks", ng-options="track.name for track in sim.tracks track by track._id", ng-disabled="!sim")
+                    option(value="") - Select -
 
             div.field-block
-                //Type
+                label(for="trim") Trim
+                select(id="trim", name="trim")
+                    option(value="base") Base
+                    option(value="qualy") Qualy
+                    option(value="race") Race
 
             div.field-block
-                // Best time
+                label(for="best-time") Best time
+                input(type="text", id="best-time", name="best_time", placeholder="Ex: 1.41.543")
 
             div.field-block
-                //Comments
+                label(for="comments") Comments / Notes
+                textarea(id="comments", name="comments")
+
+            div.field-block
+                input(type="file", name="setup_file", accept=".sto, .ini", ng-model="setupFile")
+                input(type="hidden", name="setup_name", ng-value="setupFile")
 
             button(type="submit").
                 Submit

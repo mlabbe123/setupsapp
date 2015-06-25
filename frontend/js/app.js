@@ -1,6 +1,7 @@
 var setupsSharingApp = angular.module('setupsSharingApp', [
     'ngRoute',
-    'setupsSharingAppControllers'
+    'setupsSharingAppControllers',
+    'setupsSharingAppServices'
 ]);
 
 setupsSharingApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
@@ -14,7 +15,7 @@ setupsSharingApp.config(['$routeProvider', '$locationProvider', function($routeP
         })
         // Setup detail page.
         .when('/setups/:simName/:setupId', {
-            templateUrl: 'partials/simpage.html',
+            templateUrl: 'partials/setuppage.html',
             controller: 'setupListCtrl'
         })
         // Author detail page.

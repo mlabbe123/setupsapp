@@ -19,7 +19,8 @@ var setupSchema = new mongoose.Schema({
     },
     type: String,
     best_time: String,
-    comments: String
+    comments: String,
+    file_name: String
 });
 
 module.exports = mongoose.model('Setup', setupSchema);

@@ -23,7 +23,7 @@ div(class="setupList-wrapper {{sim_name}}")
                 td Type
 
             tr(ng-repeat="setup in setups | filter:{ car:filter_query.car||undefined, track:filter_query.track||undefined, author: filter_query.author, type:filter_query.type||undefined } | orderBy:'author'")
-                td download | See details
+                td <a href="setup_files/{{ simId }}/{{ setup.file_name }}"/>download</a> | <a href="#/setups/{{ sim_name }}/{{ setup._id }}/">See details</a>
                 td {{ setup.car.name }}
                 td {{ setup.track.name }}
                 td {{ setup.author.display_name }}
