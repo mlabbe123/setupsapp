@@ -40,6 +40,29 @@ setupsSharingAppControllers.controller('setupListCtrl', function($scope, $routeP
     $scope.sim_name = $routeParams.simName;
 });
 
+setupsSharingAppControllers.controller('setupDetailCtrl', function($scope, $routeParams, $http) {
+
+    // Get the sim id.
+    $http.get('/api/get-sim-id/' + $routeParams.simName).
+        success(function(data, status, headers, config) {
+            console.log(data)
+            $scope.simId = data;
+        }).
+        error(function(data, status, headers, config) {
+            console.log(status);
+        });
+
+    // Get the setup info.
+    $http.get('/api/get-setup/' + $routeParams.setupId).
+        success(function(data, status, headers, config) {
+            console.log(data)
+            $scope.setup = data;
+        }).
+        error(function(data, status, headers, config) {
+            console.log(status);
+        });
+});
+
 setupsSharingAppControllers.controller('userProfileCtrl', function($scope, $routeParams, $http) {
 console.log('in the userProfileCtrl yeah')
     // Get all the setups for the current user.

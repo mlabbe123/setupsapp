@@ -4,6 +4,9 @@
 @import 'fonts';
 
 @import 'forms';
+@import 'common/link';
+@import 'common/navigation';
+@import 'common/typography';
 
 @import 'susy_config';
 
@@ -15,29 +18,94 @@ body {
     height: 100%;
 }
 
+// ===========================
+// Common
+// ===========================
+
 .mainContainer {
-    min-width: 1024px
+    @include container;
+
+    width: 1024px;
+    margin: 0 auto;
+
+    @include xlarge-only {
+        width: 1220px;
+    }
+
+    @include huge {
+        width: 1500px;
+    }
 }
 
+
+// ===========================
 // Site Header
+// ===========================
+
 header {
-    @include clearfix();
+    @include span(12);
+    @include container;
 }
 
+// Main nav
+.main-nav-wrapper {
+    @include span(9 of 12);
+}
+
+// Login box
 .login-box {
-    float: right;
+    @include span(3 at 10 of 12);
+    text-align: right;
 }
 
-// Main site area
-.mainWrapper {
+
+// ===========================
+// Main page specific content
+// ===========================
+
+.mainpage-title {
+    padding: $padding_mega 0;
+}
+
+.simSelection-container {
 
 }
 
-.selector-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: transparentize(#3d3d3d, 0.2);
+.simSelection-simwrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.simSelection-simwrapper-item {
+    width: 200px;
+    height: 200px;
+    text-align: center;
+}
+
+
+// ===========================
+// Main page specific content
+// ===========================
+
+.setupList-wrapper {
+    @include container;
+}
+
+.setupList-filters-wrapper {
+    @include span(2);
+}
+
+.setupList-setups-wrapper {
+    @include span(10 at 3);
+}
+
+.setupList-setups-table {
+    width: 90%;
+    margin: 0 auto;
+
+    tr {
+        text-align: center;
+    }
 }

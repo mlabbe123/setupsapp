@@ -5,6 +5,7 @@ module.exports = function(app, passport) {
     var Track = require('./models/track');
     var Setup = require('./models/setup');
 
+
     // ===========================
     // GET requests
     // ===========================
@@ -51,21 +52,26 @@ module.exports = function(app, passport) {
         response.download(file);
     });
 
+
     // ===========================
     // POST requests
     // ===========================
+
+    // Register form submission.
     app.post('/register', passport.authenticate('local-register', {
         successRedirect: '/profile', // redirect to the secure profile section
         failureRedirect: '/register', // redirect back to the signup page if there is an error
         failureFlash: true // allow flash messages
     }));
 
+    // Login form submission.
     app.post('/login', passport.authenticate('local-login', {
         successRedirect: '/profile', // redirect to the secure profile section
         failureRedirect: '/login', // redirect back to the signup page if there is an error
         failureFlash: true // allow flash messages
     }));
 
+    // Setup form submission.
     app.post('/submit-setup', isUserLoggedIn, function(request, response) {
 
         console.log(request.files.setup_file.originalname)
@@ -100,6 +106,7 @@ module.exports = function(app, passport) {
         response.redirect('/');
     });
 
+
     // ==============================
     // API SECTION
     // ==============================
@@ -115,7 +122,19 @@ module.exports = function(app, passport) {
         });
     });
 
-    // USERS API
+    // Retreive every sims.
+    app.get('/api/get-all-sims/', function(request, response) {
+
+        Sim.find(function(err, sims) {
+            if(err){
+                return console.log(err);
+            } else {
+                return response.send(sims);
+            }
+        });
+    });
+
+    // Retrieve every users.
     app.get('/api/users', function(request, response) {
         User.find(function(err, users) {
             if(err){
@@ -126,7 +145,7 @@ module.exports = function(app, passport) {
         });
     });
 
-    // API route to retreive setups specific to a sim.
+    // Retreive setups specific to a sim.
     app.get('/api/get-setups/:simname', function(request, response) {
 
         Sim.findOne({'name': request.params.simname}, function(err, sim) {
@@ -145,7 +164,7 @@ module.exports = function(app, passport) {
         });
     });
 
-    // API route to retrieve every setups for the filters in setups listing page.
+    // Retrieve every setups for the filters in setups listing page.
     app.get('/api/get-setups-filters/:simname', function(request, response) {
 
         Sim.findOne({'name': request.params.simname}, function(err, sim) {
@@ -193,19 +212,24 @@ module.exports = function(app, passport) {
         });
     });
 
-    // API route to retreive every sims.
-    app.get('/api/get-all-sims/', function(request, response) {
+    // Retrieve setup by Id.
+    app.get('/api/get-setup/:setupid', function(request, response) {
 
-        Sim.find(function(err, sims) {
-            if(err){
-                return console.log(err);
-            } else {
-                return response.send(sims);
-            }
-        });
+        Setup.findOne({'_id': request.params.setupid}).
+            populate('author').
+            populate('sim').
+            populate('car').
+            populate('track').
+            exec(function(err, setup) {
+                if(err) {
+                    return console.log(err);
+                } else {
+                    return response.send(setup);
+                }
+            });
     });
 
-    // API route to retreive every cars.
+    // Retreive every cars.
     app.get('/api/get-all-cars/', function(request, response) {
 
         Car.find(function(err, cars) {
@@ -217,19 +241,7 @@ module.exports = function(app, passport) {
         });
     });
 
-    // API route to retreive every tracks.
-    app.get('/api/get-all-tracks/', function(request, response) {
-
-        Track.find(function(err, tracks) {
-            if(err){
-                return console.log(err);
-            } else {
-                return response.send(tracks);
-            }
-        });
-    });
-
-    // API route to retreive cars specific to a provided sim.
+    // Retreive cars specific to a provided sim.
     app.get('/api/get-cars-by-sim/:simid', function(request, response) {
 
         Car.find({'sim': request.params.simid}, function(err, cars) {
@@ -238,6 +250,18 @@ module.exports = function(app, passport) {
             } else {
                 console.log(cars)
                 return response.send(cars);
+            }
+        });
+    });
+
+    // Retreive every tracks.
+    app.get('/api/get-all-tracks/', function(request, response) {
+
+        Track.find(function(err, tracks) {
+            if(err){
+                return console.log(err);
+            } else {
+                return response.send(tracks);
             }
         });
     });
@@ -284,32 +308,6 @@ module.exports = function(app, passport) {
     //             console.log('Track successfuly created');
     //         }
     //     });
-    // });
-
-    var setup_params = {
-        'authorId': '55773eb101263c024a78034f',
-        'carId': '55773b1486089c2d496634bd',
-        'trackId': '55773b83c45fd65d49cb426d',
-        'simId': '5577366cdf073c6848e1eb98'
-    }
-
-    // Insert new setup for given user, car and track(must all be parameters)
-    var newSetup = new Setup({
-        author: setup_params.authorId,
-        car: setup_params.carId,
-        track: setup_params.trackId,
-        sim: setup_params.simId,
-        type: 'qualy',
-        best_time: '1.32.097',
-        comments: 'Very fast and amazing setup'
-    });
-
-    // newSetup.save(function(err) {
-    //     if(err) {
-    //         console.log('error creating setup');
-    //     } else {
-    //         console.log('Setup successfuly created');
-    //     }
     // });
 
     // Setup.find({}).

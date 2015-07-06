@@ -1,0 +1,8 @@
+.inline-nav {
+    list-style: none;
+}
+
+.nav-item {
+    display: inline-block;
+    padding: $padding $padding * 2;
+}

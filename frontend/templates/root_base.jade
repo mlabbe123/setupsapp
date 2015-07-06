@@ -6,30 +6,40 @@ html(ng-app="setupsSharingApp")
         meta(name="description", content="Template")
         meta(name="robots", content="index, follow")
         link(rel="shortcut icon", href="images/favicon.ico")
-        // CSS FILES
+        //- CSS FILES
         link(href="css/style.css", type="text/css", rel="stylesheet")
-        link(rel="stylesheet", href="https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css")
+        //- link(rel="stylesheet", href="https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css")
 
-        // For angular html5 history API
-        <base href="/">
+        //- For angular html5 history API
+        //- <base href="/">
     body
         block bodyContent
             div.mainContainer
                 block header
                     header
-                        div.login-box
-                            if user
-                                span Hello #{user.display_name}
-                                a.md-button(href="/logout") Logout
-                            else
-                                a(href="/login").md-button Sign in
-                                a(href="/register") Register
 
-                block mainNav
-                    a(href="/#/") Home
-                    if user
-                        a(href="#/profile") Profile
-                        a(href="/submit-setup") Submit Setup
+                        ul.main-nav-wrapper
+                            ul.inline-nav
+                                li.nav-item
+                                    a(href="/#/", class="link") Home
+                                if user
+                                    li.nav-item
+                                        a(href="#/profile", class="link") Profile
+                                    li.nav-item
+                                        a(href="/submit-setup", class="link") Submit Setup
+
+                        div.login-box
+                            ul.inline-nav
+                                if user
+                                    li.nav-item
+                                        span Hello #{user.display_name}
+                                    li.nav-item
+                                        a.md-button(href="/logout", class="link") Logout
+                                else
+                                    li.nav-item
+                                        a(href="/login", class="link").md-button Sign in
+                                    li.nav-item
+                                        a(href="/register", class="link") Register
 
                 block mainContent
 
@@ -40,9 +50,8 @@ html(ng-app="setupsSharingApp")
             block jsIncludes
                 script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js")
                 script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.js")
-                script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js")
-                script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js")
-                script(src="https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.js")
+                //- script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js")
+                //- script(src="https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.js")
                 script(src="js/lib/lodash.min.js")
                 script(src="js/app.js")
                 script(src="js/controllers.js")
