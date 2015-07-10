@@ -4,6 +4,7 @@
 @import 'fonts';
 
 @import 'forms';
+@import 'common/breadcrumbs';
 @import 'common/link';
 @import 'common/navigation';
 @import 'common/typography';
@@ -16,6 +17,7 @@
 html,
 body {
     height: 100%;
+    overflow-x: hidden;
 }
 
 // ===========================
@@ -23,6 +25,33 @@ body {
 // ===========================
 
 .mainContainer {
+    background-image: url('../images/bg.jpg');
+    background-size: cover;
+    z-index: 0;
+}
+
+.fullwidth-wrapper {
+    width: 150%;
+    background-color: red;
+
+    &.home {
+        background-color: #fff;
+    }
+}
+
+.home {
+    width: 200%;
+    margin-left: -50%;
+    background-color: rgba(255, 255, 255, 0.8);
+
+    transform: rotate(-2deg);
+
+    & > * {
+        transform: rotate(2deg);
+    }
+}
+
+.content-wrapper {
     @include container;
 
     width: 1024px;
@@ -43,8 +72,7 @@ body {
 // ===========================
 
 header {
-    @include span(12);
-    @include container;
+    @extend .content-wrapper;
 }
 
 // Main nav
@@ -58,13 +86,21 @@ header {
     text-align: right;
 }
 
+// ===========================
+// Site Footer
+// ===========================
+footer {
+    @extend .content-wrapper;
+}
+
 
 // ===========================
 // Main page specific content
 // ===========================
 
 .mainpage-title {
-    padding: $padding_mega 0;
+    padding: $padding_mega * 1.5 0;
+    color: #fff;
 }
 
 .simSelection-container {
@@ -74,14 +110,18 @@ header {
 .simSelection-simwrapper {
     display: flex;
     flex-direction: row;
+    flex-flow: center;
     align-items: center;
     justify-content: space-around;
 }
 
 .simSelection-simwrapper-item {
-    width: 200px;
-    height: 200px;
-    text-align: center;
+    flex-grow: 1;
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
 }
 
 

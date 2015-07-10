@@ -1,12 +1,18 @@
-div.mainpage-title
-    h1.jumbo-title The place to find sim racing setups
-    h2.jumbo-title-subtitle Welcome to The Setup Market.
+div.fullwidth-wrapper
+    div.content-wrapper
+        div.mainpage-title
+            h1.jumbo-title // Welcome to The Setup Market
+            h2.jumbo-title-subtitle The place to find sim racing setups.
 
-div.simSelection-container
-    h2.simSelection-title Choose your flavor
+div(class="fullwidth-wrapper home")
+     div.content-wrapper
+        div.simSelection-container
+            h2.simSelection-title Choose your flavor
 
-    div.simSelection-simwrapper
-        a(href="#/setups/iRacing", class="simSelection-simwrapper-item") iRacing
-        a(href="#/setups/Assetto Corsa", class="simSelection-simwrapper-item") AC
-        a(href="#/setups/pcars", class="simSelection-simwrapper-item") Pcars
-        a(href="#/setups/r3e", class="simSelection-simwrapper-item") R3E
+            div.simSelection-simwrapper
+                a(href="#/setups/iRacing", class="simSelection-simwrapper-item")
+                    img(src="images/logo_iracing.png")
+                a(href="#/setups/Assetto Corsa", class="simSelection-simwrapper-item")
+                    img(src="images/logo_ac.png")
+                a(href="#/setups/pcars", class="simSelection-simwrapper-item")
+                    img(src="images/logo_rf2.png")

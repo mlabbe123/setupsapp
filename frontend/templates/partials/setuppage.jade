@@ -1,11 +1,9 @@
 div(class="setupDetail-wrapper {{sim_name}}")
 
-    div.breadcrumbs
-        a(href="#/") Home
-        span >
-        a(href="#/setups/{{ sim_name }}") {{ sim_name }}
-        span >
-        span Setup Detail
+    div.breadcrumbs-wrapper
+        a(href="#/", class="breadcrumbs-item") Home
+        a(href="#/setups/{{ sim_name }}", class="breadcrumbs-item") {{ sim_name }}
+        span(class="breadcrumbs-item current") Setup Detail
 
     div.setupDetail-overview
         ul

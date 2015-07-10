@@ -4,5 +4,7 @@
 
 .nav-item {
     display: inline-block;
-    padding: $padding $padding * 2;
+    padding: 0 $padding * 2;
+    margin: $padding auto;
+    overflow: hidden;
 }

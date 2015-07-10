@@ -1,9 +1,8 @@
 div(class="setupList-wrapper {{sim_name}}")
 
-    div.breadcrumbs
-        a(href="#/") Home
-        span >
-        span {{ sim_name }}
+    div.breadcrumbs-wrapper
+        a(href="#/", class="breadcrumbs-item") Home
+        span(class="breadcrumbs-item current") {{ sim_name }}
 
     div.setupList-filters-wrapper
 
