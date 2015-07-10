@@ -86,7 +86,7 @@ header {
 
 
 // ===========================
-// Main page specific content
+// Setup Listings specific content
 // ===========================
 
 .setupList-wrapper {
@@ -108,4 +108,21 @@ header {
     tr {
         text-align: center;
     }
+}
+
+
+// ===========================
+// Setup Listings specific content
+// ===========================
+
+.setupDetail-wrapper {
+    @include container;
+}
+
+.setupDetail-overview {
+    @include span(6);
+}
+
+.setupDetail-indepth {
+    @include span(6 at 7);
 }

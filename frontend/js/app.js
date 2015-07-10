@@ -1,7 +1,8 @@
 var setupsSharingApp = angular.module('setupsSharingApp', [
     'ngRoute',
     'setupsSharingAppControllers',
-    'setupsSharingAppServices'
+    'setupsSharingAppServices',
+    'setupListingFilters'
 ]);
 
 setupsSharingApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
@@ -23,9 +24,9 @@ setupsSharingApp.config(['$routeProvider', '$locationProvider', function($routeP
         //     templateUrl: 'partials/simpage.html',
         //     controller: 'setupListCtrl'
         // })
-        .otherwise({
-            redirectTo: '/'
-        })
+        // .otherwise({
+        //     redirectTo: '/'
+        // })
 
     //$locationProvider.html5Mode(true);
 }]);

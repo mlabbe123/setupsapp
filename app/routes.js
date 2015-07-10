@@ -1,9 +1,12 @@
 module.exports = function(app, passport) {
-    var Sim = require('./models/sim');
-    var User = require('./models/user');
-    var Car = require('./models/car');
-    var Track = require('./models/track');
-    var Setup = require('./models/setup');
+    var fs = require('fs'),
+        path = require('path'),
+
+        Sim = require('./models/sim'),
+        User = require('./models/user'),
+        Car = require('./models/car'),
+        Track = require('./models/track'),
+        Setup = require('./models/setup');
 
 
     // ===========================
@@ -162,6 +165,29 @@ module.exports = function(app, passport) {
                     }
                 });
         });
+    });
+
+    // Retreive setup file details.
+    app.get('/api/get-setup-file-details/:setupid', function(request, response) {
+
+        Setup.findOne({'_id': request.params.setupid}, {_id:0, sim:1, file_name:1}).
+            populate('sim').
+            exec(function(err, setup) {
+                if(err){
+                    return console.log(err);
+                } else {
+                    // Read the file.
+                    console.log(setup);
+
+                    fs.readFile(path.join(__dirname, '../setups_files/', setup.sim._id.toString(), '/', setup.file_name), 'utf8', function (err,data) {
+                        if (err) {
+                            return console.log(err);
+                        }
+
+                        return response.send(data);
+                    });
+                }
+            });
     });
 
     // Retrieve every setups for the filters in setups listing page.
