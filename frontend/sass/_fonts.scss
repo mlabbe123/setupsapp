@@ -1,3 +1,36 @@
-@font-face{
-  
+@font-face {
+    font-family: "glyphicon";
+    font-weight: normal;
+    font-style: normal;
+    src: url('../fonts/glyphicons/glyphicons-regular.eot');
+    src: url('../fonts/glyphicons/glyphicons-regular.eot?#iefix') format('eot'),
+        url('../fonts/glyphicons/glyphicons-regular.woff') format('woff'),
+        url('../fonts/glyphicons/glyphicons-regular.ttf') format('truetype'),
+        url('../fonts/glyphicons/glyphicons-regular.svg') format('svg');
 }
+
+%icon {
+    &::before {
+        font-family: "glyphicon";
+        position: relative;
+        padding: $padding / 2;
+        top: 1px;
+    }
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    @extend %icon;
+}
+
+@mixin print-icon($icon_name, $icon_content) {
+    .icon-#{$icon_name}::before {
+        content: "#{$icon_content}";
+    }
+}
+
+@include print-icon("home", "\e021");
+@include print-icon("upload", "\e359");
+@include print-icon("profile", "\e035");
+@include print-icon("logout", "\e389");
+@include print-icon("download", "\e444");
+@include print-icon("details", "\e030");

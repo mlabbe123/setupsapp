@@ -1,6 +1,10 @@
 .form-block {
     display: block;
     margin-bottom: $padding;
+
+    .is-hidden {
+        display: none;
+    }
 }
 
 .label-block {
@@ -9,7 +13,7 @@
 }
 
 .label-inline {
-    display: inline;
+    display: inline-block;
 }
 
 .field-helperIcon {
@@ -23,5 +27,14 @@
 
     &.success {
         background-color: green;
+    }
+}
+
+.filter-selectable-element {
+    padding: $padding / 2;
+    cursor: pointer;
+
+    &.is-selected {
+        background-color: $primary_color;
     }
 }
