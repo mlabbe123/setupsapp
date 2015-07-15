@@ -14,7 +14,9 @@ var gulp = require('gulp'),
     paths = {
         jade: 'frontend/templates/partials/*.jade',
         sass: 'frontend/sass/**/*.scss',
-        js: 'frontend/js/**/*.js'
+        js: 'frontend/js/**/*.js',
+        images: 'frontend/images/**/*',
+        fonts: 'frontend/fonts/**/*'
     };
  
 // jade dev task
@@ -76,6 +78,18 @@ gulp.task('sassprod', function () {
         .pipe(gulp.dest('builds/production/css'));
 });
 
+// Images files
+gulp.task('images', function() {
+    return gulp.src(paths.images)
+        .pipe(gulp.dest('builds/development/images'))
+});
+
+// Fonts files
+gulp.task('fonts', function() {
+    return gulp.src(paths.fonts)
+        .pipe(gulp.dest('builds/development/fonts'))
+});
+
 // Rerun the task when a file changes
 gulp.task('watch', function() {
     gulp.watch(paths.jade, ['jadedev']);
@@ -84,7 +98,7 @@ gulp.task('watch', function() {
 });
 
 // start task
-gulp.task('start', ['watch' ,'jadedev', 'sassdev', 'jsdev']);
+gulp.task('start', ['watch' ,'jadedev', 'sassdev', 'jsdev', 'images', 'fonts']);
 
 // To prod task
 gulp.task('toprod', ['jadeprod', 'sassprod', 'jsprod']);
