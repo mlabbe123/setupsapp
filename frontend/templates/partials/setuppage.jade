@@ -1,27 +1,33 @@
-div(class="setupDetail-wrapper {{sim_name}}")
+div(class="fullwidth-wrapper orange")
+    div.content-wrapper
+        div.breadcrumbs-wrapper
+            a(href="#/", class="link breadcrumbs-item") Home
+            a(href="#/setups/{{ sim_name }}", class="link breadcrumbs-item") {{ sim_name }}
+            span(class="breadcrumbs-item current") Setup Detail
 
-    div.breadcrumbs-wrapper
-        a(href="#/", class="breadcrumbs-item") Home
-        a(href="#/setups/{{ sim_name }}", class="breadcrumbs-item") {{ sim_name }}
-        span(class="breadcrumbs-item current") Setup Detail
+div(class="fullwidth-wrapper ac")
 
-    div.setupDetail-overview
-        ul
-            li Car: {{ setup.car.name }}
-            li Track: {{ setup.track.name }}
-            li Trim: {{ setup.type }}
-            li Best Time: {{ setup.best_time }}
-            li Comments: {{ setup.comments }}
-            li <a href="setup_files/{{ simId }}/{{ setup.file_name }}"/>download</a>
+div(class="fullwidth-wrapper white")
+    div.content-wrapper
+        div.setupList-filters-wrapper
+            div(class="setupDetail-wrapper {{sim_name}}")
+                div.setupDetail-overview
+                    ul
+                        li Car: {{ setup.car.name }}
+                        li Track: {{ setup.track.name }}
+                        li Trim: {{ setup.type }}
+                        li Best Time: {{ setup.best_time }}
+                        li Comments: {{ setup.comments }}
+                        li <a href="setup_files/{{ simId }}/{{ setup.file_name }}"/>download</a>
 
-    div.setupDetail-indepth
-        ul
-            li Fuel: {{ setup_details.fuel }}
-            li Pressure LF: {{ setup_details.pressure_lf }}
-            li Pressure LR: {{ setup_details.pressure_rf }}
-            li Pressure RL: {{ setup_details.pressure_lr }}
-            li Pressure RR: {{ setup_details.pressure_rr }}
-            li Toe out LF: {{ setup_details.toe_out_lf }}
-            li Toe out LR: {{ setup_details.toe_out_lr }}
-            li Toe out RF: {{ setup_details.toe_out_rf }}
-            li Toe out RR: {{ setup_details.toe_out_rr }}
+                div.setupDetail-indepth
+                    ul
+                        li Fuel: {{ setup_details.fuel }}
+                        li Pressure LF: {{ setup_details.pressure_lf }}
+                        li Pressure LR: {{ setup_details.pressure_rf }}
+                        li Pressure RL: {{ setup_details.pressure_lr }}
+                        li Pressure RR: {{ setup_details.pressure_rr }}
+                        li Toe out LF: {{ setup_details.toe_out_lf }}
+                        li Toe out LR: {{ setup_details.toe_out_lr }}
+                        li Toe out RF: {{ setup_details.toe_out_rf }}
+                        li Toe out RR: {{ setup_details.toe_out_rr }}

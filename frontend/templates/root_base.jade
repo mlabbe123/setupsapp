@@ -10,43 +10,43 @@ html(ng-app="setupsSharingApp")
         link(href="css/style.css", type="text/css", rel="stylesheet")
         //- link(rel="stylesheet", href="https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css")
 
+        //- Google fonts
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+
         //- For angular html5 history API
         //- <base href="/">
     body
         block bodyContent
             div.mainContainer
-                div.fullwidth-wrapper
+                header.fullwidth-wrapper
                     block header
-                        header
-
+                        div.content-wrapper
                             ul.main-nav-wrapper
                                 ul.inline-nav
                                     li.nav-item
-                                        a(href="/#/", class="link skewedbutton") Home
+                                        a(href="/#/", class="link icon-home") Home
                                     if user
                                         li.nav-item
-                                            a(href="/profile", class="link skewedbutton") Profile
-                                        li.nav-item
-                                            a(href="/submit-setup", class="link skewedbutton") Submit Setup
+                                            a(href="/submit-setup", class="link icon-upload") Submit Setup
 
                             div.login-box
                                 ul.inline-nav
                                     if user
                                         li.nav-item
-                                            span Hello #{user.display_name}
+                                            a(href="/profile", class="link icon-profile") #{user.display_name}
                                         li.nav-item
-                                            a(href="/logout", class="link skewedbutton") Logout
+                                            a(href="/logout", class="link icon-logout") Logout
                                     else
                                         li.nav-item
-                                            a(href="/login", class="link skewedbutton") Sign in
+                                            a(href="/login", class="link") Sign in
                                         li.nav-item
-                                            a(href="/register", class="link skewedbutton") Register
+                                            a(href="/register", class="link") Register
 
-                    block mainContent
+                block mainContent
 
-                div.fullwidth-wrapper
+                footer.fullwidth-wrapper
                     block footer
-                        footer
+                        div.content-wrapper
                             span This is a footer, why would you think it's something else??
 
             block jsIncludes
