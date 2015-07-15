@@ -6,13 +6,14 @@
     padding: $padding / 3 $padding;
     position: relative;
     display: inline-block;
-    color: #000;
+    color: $bg_color;
     z-index: 2;
 
     &.current {
         &::before {
             top: 0;
             left: 0;
+            background-color: $primary_color;
         }
     }
 
@@ -28,15 +29,13 @@
         display: block;
         width: 100%;
         height: 100%;
-        background-color: #40A9A9;
+        background-color: $bg_color;
         transform: skew(-15deg, 0);
         z-index: -1;
         transition: all 0.2s;
     }
 
     &:hover {
-        color: #fff;
-
         &::before {
             top: 0;
             left: 0;
