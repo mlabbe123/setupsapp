@@ -4,8 +4,8 @@
 @import 'fonts';
 
 @import 'forms';
-@import 'common/breadcrumbs';
 @import 'common/link';
+@import 'common/breadcrumbs';
 @import 'common/navigation';
 @import 'common/typography';
 
@@ -13,11 +13,17 @@
 
 @import 'grid_mixins';
 
-/* declarations */
+// ===========================
+// Native elements styles
+// ===========================
 html,
 body {
     height: 100%;
     overflow-x: hidden;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
 }
 
 // ===========================
@@ -30,24 +36,29 @@ body {
     z-index: 0;
 }
 
-.fullwidth-wrapper {
-    width: 150%;
-    background-color: red;
+.fullwidth-wrapper {
+    width: 100%;
 
-    &.home {
-        background-color: #fff;
+    &.white {
+        background-color: $bg_color;
     }
-}
 
-.home {
-    width: 200%;
-    margin-left: -50%;
-    background-color: rgba(255, 255, 255, 0.8);
+    &.green {
+        background-color: transparentize($primary_color, 0.2);
+    }
 
-    transform: rotate(-2deg);
+    &.orange {
+        background-color: $secondary_color;
+    }
 
-    & > * {
-        transform: rotate(2deg);
+    &.ac {
+        padding: $padding_mega * 1.5 0;
+        background: url('../images/ac_bg.jpg');
+        background-size: cover;
+    }
+
+    &.padded {
+        padding: $padding * 1.5 0;
     }
 }
 
@@ -72,7 +83,7 @@ body {
 // ===========================
 
 header {
-    @extend .content-wrapper;
+    background-color: $bg_color;
 }
 
 // Main nav
@@ -90,7 +101,9 @@ header {
 // Site Footer
 // ===========================
 footer {
-    @extend .content-wrapper;
+    padding: $padding 0;
+    background-color: $secondary_color;
+    color: $bg_color;
 }
 
 
@@ -103,25 +116,33 @@ footer {
     color: #fff;
 }
 
-.simSelection-container {
-
-}
-
 .simSelection-simwrapper {
     display: flex;
     flex-direction: row;
     flex-flow: center;
     align-items: center;
     justify-content: space-around;
+
+    padding: $padding * 2 0 $padding * 4;
 }
 
 .simSelection-simwrapper-item {
-    flex-grow: 1;
+    //flex-grow: 1;
+
+    background-color: $bg_color;
+    border: 5px solid $secondary_color;
+    border-radius: 100%;
 
     img {
         display: block;
-        max-width: 100%;
+        max-width: 250px;
+        margin: 0 auto;
     }
+}
+
+.green {
+    background-color: $primary_color;
+    color: $bg_color;
 }
 
 
@@ -144,15 +165,36 @@ footer {
 .setupList-setups-table {
     width: 90%;
     margin: 0 auto;
+    color: $bg_color;
 
     tr {
         text-align: center;
+
+        &:nth-child(even) {
+            background-color: lighten($secondary_color, 10);
+        }
+
+        &:nth-child(odd) {
+            background-color: lighten($secondary_color, 5);
+        }
+
+        &:first-child {
+            background-color: $primary_color;
+        }
+    }
+
+    th {
+        padding: $padding;
+    }
+
+    td {
+        padding: $padding / 2 $padding;
     }
 }
 
 
 // ===========================
-// Setup Listings specific content
+// Setup Details specific content
 // ===========================
 
 .setupDetail-wrapper {
