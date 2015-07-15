@@ -41,6 +41,15 @@ setupsSharingAppControllers.controller('setupListCtrl', function($scope, $routeP
         });
 
     $scope.sim_name = $routeParams.simName;
+
+    $scope.selectItem = function(event) {
+        var srcElement = event.srcElement,
+            parentElement = event.srcElement.parentNode;
+
+        angular.element(parentElement.querySelector('.filter-selectable-element')).removeClass('is-selected');
+
+        angular.element(srcElement).addClass('is-selected');
+    }
 });
 
 setupsSharingAppControllers.controller('setupDetailCtrl', function($scope, $routeParams, $http) {
