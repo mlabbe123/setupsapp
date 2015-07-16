@@ -77,16 +77,18 @@ form {
 
 .form-submitbutton {
     padding: $padding / 1.5;
-    background-color: $primary_color;
+    background-color: lighten($secondary_color, 10);
     border-radius: 5px;
-    border: 2px solid $secondary_color;
-    color: $secondary_color;
+    border: 2px solid $primary_color;
+    color: $primary_color;
     font-size: 1.5em;
+    cursor: pointer;
 
     &.is-disabled {
         background-color: lighten($primary_color, 20);
         border: 2px solid lighten($secondary_color, 20);
         color: lighten($secondary_color, 20);
+        cursor: not-allowed;
     }
 }
 

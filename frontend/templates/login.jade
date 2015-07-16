@@ -1,23 +1,38 @@
 extends ./root_base
 
 block mainContent
-    div(class="mainWrapper")
-        if message && message.length
+    div(class="fullwidth-wrapper orange")
+        div.content-wrapper
+            div.breadcrumbs-wrapper
+                a(href="#/", class="link breadcrumbs-item") Home
+                span(class="breadcrumbs-item current") Login
+
+    div(class="fullwidth-wrapper register")
+
+    div(class="fullwidth-wrapper white padded")
+
+        div.form-backendmsg-wrapper
+            if message && message.length
                 strong #{message}
 
-        form(action="/login", method="post")
-            div.field-block
-                input(id="email-field", type="Email", name="email")
-                i.field-helperIcon
-                span.msg-box
+        div.fullwidth-form
+            form(action="/login", method="post")
+                div.field-block
+                    label(for="email-field", class="form-label") Email Address
+                    input(id="email-field", type="Email", name="email", class="form-textfield")
+                    div.msg-wrapper
+                        i.field-helperIcon
+                        span.msg-box
 
-            div.field-block
-                input(id="password-field", type="Password", name="password")
-                i.field-helperIcon
-                span.msg-box
+                div.field-block
+                    label(for="password-field", class="form-label") Password
+                    input(id="password-field", type="Password", name="password", class="form-textfield")
+                    div.msg-wrapper
+                        i.field-helperIcon
+                        span.msg-box
 
-            button(type="submit").
-                Login please
+                button(type="submit", class="form-submitbutton is-disabled", disabled="disabled").
+                    Login please
 
 block jsIncludes
 //-     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js")

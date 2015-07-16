@@ -1,10 +1,20 @@
 extends ./root_base
 
 block mainContent
-    div(class="mainWrapper", ng-controller="userProfileCtrl")
-        span This is your profile page bro.
+    div(class="fullwidth-wrapper orange")
+        div.content-wrapper
+            div.breadcrumbs-wrapper
+                a(href="#/", class="link breadcrumbs-item") Home
+                span(class="breadcrumbs-item current") Profile
 
-        if user
-            span #{user.display_name} is logged in
-        else
-            span no user logged in
+    div(class="fullwidth-wrapper register")
+
+    div(class="fullwidth-wrapper white padded")
+        div.content-wrapper
+            div(ng-controller="userProfileCtrl")
+                span This is your profile page bro.
+
+                if user
+                    span #{user.display_name} is logged in
+                else
+                    span no user logged in
