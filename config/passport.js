@@ -29,15 +29,37 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(request, email, password, done) {
+
+        // Hidden checkbox bot protection.
+        if(request.body.botcheck !== undefined) {
+            return done(null, false, request.flash('registerMessage', 'Are you real?'));
+        }
+
+        // process.nextTick(function() {
+        //     User.findOne({ display_name: request.body.username }, function (err, user) {
+        //         if (err) {
+        //             console.log(err);
+        //             return done(err);
+        //         }
+
+        //         if(user) {
+        //             console.log('That username is already taken.')
+        //             return done(null, false, request.flash('registerMessage', 'That username is already taken.'));
+        //         }
+        //     });
+        // });
+
         // asynchronous
         // User.findOne wont fire unless data is sent back
         process.nextTick(function() {
+
             // Find one document matching the provided email address.
             User.findOne({ email: email }, function (err, user) {
                 if (err) {
                     console.log(err)
                     return done(err);
                 }
+
                 if (!user) {
                     // if there is no user with that email
                     // create the user
@@ -61,7 +83,7 @@ module.exports = function(passport) {
                     console.log('User ' + newUser.email + 'successfully created.')
                 } else {
                     console.log('That email is already taken.')
-                    return done(null, false, request.flash('registerMessage', 'That email is already taken.'));
+                    return done(null, false, request.flash('registerMessage', 'That email address is already taken.'));
                 }
             });
         });

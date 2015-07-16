@@ -3,13 +3,13 @@
 @import 'mixins';
 @import 'fonts';
 
+@import 'susy_config';
+
 @import 'forms';
 @import 'common/link';
 @import 'common/breadcrumbs';
 @import 'common/navigation';
 @import 'common/typography';
-
-@import 'susy_config';
 
 @import 'grid_mixins';
 
@@ -54,6 +54,12 @@ body {
     &.ac {
         padding: $padding_mega * 1.5 0;
         background: url('../images/ac_bg.jpg');
+        background-size: cover;
+    }
+
+    &.register {
+        padding: $padding_mega * 1.5 0;
+        background: url('../images/register_bg.jpg');
         background-size: cover;
     }
 

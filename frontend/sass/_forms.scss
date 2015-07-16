@@ -1,3 +1,56 @@
+// Native elements styles
+form {
+    text-align: center;
+}
+
+::-webkit-input-placeholder {
+    color: lighten($primary_color, 20);
+}
+
+:-moz-placeholder {
+   color:    #909;
+   opacity:  1;
+}
+
+::-moz-placeholder {
+   color:    #909;
+   opacity:  1;
+}
+
+:-ms-input-placeholder {
+   color:    #909;
+}
+
+// Custom classes styles
+.fullwidth-form {
+    .field-block {
+        @include span(12);
+        @include container;
+    }
+
+    .form-label {
+        @include span(3);
+        @include push(2);
+
+        text-align: right;
+        padding: $padding / 1.5 0;
+        font-size: 1.5em;
+        color: $primary_color;
+        font-weight: bold;
+    }
+
+    .form-textfield {
+        @include span(2);
+    }
+
+    .msg-wrapper {
+        @include span(4 at 7);
+
+        padding: $padding / 1.5;
+        text-align: left;
+    }
+}
+
 .form-block {
     display: block;
     margin-bottom: $padding;
@@ -5,6 +58,42 @@
     .is-hidden {
         display: none;
     }
+}
+
+.form-textfield {
+    padding: $padding / 1.5;
+    margin-bottom: $padding;
+    border-radius: 5px;
+    background-color: lighten($primary_color, 50);
+    font-size: 1.1em;
+    border: 2px solid $primary_color;
+    color: $primary_color;
+
+    &.has-error {
+        border: 2px solid red;
+        background-color: lighten(red, 45);
+    }
+}
+
+.form-submitbutton {
+    padding: $padding / 1.5;
+    background-color: $primary_color;
+    border-radius: 5px;
+    border: 2px solid $secondary_color;
+    color: $secondary_color;
+    font-size: 1.5em;
+
+    &.is-disabled {
+        background-color: lighten($primary_color, 20);
+        border: 2px solid lighten($secondary_color, 20);
+        color: lighten($secondary_color, 20);
+    }
+}
+
+.form-botcheck {
+    position: absolute;
+    top: -999999px;
+    left: -999999px;
 }
 
 .label-block {
@@ -18,16 +107,32 @@
 
 .field-helperIcon {
     display: inline-block;
-    height: 10px;
-    width: 10px;
+    font-size: 1.5em;
 
     &.error {
-        background-color: red;
+        color: red;
     }
 
     &.success {
-        background-color: green;
+        color: green;
     }
+}
+
+.msg-box {
+    position: relative;
+    top: -5px;
+    font-size: 1.2em;
+
+    &.has-error {
+        color: red;
+    }
+}
+
+.form-backendmsg-wrapper {
+    padding: $padding 0 $padding * 2;
+    font-size: 2em;
+    color: red;
+    text-align: center;
 }
 
 .filter-selectable-element {

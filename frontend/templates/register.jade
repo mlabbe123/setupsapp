@@ -1,28 +1,52 @@
 extends ./root_base
 
 block mainContent
-    form(action="/register", method="post")
+    div(class="fullwidth-wrapper orange")
+        div.content-wrapper
+            div.breadcrumbs-wrapper
+                a(href="#/", class="link breadcrumbs-item") Home
+                span(class="breadcrumbs-item current") Register
 
-        div.field-block
-            input(id="username-field", type="text", placeholder="User name", name="username")
-            i.field-helperIcon
-            span.msg-box
+    div(class="fullwidth-wrapper register")
 
-        div.field-block
-            input(id="email-field",type="Email", placeholder="Email address", name="email")
-            i.field-helperIcon
-            span.msg-box
+    div(class="fullwidth-wrapper white padded")
+        div(class="content-wrapper register")
 
-        div.field-block
-            input(id="password-field",type="Password", placeholder="Password", name="password")
-            i.field-helperIcon
-            span.msg-box
+            div.form-backendmsg-wrapper
+                if message && message.length
+                    strong #{message}
 
-        button(class="submitbutton", type="submit") Create Account
+            form(action="/register", method="post")
+                div.fullwidth-form
+                    div.field-block
+                        label(for="username-field", class="form-label") Username
+                        input(id="username-field", type="text", name="username", class="form-textfield")
+                        div.msg-wrapper
+                            i.field-helperIcon
+                            span.msg-box
+
+                    div.field-block
+                        label(for="email-field", class="form-label") Email Address
+                        input(id="email-field",type="Email", placeholder="ex: simracer@gmail.com", name="email", class="form-textfield")
+                        div.msg-wrapper
+                            i.field-helperIcon
+                            span.msg-box
+
+                    div.field-block
+                        label(for="password-field", class="form-label") Password
+                        input(id="password-field",type="Password", placeholder="", name="password", class="form-textfield")
+                        div.msg-wrapper
+                            i.field-helperIcon
+                            span.msg-box
+
+                    input(type="checkbox", name="botcheck", class="form-botcheck")
+
+                    button(class="form-submitbutton is-disabled", type="submit", disabled="disabled") Create Account
 
 block jsIncludes
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js")
     script.
         //- console.log(window.jQuery)
         //- if(!window.jQuery)document.write("<script src='js/lib/jquery-1.11.3.min.js'></script>")
+    script(src="js/lib/lodash.min.js")
     script(src="js/pages/register.js")

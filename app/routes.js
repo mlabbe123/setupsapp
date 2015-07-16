@@ -27,7 +27,7 @@ module.exports = function(app, passport) {
         });
     });
 
-    // Signup page
+    // Register page
     app.get('/register', function(request, response) {
         response.render('register', {
             message: request.flash('registerMessage')
@@ -143,6 +143,18 @@ module.exports = function(app, passport) {
             if(err){
                 return console.log(err);
             } else {
+                return response.send(users);
+            }
+        });
+    });
+
+    // Retrieve every users display_name.
+    app.get('/api/get-all-user-displayname', function(request, response) {
+        User.find({}, {_id:0, display_name:1}, function(err, users) {
+            if(err){
+                return console.log(err);
+            } else {
+                console.log(users);
                 return response.send(users);
             }
         });

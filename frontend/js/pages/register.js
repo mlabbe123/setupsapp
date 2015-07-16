@@ -5,7 +5,8 @@
         $submitButton = $('button[type="submit"]'),
 
         error_messages = {
-            username: 'Username must be contain alphanumeric characters only',
+            username_format: 'Username must be contain alphanumeric characters only',
+            username_taken: 'Username is already taken',
             email: 'Please enter a valid email address'
         };
 
@@ -23,42 +24,60 @@
 
     function updateMessageBox(element, error, message) {
         // Check if there is an error or not.
-        if(error) {
-            $(element).siblings('.msg-box').html(message)
+        if (error) {
+            addErrorState(element);
+            $(element).siblings('.msg-wrapper').find('.msg-box').addClass('has-error').html(message);
         } else {
-            $(element).siblings('.msg-box').html('');
+            addSuccessState(element);
+            $(element).siblings('.msg-wrapper').find('.msg-box').html('');
         }
     }
 
-    function disableSubmitButton() {
-        $submitButton.addClass('disabled').attr('disabled', 'disabled');
-    }
-
-    function enableSubmitButton() {
-        $submitButton.removeClass('disabled').removeAttr('disabled');
+    function updateSubmitButtonState() {
+        if ($usernameField.val() !== "" && !$usernameField.hasClass('has-error') && $emailField.val() !== "" && !$emailField.hasClass('has-error') && $passwordField.val() !== "") {
+            $submitButton.removeClass('is-disabled').prop('disabled', false);
+        } else {
+            $submitButton.addClass('is-disabled').prop('disabled', true);
+        }
     }
 
     function addErrorState(element) {
-        $(element).addClass('error').siblings('.field-helperIcon').removeClass('success').addClass('error');
+        $(element).addClass('has-error').siblings('.msg-wrapper').find('.field-helperIcon').removeClass('success icon-ok').addClass('error icon-error');
+        $(element).siblings('.msg-wrapper').find('.msg-box').addClass('has-error')
     }
 
     function addSuccessState(element) {
-        $(element).removeClass('error').siblings('.field-helperIcon').removeClass('error').addClass('success');
+        $(element).removeClass('has-error').siblings('.msg-wrapper').find('.field-helperIcon').removeClass('error icon-error').addClass('success icon-ok');
+        $(element).siblings('.msg-wrapper').find('.msg-box').removeClass('has-error')
     }
 
     function init() {
         $usernameField.on('keyup', function(event) {
             var error = !validateUsername(event.currentTarget.value);
 
-            updateMessageBox(event.currentTarget, error, error_messages.username);
+            updateMessageBox(event.currentTarget, error, error_messages.username_format);
 
-            if(error) {
+            if (error) {
                 addErrorState(event.currentTarget);
-                disableSubmitButton();
+                updateSubmitButtonState();
             } else {
                 addSuccessState(event.currentTarget);
-                enableSubmitButton();
+                updateSubmitButtonState();
             }
+        });
+
+        $usernameField.on('blur', function(event) {
+            $.get('/api/get-all-user-displayname',function(users) {
+                var error = false;
+
+                _.forEach(users, function(user) {
+                    if (user.display_name === event.currentTarget.value) {
+                        error = true;
+                    }
+                });
+
+                updateMessageBox(event.currentTarget, error, error_messages.username_taken);
+            });
         });
 
         $emailField.on('blur', function(event) {
@@ -66,13 +85,17 @@
 
             updateMessageBox(event.currentTarget, error, error_messages.email);
 
-            if(error) {
+            if (error) {
                 addErrorState(event.currentTarget);
-                disableSubmitButton();
+                updateSubmitButtonState();
             } else {
                 addSuccessState(event.currentTarget);
-                enableSubmitButton();
+                updateSubmitButtonState();
             }
+        });
+
+        $passwordField.on('keyup', function(event) {
+            updateSubmitButtonState();
         });
     }
     init();
