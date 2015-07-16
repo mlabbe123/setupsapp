@@ -115,11 +115,10 @@ module.exports = function(passport) {
             // if the user is found but the password is wrong
             if (!user.isPasswordValid(password)) {
                 console.log('Oops! Wrong password.')
-                return done(null, false, request.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+                return done(null, false, request.flash('loginMessage', 'Wrong email address / password combination.')); // create the loginMessage and save it to session as flashdata
             }
 
-            // all is well, return successful user
-            console.log('Welcome');
+            // all is well, return user
             return done(null, user);
         });
 
