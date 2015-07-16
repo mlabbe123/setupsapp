@@ -4,8 +4,9 @@ var db = require('./config/db'),
     passport = require('passport'),
     flash = require('connect-flash'),
     bodyParser = require('body-parser'),
-    session = require('express-session');
-    multer = require('multer');
+    session = require('express-session'),
+    multer = require('multer')
+    fs = require('fs');
 
     _ = require('lodash');
 
@@ -38,6 +39,18 @@ app.use(multer({ dest: './setups_files/',
         return filename;
     },
     changeDest: function(dest, request, response) {
+        var stat = null;
+
+        try {
+            stat = fs.statSync(dest + request.body.sim);
+        } catch (err) {
+            fs.mkdirSync(dest + request.body.sim);
+        }
+
+        if (stat && !stat.isDirectory()) {
+            throw new Error('Directory cannot be created because an inode of a different type exists at "' + dest + request.body.sim + '"');
+        }
+
         return dest + request.body.sim;
     },
     onFileUploadStart: function (file) {

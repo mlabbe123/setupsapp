@@ -103,7 +103,7 @@ module.exports = function(app, passport) {
         }
     });
 
-    // Logout page.
+    // Logout route.
     app.get('/logout', function(request, response) {
         request.logout();
         response.redirect('/');
@@ -293,7 +293,8 @@ module.exports = function(app, passport) {
     });
 
     // var newSim = new Sim({
-    //     name: 'iRacing'
+    //     name: 'Assetto Corsa',
+
     // });
     // newSim.save(function(err) {
     //     if(err) {
@@ -305,11 +306,10 @@ module.exports = function(app, passport) {
 
     // Insert new car for given sim (sim has to be a parameter)
     // Sim.findOne({'name': 'Assetto Corsa'}, function(err, sim) {
-    //     var Car = require('./app/models/car');
     //     var newCar = new Car({
     //         sim: sim._id,
     //         name: 'Ferrari F40',
-    //         category: ''
+    //         category: 'Road'
     //     });
     //     newCar.save(function(err) {
     //         if(err) {
@@ -322,7 +322,6 @@ module.exports = function(app, passport) {
 
     // Insert new track for given sim (sim has to be a parameter)
     // Sim.findOne({'name': 'Assetto Corsa'}, function(err, sim) {
-    //     var Track = require('./app/models/track');
     //     var newTrack = new Track({
     //         sim: sim._id,
     //         name: 'Mugello'
