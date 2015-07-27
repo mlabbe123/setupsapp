@@ -23,6 +23,10 @@ form {
 
 // Custom classes styles
 .fullwidth-form {
+    * {
+        box-sizing: border-box;
+    }
+
     .field-block {
         @include span(12);
         @include container;
@@ -39,8 +43,27 @@ form {
         font-weight: bold;
     }
 
-    .form-textfield {
+    .form-select-wrapper,
+    .form-input-wrapper,
+    .form-fileupload-wrapper {
         @include span(2);
+    }
+
+    .form-select-wrapper {
+        &.is-disabled {
+            border: 2px solid grey;
+            background-color: transparentize(grey, 0.5);
+
+            select {
+                color: grey;
+            }
+        }
+    }
+
+    .form-textfield,
+    .form-textarea {
+        width: 100%;
+        padding: $padding / 1.5;
     }
 
     .msg-wrapper {
@@ -60,7 +83,8 @@ form {
     }
 }
 
-.form-textfield {
+.form-textfield,
+.form-textarea {
     padding: $padding / 1.5;
     margin-bottom: $padding;
     border-radius: 5px;
@@ -72,6 +96,26 @@ form {
     &.has-error {
         border: 2px solid red;
         background-color: lighten(red, 45);
+    }
+}
+
+.form-textarea {
+    resize: none;
+}
+
+.form-select-wrapper {
+    margin-bottom: $padding;
+    background-color: lighten($primary_color, 50);
+    border-radius: 5px;
+    border: 2px solid $primary_color;
+
+    select {
+        width: 100%;
+        height: 2.7rem;
+        border: none;
+        background-color: transparent;
+        color: $primary_color;
+        font-size: 1.1em;
     }
 }
 
@@ -144,4 +188,13 @@ form {
     &.is-selected {
         background-color: $primary_color;
     }
+}
+
+.form-separator {
+    @include span(12);
+    @include container;
+
+    padding: $padding * 3 0;
+    font-size: 2em;
+    color: $secondary_color;
 }

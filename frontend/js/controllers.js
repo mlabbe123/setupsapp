@@ -152,12 +152,6 @@ setupsSharingAppControllers.controller('submitSetupCtrl', function($scope, $rout
         $scope.sims = result;
     });
 
-    $scope.handleCarsTracksSelects = function(sim) {
-        if(sim !== 'undefined') {
-
-        }
-    }
-
     //Setting first option as selected in configuration select
     // $scope.setup.sim = $scope.setup.sims[0];
 
