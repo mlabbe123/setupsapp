@@ -55,6 +55,12 @@ module.exports = function(app, passport) {
         response.download(file);
     });
 
+    // Logout route.
+    app.get('/logout', function(request, response) {
+        request.logout();
+        response.redirect('/');
+    });
+
 
     // ===========================
     // POST requests
@@ -77,36 +83,40 @@ module.exports = function(app, passport) {
     // Setup form submission.
     app.post('/submit-setup', isUserLoggedIn, function(request, response) {
 
-        console.log(request.files.setup_file.originalname)
-        var newSetup = new Setup({
-            author: request.body.user_id,
-            sim: request.body.sim,
-            car: request.body.car,
-            track: request.body.track,
-            type: request.body.trim,
-            best_time: request.body.best_time,
-            comments: request.body.comments,
-            file_name: request.files.setup_file.originalname
-        });
+        if(request.files.setup_file === undefined) {
+            response.render('submit', {
+                user: request.user,
+                message: 'Please attach a valid setup file.'
+            });
+        } else {
 
-        newSetup.save(function(err) {
-            if(err) {
-                console.log('Error creating setup.')
-            } else {
-                console.log('Setup successfuly created.')
+            var newSetup = new Setup({
+                author: request.body.user_id,
+                sim: request.body.sim,
+                car: request.body.car,
+                track: request.body.track,
+                type: request.body.trim,
+                best_time: request.body.best_time,
+                comments: request.body.comments,
+                file_name: request.files.setup_file.originalname
+            });
+
+            newSetup.save(function(err) {
+                if(err) {
+                    console.log('Error creating setup.')
+                } else {
+                    console.log('Setup successfuly created.')
+                }
+            });
+
+            // Upload of the file.
+            if(done==true){
+                response.render('submit', {
+                    user: request.user,
+                    message: 'Setup successfully uploaded'
+                });
             }
-        });
-
-        // Upload of the file.
-        if(done==true){
-            response.end("File uploaded.");
         }
-    });
-
-    // Logout route.
-    app.get('/logout', function(request, response) {
-        request.logout();
-        response.redirect('/');
     });
 
 
