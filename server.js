@@ -5,7 +5,7 @@ var db = require('./config/db'),
     flash = require('connect-flash'),
     bodyParser = require('body-parser'),
     session = require('express-session'),
-    multer = require('multer')
+    multer = require('multer'),
     fs = require('fs');
 
     _ = require('lodash');
