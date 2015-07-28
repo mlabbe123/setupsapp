@@ -71,6 +71,7 @@ module.exports = function(passport) {
                     newUser.display_name = request.body.username;
                     var now = new Date();
                     newUser.join_date = now.yyyymmdd();
+                    newUser.admin = false;
 
                     // save the user
                     newUser.save(function(err) {
