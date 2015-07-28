@@ -12,7 +12,7 @@ var gulp = require('gulp'),
 
     // paths for src files
     paths = {
-        jade: 'frontend/templates/partials/*.jade',
+        jade: 'frontend/templates/partials/**/*.jade',
         sass: 'frontend/sass/**/*.scss',
         js: 'frontend/js/**/*.js',
         images: 'frontend/images/**/*',
