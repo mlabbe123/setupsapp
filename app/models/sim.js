@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 
 var simSchema = new mongoose.Schema({
-    name: String
+    display_name: String,
+    code: String
 });
 
 module.exports = mongoose.model('Sim', simSchema);

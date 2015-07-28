@@ -6,7 +6,8 @@ var userSchema = new mongoose.Schema({
     password: String,
     display_name: String,
     nationality: String,
-    join_date: String
+    join_date: String,
+    admin: Boolean
 });
 
 // Generate password hash.
