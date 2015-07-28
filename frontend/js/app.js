@@ -2,7 +2,7 @@ var setupsSharingApp = angular.module('setupsSharingApp', [
     'ngRoute',
     'setupsSharingAppControllers',
     'setupsSharingAppServices',
-    'setupListingFilters'
+    'setupsSharingAppDirectives'
 ]);
 
 setupsSharingApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {

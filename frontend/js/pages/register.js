@@ -26,10 +26,10 @@
         // Check if there is an error or not.
         if (error) {
             addErrorState(element);
-            $(element).siblings('.msg-wrapper').find('.msg-box').addClass('has-error').html(message);
+            $(element).parent().siblings('.msg-wrapper').find('.msg-box').addClass('has-error').html(message);
         } else {
             addSuccessState(element);
-            $(element).siblings('.msg-wrapper').find('.msg-box').html('');
+            $(element).parent().siblings('.msg-wrapper').find('.msg-box').html('');
         }
     }
 
@@ -42,13 +42,13 @@
     }
 
     function addErrorState(element) {
-        $(element).addClass('has-error').siblings('.msg-wrapper').find('.field-helperIcon').removeClass('success icon-ok').addClass('error icon-error');
-        $(element).siblings('.msg-wrapper').find('.msg-box').addClass('has-error')
+        $(element).addClass('has-error').parent().siblings('.msg-wrapper').find('.field-helperIcon').removeClass('success icon-ok').addClass('error icon-error');
+        $(element).parent().siblings('.msg-wrapper').find('.msg-box').addClass('has-error')
     }
 
     function addSuccessState(element) {
-        $(element).removeClass('has-error').siblings('.msg-wrapper').find('.field-helperIcon').removeClass('error icon-error').addClass('success icon-ok');
-        $(element).siblings('.msg-wrapper').find('.msg-box').removeClass('has-error')
+        $(element).removeClass('has-error').parent().siblings('.msg-wrapper').find('.field-helperIcon').removeClass('error icon-error').addClass('success icon-ok');
+        $(element).parent().siblings('.msg-wrapper').find('.msg-box').removeClass('has-error')
     }
 
     function init() {

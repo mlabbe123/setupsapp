@@ -22,6 +22,10 @@ form {
 }
 
 // Custom classes styles
+.form-wrapper {
+    min-width: 1024px;
+}
+
 .fullwidth-form {
     * {
         box-sizing: border-box;
@@ -34,7 +38,7 @@ form {
 
     .form-label {
         @include span(3);
-        @include push(2);
+        @include push(1);
 
         text-align: right;
         padding: $padding / 1.5 0;
@@ -46,7 +50,7 @@ form {
     .form-select-wrapper,
     .form-input-wrapper,
     .form-fileupload-wrapper {
-        @include span(2);
+        @include span(4);
     }
 
     .form-select-wrapper {
@@ -67,7 +71,7 @@ form {
     }
 
     .msg-wrapper {
-        @include span(4 at 7);
+        @include span(3 at 7);
 
         padding: $padding / 1.5;
         text-align: left;
@@ -128,12 +132,44 @@ form {
     font-size: 1.5em;
     cursor: pointer;
 
-    &.is-disabled {
+    &.is-disabled,
+    &:disabled {
         background-color: lighten($primary_color, 20);
         border: 2px solid lighten($secondary_color, 20);
         color: lighten($secondary_color, 20);
         cursor: not-allowed;
     }
+}
+
+.form-inputfile-wrapper {
+    position: relative;
+    width: 12rem;
+    height: $padding * 3;
+    background-color: lighten($secondary_color, 10);
+    border-radius: 5px;
+    border: 2px solid $primary_color;
+    color: $primary_color;
+    font-size: 1.1em;
+
+    span {
+        display: block;
+        line-height: 2.7rem;
+    }
+
+    input[type="file"] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 12rem;
+        height: $padding * 3;
+        opacity: 0;
+    }
+}
+
+.form-fileupload-info {
+    padding: $padding 0;
+    color: $primary_color;
+    text-align: left;
 }
 
 .form-botcheck {
@@ -194,7 +230,7 @@ form {
     @include span(12);
     @include container;
 
-    padding: $padding * 3 0;
+    padding: 0 0 $padding * 3;
     font-size: 2em;
     color: $secondary_color;
 }

@@ -152,6 +152,12 @@ setupsSharingAppControllers.controller('submitSetupCtrl', function($scope, $rout
         $scope.sims = result;
     });
 
+    $scope.uploadFile = function($scope) {
+        var filename = event.target.files[0].name;
+        angular.element(event.srcElement.parentElement.parentElement.querySelector('#setup-file-display-name')).html(filename);
+        angular.element(event.srcElement.parentElement.querySelector('#setup-file-hidden')).val(filename);
+    }
+
     //Setting first option as selected in configuration select
     // $scope.setup.sim = $scope.setup.sims[0];
 

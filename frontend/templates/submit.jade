@@ -9,58 +9,65 @@ block mainContent
 
     div(class="fullwidth-wrapper register")
 
-    div(ng-controller="submitSetupCtrl", class="fullwidth-wrapper white padded")
+    div(class="fullwidth-wrapper white padded")
+        div(ng-controller="submitSetupCtrl", class="form-wrapper")
 
-        div.form-backendmsg-wrapper
-            if message && message.length
-                strong #{message}
+            div.form-backendmsg-wrapper
+                if message && message.length
+                    strong #{message}
 
-        div.fullwidth-form
-            form(action="/submit-setup", method="post", enctype = "multipart/form-data")
-                input(id="author-field", type="hidden", name="user_id", value="#{user._id}")
+            div.fullwidth-form
+                form(action="/submit-setup", method="post", enctype = "multipart/form-data")
+                    input(id="author-field", type="hidden", name="user_id", value="#{user._id}")
 
-                div.field-block
-                    label(for="simSelect", class="form-label") Simulation:
-                    div.form-select-wrapper
-                        select(id="simSelect", name="sim", ng-model="sim", ng-options="sim.name for sim in sims track by sim.id", ng-change="onSimSelectChange(this, sim)")
-                            option(value="") - Select -
+                    div.field-block
+                        label(for="simSelect", class="form-label") Simulation :
+                        div.form-select-wrapper
+                            select(id="simSelect", name="sim", ng-model="sim", ng-options="sim.name for sim in sims track by sim.id", ng-change="onSimSelectChange(this, sim)")
+                                option(value="") - Select -
 
-                div.field-block
-                    label(for="simSelect", class="form-label") Car:
-                    div(class="form-select-wrapper", ng-class="{'is-disabled': sim == undefined}")
-                        select(id="carSelect", name="car", ng-model="cars", ng-options="car.name for car in sim.cars track by car._id", ng-disabled="!sim")
-                            option(value="") - Select -
+                    div.field-block
+                        label(for="simSelect", class="form-label") Car :
+                        div(class="form-select-wrapper", ng-class="{'is-disabled': sim == undefined}")
+                            select(id="carSelect", name="car", ng-model="cars", ng-options="car.name for car in sim.cars track by car._id", ng-disabled="!sim")
+                                option(value="") - Select -
 
-                div.field-block
-                    label(for="simSelect", class="form-label") Track:
-                    div(class="form-select-wrapper", ng-class="{'is-disabled': sim == undefined}")
-                        select(id="trackSelect", name="track", ng-model="tracks", ng-options="track.name for track in sim.tracks track by track._id", ng-disabled="!sim")
-                            option(value="") - Select -
+                    div.field-block
+                        label(for="simSelect", class="form-label") Track :
+                        div(class="form-select-wrapper", ng-class="{'is-disabled': sim == undefined}")
+                            select(id="trackSelect", name="track", ng-model="tracks", ng-options="track.name for track in sim.tracks track by track._id", ng-disabled="!sim")
+                                option(value="") - Select -
 
-                div.field-block
-                    label(for="trim", class="form-label") Trim
-                    div.form-select-wrapper
-                        select(id="trim", name="trim")
-                            option(value="base") Base
-                            option(value="qualy") Qualy
-                            option(value="race") Race
+                    div.field-block
+                        label(for="trim", class="form-label") Trim :
+                        div.form-select-wrapper
+                            select(id="trim", name="trim")
+                                option(value="base") Base
+                                option(value="qualy") Qualy
+                                option(value="race") Race
 
-                div.field-block
-                    label(for="setup-file", class="form-label") File
-                    div.form-fileupload-wrapper
-                        input(id="setup-file", type="file", name="setup_file", accept=".sto, .ini", ng-model="setupFile", class="form-button")
-                        input(type="hidden", name="setup_name", ng-value="{{ setupFile }}")
+                    div.field-block
+                        label(for="setup-file", class="form-label") File :
+                        div.form-fileupload-wrapper
+                            div.form-inputfile-wrapper
+                                span Choose File
+                                input(id="setup-file", type="file", name="setup_file", accept=".sto, .ini", custom-file-upload="uploadFile", class="form-button")
+                                input(id="setup-file-hidden", type="hidden", name="setup_name")
+                            div.form-fileupload-info
+                                span File selected:&nbsp;
+                                span(id="setup-file-display-name") none
 
-                div.form-separator - Optional -
 
-                div.field-block
-                    label(for="best-time", class="form-label") Best time
-                    div.form-input-wrapper
-                        input(type="text", id="best-time", class="form-textfield", name="best_time", placeholder="Ex: 1.41.543")
+                    div.form-separator - Optional -
 
-                div.field-block
-                    label(for="comments", class="form-label") Comments / Notes
-                    div.form-input-wrapper
-                        textarea(id="comments", name="comments", class="form-textarea", rows="8", placeholder="Some usefull comments...")
+                    div.field-block
+                        label(for="best-time", class="form-label") Best time :
+                        div.form-input-wrapper
+                            input(type="text", id="best-time", class="form-textfield", name="best_time", placeholder="Ex: 1.41.543")
 
-                button(type="submit", class="form-submitbutton", ng-disabled="!sim||!cars||!tracks") Submit
+                    div.field-block
+                        label(for="comments", class="form-label") Comments / Notes :
+                        div.form-input-wrapper
+                            textarea(id="comments", name="comments", class="form-textarea", rows="8", placeholder="Some usefull comments...")
+
+                    button(type="submit", class="form-submitbutton", ng-disabled="!sim||!cars||!tracks") Submit

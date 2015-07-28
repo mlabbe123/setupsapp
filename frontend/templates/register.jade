@@ -10,7 +10,7 @@ block mainContent
     div(class="fullwidth-wrapper register")
 
     div(class="fullwidth-wrapper white padded")
-        div(class="content-wrapper register")
+        div.form-wrapper
 
             div.form-backendmsg-wrapper
                 if message && message.length
@@ -20,21 +20,24 @@ block mainContent
                 div.fullwidth-form
                     div.field-block
                         label(for="username-field", class="form-label") Username
-                        input(id="username-field", type="text", name="username", class="form-textfield")
+                        div.form-input-wrapper
+                            input(id="username-field", type="text", name="username", class="form-textfield")
                         div.msg-wrapper
                             i.field-helperIcon
                             span.msg-box
 
                     div.field-block
                         label(for="email-field", class="form-label") Email Address
-                        input(id="email-field",type="Email", placeholder="ex: simracer@gmail.com", name="email", class="form-textfield")
+                        div.form-input-wrapper
+                            input(id="email-field",type="Email", placeholder="ex: simracer@gmail.com", name="email", class="form-textfield")
                         div.msg-wrapper
                             i.field-helperIcon
                             span.msg-box
 
                     div.field-block
                         label(for="password-field", class="form-label") Password
-                        input(id="password-field",type="Password", placeholder="", name="password", class="form-textfield")
+                        div.form-input-wrapper
+                            input(id="password-field",type="Password", placeholder="", name="password", class="form-textfield")
                         div.msg-wrapper
                             i.field-helperIcon
                             span.msg-box
