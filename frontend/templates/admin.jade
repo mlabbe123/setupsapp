@@ -1,0 +1,35 @@
+extends ./root_base
+
+block mainContent
+    div(class="fullwidth-wrapper orange")
+        div.content-wrapper
+            div.breadcrumbs-wrapper
+                a(href="/#/", class="link breadcrumbs-item") Home
+                span(class="breadcrumbs-item current") Admin Section
+
+    div(class="fullwidth-wrapper admin-section")
+
+    div(class="fullwidth-wrapper white padded", ng-controller="adminCtrl")
+        div.content-wrapper
+            div.admin-menu
+                h2.admin-menu-sectiontitle
+                    a(href="#/admin") / Admin home
+                h2.admin-menu-sectiontitle / Manage
+                ul.admin-menu-list
+                    li.admin-menu-list-item
+                        a(href="#/admin/manage/users") users
+                    li.admin-menu-list-item
+                        a(href="#/admin/manage/sims") sims
+                    li.admin-menu-list-item
+                        a(href="#/admin/manage/cars") cars
+                    li.admin-menu-list-item
+                        a(href="#/admin/manage/tracks") tracks
+
+                h2.admin-menu-sectiontitle / Add
+                ul.admin-menu-list
+                    li.admin-menu-list-item
+                        a(href="#/admin/add/sims") sims
+                    li.admin-menu-list-item cars
+                    li.admin-menu-list-item tracks
+
+            div(class="admin-content", ng-view)

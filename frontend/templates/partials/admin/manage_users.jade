@@ -1,0 +1,14 @@
+table.setupList-setups-table
+    tr
+        th Id
+        th Name
+        th Email Address
+        th Joined Date
+        th Admin
+
+    tr(ng-repeat="user in users")
+        td {{ user._id }}
+        td {{ user.display_name }}
+        td {{ user.email }}
+        td {{ user.join_date }}
+        td {{ user.admin }}

@@ -1,0 +1,21 @@
+.admin-menu {
+    @include span(3);
+}
+
+.admin-content {
+    @include span(9 at 4);
+}
+
+.admin-menu-sectiontitle {
+    font-size: 1.5rem;
+    margin-bottom: $padding;
+}
+
+.admin-menu-list {
+    margin-left: 1rem;
+    margin-bottom: $padding * 1.5;
+}
+
+.admin-menu-list-item {
+    margin-bottom: $padding / 2;
+}
