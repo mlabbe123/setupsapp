@@ -19,6 +19,29 @@ setupsSharingApp.config(['$routeProvider', '$locationProvider', function($routeP
             templateUrl: 'partials/setuppage.html',
             controller: 'setupDetailCtrl'
         })
+        .when('/admin', {
+            templateUrl: 'partials/admin/home.html'
+        })
+        .when('/admin/manage/users', {
+            templateUrl: 'partials/admin/manage_users.html',
+            controller: 'manageUsersCtrl'
+        })
+        .when('/admin/manage/sims', {
+            templateUrl: 'partials/admin/manage.html',
+            controller: 'manageSimsCtrl'
+        })
+        .when('/admin/manage/cars', {
+            templateUrl: 'partials/admin/manage_cars.html',
+            controller: 'manageCarsCtrl'
+        })
+        .when('/admin/manage/tracks', {
+            templateUrl: 'partials/admin/manage_tracks.html',
+            controller: 'manageTracksCtrl'
+        })
+        .when('/admin/add/sims', {
+            templateUrl: 'partials/admin/add_sims.html',
+            controller: 'addSimsCtrl'
+        })
         // Author detail page.
         // .when('/setups/:simName/:setupId', {
         //     templateUrl: 'partials/simpage.html',

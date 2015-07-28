@@ -7,10 +7,11 @@ var setupsSharingAppControllers = angular.module('setupsSharingAppControllers', 
 
 setupsSharingAppControllers.controller('setupListCtrl', function($scope, $routeParams, $http) {
 
-    // Get the sim id.
-    $http.get('/api/get-sim-id/' + $routeParams.simName).
+    // Get the sim infos.
+    $http.get('/api/get-sim-infos/' + $routeParams.simName).
         success(function(data, status, headers, config) {
-            $scope.simId = data;
+            console.log(data)
+            $scope.sim_infos = data;
         }).
         error(function(data, status, headers, config) {
             console.log(status);
@@ -34,6 +35,7 @@ setupsSharingAppControllers.controller('setupListCtrl', function($scope, $routeP
     // Get all the filters.
     $http.get('/api/get-setups-filters/' + $routeParams.simName).
         success(function(data, status, headers, config) {
+            console.log(data)
             $scope.setup_filters = data;
         }).
         error(function(data, status, headers, config) {
@@ -172,4 +174,77 @@ setupsSharingAppControllers.controller('submitSetupCtrl', function($scope, $rout
     //     });
 
     $scope.sim_name = $routeParams.simName;
+});
+
+setupsSharingAppControllers.controller('adminCtrl', function($scope, $routeParams) {
+
+});
+
+setupsSharingAppControllers.controller('manageUsersCtrl', function($scope, $routeParams, $http) {
+    console.log('manage users');
+
+    // Get every users in the db.
+    $http.get('/api/get-all-users/')
+        .success(function(data, status, headers, config) {
+            console.log(data);
+            $scope.users = data;
+        })
+        .error(function(data, status, headers, config) {
+            console.log(status)
+        });
+});
+
+setupsSharingAppControllers.controller('manageSimsCtrl', function($scope, $routeParams, $http) {
+    console.log('manage sims')
+});
+
+setupsSharingAppControllers.controller('manageCarsCtrl', function($scope, $routeParams, $http) {
+    console.log('manage cars');
+
+    // Get every cars in the db.
+    $http.get('/api/get-all-cars/')
+        .success(function(data, status, headers, config) {
+            console.log(data);
+            $scope.cars = data;
+        })
+        .error(function(data, status, headers, config) {
+            console.log(status)
+        });
+});
+
+setupsSharingAppControllers.controller('manageTracksCtrl', function($scope, $routeParams, $http) {
+    console.log('manage tracks');
+
+    // Get every tracks in the db.
+    $http.get('/api/get-all-tracks/')
+        .success(function(data, status, headers, config) {
+            console.log(data);
+            $scope.tracks = data;
+        })
+        .error(function(data, status, headers, config) {
+            console.log(status)
+        });
+});
+
+setupsSharingAppControllers.controller('addSimsCtrl', function($scope, $routeParams, $http) {
+    console.log('add sims');
+
+    // The POST reqeust is not triggering any callbacks since it is out of angular context (why?)
+    // http://stackoverflow.com/questions/17701503/angularjs-http-not-firing-get-call
+
+    $scope.addSim = function() {
+        if($scope.simCode && $scope.simDisplayName) {
+            $http.post('/api/add-sim/', {simCode: $scope.simCode, simDisplayName: $scope.simDisplayName})
+                .success(function(data, status, headers, config) {
+                    console.log('success')
+                    angular.element(document.querySelector('#msg-box')).html('Sim successfully created.')
+                })
+                .error(function(data, status, headers, config) {
+                    console.log(status)
+                })
+                .catch(function(error) {
+                    console.log(error)
+                });
+        }
+    }
 });

@@ -78,6 +78,26 @@ form {
     }
 }
 
+.setupList-filters-wrapper {
+    * {
+        box-sizing: border-box;
+    }
+
+    .label-block {
+        font-size: 1.5rem;
+        color: $primary_color;
+        font-weight: bold;
+    }
+
+    .form-block {
+        margin-bottom: $padding * 2;
+    }
+
+    .form-textfield {
+        margin-bottom: 0;
+    }
+}
+
 .form-block {
     display: block;
     margin-bottom: $padding;
@@ -89,6 +109,7 @@ form {
 
 .form-textfield,
 .form-textarea {
+    width: 100%;
     padding: $padding / 1.5;
     margin-bottom: $padding;
     border-radius: 5px;

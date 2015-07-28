@@ -5,6 +5,7 @@
 
 @import 'susy_config';
 
+@import 'admin';
 @import 'forms';
 @import 'common/link';
 @import 'common/breadcrumbs';
@@ -38,6 +39,7 @@ body {
 
 .fullwidth-wrapper {
     width: 100%;
+    position: relative;
 
     &.white {
         background-color: $bg_color;
@@ -52,6 +54,12 @@ body {
     }
 
     &.ac {
+        padding: $padding_mega * 1.5 0;
+        background: url('../images/ac_bg.jpg');
+        background-size: cover;
+    }
+
+    &.iracing {
         padding: $padding_mega * 1.5 0;
         background: url('../images/ac_bg.jpg');
         background-size: cover;
@@ -83,6 +91,15 @@ body {
     }
 }
 
+.sim-presentation-title {
+    @include span(12);
+    color: $bg_color;
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 2.3rem;
+
+    margin-top: -4.5rem;
+}
 
 // ===========================
 // Site Header
@@ -191,10 +208,26 @@ footer {
 
     th {
         padding: $padding;
+        font-size: 1.2rem;
     }
 
     td {
         padding: $padding / 2 $padding;
+    }
+
+    .link {
+        margin-left: $padding * 2;
+        color: $primary_color;
+        font-size: 1.2rem;
+        transition: all 0.2s;
+
+        &:hover {
+            color: $bg_color;
+        }
+
+        &:first-child {
+            margin-left: 0;
+        }
     }
 }
 
