@@ -176,6 +176,96 @@ setupsSharingAppControllers.controller('submitSetupCtrl', function($scope, $rout
     $scope.sim_name = $routeParams.simName;
 });
 
+setupsSharingAppControllers.controller('profileCtrl', function($scope, $routeParams, $http) {
+    console.log($routeParams);
+
+    var logged_user_id = angular.element(document.querySelector('#logged-userid')).val();
+
+    // Get user information.
+    $http.get('/api/get-user-by-id/' + $routeParams.userid)
+        .success(function(data, status, headers, config) {
+            console.log(data);
+            $scope.user = data;
+
+            // If the user is logged in and on it's own profile page.
+            if(logged_user_id && logged_user_id === $routeParams.userid) {
+                $scope.user.own_profile = true;
+            } else {
+                $scope.user.own_profile = false;
+            }
+        })
+        .error(function(data, status, headers, config) {
+            console.log(status)
+        });
+
+
+
+    // Get every setups for the user.
+    $http.get('/api/get-setups-by-user/' + $routeParams.userid)
+        .success(function(data, status, headers, config) {
+            console.log(data);
+            $scope.setups = data;
+
+            var total_downloads = 0;
+
+             _.forEach(data, function(setup) {
+                setup.car = setup.car.name;
+                setup.track = setup.track.name;
+                setup.author = setup.author.display_name;
+
+                total_downloads += setup.downloads;
+            });
+
+            $scope.setups_count = $scope.setups.length;
+            $scope.total_downloads = total_downloads;
+        })
+        .error(function(data, status, headers, config) {
+            console.log(status)
+        });
+
+    $scope.updateUsername = function() {
+        var newUsername = angular.element(event.srcElement.parentElement.querySelector('#profile-change-username')).val();
+
+        // Verify if username is free to use.
+        $http.get('/api/get-user-by-name/' + newUsername)
+            .success(function(data, status, headers, config) {
+                if(data) {
+                    // Tell the user that this username is already in use.
+                    angular.element(document.querySelector('.profile-change-username-msg-box')).html('This username is already in use, please try another one.')
+                } else {
+                    // Update user display_name in db
+                    $http.post('/api/update-user-displayname/', {userId: $routeParams.userid, newDisplayName: newUsername})
+                        .success(function(data, status, headers, config) {
+                            console.log('User display_name updated successfully');
+                        })
+                        .error(function(data, status, headers, config) {
+                            console.log(status)
+                        });
+                    // Tell the user that his display_name has been change.
+                    angular.element(document.querySelector('.profile-change-username-msg-box')).html('Username successfully updated.');
+                }
+            })
+            .error(function(data, status, headers, config) {
+                console.log(status)
+            });
+    }
+
+    $scope.deleteSetup = function(setupId) {
+        // Delete the setup.
+        $http.post('/api/delete-setup/', {setupId: setupId})
+            .success(function(data, status, headers, config) {
+                console.log(status)
+
+                // Tell the user the setup has been deleted.
+            })
+            .error(function(data, status, headers, config) {
+                // Tell the user an error occured.
+
+                console.log(status)
+            });
+    }
+});
+
 setupsSharingAppControllers.controller('adminCtrl', function($scope, $routeParams) {
 
 });

@@ -44,6 +44,7 @@ module.exports = function(app, passport) {
 
     // Profile page.
     app.get('/profile', isUserLoggedIn, function(request, response) {
+        console.log(request)
         response.render('profile', {
             user: request.user
         });
@@ -75,17 +76,19 @@ module.exports = function(app, passport) {
 
     // Register form submission.
     app.post('/register', passport.authenticate('local-register', {
-        successRedirect: '/profile', // redirect to the secure profile section
+        successRedirect: '/#/profile/', // redirect to the secure profile section
         failureRedirect: '/register', // redirect back to the signup page if there is an error
         failureFlash: true // allow flash messages
     }));
 
     // Login form submission.
     app.post('/login', passport.authenticate('local-login', {
-        successRedirect: '/profile', // redirect to the secure profile section
+        //successRedirect: '/#/profile/', // redirect to the secure profile section
         failureRedirect: '/login', // redirect back to the signup page if there is an error
         failureFlash: true // allow flash messages
-    }));
+    }), function(request, response) {
+        response.redirect('/#/profile/' + response.req.user._id)
+    });
 
     // Setup form submission.
     app.post('/submit-setup', isUserLoggedIn, function(request, response) {
@@ -161,6 +164,28 @@ module.exports = function(app, passport) {
                 return console.log(err);
             } else {
                 return response.send(users);
+            }
+        });
+    });
+
+    // Retrieve user by id.
+    app.get('/api/get-user-by-id/:userid', function(request, response) {
+        User.findOne({_id: request.params.userid}, function(err, user) {
+            if(err){
+                return console.log(err);
+            } else {
+                return response.send(user);
+            }
+        });
+    });
+
+    // Retrieve user by display_name.
+    app.get('/api/get-user-by-name/:username', function(request, response) {
+        User.findOne({'display_name': request.params.username}, function(err, user) {
+            if(err){
+                return console.log(err);
+            } else {
+                return response.send(user);
             }
         });
     });
@@ -284,6 +309,24 @@ module.exports = function(app, passport) {
             });
     });
 
+    // Retrieve setups by userid.
+    app.get('/api/get-setups-by-user/:userid', function(request, response) {
+
+        Setup.find({'author': request.params.userid}).
+            populate('author').
+            populate('sim').
+            populate('car').
+            populate('track').
+            exec(function(err, setups) {
+                if(err) {
+                    return console.log(err);
+                } else {
+                    console.log(setups)
+                    return response.send(setups);
+                }
+            });
+    });
+
     // Retreive every cars.
     app.get('/api/get-all-cars/', function(request, response) {
 
@@ -339,6 +382,25 @@ module.exports = function(app, passport) {
                 console.log('Sim successfuly created');
             }
         });
+    });
+
+    // Update user display_name.
+    app.post('/api/update-user-displayname/', function(request, response) {
+        User.update({_id: request.body.userId}, {display_name: request.body.newDisplayName}, function(err) {
+            if(err) {
+                console.log('error creating sim');
+            } else {
+                console.log('User display_name successfully updated');
+            }
+        });
+    });
+
+    // Delete setup.
+    app.post('/api/delete-setup/', function(request, response) {
+        console.log('delete setup id: ' + request.body.setupId)
+        Setup.findOne({_id: request.body.setupId})
+            .remove()
+            .exec();
     });
 
     // var newSim = new Sim({

@@ -1,0 +1,58 @@
+div(class="fullwidth-wrapper orange")
+    div.content-wrapper
+        div.breadcrumbs-wrapper
+            a(href="#/", class="link breadcrumbs-item") Home
+            span(class="breadcrumbs-item current") Profile
+
+div(class="fullwidth-wrapper profile")
+
+div(class="fullwidth-wrapper white padded")
+    div.content-wrapper
+
+        aside.left-aside
+            div.aside-item
+                h2(class="section-title", ng-if="user.own_profile") / Your stats
+                h2(class="section-title", ng-if="!user.own_profile") / {{ user.display_name }}'s stats
+
+                ul.profile-stats-list
+                    li.profile-stats-list-item
+                        div.profile-stats-circle
+                            span.profile-stats-circle-inner {{ setups_count }}
+                        span.profile-stats-list-title Number of setup posted
+                    li.profile-stats-list-item
+                        div.profile-stats-circle
+                            span.profile-stats-circle-inner {{ total_downloads }}
+                        span.profile-stats-list-title Total downloads
+
+            div(class="profile-changes-wrapper aside-item", ng-if="user.own_profile")
+                h2.section-title / Change your profile
+
+                ul.profile-changes-list
+                    li.profile-changes-list-item
+                        label(for="profile-change-username", class="label-block") Username
+                        input(id="profile-change-username", class="form-textfield",placeholder="Enter your desired username")
+                        div(class="profile-change-username-msg-box msg-box")
+                        button(type="button", class="form-submitbutton", ng-click="updateUsername()") Update
+
+                    //- li Change your nationality
+
+        div.profile-setupList
+            h2.section-title / Your uploaded setups
+
+            table.setupList-setups-table
+                tr
+                    th / Actions
+                    th / Car
+                    th / Track
+                    th / Type
+                    th / Downloads
+
+                tr(ng-repeat="setup in setups | filter:{ car:filter_query.car||undefined, track:filter_query.track||undefined, author:filter_query.author, type:filter_query.type||undefined } | orderBy:'author'")
+                    td
+                        a(href="setup_files/{{ sim_infos._id }}/{{ setup.file_name }}", class="link icon-download") download
+                        a(href="#/setups/{{ sim_name }}/{{ setup._id }}/", class="link icon-details") See details
+                        a(class="link icon-error no-href", ng-click="deleteSetup(setup._id)") Delete
+                    td {{ setup.car }}
+                    td {{ setup.track }}
+                    td {{ setup.type }}
+                    td {{ setup.downloads }}

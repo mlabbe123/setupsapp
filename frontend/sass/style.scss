@@ -27,6 +27,17 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+aside {
+    &.left-aside {
+        @include span(4);
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+
 // ===========================
 // Common
 // ===========================
@@ -71,6 +82,12 @@ body {
         background-size: cover;
     }
 
+    &.profile {
+        padding: $padding_mega * 1.5 0;
+        background: url('../images/register_bg.jpg');
+        background-size: cover;
+    }
+
     &.padded {
         padding: $padding * 1.5 0;
     }
@@ -100,6 +117,11 @@ body {
 
     margin-top: -4.5rem;
 }
+
+.aside-item {
+    margin-bottom: $padding * 2;
+}
+
 
 // ===========================
 // Site Header
@@ -182,11 +204,11 @@ footer {
 }
 
 .setupList-setups-wrapper {
-    @include span(10 at 3);
+    @include span(9 at 4);
 }
 
 .setupList-setups-table {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     color: $bg_color;
 
@@ -246,4 +268,69 @@ footer {
 
 .setupDetail-indepth {
     @include span(6 at 7);
+}
+
+
+// ===========================
+// Profile page specific content
+// ===========================
+
+.profile-stats-list-item {
+    margin-bottom: $padding;
+}
+
+.profile-stats-list-title{
+    margin-left: $padding;
+    line-height: 2rem;
+    color: $primary_color;
+    font-size: 1.2rem;
+}
+
+.profile-stats-circle {
+    display: inline-block;
+    border-width: 4px;
+    border-color: $primary_color;
+    border-radius: 100%;
+    border-style: solid;
+
+    .profile-stats-circle-inner {
+        display: inline-block;
+        width: $padding * 2;
+        line-height: $padding * 2;
+        text-align: center;
+        color: $primary_color;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+}
+
+
+.profile-changes-wrapper {
+    .label-block {
+        font-size: 1.2rem;
+        color: $primary_color;
+    }
+
+    .msg-box {
+        margin-bottom: $padding;
+    }
+}
+
+.profile-setupList {
+    @include span(8 at 5);
+}
+
+.profile-changes-list,
+.profile-stats-list {
+    padding-left: $padding * 1.9;
+}
+
+.profile-changes-list-item {
+    margin-bottom: $padding * 2;
+}
+
+.profile-changes-list-separator {
+    height: 2px;
+    background-color: lighten($primary_color, 30);
+    margin-bottom: $padding * 1.5;
 }

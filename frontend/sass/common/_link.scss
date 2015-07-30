@@ -50,4 +50,8 @@
     &:hover {
         color: $secondary_color;
     }
+
+    &.no-href {
+        cursor: pointer;
+    }
 }

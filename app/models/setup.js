@@ -20,7 +20,11 @@ var setupSchema = new mongoose.Schema({
     type: String,
     best_time: String,
     comments: String,
-    file_name: String
+    file_name: String,
+    downloads: {
+        type: Number,
+        default: 0
+    }
 });
 
 module.exports = mongoose.model('Setup', setupSchema);
