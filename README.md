@@ -17,8 +17,14 @@ Before release:
         - Profile
         - Submit setup
         - setup detail page
+        - Sign in
+        - register
 
     - Finish setup detail page
+
+    - Enhance profile page
+        - Better deleting setup process
+        - Better way of indentifying setup (maybe show the file name in the listings)
 
     - Footer
 
@@ -30,6 +36,8 @@ After Release:
         - Filters for setuplist
 
         - Bulk actions (delete multiple setups)
+
+        - Modify setup?
 
         - Stats:
             - Animations for stats numbers
