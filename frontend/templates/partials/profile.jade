@@ -42,6 +42,7 @@ div(class="fullwidth-wrapper white padded")
             table.setupList-setups-table
                 tr
                     th / Actions
+                    th / Sim
                     th / Car
                     th / Track
                     th / Type
@@ -49,9 +50,10 @@ div(class="fullwidth-wrapper white padded")
 
                 tr(ng-repeat="setup in setups | filter:{ car:filter_query.car||undefined, track:filter_query.track||undefined, author:filter_query.author, type:filter_query.type||undefined } | orderBy:'author'")
                     td
-                        a(href="setup_files/{{ sim_infos._id }}/{{ setup.file_name }}", class="link icon-download") download
-                        a(href="#/setups/{{ sim_name }}/{{ setup._id }}/", class="link icon-details") See details
-                        a(class="link icon-error no-href", ng-click="deleteSetup(setup._id)") Delete
+                        a(href="setup_files/{{ sim_infos._id }}/{{ setup.file_name }}", class="link icon-download")
+                        a(href="#/setups/{{ sim_name }}/{{ setup._id }}/", class="link icon-details")
+                        a(class="link icon-error no-href", ng-click="deleteSetup(setup._id)")
+                    td {{ setup.sim.display_name }}
                     td {{ setup.car }}
                     td {{ setup.track }}
                     td {{ setup.type }}
