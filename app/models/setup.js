@@ -21,6 +21,10 @@ var setupSchema = new mongoose.Schema({
     best_time: String,
     comments: String,
     file_name: String,
+    added_date: {
+        timestamp: Date,
+        display_time: String
+    },
     downloads: {
         type: Number,
         default: 0

@@ -5,10 +5,6 @@ TODO
 
 Before release:
 
-    - unique display_name!
-
-    - Create recover password process.
-
     - Create confirm account with email?
 
     - QA responsive
@@ -20,11 +16,12 @@ Before release:
         - Sign in
         - register
 
+    - Better naming of setup. To avoid duplicate file_name, should rename the setup with its id from mongodb, then rename it to its original file_name before downloading.
+
     - Finish setup detail page
 
     - Enhance profile page
         - Better deleting setup process
-        - Better way of indentifying setup (maybe show the file name in the listings)
 
     - Footer
 

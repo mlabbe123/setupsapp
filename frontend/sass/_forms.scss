@@ -136,7 +136,7 @@ form {
         border: none;
         background-color: transparent;
         color: $primary_color;
-        font-size: 1.1em;
+        font-size: 1.2rem;
     }
 }
 
@@ -181,6 +181,13 @@ form {
         height: $padding * 3;
         opacity: 0;
     }
+}
+
+.form-title-msg {
+    margin-bottom: $padding * 2;
+    text-align: center;
+    color: $primary_color;
+    font-size: 1.5rem;
 }
 
 .form-fileupload-info {

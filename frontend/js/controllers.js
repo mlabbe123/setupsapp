@@ -32,8 +32,8 @@ setupsSharingAppControllers.controller('setupListCtrl', function($scope, $routeP
             console.log(status)
         });
 
-    // Get all the filters.
-    $http.get('/api/get-setups-filters/' + $routeParams.simName).
+    // Get all the setup filters.
+    $http.get('/api/get-setups-filters-by-simname/' + $routeParams.simName).
         success(function(data, status, headers, config) {
             console.log(data)
             $scope.setup_filters = data;
@@ -122,31 +122,6 @@ setupsSharingAppControllers.controller('setupDetailCtrl', function($scope, $rout
     $scope.sim_name = $routeParams.simName;
 });
 
-setupsSharingAppControllers.controller('userProfileCtrl', function($scope, $routeParams, $http) {
-console.log('in the userProfileCtrl yeah')
-    // Get all the setups for the current user.
-    // $http.get('/api/get-setups/' + $routeParams.simName).
-    //     success(function(data, status, headers, config) {
-    //         console.log(data)
-    //         $scope.setups = data;
-    //     }).
-    //     error(function(data, status, headers, config) {
-    //         console.log(status)
-    //     });
-
-    // Get all the filters.
-    // $http.get('/api/get-setups-filters/' + $routeParams.simName).
-    //     success(function(data, status, headers, config) {
-    //         console.log(data)
-    //         $scope.setup_filters = data;
-    //     }).
-    //     error(function(data, status, headers, config) {
-    //         console.log(status)
-    //     });
-
-    $scope.sim_name = $routeParams.simName;
-});
-
 setupsSharingAppControllers.controller('submitSetupCtrl', function($scope, $routeParams, SimService) {
 
     SimService.returnSimsFullData().then(function(result) {
@@ -160,31 +135,16 @@ setupsSharingAppControllers.controller('submitSetupCtrl', function($scope, $rout
         angular.element(event.srcElement.parentElement.querySelector('#setup-file-hidden')).val(filename);
     }
 
-    //Setting first option as selected in configuration select
-    // $scope.setup.sim = $scope.setup.sims[0];
-
-    // Get all the filters.
-    // $http.get('/api/get-setups-filters/' + $routeParams.simName).
-    //     success(function(data, status, headers, config) {
-    //         console.log(data)
-    //         $scope.setup_filters = data;
-    //     }).
-    //     error(function(data, status, headers, config) {
-    //         console.log(status)
-    //     });
-
     $scope.sim_name = $routeParams.simName;
 });
 
-setupsSharingAppControllers.controller('profileCtrl', function($scope, $routeParams, $http) {
-    console.log($routeParams);
+setupsSharingAppControllers.controller('userProfileCtrl', function($scope, $routeParams, $http) {
 
     var logged_user_id = angular.element(document.querySelector('#logged-userid')).val();
 
     // Get user information.
     $http.get('/api/get-user-by-id/' + $routeParams.userid)
         .success(function(data, status, headers, config) {
-            console.log(data);
             $scope.user = data;
 
             // If the user is logged in and on it's own profile page.
@@ -203,7 +163,6 @@ setupsSharingAppControllers.controller('profileCtrl', function($scope, $routePar
     // Get every setups for the user.
     $http.get('/api/get-setups-by-user/' + $routeParams.userid)
         .success(function(data, status, headers, config) {
-            console.log(data);
             $scope.setups = data;
 
             var total_downloads = 0;
@@ -212,6 +171,7 @@ setupsSharingAppControllers.controller('profileCtrl', function($scope, $routePar
                 setup.car = setup.car.name;
                 setup.track = setup.track.name;
                 setup.author = setup.author.display_name;
+                setup.sim = setup.sim.display_name;
 
                 total_downloads += setup.downloads;
             });
@@ -220,6 +180,15 @@ setupsSharingAppControllers.controller('profileCtrl', function($scope, $routePar
             $scope.total_downloads = total_downloads;
         })
         .error(function(data, status, headers, config) {
+            console.log(status)
+        });
+
+    // Get all the setup filters.
+    $http.get('/api/get-setups-filters-by-userid/' + $routeParams.userid).
+        success(function(data, status, headers, config) {
+            $scope.setup_filters = data;
+        }).
+        error(function(data, status, headers, config) {
             console.log(status)
         });
 
@@ -263,7 +232,18 @@ setupsSharingAppControllers.controller('profileCtrl', function($scope, $routePar
 
                 console.log(status)
             });
+
+        // Remove from the DOM.
+        angular.element(event.srcElement.parentElement.parentElement).remove();
     }
+
+    $scope.predicate = 'added_date.timestamp';
+    $scope.reverse = true;
+
+    $scope.order = function(predicate) {
+        $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+        $scope.predicate = predicate;
+    };
 });
 
 setupsSharingAppControllers.controller('adminCtrl', function($scope, $routeParams) {

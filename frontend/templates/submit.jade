@@ -23,7 +23,7 @@ block mainContent
                     div.field-block
                         label(for="simSelect", class="form-label") Simulation :
                         div.form-select-wrapper
-                            select(id="simSelect", name="sim", ng-model="sim", ng-options="sim.name for sim in sims track by sim.id", ng-change="onSimSelectChange(this, sim)")
+                            select(id="simSelect", name="sim", ng-model="sim", ng-options="sim.display_name for sim in sims track by sim.id", ng-change="onSimSelectChange(this, sim)")
                                 option(value="") - Select -
 
                     div.field-block

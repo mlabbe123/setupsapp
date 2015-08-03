@@ -21,7 +21,7 @@ setupsSharingApp.config(['$routeProvider', '$locationProvider', function($routeP
         })
         .when('/profile/:userid', {
             templateUrl: 'partials/profile.html',
-            controller: 'profileCtrl'
+            controller: 'userProfileCtrl'
         })
         .when('/admin', {
             templateUrl: 'partials/admin/home.html'

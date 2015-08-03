@@ -21,15 +21,32 @@ setupsSharingAppServices.service('SimService', ['$http', '$q',
         SimService.returnSimsFullData = function() {
 
             return $q.all([allSims, allCars, allTracks]).then(function(values) {
-
                 var sims = [];
 
                 _.forEach(values[0].data, function(sim) {
+                    // Searching for every cars that matches the sim id.
+                    var simCars = [];
+
+                    _.forEach(values[1].data, function(car) {
+                        if(car.sim._id === sim._id) {
+                            simCars.push(car);
+                        }
+                    });
+
+                    // Searching for every tracks that matches the sim id.
+                    var simTracks = [];
+
+                    _.forEach(values[2].data, function(track) {
+                        if(track.sim._id === sim._id) {
+                            simTracks.push(track);
+                        }
+                    });
+
                     sims.push({
-                        name: sim.name,
+                        display_name: sim.display_name,
                         id: sim._id,
-                        cars: _.filter(values[1].data, {'sim': sim._id}),
-                        tracks: _.filter(values[2].data, {'sim': sim._id})
+                        cars: simCars,
+                        tracks: simTracks
                     });
                 });
 
