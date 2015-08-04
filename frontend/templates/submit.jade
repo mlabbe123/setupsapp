@@ -17,7 +17,7 @@ block mainContent
                     strong #{message}
 
             div.fullwidth-form
-                form(action="/submit-setup", method="post", enctype = "multipart/form-data")
+                form(action="/submit-setup", method="post", enctype="multipart/form-data")
                     input(id="author-field", type="hidden", name="user_id", value="#{user._id}")
 
                     div.field-block

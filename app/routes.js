@@ -9,7 +9,10 @@ module.exports = function(app, passport) {
                 pass: 'GlaspRob321'
             }
         }),
+        multer = require('multer'),
+        upload = multer({ dest: path.join(__dirname, '../setups_files/') }),
 
+        // Models
         Sim = require('./models/sim'),
         User = require('./models/user'),
         Car = require('./models/car'),
@@ -129,9 +132,10 @@ module.exports = function(app, passport) {
     });
 
     // Setup form submission.
-    app.post('/submit-setup', isUserLoggedIn, function(request, response) {
+    app.post('/submit-setup', isUserLoggedIn, upload.single('setup_file'), function(request, response, next) {
 
-        if(request.files.setup_file === undefined) {
+        // If no setup file attached.
+        if(request.file === undefined) {
             response.render('submit', {
                 user: request.user,
                 message: 'Please attach a valid setup file.'
@@ -139,6 +143,7 @@ module.exports = function(app, passport) {
         } else {
             var now = new Date();
 
+            // New setup object.
             var newSetup = new Setup({
                 author: request.body.user_id,
                 sim: request.body.sim,
@@ -147,28 +152,36 @@ module.exports = function(app, passport) {
                 type: request.body.trim,
                 best_time: request.body.best_time,
                 comments: request.body.comments,
-                file_name: request.files.setup_file.originalname,
+                file_name: request.body.setup_name,
                 added_date: {
                     timestamp: now,
                     display_time: now.yyyymmdd()
                 }
             });
 
+            // Save the setup in db.
             newSetup.save(function(err, setup) {
                 if(err) {
                     console.log('Error creating setup.')
                 } else {
+                    // Setup is in db, file is uploaded, time to rename and move the file in the sim directory.
                     console.log('Setup successfuly created.', setup)
+
+                    // Filename of the new setup file will be its id in the db.
+                    var setupFileNewName = setup._id;
+
+                    // Directory the setup file will be move to.
+                    var setupFilePath = path.join(__dirname, '../setups_files/', setup.sim.toString(), '/');
+
+                    // Move and rename the file.
+                    fs.rename(request.file.destination + request.file.filename, setupFilePath + setupFileNewName);
+
+                    response.render('submit', {
+                        user: request.user,
+                        message: 'Setup successfully uploaded'
+                    });
                 }
             });
-
-            // Upload of the file.
-            if(done==true){
-                response.render('submit', {
-                    user: request.user,
-                    message: 'Setup successfully uploaded'
-                });
-            }
         }
     });
 
@@ -300,7 +313,6 @@ module.exports = function(app, passport) {
             if(err){
                 return console.log(err);
             } else {
-                console.log(users);
                 return response.send(users);
             }
         });
@@ -481,7 +493,6 @@ module.exports = function(app, passport) {
             if(err){
                 return console.log(err);
             } else {
-                console.log(cars)
                 return response.send(cars);
             }
         });
@@ -536,57 +547,10 @@ module.exports = function(app, passport) {
             .exec();
     });
 
-    // var newSim = new Sim({
-    //     name: 'Assetto Corsa',
 
-    // });
-    // newSim.save(function(err) {
-    //     if(err) {
-    //         console.log('error creating sim');
-    //     } else {
-    //         console.log('Sim successfuly created');
-    //     }
-    // });
-
-    // Insert new car for given sim (sim has to be a parameter)
-    // Sim.findOne({'name': 'Assetto Corsa'}, function(err, sim) {
-    //     var newCar = new Car({
-    //         sim: sim._id,
-    //         name: 'Ferrari F40',
-    //         category: 'Road'
-    //     });
-    //     newCar.save(function(err) {
-    //         if(err) {
-    //             console.log('error creating car');
-    //         } else {
-    //             console.log('Car successfuly created');
-    //         }
-    //     });
-    // });
-
-    // Insert new track for given sim (sim has to be a parameter)
-    // Sim.findOne({'name': 'Assetto Corsa'}, function(err, sim) {
-    //     var newTrack = new Track({
-    //         sim: sim._id,
-    //         name: 'Mugello'
-    //     });
-    //     newTrack.save(function(err) {
-    //         if(err) {
-    //             console.log('error creating track');
-    //         } else {
-    //             console.log('Track successfuly created');
-    //         }
-    //     });
-    // });
-
-    // Setup.find({}).
-    //     populate('author').
-    //     populate('car').
-    //     populate('track').
-    //     populate('sim').
-    //     exec(function(err, setups) {
-    //         console.log(JSON.stringify(setups, null, "\t"))
-    //     });
+    // =============================
+    // Functions
+    // =============================
 
     // Function to verify if user is logged in.
     function isUserLoggedIn(request, response, next) {
