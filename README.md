@@ -16,7 +16,9 @@ Before release:
         - Sign in
         - register
 
-    - Better naming of setup. To avoid duplicate file_name, should rename the setup with its id from mongodb, then rename it to its original file_name before downloading.
+    - Better naming of setup.
+        - To avoid duplicate file_name, should rename the setup with its id from mongodb DONE
+        - then rename it to its original file_name before downloading.
 
     - Finish setup detail page
 
