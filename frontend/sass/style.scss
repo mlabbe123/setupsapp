@@ -213,12 +213,44 @@ footer {
             }
         }
 
-        &:nth-child(even) {
-            background-color: lighten($secondary_color, 10);
+        &:nth-child(10n+1) {
+            background-color: desaturate($secondary_color, 3)
         }
 
-        &:nth-child(odd) {
-            background-color: lighten($secondary_color, 5);
+        &:nth-child(10n+2) {
+            background-color: desaturate($secondary_color, 24)
+        }
+
+        &:nth-child(10n+3) {
+            background-color: desaturate($secondary_color, 9)
+        }
+
+        &:nth-child(10n+4) {
+            background-color: desaturate($secondary_color, 12)
+        }
+
+        &:nth-child(10n+5) {
+            background-color: desaturate($secondary_color, 21)
+        }
+
+        &:nth-child(10n+6) {
+            background-color: saturate($secondary_color, 5)
+        }
+
+        &:nth-child(10n+7) {
+            background-color: desaturate($secondary_color, 6)
+        }
+
+        &:nth-child(10n+8) {
+            background-color: desaturate($secondary_color, 18)
+        }
+
+        &:nth-child(10n+9) {
+            background-color: desaturate($secondary_color, 15)
+        }
+
+        &:nth-child(10n) {
+            background-color: $secondary_color;
         }
 
         &:first-child {
@@ -307,18 +339,20 @@ footer {
     border-color: $primary_color;
     border-radius: 100%;
     border-style: solid;
+    background-color: lighten($primary_color, 45%);
 
     .profile-stats-circle-inner {
+        position: relative;
+        left: -1px;
         display: inline-block;
-        width: $padding * 2;
-        line-height: $padding * 2;
+        width: $padding * 3;
+        line-height: $padding * 3;
         text-align: center;
         color: $primary_color;
         font-size: 1.2rem;
         font-weight: bold;
     }
 }
-
 
 .profile-changes-wrapper {
     .label-block {
