@@ -70,4 +70,6 @@ block mainContent
                         div.form-input-wrapper
                             textarea(id="comments", name="comments", class="form-textarea", rows="8", placeholder="Some usefull comments...")
 
+                    input(type="checkbox", name="botcheck", class="form-botcheck")
+
                     button(type="submit", class="form-submitbutton", ng-disabled="!sim||!cars||!tracks") Submit

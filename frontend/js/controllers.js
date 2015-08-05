@@ -57,9 +57,9 @@ setupsSharingAppControllers.controller('setupListCtrl', function($scope, $routeP
 setupsSharingAppControllers.controller('setupDetailCtrl', function($scope, $routeParams, $http) {
 
     // Get the sim id.
-    $http.get('/api/get-sim-id/' + $routeParams.simName).
+    $http.get('/api/get-sim-infos/' + $routeParams.simName).
         success(function(data, status, headers, config) {
-            $scope.simId = data;
+            $scope.simId = data._id;
         }).
         error(function(data, status, headers, config) {
             console.log(status);
@@ -163,19 +163,20 @@ setupsSharingAppControllers.controller('userProfileCtrl', function($scope, $rout
     // Get every setups for the user.
     $http.get('/api/get-setups-by-user/' + $routeParams.userid)
         .success(function(data, status, headers, config) {
-            $scope.setups = data;
 
             var total_downloads = 0;
 
-             _.forEach(data, function(setup) {
+            _.forEach(data, function(setup) {
                 setup.car = setup.car.name;
                 setup.track = setup.track.name;
                 setup.author = setup.author.display_name;
+                setup.simid = setup.sim._id;
                 setup.sim = setup.sim.display_name;
 
                 total_downloads += setup.downloads;
             });
 
+            $scope.setups = data;
             $scope.setups_count = $scope.setups.length;
             $scope.total_downloads = total_downloads;
         })
@@ -226,15 +227,16 @@ setupsSharingAppControllers.controller('userProfileCtrl', function($scope, $rout
                 console.log(status)
 
                 // Tell the user the setup has been deleted.
+
+
+                // Remove from the DOM.
+                angular.element(event.srcElement.parentElement.parentElement).remove();
             })
             .error(function(data, status, headers, config) {
                 // Tell the user an error occured.
 
                 console.log(status)
             });
-
-        // Remove from the DOM.
-        angular.element(event.srcElement.parentElement.parentElement).remove();
     }
 
     $scope.predicate = 'added_date.timestamp';

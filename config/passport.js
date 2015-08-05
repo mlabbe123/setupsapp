@@ -98,6 +98,11 @@ module.exports = function(passport) {
     },
     function(request, email, password, done) { // callback with email and password from our form
 
+        // Hidden checkbox bot protection.
+        if(request.body.botcheck !== undefined) {
+            return done(null, false, request.flash('loginMessage', 'Are you real?'));
+        }
+
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
         User.findOne({ email :  email }, function(err, user) {

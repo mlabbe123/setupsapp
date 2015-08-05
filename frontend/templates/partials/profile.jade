@@ -74,9 +74,9 @@ div(class="fullwidth-wrapper white padded")
 
                 tr(ng-repeat="setup in setups | filter:{ sim:filter_query.sim||undefined, car:filter_query.car||undefined, track:filter_query.track||undefined, type:filter_query.type||undefined } | orderBy:predicate:reverse")
                     td
-                        a(href="setup_files/{{ setup.sim._id }}/{{ setup._id }}", class="link icon-download")
-                        a(href="#/setups/{{ setup.sim.display_name }}/{{ setup._id }}/", class="link icon-details")
-                        a(class="link icon-error no-href", ng-click="deleteSetup(setup._id)")
+                        a(href="setup_files/{{ setup.simid }}/{{ setup._id }}", class="link icon-download")
+                        a(href="#/setups/{{ setup.sim }}/{{ setup._id }}/", class="link icon-details")
+                        a(class="link icon-error no-href", ng-click="deleteSetup(setup._id)", ng-show="user.own_profile")
                     td {{ setup.file_name }}
                     td {{ setup.sim }}
                     td {{ setup.car }}

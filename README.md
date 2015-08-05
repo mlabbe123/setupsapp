@@ -7,8 +7,6 @@ Before release:
 
     - Create confirm account with email?
 
-    - QA responsive
-
     - Add pre-content images
         - Profile
         - Submit setup
@@ -16,10 +14,11 @@ Before release:
         - Sign in
         - register
 
-    - Enhance profile page
-        - Better deleting setup process
-
     - Footer
+
+    - Better solution for profile stats numbers in circle.
+
+    - QA responsive
 
     - htaccess
 
@@ -28,7 +27,14 @@ Before release:
 
 After Release:
 
-    - Finish setup detail page (Maybe later?)
+    - Enhance profile page
+        - Better deleting setup process
+
+    - Tooltip module
+
+    - Notification module
+
+    - Finish setup detail page
 
     - Enhance profile page
 

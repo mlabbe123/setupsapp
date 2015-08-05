@@ -147,6 +147,13 @@ module.exports = function(app, passport) {
     // Setup form submission.
     app.post('/submit-setup', isUserLoggedIn, upload.single('setup_file'), function(request, response, next) {
 
+        if (request.body.botcheck !== undefined) {
+            response.render('submit', {
+                user: request.user,
+                message: 'Are you real?'
+            });
+        }
+
         // If no setup file attached.
         if(request.file === undefined) {
             response.render('submit', {
@@ -555,9 +562,14 @@ module.exports = function(app, passport) {
     // Delete setup.
     app.post('/api/delete-setup/', function(request, response) {
         console.log('delete setup id: ' + request.body.setupId)
-        Setup.findOne({_id: request.body.setupId})
-            .remove()
-            .exec();
+        Setup.remove({_id: request.body.setupId}, function(err) {
+            if(err) {
+                return response.send('error');
+            } else {
+                return response.send('ok');
+            }
+        });
+
     });
 
 
