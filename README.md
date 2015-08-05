@@ -16,12 +16,6 @@ Before release:
         - Sign in
         - register
 
-    - Better naming of setup.
-        - To avoid duplicate file_name, should rename the setup with its id from mongodb DONE
-        - then rename it to its original file_name before downloading.
-
-    - Finish setup detail page
-
     - Enhance profile page
         - Better deleting setup process
 
@@ -29,10 +23,14 @@ Before release:
 
     - htaccess
 
+    - server logs
+
+
 After Release:
 
+    - Finish setup detail page (Maybe later?)
+
     - Enhance profile page
-        - Filters for setuplist
 
         - Bulk actions (delete multiple setups)
 
@@ -54,3 +52,7 @@ After Release:
     - Add angular animate
 
     - Create setup rating system? Since setups are a personal preferences, not sure if necessary. Maybe a report bad or corrupted setup instead?
+
+    - Tidy up angular code with directives.
+
+    - Tidy up sass code.

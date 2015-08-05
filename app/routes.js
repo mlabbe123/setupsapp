@@ -10,7 +10,13 @@ module.exports = function(app, passport) {
             }
         }),
         multer = require('multer'),
-        upload = multer({ dest: path.join(__dirname, '../setups_files/') }),
+        upload = multer({
+            dest: path.join(__dirname, '../setups_files/'),
+            limits: {
+                files: 1,
+                filesize: 10000
+            }
+        }),
 
         // Models
         Sim = require('./models/sim'),
@@ -68,9 +74,9 @@ module.exports = function(app, passport) {
     });
 
     // Download setups.
-    app.get('/setup_files/:simid/:filename', function(request, response) {
+    app.get('/setup_files/:simid/:setupid', function(request, response) {
         // Up the download counter on the setup in db.
-        Setup.update({file_name: request.params.filename, sim: request.params.simid}, {$inc: {downloads: 1}}, function(err, numAffected) {
+        Setup.update({_id: request.params.setupid, sim: request.params.simid}, {$inc: {downloads: 1}}, function(err, numAffected) {
             if(err) {
                 console.log(err)
             } else {
@@ -78,9 +84,16 @@ module.exports = function(app, passport) {
             }
         });
 
-        // Download the file
-        var file = './setups_files/' + request.params.simid + '/' + request.params.filename;
-        response.download(file);
+        // Get the setup by id, to rename the file to its original name before download.
+        Setup.findOne({_id: request.params.setupid}, function(err, setup) {
+            if(err) {
+                console.log(err);
+            } else {
+                // Download the file and rename it.
+                var file = './setups_files/' + request.params.simid + '/' + request.params.setupid;
+                response.download(file, setup.file_name);
+            }
+        });
     });
 
     // Recover password route.

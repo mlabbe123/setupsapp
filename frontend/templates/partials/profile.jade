@@ -45,7 +45,7 @@ div(class="fullwidth-wrapper white padded")
                     th / Actions
                     th
                         span(class="orderable", ng-click="order('file_name')")
-                            / File Name
+                            span / File Name
                             i(ng-class="{'icon-downarrow':reverse && predicate === 'file_name', 'icon-uparrow':!reverse && predicate === 'file_name'}")
                     th
                         div.form-select-wrapper
@@ -65,16 +65,16 @@ div(class="fullwidth-wrapper white padded")
                                 option(value="") / All trims
                     th
                         span(class="orderable", ng-class="{reverse:reverse}", ng-click="order('downloads')")
-                            / Downloads
+                            span / Downloads
                             i(ng-class="{'icon-downarrow':reverse && predicate === 'downloads', 'icon-uparrow':!reverse && predicate === 'downloads'}")
                     th
                         span(class="orderable", ng-class="{reverse:reverse}", ng-click="order('added_date.timestamp')")
-                            / Added date
+                            span / Added date
                             i(ng-class="{'icon-downarrow':reverse && predicate === 'added_date.timestamp', 'icon-uparrow':!reverse && predicate === 'added_date.timestamp'}")
 
                 tr(ng-repeat="setup in setups | filter:{ sim:filter_query.sim||undefined, car:filter_query.car||undefined, track:filter_query.track||undefined, type:filter_query.type||undefined } | orderBy:predicate:reverse")
                     td
-                        a(href="setup_files/{{ setup.sim._id }}/{{ setup.file_name }}", class="link icon-download")
+                        a(href="setup_files/{{ setup.sim._id }}/{{ setup._id }}", class="link icon-download")
                         a(href="#/setups/{{ setup.sim.display_name }}/{{ setup._id }}/", class="link icon-details")
                         a(class="link icon-error no-href", ng-click="deleteSetup(setup._id)")
                     td {{ setup.file_name }}
