@@ -8,7 +8,8 @@ var setupsSharingApp = angular.module('setupsSharingApp', [
 setupsSharingApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', {
-            templateUrl: 'partials/home.html'
+            templateUrl: 'partials/home.html',
+            controller: 'homeCtrl'
         })
         .when('/setups/:simName', {
             templateUrl: 'partials/simpage.html',

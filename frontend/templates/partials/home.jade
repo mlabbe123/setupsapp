@@ -11,9 +11,6 @@ div(class="fullwidth-wrapper green")
 div(class="fullwidth-wrapper green")
      div.content-wrapper
         div.simSelection-simwrapper
-            a(href="#/setups/iRacing", class="simSelection-simwrapper-item")
-                img(src="images/logo_iracing.png")
-            a(href="#/setups/Assetto Corsa", class="simSelection-simwrapper-item")
-                img(src="images/logo_ac.png")
-            a(href="#/setups/pcars", class="simSelection-simwrapper-item")
-                img(src="images/logo_rf2.png")
+            div(ng-repeat="sim in sims", class="simSelection-simwrapper-item")
+                a(href="#/setups/{{ sim.display_name }}")
+                    img(src="images/logo_{{ sim.code }}.png")

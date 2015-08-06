@@ -5,6 +5,19 @@
 var setupsSharingAppControllers = angular.module('setupsSharingAppControllers', []);
 
 
+setupsSharingAppControllers.controller('homeCtrl', function($scope, $http) {
+
+    // Get every sims.
+    $http.get('/api/get-all-sims/')
+        .success(function(data, status, headers, config) {
+            console.log(data)
+            $scope.sims = data;
+        })
+        .error(function(data, status, headers, config) {
+            console.log(status);
+        });
+});
+
 setupsSharingAppControllers.controller('setupListCtrl', function($scope, $routeParams, $http) {
 
     // Get the sim infos.
