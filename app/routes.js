@@ -193,13 +193,48 @@ module.exports = function(app, passport) {
                     // Directory the setup file will be move to.
                     var setupFilePath = path.join(__dirname, '../setups_files/', setup.sim.toString(), '/');
 
-                    // Move and rename the file.
-                    fs.rename(request.file.destination + request.file.filename, setupFilePath + setupFileNewName);
+                    // Check if path exists, if not, create the dir.
+                    fs.exists(setupFilePath, function(exists) {
+                        if(!exists) {
+                            fs.mkdir(setupFilePath, function() {
+                                console.log(setupFilePath, ' directory created');
 
-                    response.render('submit', {
-                        user: request.user,
-                        message: 'Setup successfully uploaded'
-                    });
+                                // Move and rename the file.
+                                fs.rename(request.file.destination + request.file.filename, setupFilePath + setupFileNewName, function(err) {
+                                    if(err) {
+                                        console.log(err)
+                                        response.render('submit', {
+                                            user: request.user,
+                                            message: 'There has been an error, please try again.'
+                                        });
+                                    } else {
+                                        console.log('Setup moved and renamed.');
+                                        response.render('submit', {
+                                            user: request.user,
+                                            message: 'Setup successfully uploaded'
+                                        });
+                                    }
+                                });
+                            });
+                        } else {
+                            // Move and rename the file.
+                            fs.rename(request.file.destination + request.file.filename, setupFilePath + setupFileNewName, function(err) {
+                                if(err) {
+                                    console.log(err)
+                                    response.render('submit', {
+                                        user: request.user,
+                                        message: 'There has been an error, please try again.'
+                                    });
+                                } else {
+                                    console.log('Setup moved and renamed.');
+                                    response.render('submit', {
+                                        user: request.user,
+                                        message: 'Setup successfully uploaded'
+                                    });
+                                }
+                            });
+                        }
+                    })
                 }
             });
         }
@@ -544,6 +579,42 @@ module.exports = function(app, passport) {
                 console.log('error creating sim');
             } else {
                 console.log('Sim successfuly created');
+                return response.send('ok');
+            }
+        });
+    });
+
+    // Add new car.
+    app.post('/api/add-car/', function(request, response) {
+        var newCar = new Car({
+            sim: request.body.sim,
+            name: request.body.carName,
+            category: request.body.carCategory
+        });
+
+        newCar.save(function(err) {
+            if(err) {
+                console.log('error creating car');
+            } else {
+                console.log('Car successfuly created');
+                return response.send('ok');
+            }
+        });
+    });
+
+    // Add new track.
+    app.post('/api/add-track/', function(request, response) {
+        var newTrack = new Track({
+            sim: request.body.sim,
+            name: request.body.trackName
+        });
+
+        newTrack.save(function(err) {
+            if(err) {
+                console.log('error creating track');
+            } else {
+                console.log('Track successfuly created');
+                return response.send('ok');
             }
         });
     });

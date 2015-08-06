@@ -320,3 +320,49 @@ setupsSharingAppControllers.controller('addSimsCtrl', function($scope, $routePar
         }
     }
 });
+
+setupsSharingAppControllers.controller('addCarsCtrl', function($scope, $routeParams, $http) {
+    console.log('add cars');
+
+    // The POST reqeust is not triggering any callbacks since it is out of angular context (why?)
+    // http://stackoverflow.com/questions/17701503/angularjs-http-not-firing-get-call
+
+    $scope.addCar = function() {
+        if($scope.carName && $scope.carCategory) {
+            $http.post('/api/add-car/', {carName: $scope.carName, carCategory: $scope.carCategory, sim: '55c2cddddebcbba924bb2a34'})
+                .success(function(data, status, headers, config) {
+                    console.log('success')
+                    angular.element(document.querySelector('#msg-box')).html('Car successfully created.')
+                })
+                .error(function(data, status, headers, config) {
+                    console.log(status)
+                })
+                .catch(function(error) {
+                    console.log(error)
+                });
+        }
+    }
+});
+
+setupsSharingAppControllers.controller('addTracksCtrl', function($scope, $routeParams, $http) {
+    console.log('add tracks');
+
+    // The POST reqeust is not triggering any callbacks since it is out of angular context (why?)
+    // http://stackoverflow.com/questions/17701503/angularjs-http-not-firing-get-call
+
+    $scope.addTrack = function() {
+        if($scope.trackName) {
+            $http.post('/api/add-track/', {trackName: $scope.trackName, sim: '55c2cddddebcbba924bb2a34'})
+                .success(function(data, status, headers, config) {
+                    console.log('success')
+                    angular.element(document.querySelector('#msg-box')).html('Track successfully created.')
+                })
+                .error(function(data, status, headers, config) {
+                    console.log(status)
+                })
+                .catch(function(error) {
+                    console.log(error)
+                });
+        }
+    }
+});
