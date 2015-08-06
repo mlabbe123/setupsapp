@@ -535,8 +535,8 @@ module.exports = function(app, passport) {
     // Add new sim.
     app.post('/api/add-sim/', function(request, response) {
         var newSim = new Sim({
-            display_name: request.body.simCode,
-            code: request.body.simDisplayName
+            display_name: request.body.simDisplayName,
+            code: request.body.simCode
         });
 
         newSim.save(function(err) {
