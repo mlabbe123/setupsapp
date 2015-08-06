@@ -4,12 +4,12 @@ div.fullwidth-wrapper
             h1.jumbo-title // Welcome to The Setup Market
             h2.jumbo-title-subtitle The place to find sim racing setups.
 
-div(class="fullwidth-wrapper green")
+div(class="fullwidth-wrapper")
      div.content-wrapper
         h2.simSelection-title Choose your flavor
 
-div(class="fullwidth-wrapper green")
-     div.content-wrapper
+div(class="fullwidth-wrapper white_lined")
+    div.content-wrapper
         div.simSelection-simwrapper
             div(ng-repeat="sim in sims", class="simSelection-simwrapper-item")
                 a(href="#/setups/{{ sim.display_name }}")

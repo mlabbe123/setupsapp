@@ -54,7 +54,8 @@ body {
     }
 
     &.green {
-        background-color: transparentize($primary_color, 0.2);
+        background-color: $primary_color;
+        color: $bg_color;
     }
 
     &.orange {
@@ -88,35 +89,17 @@ body {
     &.padded {
         padding: $padding * 1.5 0;
     }
+
+    &.white_lined {
+        border-top: 5px solid $bg_color;
+    }
 }
 
 .content-wrapper {
     @include container;
 
-    //width: 1024px;
+    width: 90%;
     margin: 0 auto;
-
-    // @include xlarge-only {
-    //     width: 1220px;
-    // }
-
-    // @include huge {
-    //     width: 1500px;
-    // }
-
-    @include xlarge-and-above {
-        width: 90%;
-    }
-}
-
-.sim-presentation-title {
-    @include span(12);
-    color: $bg_color;
-    font-size: 5rem;
-    font-weight: 700;
-    line-height: 2.3rem;
-
-    margin-top: -4.5rem;
 }
 
 
@@ -130,12 +113,12 @@ header {
 
 // Main nav
 .main-nav-wrapper {
-    @include span(9 of 12);
+    @include span(6 of 12);
 }
 
 // Login box
 .login-box {
-    @include span(3 at 10 of 12);
+    @include span(6 at 7 of 12);
     text-align: right;
 }
 
@@ -144,9 +127,17 @@ header {
 // ===========================
 footer {
     padding: $padding 0;
-    background-color: $secondary_color;
-    color: $bg_color;
+    background-color: $bg_color;
+    color: $secondary_color;
     text-align: center;
+
+    .footer-email-link {
+        font-weight: 700;
+
+        &:hover {
+            color: $primary_color;
+        }
+    }
 }
 
 
@@ -166,26 +157,25 @@ footer {
     align-items: center;
     justify-content: space-around;
 
-    padding: $padding * 2 0 $padding * 4;
+    padding: $padding * 2 0;
 }
 
 .simSelection-simwrapper-item {
-    //flex-grow: 1;
-
     background-color: $bg_color;
-    border: 5px solid $secondary_color;
-    border-radius: 100%;
+    border: 5px solid $bg_color;
+    //border-radius: 100%;
+    transition: all 0.2s;
+
+    &:hover {
+        border: 5px solid $secondary_color;
+        background-color: $secondary_color;
+    }
 
     img {
         display: block;
         max-width: 250px;
         margin: 0 auto;
     }
-}
-
-.green {
-    background-color: $primary_color;
-    color: $bg_color;
 }
 
 
@@ -202,7 +192,7 @@ footer {
 }
 
 .setupList-setups-wrapper {
-    @include span(9 at 4);
+    @include span(10 at 3);
 }
 
 .setupList-setups-table {

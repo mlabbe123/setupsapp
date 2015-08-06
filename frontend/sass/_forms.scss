@@ -138,6 +138,10 @@ form {
         color: $primary_color;
         font-size: 1.2rem;
     }
+
+    .setupList-setups-table & {
+        margin-bottom: 0;
+    }
 }
 
 .form-submitbutton {

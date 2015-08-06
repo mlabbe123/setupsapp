@@ -14,13 +14,12 @@ Before release:
         - Sign in
         - register
 
-    - Footer
-
     - QA responsive
 
     - htaccess
 
     - server logs
+        - https://github.com/expressjs/morgan ?
 
 
 After Release:
