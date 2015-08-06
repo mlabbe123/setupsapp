@@ -127,15 +127,17 @@ header {
 // ===========================
 footer {
     padding: $padding 0;
-    background-color: $bg_color;
-    color: $secondary_color;
+    background-color: $primary_color;
+    border-top: 5px solid $bg_color;
+    color: $bg_color;
     text-align: center;
 
     .footer-email-link {
         font-weight: 700;
+        color: $secondary_color;
 
         &:hover {
-            color: $primary_color;
+            color: $bg_color;
         }
     }
 }
@@ -146,7 +148,7 @@ footer {
 // ===========================
 
 .mainpage-title {
-    padding: $padding_mega * 1.5 0;
+    padding: $padding_mega * 1.7 0;
     color: #fff;
 }
 
@@ -156,18 +158,14 @@ footer {
     flex-flow: center;
     align-items: center;
     justify-content: space-around;
-
-    padding: $padding * 2 0;
 }
 
 .simSelection-simwrapper-item {
-    background-color: $bg_color;
-    border: 5px solid $bg_color;
-    //border-radius: 100%;
+    border-left: 5px solid $bg_color;
+    border-right: 5px solid $bg_color;
     transition: all 0.2s;
 
     &:hover {
-        border: 5px solid $secondary_color;
         background-color: $secondary_color;
     }
 

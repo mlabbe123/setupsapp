@@ -15,6 +15,9 @@ Before release:
         - register
 
     - QA responsive
+        - profile page
+
+    - sorting in setupList page
 
     - htaccess
 
@@ -23,6 +26,8 @@ Before release:
 
 
 After Release:
+
+    - non angular code in login and register page
 
     - Cleanup callback node (lookin at you upload-setup post request)
 
