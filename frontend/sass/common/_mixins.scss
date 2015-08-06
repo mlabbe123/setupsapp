@@ -1,0 +1,26 @@
+@mixin print_nthchild_with_bgcolor($multiplier, $index, $bgcolor) {
+    &:nth-child(#{$multiplier}n+#{$index}) {
+        @include random_close_color('background-color', $bgcolor)
+    }
+}
+
+@mixin random_close_color($prop, $color) {
+
+    $randomProcess: random(3);
+    $randomSaturationPercentage: random(25);
+
+    $randomHueType: random(2);
+    $randomHueDegree: random(5);
+
+    @if $randomProcess == 1 {
+        #{$prop}: saturate($color, $randomSaturationPercentage);
+    } @else if $randomProcess == 2 {
+        #{$prop}: desaturate($color, $randomSaturationPercentage);
+    } @else {
+        @if $randomHueType == 1 {
+            #{$prop}: adjust-hue($color, $randomHueDegree);
+        } @else {
+            #{$prop}: adjust-hue($color, -$randomHueDegree);
+        }
+    }
+}

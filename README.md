@@ -16,8 +16,6 @@ Before release:
 
     - Footer
 
-    - Better solution for profile stats numbers in circle.
-
     - QA responsive
 
     - htaccess
@@ -26,6 +24,8 @@ Before release:
 
 
 After Release:
+
+    - Cleanup callback node (lookin at you upload-setup post request)
 
     - Enhance profile page
         - Better deleting setup process

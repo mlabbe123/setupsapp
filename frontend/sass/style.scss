@@ -5,6 +5,8 @@
 
 @import 'susy_config';
 
+@import 'common/mixins';
+
 @import 'admin';
 @import 'forms';
 @import 'common/link';
@@ -37,6 +39,7 @@ body {
 // ===========================
 
 .mainContainer {
+    min-width: 1024px;
     background-image: url('../images/bg.jpg');
     background-size: cover;
     z-index: 0;
@@ -90,15 +93,19 @@ body {
 .content-wrapper {
     @include container;
 
-    width: 1024px;
+    //width: 1024px;
     margin: 0 auto;
 
-    @include xlarge-only {
-        width: 1220px;
-    }
+    // @include xlarge-only {
+    //     width: 1220px;
+    // }
 
-    @include huge {
-        width: 1500px;
+    // @include huge {
+    //     width: 1500px;
+    // }
+
+    @include xlarge-and-above {
+        width: 90%;
     }
 }
 
@@ -213,40 +220,8 @@ footer {
             }
         }
 
-        &:nth-child(10n+1) {
-            background-color: desaturate($secondary_color, 3)
-        }
-
-        &:nth-child(10n+2) {
-            background-color: desaturate($secondary_color, 24)
-        }
-
-        &:nth-child(10n+3) {
-            background-color: desaturate($secondary_color, 9)
-        }
-
-        &:nth-child(10n+4) {
-            background-color: desaturate($secondary_color, 12)
-        }
-
-        &:nth-child(10n+5) {
-            background-color: desaturate($secondary_color, 21)
-        }
-
-        &:nth-child(10n+6) {
-            background-color: saturate($secondary_color, 5)
-        }
-
-        &:nth-child(10n+7) {
-            background-color: desaturate($secondary_color, 6)
-        }
-
-        &:nth-child(10n+8) {
-            background-color: desaturate($secondary_color, 18)
-        }
-
-        &:nth-child(10n+9) {
-            background-color: desaturate($secondary_color, 15)
+        @for $i from 1 through 25 {
+            @include print_nthchild_with_bgcolor('10',  #{$i}, $secondary_color);
         }
 
         &:nth-child(10n) {
