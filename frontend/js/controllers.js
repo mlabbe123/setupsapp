@@ -36,8 +36,10 @@ setupsSharingAppControllers.controller('setupListCtrl', function($scope, $routeP
             _.forEach(data, function(setup) {
                 setup.car = setup.car.name;
                 setup.track = setup.track.name;
+                setup.authorid = setup.author._id;
                 setup.author = setup.author.display_name;
             });
+
 
             $scope.setups = data;
         }).

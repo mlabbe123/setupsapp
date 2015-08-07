@@ -14,9 +14,6 @@ Before release:
         - Sign in
         - register
 
-    - QA responsive
-        - profile page
-
     - sorting in setupList page
 
     - htaccess
@@ -45,6 +42,11 @@ After Release:
         - Bulk actions (delete multiple setups)
 
         - Modify setup?
+
+        - Change your nationality
+        - Change your email
+        - Change your driving style
+        - Delete yout account
 
         - Stats:
             - Animations for stats numbers

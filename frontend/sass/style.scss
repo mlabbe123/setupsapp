@@ -224,7 +224,11 @@ footer {
 
     th {
         padding: $padding;
-        font-size: 1.2rem;
+        font-size: 1rem;
+
+        @include huge {
+            font-size: 1.2rem;
+        }
 
         .orderable {
             cursor: pointer;
@@ -232,21 +236,49 @@ footer {
     }
 
     td {
-        padding: $padding / 2 $padding;
+        padding: $padding / 2;
+        white-space: nowrap;
     }
 
-    .link {
-        margin-left: $padding * 2;
-        color: $primary_color;
+    .icon-link {
+        display: inline-block;
+        margin-left: $padding / 2;
+        width: 35px;
+        height: 35px;
+        background-color: $primary_color;
+        border-radius: 100%;
+        color: $bg_color;
         font-size: 1.2rem;
+        cursor: pointer;
+        text-decoration: none;
         transition: all 0.2s;
 
+        &:before {
+            padding: 0;
+            top: 8px;
+        }
+
         &:hover {
-            color: $bg_color;
+            background-color: $bg_color;
+            color: $primary_color;
         }
 
         &:first-child {
             margin-left: 0;
+        }
+    }
+
+    .link {
+        &:hover {
+            color: $bg_color;
+        }
+    }
+
+    .visible-huge {
+        display: none;
+
+        @include huge {
+            display: table-cell;
         }
     }
 }
@@ -340,6 +372,11 @@ footer {
 
 .profile-changes-list-item {
     margin-bottom: $padding * 2;
+
+    .label-block {
+        color: $primary_color;
+        font-size: 1.2rem;
+    }
 }
 
 .profile-changes-list-separator {
