@@ -5,6 +5,8 @@ TODO
 
 Before release:
 
+    - When delete setup, delete setup file as well.
+
     - Create confirm account with email?
 
     - Add pre-content images
