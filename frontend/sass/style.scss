@@ -102,6 +102,18 @@ body {
     margin: 0 auto;
 }
 
+[tooltip] {
+    position: relative;
+}
+
+.tooltip-wrapper {
+    position: absolute;
+    top: -20px;
+    background-color: #222;
+    color: #fff;
+    padding: $padding;
+}
+
 
 // ===========================
 // Site Header
