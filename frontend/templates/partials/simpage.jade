@@ -8,7 +8,7 @@ div(class="fullwidth-wrapper {{ sim_infos.code }}")
 
 div(class="fullwidth-wrapper white padded")
     div.content-wrapper
-        span.sim-presentation-title / {{ sim_name }} sets
+        span.sim-presentation-title / {{ sim_name }}
 
         div.setupList-filters-wrapper
             div.form-block
@@ -45,6 +45,7 @@ div(class="fullwidth-wrapper white padded")
                     th / Author
                     th / Type
                     th / Downloads
+                    th / Added Date
 
                 tr(ng-repeat="setup in setups | filter:{ car:filter_query.car||undefined, track:filter_query.track||undefined, author:filter_query.author, type:filter_query.type||undefined } | orderBy:'author'")
                     td
@@ -52,6 +53,8 @@ div(class="fullwidth-wrapper white padded")
                         a(href="#/setups/{{ sim_name }}/{{ setup._id }}/", class="link icon-details") See details
                     td(tooltip="caca") {{ setup.car }}
                     td {{ setup.track }}
-                    td {{ setup.author }}
+                    td
+                        a(href="#/profile/{{ setup.authorid }}", class="link") {{ setup.author }}
                     td {{ setup.type }}
                     td {{ setup.downloads }}
+                    td {{ setup.added_date.display_time }}

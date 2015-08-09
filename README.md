@@ -5,6 +5,8 @@ TODO
 
 Before release:
 
+    - When delete setup, delete setup file as well.
+
     - Create confirm account with email?
 
     - Add pre-content images
@@ -13,9 +15,6 @@ Before release:
         - setup detail page
         - Sign in
         - register
-
-    - QA responsive
-        - profile page
 
     - sorting in setupList page
 
@@ -45,6 +44,11 @@ After Release:
         - Bulk actions (delete multiple setups)
 
         - Modify setup?
+
+        - Change your nationality
+        - Change your email
+        - Change your driving style
+        - Delete yout account
 
         - Stats:
             - Animations for stats numbers
