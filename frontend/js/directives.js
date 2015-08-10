@@ -19,7 +19,10 @@ setupsSharingAppDirectives.directive('tooltip', [function() {
         restrict: 'A',
         link: function(scope, element, attrs) {
             var onMouseEnterFunc = function() {
-                var toolTipElement = '<div class="tooltip-wrapper">' + attrs.tooltip + '</div>';
+                var elementWidth = element[0].offsetWidth,
+                    elementOffsetLeft = element[0].offsetLeft,
+                    toolTipElement = angular.element('<div class="tooltip-wrapper"><div class="tooltip-message">' + attrs.tooltip + '</div><i class="tooltip-arrow"></i></div>');
+
                 element.append(angular.element(toolTipElement));
             };
 

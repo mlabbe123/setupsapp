@@ -70,3 +70,17 @@ After Release:
     - Tidy up angular code with directives.
 
     - Tidy up sass code.
+
+    - write js unit tests.
+
+    - images with paralax effect.
+
+
+IDEAS: 
+
+    - Bookmark / follow user
+
+        - Could have a section on home page where new sets by followed users get displayed. Or notifications system ala facebook.
+        - stats for users, how many followers you've got.
+
+    - Hardware setup for user profile
