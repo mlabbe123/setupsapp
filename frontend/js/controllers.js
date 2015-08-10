@@ -235,17 +235,16 @@ setupsSharingAppControllers.controller('userProfileCtrl', function($scope, $rout
             });
     }
 
-    $scope.deleteSetup = function(setupId) {
+    $scope.deleteSetup = function(setupId, simId) {
+        var ngElement = angular.element(event.srcElement);
         // Delete the setup.
-        $http.post('/api/delete-setup/', {setupId: setupId})
+        $http.post('/api/delete-setup/', {setupId: setupId, simId: simId})
             .success(function(data, status, headers, config) {
-                console.log(status)
 
                 // Tell the user the setup has been deleted.
 
-
                 // Remove from the DOM.
-                angular.element(event.srcElement.parentElement.parentElement).remove();
+                ngElement[0].parentElement.parentElement.remove();
             })
             .error(function(data, status, headers, config) {
                 // Tell the user an error occured.

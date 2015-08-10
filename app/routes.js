@@ -632,14 +632,26 @@ module.exports = function(app, passport) {
 
     // Delete setup.
     app.post('/api/delete-setup/', function(request, response) {
-        console.log('delete setup id: ' + request.body.setupId)
+        console.log('delete setup id: ' + request.body.setupId);
+
+        // Delete db setup.
         Setup.remove({_id: request.body.setupId}, function(err) {
             if(err) {
                 return response.send('error');
             } else {
+                // Delete setup file on disk.
+                fs.unlink(path.join(__dirname, '../setups_files/' + request.body.simId + '/' + request.body.setupId), function(err) {
+                    if (err) {
+                        return console.log('error delete setup file: ', err);
+                    }
+
+                    console.log('Setup File ' + __dirname, '../setups_files/' + request.body.simId + '/' + request.body.setupId + ' has been deleted.')
+                });
+
                 return response.send('ok');
             }
         });
+
 
     });
 
