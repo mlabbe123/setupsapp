@@ -1,37 +1,39 @@
-'use strict';
+(function () {
+    'use strict';
 
-/* Directives */
+    /* Directives */
 
-var setupsSharingAppDirectives = angular.module('setupsSharingAppDirectives', []);
+    angular.module('setupsSharingAppDirectives', [])
 
-setupsSharingAppDirectives.directive('customFileUpload', [function() {
-    return {
-        restrict: 'A',
-        link: function (scope, element, attrs) {
-          var onChangeFunc = scope.$eval(attrs.customFileUpload);
-          element.bind('change', onChangeFunc);
-        }
-    }
-}]);
+        .directive('customFileUpload', [function() {
+            return {
+                restrict: 'A',
+                link: function (scope, element, attrs) {
+                  var onChangeFunc = scope.$eval(attrs.customFileUpload);
+                  element.bind('change', onChangeFunc);
+                }
+            }
+        }])
 
-setupsSharingAppDirectives.directive('tooltip', [function() {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            var onMouseEnterFunc = function() {
-                var elementWidth = element[0].offsetWidth,
-                    elementOffsetLeft = element[0].offsetLeft,
-                    toolTipElement = angular.element('<div class="tooltip-wrapper"><div class="tooltip-message">' + attrs.tooltip + '</div><i class="tooltip-arrow"></i></div>');
+        .directive('tooltip', [function() {
+            return {
+                restrict: 'A',
+                link: function(scope, element, attrs) {
+                    var onMouseEnterFunc = function() {
+                        var elementWidth = element[0].offsetWidth,
+                            elementOffsetLeft = element[0].offsetLeft,
+                            toolTipElement = angular.element('<div class="tooltip-wrapper"><div class="tooltip-message">' + attrs.tooltip + '</div><i class="tooltip-arrow"></i></div>');
 
-                element.append(angular.element(toolTipElement));
-            };
+                        element.append(angular.element(toolTipElement));
+                    };
 
-            var onMouseLeaveFunc = function() {
-                element[0].querySelector('.tooltip-wrapper').remove();
-            };
+                    var onMouseLeaveFunc = function() {
+                        element[0].querySelector('.tooltip-wrapper').remove();
+                    };
 
-            element.bind('mouseenter', onMouseEnterFunc);
-            element.bind('mouseleave', onMouseLeaveFunc);
-        } 
-    }
-}]);
+                    element.bind('mouseenter', onMouseEnterFunc);
+                    element.bind('mouseleave', onMouseLeaveFunc);
+                } 
+            }
+        }]);
+})();
