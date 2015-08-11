@@ -5,9 +5,7 @@ TODO
 
 Before release:
 
-    - When delete setup, delete setup file as well.
-
-    - Create confirm account with email?
+    - sorting in setupList page
 
     - Add pre-content images
         - Profile
@@ -16,7 +14,13 @@ Before release:
         - Sign in
         - register
 
-    - sorting in setupList page
+    - Download js libs (angular).
+
+    - Cleaner Gulp.
+        - Production build process.
+        -- Error management.
+
+    - Create confirm account with email?
 
     - htaccess
 
@@ -33,7 +37,7 @@ After Release:
     - Enhance profile page
         - Better deleting setup process
 
-    - Tooltip module
+    - Tooltip as a module.
 
     - Notification module
 
