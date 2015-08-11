@@ -18,7 +18,7 @@ Before release:
 
     - Cleaner Gulp.
         - Production build process.
-        -- Error management.
+        - Error management.
 
     - Create confirm account with email?
 
