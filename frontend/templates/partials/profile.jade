@@ -48,7 +48,7 @@ div(class="fullwidth-wrapper white padded")
                 tr
                     th / Actions
                     th
-                        span(class="orderable", ng-click="order('file_name')")
+                        span(class="orderable", ng-click="order('file_name')", tooltip="Order by file name")
                             span / File Name
                             i(ng-class="{'icon-downarrow':reverse && predicate === 'file_name', 'icon-uparrow':!reverse && predicate === 'file_name'}")
                     th
