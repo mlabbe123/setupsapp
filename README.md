@@ -5,20 +5,16 @@ TODO
 
 Before release:
 
-    - sorting in setupList page
+    - Make the filters in simpage fixed position
 
     - Add pre-content images
-        - Profile
+        - Profile (Maybe pic with driver visible)
         - Submit setup
         - setup detail page
         - Sign in
         - register
 
     - Download js libs (angular).
-
-    - Cleaner Gulp.
-        - Production build process.
-        - Error management.
 
     - Create confirm account with email?
 
@@ -80,7 +76,7 @@ After Release:
     - images with paralax effect.
 
 
-IDEAS: 
+IDEAS:
 
     - Bookmark / follow user
 

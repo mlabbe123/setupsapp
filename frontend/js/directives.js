@@ -5,7 +5,7 @@
 
     angular.module('setupsSharingAppDirectives', [])
 
-        .directive('customFileUpload', [function() {
+        .directive('customFileUpload', function() {
             return {
                 restrict: 'A',
                 link: function (scope, element, attrs) {
@@ -13,9 +13,9 @@
                   element.bind('change', onChangeFunc);
                 }
             }
-        }])
+        })
 
-        .directive('tooltip', [function() {
+        .directive('tooltip', function() {
             return {
                 restrict: 'A',
                 link: function(scope, element, attrs) {
@@ -33,7 +33,7 @@
 
                     element.bind('mouseenter', onMouseEnterFunc);
                     element.bind('mouseleave', onMouseLeaveFunc);
-                } 
+                }
             }
-        }]);
+        });
 })();
