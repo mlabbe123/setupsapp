@@ -5,7 +5,7 @@ TODO
 
 Before release:
 
-    - Make the filters in simpage fixed position
+    - Double click delete process.
 
     - Add pre-content images
         - Profile (Maybe pic with driver visible)
@@ -23,6 +23,8 @@ Before release:
 
 
 After Release:
+
+    - Make the filters in simpage fixed position
 
     - non angular code in login and register page
 
