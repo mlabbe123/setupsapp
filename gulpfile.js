@@ -1,14 +1,14 @@
-    // include gulp
 var gulp = require('gulp'),
  
     // include plug-ins
+    plumber = require('gulp-plumber'),
+    gutil = require('gulp-util'),
     jshint = require('gulp-jshint'),
     sass = require('gulp-sass'),
     uglify = require('gulp-uglify'),
-    gulpconcat = require('gulp-concat'),
     jade = require('gulp-jade'),
-    gzip = require('gulp-gzip'),
     sourcemaps = require('gulp-sourcemaps'),
+    autoprefixer = require('gulp-autoprefixer')
 
     // paths for src files
     paths = {
@@ -17,7 +17,18 @@ var gulp = require('gulp'),
         js: 'frontend/js/**/*.js',
         images: 'frontend/images/**/*',
         fonts: 'frontend/fonts/**/*'
+    },
+
+    onError = function (err) {
+        gutil.beep();
+        console.log(err);
+        this.emit('end');
     };
+
+
+// ===========================
+// Development tasks
+// ===========================
  
 // jade dev task
 gulp.task('jadedev', function() {
@@ -28,32 +39,10 @@ gulp.task('jadedev', function() {
         .pipe(gulp.dest('builds/development/partials/'));
 });
 
-// jade prod task
-gulp.task('jadeprod', function() {
-    gulp.src(paths.jade)
-        .pipe(jade())
-        .pipe(gzip())
-        .pipe(gulp.dest('builds/production'));
-});
-
-// JS hint task
-gulp.task('jshint', function() {
-    gulp.src(paths.js)
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'));
-});
-
 // JS dev task
 gulp.task('jsdev', function() {
     gulp.src(paths.js)
         .pipe(gulp.dest('builds/development/js/'));
-});
-
-// JS prod task
-gulp.task('jsprod', function() {
-  gulp.src(paths.js)
-    .pipe(uglify())
-    .pipe(gulp.dest('builds/production/js/'));
 });
 
 // Sass dev task
@@ -63,11 +52,56 @@ gulp.task('sassdev', function () {
     config.sourceComments = 'map';
 
     return gulp.src(paths.sass)
+        .pipe(plumber({
+            errorHandler: onError
+        }))
         .pipe(sass(config))
+        .pipe(autoprefixer())
+        .pipe(plumber.stop())
         .pipe(gulp.dest('builds/development/css'));
 });
 
-// Sass prod dev
+// Images dev task
+gulp.task('imagesdev', function() {
+    return gulp.src(paths.images)
+        .pipe(gulp.dest('builds/development/images'))
+});
+
+// Fonts dev task
+gulp.task('fontsdev', function() {
+    return gulp.src(paths.fonts)
+        .pipe(gulp.dest('builds/development/fonts'))
+});
+
+// JS hint task
+gulp.task('jshint', function() {
+    gulp.src(paths.js)
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
+});
+
+
+// ===========================
+// Production tasks
+// ===========================
+
+// jade prod task
+gulp.task('jadeprod', function() {
+    gulp.src(paths.jade)
+        .pipe(jade())
+        .pipe(gulp.dest('builds/production/partials/'));
+});
+
+// JS prod task
+gulp.task('jsprod', function() {
+  gulp.src(paths.js)
+    .pipe(uglify({
+        mangle: false
+    }))
+    .pipe(gulp.dest('builds/production/js/'));
+});
+
+// Sass prod task
 gulp.task('sassprod', function () {
     var config = {};
 
@@ -75,30 +109,38 @@ gulp.task('sassprod', function () {
 
     return gulp.src(paths.sass)
         .pipe(sass(config))
+        .pipe(autoprefixer())
         .pipe(gulp.dest('builds/production/css'));
 });
 
-// Images files
-gulp.task('images', function() {
+// Images prod task
+gulp.task('imagesprod', function() {
     return gulp.src(paths.images)
-        .pipe(gulp.dest('builds/development/images'))
+        .pipe(gulp.dest('builds/production/images'))
 });
 
-// Fonts files
-gulp.task('fonts', function() {
+// Fonts prod task
+gulp.task('fontsprod', function() {
     return gulp.src(paths.fonts)
-        .pipe(gulp.dest('builds/development/fonts'))
+        .pipe(gulp.dest('builds/production/fonts'))
 });
+
+
+// ===========================
+// Main tasks
+// ===========================
 
 // Rerun the task when a file changes
 gulp.task('watch', function() {
     gulp.watch(paths.jade, ['jadedev']);
     gulp.watch(paths.sass, ['sassdev']);
     gulp.watch(paths.js, ['jsdev']);
+    gulp.watch(paths.images, ['imagesdev']);
+    gulp.watch(paths.fonts, ['fontsdev']);
 });
 
 // start task
-gulp.task('start', ['watch' ,'jadedev', 'sassdev', 'jsdev', 'images', 'fonts']);
+gulp.task('start', ['watch' ,'jadedev', 'sassdev', 'jsdev', 'imagesdev', 'fontsdev']);
 
 // To prod task
-gulp.task('toprod', ['jadeprod', 'sassprod', 'jsprod']);
+gulp.task('toprod', ['jadeprod', 'sassprod', 'jsprod', 'imagesprod', 'fontsprod']);
