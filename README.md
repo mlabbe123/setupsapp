@@ -5,20 +5,14 @@ TODO
 
 Before release:
 
-    - sorting in setupList page
+    - Double click delete process.
 
     - Add pre-content images
-        - Profile
+        - Profile (Maybe pic with driver visible)
         - Submit setup
         - setup detail page
         - Sign in
         - register
-
-    - Download js libs (angular).
-
-    - Cleaner Gulp.
-        - Production build process.
-        - Error management.
 
     - Create confirm account with email?
 
@@ -29,6 +23,8 @@ Before release:
 
 
 After Release:
+
+    - Make the filters in simpage fixed position
 
     - non angular code in login and register page
 
@@ -80,7 +76,7 @@ After Release:
     - images with paralax effect.
 
 
-IDEAS: 
+IDEAS:
 
     - Bookmark / follow user
 

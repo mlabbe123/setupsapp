@@ -22,7 +22,7 @@
 html,
 body {
     height: 100%;
-    overflow-x: hidden;
+    //overflow-x: hidden;
 }
 
 body {
@@ -225,6 +225,10 @@ footer {
 
 .setupList-filters-wrapper {
     @include span(2);
+
+    &.fixed-positon {
+        position: fixed;
+    }
 }
 
 .setupList-setups-wrapper {

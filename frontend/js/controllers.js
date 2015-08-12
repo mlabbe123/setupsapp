@@ -10,7 +10,6 @@
             // Get every sims.
             $http.get('/api/get-all-sims/')
                 .success(function(data, status, headers, config) {
-                    console.log(data)
                     $scope.sims = data;
                 })
                 .error(function(data, status, headers, config) {
@@ -40,7 +39,6 @@
                         setup.author = setup.author.display_name;
                     });
 
-
                     $scope.setups = data;
                 }).
                 error(function(data, status, headers, config) {
@@ -59,14 +57,13 @@
 
             $scope.sim_name = $routeParams.simName;
 
-            $scope.selectItem = function(event) {
-                var srcElement = event.srcElement,
-                    parentElement = event.srcElement.parentNode;
+            $scope.predicate = 'added_date.timestamp';
+            $scope.reverse = true;
 
-                angular.element(parentElement.querySelector('.filter-selectable-element')).removeClass('is-selected');
-
-                angular.element(srcElement).addClass('is-selected');
-            }
+            $scope.order = function(predicate) {
+                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                $scope.predicate = predicate;
+            };
         })
 
         .controller('setupDetailCtrl', function($scope, $routeParams, $http) {
@@ -260,10 +257,6 @@
                 $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
                 $scope.predicate = predicate;
             };
-        })
-
-        .controller('adminCtrl', function($scope, $routeParams) {
-
         })
 
         .controller('manageUsersCtrl', function($scope, $routeParams, $http) {

@@ -44,8 +44,14 @@ div(class="fullwidth-wrapper white padded")
                     th / Track
                     th / Author
                     th / Type
-                    th / Downloads
-                    th / Added Date
+                    th
+                        span(class="orderable", ng-class="{reverse:reverse}", ng-click="order('downloads')", tooltip="Order By Downloads")
+                            span /&nbsp;Downloads
+                            i(ng-class="{'icon-downarrow':reverse && predicate === 'downloads', 'icon-uparrow':!reverse && predicate === 'downloads'}")
+                    th
+                        span(class="orderable", ng-class="{reverse:reverse}", ng-click="order('added_date.timestamp')", tooltip="Order By Added Date")
+                            span /&nbsp;Added Date
+                            i(ng-class="{'icon-downarrow':reverse && predicate === 'added_date.timestamp', 'icon-uparrow':!reverse && predicate === 'added_date.timestamp'}")
 
                 tr(ng-repeat="setup in setups | filter:{ car:filter_query.car||undefined, track:filter_query.track||undefined, author:filter_query.author, type:filter_query.type||undefined } | orderBy:'author'")
                     td
