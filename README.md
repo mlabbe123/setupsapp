@@ -14,8 +14,6 @@ Before release:
         - Sign in
         - register
 
-    - Download js libs (angular).
-
     - Create confirm account with email?
 
     - htaccess
