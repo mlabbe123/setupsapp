@@ -5,14 +5,12 @@ TODO
 
 Before release:
 
-    - Double click delete process.
+    - Animation for stats circle
+        - 4 divs with 100% border-radius
+        - 1 border side colored, rest is transparent
+        - they rotate to form a circle
 
-    - Add pre-content images
-        - Profile (Maybe pic with driver visible)
-        - Submit setup
-        - setup detail page
-        - Sign in
-        - register
+    - Double click delete process.
 
     - Create confirm account with email?
 
@@ -53,10 +51,6 @@ After Release:
         - Stats:
             - Animations for stats numbers
 
-        - Changes to profile:
-            - Add nationality
-            - Driving style? (Could add this in the listing and the filters. Ex: left foot braker, trail braker, etc...)
-
         - Give option to suggest new sims, cars and tracks to admin. It should send an email to all admins.
 
     - Admin section (accessible only to admin)
@@ -72,8 +66,6 @@ After Release:
     - Tidy up sass code.
 
     - write js unit tests.
-
-    - images with paralax effect.
 
 
 IDEAS:
