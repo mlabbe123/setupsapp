@@ -17,12 +17,20 @@ div(class="fullwidth-wrapper white padded")
 
                 ul.profile-stats-list
                     li.profile-stats-list-item
-                        div.profile-stats-circle
-                            span.profile-stats-circle-inner {{ setups_count }}
+                        div.profile-stats-circle-wrapper
+                            div.profile-stats-circle
+                                span.profile-stats-circle-inner {{ setups_count }}
+                            div.profile-stats-circle2
+                            div.profile-stats-circle3
+                            div.profile-stats-circle4
                         span.profile-stats-list-title Number of setup posted
                     li.profile-stats-list-item
-                        div.profile-stats-circle
-                            span.profile-stats-circle-inner {{ total_downloads }}
+                        div.profile-stats-circle-wrapper
+                            div.profile-stats-circle
+                                span.profile-stats-circle-inner {{ total_downloads }}
+                            div.profile-stats-circle2
+                            div.profile-stats-circle3
+                            div.profile-stats-circle4
                         span.profile-stats-list-title Total downloads
 
             div(class="profile-details-changes-wrapper", ng-if="user.own_profile")

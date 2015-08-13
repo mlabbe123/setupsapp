@@ -384,13 +384,16 @@ footer {
     color: $primary_color;
     font-size: 1.2rem;
 }
+.profile-stats-circle-wrapper {
+    display: inline-block;
+    position: relative;
+}
 
 .profile-stats-circle {
     display: inline-block;
-    border-width: 4px;
-    border-color: $primary_color;
+    border: 4px solid transparent;
+    border-bottom: 4px solid $primary_color;
     border-radius: 100%;
-    border-style: solid;
     background-color: lighten($primary_color, 45%);
 
     .profile-stats-circle-inner {
@@ -404,6 +407,87 @@ footer {
         font-size: 1.2rem;
         font-weight: bold;
     }
+}
+
+.profile-stats-circle2,
+.profile-stats-circle3,
+.profile-stats-circle4 {
+    position: absolute;
+    top:0;
+    left:0;
+    bottom: 0;
+    right: 0;
+    border: 4px solid transparent;
+    border-radius: 100%;
+}
+
+.profile-stats-circle2 {
+    border-right: 4px solid adjust-hue($primary_color, -20deg);
+    transform: rotate(90deg);
+
+    animation-duration: 0.8s;
+    animation-name: spin;
+    animation-delay: 0.5s;
+    animation-fill-mode: both;
+}
+
+.profile-stats-circle3 {
+    border-top: 4px solid saturate($primary_color, 20);
+    transform: rotate(180deg);
+
+    animation-duration: 1.2s;
+    animation-name: spin1;
+    animation-delay: 0.5s;
+    animation-fill-mode: both;
+}
+
+.profile-stats-circle4 {
+    border-left: 4px solid desaturate($primary_color, 25);
+    transform: rotate(270deg);
+
+    animation-duration: 1.6s;
+    animation-name: spin2;
+    animation-delay: 0.5s;
+    animation-fill-mode: both;
+}
+
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(90deg); }
+    to { -moz-transform: rotate(0deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(90deg); }
+    to { -webkit-transform: rotate(0deg); }
+}
+@keyframes spin {
+    from {transform:rotate(90deg);}
+    to {transform:rotate(0deg);}
+}
+
+@-moz-keyframes spin1 {
+    from { -moz-transform: rotate(180deg); }
+    to { -moz-transform: rotate(0deg); }
+}
+@-webkit-keyframes spin1 {
+    from { -webkit-transform: rotate(180deg); }
+    to { -webkit-transform: rotate(0deg); }
+}
+@keyframes spin1 {
+    from {transform:rotate(180deg);}
+    to {transform:rotate(0deg);}
+}
+
+@-moz-keyframes spin2 {
+    from { -moz-transform: rotate(270deg); }
+    to { -moz-transform: rotate(0deg); }
+}
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(270deg); }
+    to { -webkit-transform: rotate(0deg); }
+}
+@keyframes spin2 {
+    from {transform:rotate(270deg);}
+    to {transform:rotate(0deg);}
 }
 
 .profile-changes-wrapper {

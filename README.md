@@ -5,11 +5,6 @@ TODO
 
 Before release:
 
-    - Animation for stats circle
-        - 4 divs with 100% border-radius
-        - 1 border side colored, rest is transparent
-        - they rotate to form a circle
-
     - Double click delete process.
 
     - Create confirm account with email?
