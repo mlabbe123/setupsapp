@@ -68,7 +68,7 @@ body {
     &.home {
         //padding: $padding_mega * 1.5 0;
         background-image: url('../images/bg.jpg');
-        background-size: cover;
+        background-position: 0 0;
     }
 
     &.ac {
@@ -86,6 +86,12 @@ body {
     &.register {
         padding: $padding_mega * 1.5 0;
         background: url('../images/register_bg.jpg');
+        background-size: cover;
+    }
+
+    &.login {
+        padding: $padding_mega * 1.5 0;
+        background: url('../images/login.jpg');
         background-size: cover;
     }
 
