@@ -5,8 +5,6 @@ TODO
 
 Before release:
 
-    - Double click delete process.
-
     - Create confirm account with email?
 
     - htaccess

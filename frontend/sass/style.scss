@@ -322,6 +322,19 @@ footer {
         &:first-child {
             margin-left: 0;
         }
+
+        &.icon-error {
+            &.is-ready-to-delete {
+                background-color: lighten(red, 10);
+                //transition: all 1s;
+
+                &:hover {
+                    background-color: red;
+                    color: $bg_color;
+                    //transform: scale(10%);
+                }
+            }
+        }
     }
 
     .link {

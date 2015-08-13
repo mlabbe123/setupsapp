@@ -232,24 +232,6 @@
                     });
             }
 
-            $scope.deleteSetup = function(setupId, simId) {
-                var ngElement = angular.element(event.srcElement);
-                // Delete the setup.
-                $http.post('/api/delete-setup/', {setupId: setupId, simId: simId})
-                    .success(function(data, status, headers, config) {
-
-                        // Tell the user the setup has been deleted.
-
-                        // Remove from the DOM.
-                        ngElement[0].parentElement.parentElement.remove();
-                    })
-                    .error(function(data, status, headers, config) {
-                        // Tell the user an error occured.
-
-                        console.log(status)
-                    });
-            }
-
             $scope.predicate = 'added_date.timestamp';
             $scope.reverse = true;
 
