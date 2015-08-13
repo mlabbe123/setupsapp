@@ -20,9 +20,11 @@
                 restrict: 'A',
                 controller: function($scope, $http) {
                     $scope.deleteSetup = function(setupId, simId) {
+
                         var ngElement = angular.element(event.srcElement);
 
                         if (ngElement.hasClass('is-ready-to-delete')) {
+                            console.log('hasClass')
                             // Delete the setup.
                             $http.post('/api/delete-setup/', {setupId: setupId, simId: simId})
                                 .success(function(data, status, headers, config) {
@@ -38,13 +40,20 @@
                                     console.log(status)
                                 });
                         } else {
-                            // Remove class from every icon-error element form table.
-                            angular.element(document.querySelector('.is-ready-to-delete')).removeClass('is-ready-to-delete').triggerHandler('mouseleave');
+                            if (ngElement.hasClass('tooltip-message')) {
+                                // Remove class from every icon-error element form table.
+                                angular.element(document.querySelector('.is-ready-to-delete')).removeClass('is-ready-to-delete').triggerHandler('mouseleave');
 
-                            // Add class to source element.
-                            ngElement.addClass('is-ready-to-delete');
+                                this.newToolTipValue = undefined;
+                            } else {
+                                // Remove class from every icon-error element form table.
+                                angular.element(document.querySelector('.is-ready-to-delete')).removeClass('is-ready-to-delete').triggerHandler('mouseleave');
 
-                            this.newToolTipValue = 'Click again to confirm delete';
+                                // Add class to source element.
+                                ngElement.addClass('is-ready-to-delete');
+
+                                this.newToolTipValue = 'Click again to confirm delete';
+                            }
                         }
                     }
                 },
@@ -55,20 +64,24 @@
                             tooltipMessage = scope.newToolTipValue ? scope.newToolTipValue : attrs.tooltip,
                             toolTipElement = angular.element('<div class="tooltip-wrapper"><div class="tooltip-message">' + tooltipMessage + '</div><i class="tooltip-arrow"></i></div>');
 
+                        angular.element(toolTipElement).bind('click', onTooltipClick)
                         element.append(angular.element(toolTipElement));
+
                     };
 
                     var onMouseLeaveFunc = function() {
                         element[0].querySelector('.tooltip-wrapper').remove();
                     };
 
-
+                    var onTooltipClick = function() {
+                        element.triggerHandler('mouseleave');
+                    };
 
                     scope.$watch('newToolTipValue', function() {
                         if (scope.newToolTipValue !== undefined && element.hasClass('is-ready-to-delete')) {
                             element.triggerHandler('mouseenter');
                         }
-                    })
+                    });
 
                     element.bind('mouseenter', onMouseEnterFunc);
                     element.bind('mouseleave', onMouseLeaveFunc);
