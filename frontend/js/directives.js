@@ -35,5 +35,18 @@
                     element.bind('mouseleave', onMouseLeaveFunc);
                 }
             }
+        })
+
+        .directive('parallax', function($window) {
+            return {
+                restrict: 'A',
+                link: function(scope, element, attrs) {
+                    var $win = angular.element($window);
+
+                    $win.on('scroll', function(event) {
+                        angular.element(document.querySelector('.' + attrs.parallax)).css('background-position', '0 ' + -Math.sqrt(this.pageYOffset)*3 + 'px');
+                    });
+                }
+            }
         });
 })();
