@@ -4,7 +4,6 @@
     "description": "The place to find sim racing setups",
     "main": "server.js",
     "scripts": {
-        // "postinstall": "gulp toprod",
         "start": "node server.js"
     },
     "dependencies": {
