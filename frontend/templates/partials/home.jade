@@ -4,13 +4,17 @@ div(class="fullwidth-wrapper home superparallax", parallax="superparallax")
             h1.jumbo-title // Welcome to The Setup Market
             h2.jumbo-title-subtitle The place to find sim racing setups.
 
-div(class="fullwidth-wrapper green border-bottom")
+div(class="fullwidth-wrapper white")
      div.content-wrapper
         h2.simSelection-title Choose your flavor
 
-div(class="fullwidth-wrapper orange")
+div(class="fullwidth-wrapper white")
     div.content-wrapper
         div.simSelection-simwrapper
             div(ng-repeat="sim in sims", class="simSelection-simwrapper-item")
-                a(href="#/setups/{{ sim.display_name }}")
+                a(href="#/setups/{{ sim.display_name }}", class="simSelection-circle-wrapper")
                     img(src="images/logo_{{ sim.code }}.png")
+                    div.simSelection-circle
+                    div.simSelection-circle2
+                    div.simSelection-circle3
+                    div.simSelection-circle4

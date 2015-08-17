@@ -54,15 +54,15 @@ body {
     &.green {
         background-color: $primary_color;
         color: $bg_color;
+
+        &.border-top {
+            border-top: 5px solid $secondary_color;
+            border-bottom: 5px solid $secondary_color;
+        }
     }
 
     &.orange {
         background-color: $secondary_color;
-
-        &.border-bottom {
-            border-bottom: 5px solid $bg_color;
-            border-top: 5px solid $bg_color;
-        }
     }
 
     &.home {
@@ -208,17 +208,140 @@ footer {
     border: 5px solid $bg_color;
     border-radius: 100%;
     transition: all 0.2s;
+}
 
-    &:hover {
-        background-color: $bg_color;
-    }
+.simSelection-circle-wrapper {
+    display: inline-block;
+    position: relative;
+    transition: all 0.5s;
 
     img {
-        display: block;
         max-width: 200px;
+        padding: 8px;
         margin: 0 auto;
+        border-radius: 100%;
+        border: 8px solid transparent;
+    }
+
+    .simSelection-circle,
+    .simSelection-circle2,
+    .simSelection-circle3,
+    .simSelection-circle4 {
+        transition: all 0.5s;
+    }
+
+    &:hover {
+        .simSelection-circle {
+            border-bottom: 8px solid $primary_color;
+            background-color: transparentize($primary_color, 0.8);
+        }
+
+        .simSelection-circle2 {
+            border-right: 8px solid adjust-hue($primary_color, -20deg);
+        }
+
+        .simSelection-circle3 {
+            border-top: 8px solid saturate($primary_color, 20);
+        }
+
+        &:hover .simSelection-circle4 {
+            border-left: 8px solid desaturate($primary_color, 25);
+        }
     }
 }
+
+.simSelection-circle,
+.simSelection-circle2,
+.simSelection-circle3,
+.simSelection-circle4 {
+    position: absolute;
+    top:0;
+    left:0;
+    bottom: 0;
+    right: 0;
+    border: 8px solid transparent;
+    border-radius: 100%;
+}
+
+.simSelection-circle {
+    border-bottom: 8px solid $secondary_color;
+    background-color: transparent;
+
+    // animation-duration: 1.2s;
+    // animation-name: bgcolor;
+    // animation-delay: 1.6s;
+    // animation-fill-mode: both;
+}
+
+.simSelection-circle2 {
+    border-right: 8px solid adjust-hue($secondary_color, -20deg);
+    transform: rotate(90deg);
+
+    animation-duration: 0.8s;
+    animation-name: spin;
+    animation-delay: 0.5s;
+    animation-fill-mode: both;
+}
+
+.simSelection-circle3 {
+    border-top: 8px solid saturate($secondary_color, 20);
+    transform: rotate(180deg);
+
+    animation-duration: 1.2s;
+    animation-name: spin1;
+    animation-delay: 0.5s;
+    animation-fill-mode: both;
+}
+
+.simSelection-circle4 {
+    border-left: 8px solid desaturate($secondary_color, 25);
+    transform: rotate(270deg);
+
+    animation-duration: 1.6s;
+    animation-name: spin2;
+    animation-delay: 0.5s;
+    animation-fill-mode: both;
+}
+
+
+// @-moz-keyframes bgcolor {
+//     from { background-color: transparent; }
+//     to { background-color: transparentize($secondary_color, 0.7); }
+// }
+// @-webkit-keyframes bgcolor {
+//     from { background-color: transparent }
+//     to { background-color: transparentize($secondary_color, 0.7); }
+// }
+// @keyframes bgcolor {
+//     from { background-color: transparent }
+//     to { background-color: transparentize($secondary_color, 0.7); }
+// }
+
+// @-moz-keyframes spin1 {
+//     from { -moz-transform: rotate(180deg); }
+//     to { -moz-transform: rotate(0deg); }
+// }
+// @-webkit-keyframes spin1 {
+//     from { -webkit-transform: rotate(180deg); }
+//     to { -webkit-transform: rotate(0deg); }
+// }
+// @keyframes spin1 {
+//     from {transform:rotate(180deg);}
+//     to {transform:rotate(0deg);}
+// }
+
+// @-moz-keyframes spin2 {
+//     from { -moz-transform: rotate(270deg); }
+//     to { -moz-transform: rotate(0deg); }
+// }
+// @-webkit-keyframes spin2 {
+//     from { -webkit-transform: rotate(270deg); }
+//     to { -webkit-transform: rotate(0deg); }
+// }
+// @keyframes spin2 {
+//     from {transform:rotate(270deg);}
+//     to {transform:rotate(0deg);}
+// }
 
 
 // ===========================
@@ -391,12 +514,13 @@ footer {
     margin-bottom: $padding;
 }
 
-.profile-stats-list-title{
+.profile-stats-list-title {
     margin-left: $padding;
     line-height: 2rem;
     color: $primary_color;
     font-size: 1.2rem;
 }
+
 .profile-stats-circle-wrapper {
     display: inline-block;
     position: relative;

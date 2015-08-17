@@ -96,7 +96,7 @@
                     var $win = angular.element($window);
 
                     $win.on('scroll', function(event) {
-                        angular.element(document.querySelector('.' + attrs.parallax)).css('background-position', '0 ' + -Math.sqrt(this.pageYOffset)*3 + 'px');
+                        angular.element(document.querySelector('.' + attrs.parallax)).css('background-position', 'center ' + -Math.sqrt(this.pageYOffset)*3 + 'px');
                     });
                 }
             }
