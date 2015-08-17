@@ -10,4 +10,5 @@ npm-debug.log
 bower_components/
 
 # compiled builds files #
-static/
+# commented for heroku, as it is build before push #
+# static/
