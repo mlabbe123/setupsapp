@@ -1,6 +1,5 @@
 {
     "scripts": {
-        "postinstall": "gulp toprod",
         "start": "node server.js"
     },
     "dependencies": {
