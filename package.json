@@ -1,5 +1,6 @@
 {
     "scripts": {
+        "postinstall": "gulp toprod",
         "start": "node server.js"
     },
     "dependencies": {
@@ -25,6 +26,10 @@
         "nodemailer": "^1.4.0",
         "passport": "^0.2.1",
         "passport-local": "^1.0.0"
+    },
+    "engines": {
+        "node": "0.12.0",
+        "npm": "2.5.1"
     },
     "repository": {
         "type": "git",
