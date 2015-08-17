@@ -1,8 +1,4 @@
 {
-    "name": "TheSetupMarket",
-    "version": "0.1",
-    "description": "The place to find sim racing setups",
-    "main": "server.js",
     "scripts": {
         "start": "node server.js"
     },
