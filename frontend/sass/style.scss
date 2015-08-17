@@ -40,6 +40,9 @@ body {
 
 .mainContainer {
     min-width: 1024px;
+    min-height: 100%;
+    margin: 0 auto -50px;
+    padding-bottom: 50px;
     z-index: 0;
 }
 
@@ -117,6 +120,10 @@ body {
     margin: 0 auto;
 }
 
+.title-slash {
+    color: $secondary_color;
+}
+
 [tooltip] {
     position: relative;
 }
@@ -169,6 +176,7 @@ header {
 // Site Footer
 // ===========================
 footer {
+    height: 50px;
     padding: $padding 0;
     background-color: $primary_color;
     border-top: 5px solid $bg_color;

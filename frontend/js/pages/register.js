@@ -5,13 +5,13 @@
         $submitButton = $('button[type="submit"]'),
 
         error_messages = {
-            username_format: 'Username must be contain alphanumeric characters only',
+            username_format: 'Username must contain alphanumeric characters only',
             username_taken: 'Username is already taken',
             email: 'Please enter a valid email address'
         };
 
     function validateUsername(username) {
-        var username_reg = new RegExp(/^[A-Z0-9a-z]+$/);
+        var username_reg = new RegExp(/[A-Z0-9a-z]+/);
 
         return username_reg.test(username);
     }
@@ -67,17 +67,19 @@
         });
 
         $usernameField.on('blur', function(event) {
-            $.get('/api/get-all-user-displayname',function(users) {
-                var error = false;
+            if(validateUsername(event.currentTarget.value)) {
+                $.get('/api/get-all-user-displayname',function(users) {
+                    var error = false;
 
-                _.forEach(users, function(user) {
-                    if (user.display_name === event.currentTarget.value) {
-                        error = true;
-                    }
+                    _.forEach(users, function(user) {
+                        if (user.display_name === event.currentTarget.value) {
+                            error = true;
+                        }
+                    });
+
+                    updateMessageBox(event.currentTarget, error, error_messages.username_taken);
                 });
-
-                updateMessageBox(event.currentTarget, error, error_messages.username_taken);
-            });
+            }
         });
 
         $emailField.on('blur', function(event) {
