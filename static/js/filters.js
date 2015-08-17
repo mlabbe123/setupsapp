@@ -1,0 +1,1 @@
+!function(){angular.module("setupListingFilters",[]).filter("listingFilter",function(){return function(items,filter_query){var out=[];for(var key in filter_query)filter_query.hasOwnProperty(key)&&filter_query[key]===items[key]&&out.push(item)}})}();
