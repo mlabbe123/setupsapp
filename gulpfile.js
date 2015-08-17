@@ -36,13 +36,13 @@ gulp.task('jadedev', function() {
         .pipe(jade({
             pretty: true
         }))
-        .pipe(gulp.dest('builds/development/partials/'));
+        .pipe(gulp.dest('static/partials/'));
 });
 
 // JS dev task
 gulp.task('jsdev', function() {
     gulp.src(paths.js)
-        .pipe(gulp.dest('builds/development/js/'));
+        .pipe(gulp.dest('static/js/'));
 });
 
 // Sass dev task
@@ -58,19 +58,19 @@ gulp.task('sassdev', function () {
         .pipe(sass(config))
         .pipe(autoprefixer())
         .pipe(plumber.stop())
-        .pipe(gulp.dest('builds/development/css'));
+        .pipe(gulp.dest('static/css'));
 });
 
 // Images dev task
 gulp.task('imagesdev', function() {
     return gulp.src(paths.images)
-        .pipe(gulp.dest('builds/development/images'))
+        .pipe(gulp.dest('static/images'))
 });
 
 // Fonts dev task
 gulp.task('fontsdev', function() {
     return gulp.src(paths.fonts)
-        .pipe(gulp.dest('builds/development/fonts'))
+        .pipe(gulp.dest('static/fonts'))
 });
 
 // JS hint task
@@ -89,7 +89,7 @@ gulp.task('jshint', function() {
 gulp.task('jadeprod', function() {
     gulp.src(paths.jade)
         .pipe(jade())
-        .pipe(gulp.dest('builds/production/partials/'));
+        .pipe(gulp.dest('static/partials/'));
 });
 
 // JS prod task
@@ -98,7 +98,7 @@ gulp.task('jsprod', function() {
     .pipe(uglify({
         mangle: false
     }))
-    .pipe(gulp.dest('builds/production/js/'));
+    .pipe(gulp.dest('static/js/'));
 });
 
 // Sass prod task
@@ -110,19 +110,19 @@ gulp.task('sassprod', function () {
     return gulp.src(paths.sass)
         .pipe(sass(config))
         .pipe(autoprefixer())
-        .pipe(gulp.dest('builds/production/css'));
+        .pipe(gulp.dest('static/css'));
 });
 
 // Images prod task
 gulp.task('imagesprod', function() {
     return gulp.src(paths.images)
-        .pipe(gulp.dest('builds/production/images'))
+        .pipe(gulp.dest('static/images'))
 });
 
 // Fonts prod task
 gulp.task('fontsprod', function() {
     return gulp.src(paths.fonts)
-        .pipe(gulp.dest('builds/production/fonts'))
+        .pipe(gulp.dest('static/fonts'))
 });
 
 

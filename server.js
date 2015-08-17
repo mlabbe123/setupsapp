@@ -11,7 +11,7 @@ var db = require('./config/db'),
     _ = require('lodash');
 
 // Express config
-app.use(express.static('builds/development'));
+app.use(express.static('static'));
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/frontend/templates/');
 app.use(bodyParser.json());

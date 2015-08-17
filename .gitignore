@@ -10,4 +10,4 @@ npm-debug.log
 bower_components/
 
 # compiled builds files #
-builds/
+static/
