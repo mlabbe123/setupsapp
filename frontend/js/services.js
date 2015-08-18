@@ -46,6 +46,7 @@
                             sims.push({
                                 display_name: sim.display_name,
                                 id: sim._id,
+                                versions: sim.versions,
                                 cars: simCars,
                                 tracks: simTracks
                             });

@@ -33,6 +33,7 @@
             $http.get('/api/get-setups/' + $routeParams.simName).
                 success(function(data, status, headers, config) {
                     _.forEach(data, function(setup) {
+                        setup.car_category = setup.car.category;
                         setup.car = setup.car.name;
                         setup.track = setup.track.name;
                         setup.authorid = setup.author._id;

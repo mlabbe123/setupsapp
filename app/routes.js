@@ -167,6 +167,7 @@ module.exports = function(app, passport) {
             var newSetup = new Setup({
                 author: request.body.user_id,
                 sim: request.body.sim,
+                sim_version: request.body.version,
                 car: request.body.car,
                 track: request.body.track,
                 type: request.body.trim,
@@ -434,6 +435,8 @@ module.exports = function(app, passport) {
                         var track_filter = [];
                         var author_filter = [];
                         var type_filter = [];
+                        var car_category_filter = [];
+                        var sim_version_filter = [];
 
                         // Loop through every setup returned to build the filters arrays
                         _.forEach(setups, function(setup) {
@@ -441,12 +444,16 @@ module.exports = function(app, passport) {
                             track_filter.push(setup.track.name);
                             author_filter.push(setup.author.display_name);
                             type_filter.push(setup['type']);
+                            car_category_filter.push(setup.car.category);
+                            sim_version_filter.push(setup.sim_version);
                         });
 
                         setup_filters.car_filters = _.uniq(car_filter);
                         setup_filters.track_filters = _.uniq(track_filter);
                         setup_filters.author_filters = _.uniq(author_filter);
                         setup_filters.type_filters = _.uniq(type_filter);
+                        setup_filters.car_category_filters = _.uniq(car_category_filter);
+                        setup_filters.sim_version_filters = _.uniq(sim_version_filter);
 
                         return response.send(setup_filters);
                     }

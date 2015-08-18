@@ -245,15 +245,15 @@ footer {
         }
 
         .simSelection-circle2 {
-            border-right: 8px solid adjust-hue($primary_color, -20deg);
+            border-right: 8px solid $primary_color_alt1;
         }
 
         .simSelection-circle3 {
-            border-top: 8px solid saturate($primary_color, 20);
+            border-top: 8px solid $primary_color_alt2;
         }
 
         &:hover .simSelection-circle4 {
-            border-left: 8px solid desaturate($primary_color, 25);
+            border-left: 8px solid $primary_color_alt3;
         }
     }
 }
@@ -274,15 +274,10 @@ footer {
 .simSelection-circle {
     border-bottom: 8px solid $secondary_color;
     background-color: transparent;
-
-    // animation-duration: 1.2s;
-    // animation-name: bgcolor;
-    // animation-delay: 1.6s;
-    // animation-fill-mode: both;
 }
 
 .simSelection-circle2 {
-    border-right: 8px solid adjust-hue($secondary_color, -20deg);
+    border-right: 8px solid $secondary_color_alt1;
     transform: rotate(90deg);
 
     animation-duration: 0.8s;
@@ -292,7 +287,7 @@ footer {
 }
 
 .simSelection-circle3 {
-    border-top: 8px solid saturate($secondary_color, 20);
+    border-top: 8px solid $secondary_color_alt2;
     transform: rotate(180deg);
 
     animation-duration: 1.2s;
@@ -302,7 +297,7 @@ footer {
 }
 
 .simSelection-circle4 {
-    border-left: 8px solid desaturate($secondary_color, 25);
+    border-left: 8px solid $secondary_color_alt3;
     transform: rotate(270deg);
 
     animation-duration: 1.6s;
@@ -310,46 +305,6 @@ footer {
     animation-delay: 0.5s;
     animation-fill-mode: both;
 }
-
-
-// @-moz-keyframes bgcolor {
-//     from { background-color: transparent; }
-//     to { background-color: transparentize($secondary_color, 0.7); }
-// }
-// @-webkit-keyframes bgcolor {
-//     from { background-color: transparent }
-//     to { background-color: transparentize($secondary_color, 0.7); }
-// }
-// @keyframes bgcolor {
-//     from { background-color: transparent }
-//     to { background-color: transparentize($secondary_color, 0.7); }
-// }
-
-// @-moz-keyframes spin1 {
-//     from { -moz-transform: rotate(180deg); }
-//     to { -moz-transform: rotate(0deg); }
-// }
-// @-webkit-keyframes spin1 {
-//     from { -webkit-transform: rotate(180deg); }
-//     to { -webkit-transform: rotate(0deg); }
-// }
-// @keyframes spin1 {
-//     from {transform:rotate(180deg);}
-//     to {transform:rotate(0deg);}
-// }
-
-// @-moz-keyframes spin2 {
-//     from { -moz-transform: rotate(270deg); }
-//     to { -moz-transform: rotate(0deg); }
-// }
-// @-webkit-keyframes spin2 {
-//     from { -webkit-transform: rotate(270deg); }
-//     to { -webkit-transform: rotate(0deg); }
-// }
-// @keyframes spin2 {
-//     from {transform:rotate(270deg);}
-//     to {transform:rotate(0deg);}
-// }
 
 
 // ===========================

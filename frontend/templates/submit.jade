@@ -32,13 +32,19 @@ block mainContent
                                 option(value="") - Select -
 
                     div.field-block
-                        label(for="simSelect", class="form-label") Car :
+                        label(for="versionSelect", class="form-label") Version :
+                        div(class="form-select-wrapper", ng-class="{'is-disabled': sim == undefined}")
+                            select(id="versionSelect", name="version", ng-model="versions", ng-options="version for version in sim.versions track by version", ng-disabled="!sim")
+                                option(value="") - Select -
+
+                    div.field-block
+                        label(for="carSelect", class="form-label") Car :
                         div(class="form-select-wrapper", ng-class="{'is-disabled': sim == undefined}")
                             select(id="carSelect", name="car", ng-model="cars", ng-options="car.name for car in sim.cars track by car._id", ng-disabled="!sim")
                                 option(value="") - Select -
 
                     div.field-block
-                        label(for="simSelect", class="form-label") Track :
+                        label(for="trackSelect", class="form-label") Track :
                         div(class="form-select-wrapper", ng-class="{'is-disabled': sim == undefined}")
                             select(id="trackSelect", name="track", ng-model="tracks", ng-options="track.name for track in sim.tracks track by track._id", ng-disabled="!sim")
                                 option(value="") - Select -

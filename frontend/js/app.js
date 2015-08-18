@@ -33,10 +33,6 @@
                     templateUrl: 'partials/admin/manage_users.html',
                     controller: 'manageUsersCtrl'
                 })
-                .when('/admin/manage/sims', {
-                    templateUrl: 'partials/admin/manage.html',
-                    controller: 'manageSimsCtrl'
-                })
                 .when('/admin/manage/cars', {
                     templateUrl: 'partials/admin/manage_cars.html',
                     controller: 'manageCarsCtrl'

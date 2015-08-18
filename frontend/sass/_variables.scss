@@ -5,3 +5,11 @@ $padding_mega: 8rem;
 $bg_color: #fff;
 $primary_color: #40A9A9;
 $secondary_color: #fd9a30;
+
+$primary_color_alt1: adjust-hue($primary_color, -22deg);
+$primary_color_alt2: saturate($primary_color, 10);
+$primary_color_alt3: adjust-hue($primary_color, 14deg);
+
+$secondary_color_alt1: adjust-hue($secondary_color, -12deg);
+$secondary_color_alt2: desaturate($secondary_color, 18);
+$secondary_color_alt3: adjust-hue($secondary_color, 10deg);

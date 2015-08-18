@@ -17,6 +17,7 @@ var setupSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Sim'
     },
+    sim_version: String,
     type: String,
     best_time: String,
     comments: String,
