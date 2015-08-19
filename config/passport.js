@@ -2,6 +2,15 @@ var LocalStrategy = require('passport-local').Strategy;
 
 var User = require('../app/models/user');
 
+var nodemailer = require('nodemailer'),
+    transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+            user: 'mathieu.labbedb@gmail.com',
+            pass: 'GlaspRob321'
+        }
+    });
+
 Date.prototype.yyyymmdd = function() {
     var yyyy = this.getFullYear().toString();
     var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
@@ -71,15 +80,34 @@ module.exports = function(passport) {
                     newUser.display_name = request.body.username;
                     var now = new Date();
                     newUser.join_date = now.yyyymmdd();
-                    newUser.admin = false;
 
                     // save the user
-                    newUser.save(function(err) {
+                    newUser.save(function(err, user) {
                         if (err) {
                             throw err;
+                        } else {
+                            // Send confirmation email.
+                            var mailOptions = {
+                                from: 'The Setup Market <mathieu.labbedb@gmail.com>', // sender address
+                                to: email,
+                                subject: 'TheSetupMarket - Account Confirmation', // Subject line
+                                text: 'Please click this link to reset your password.', // plaintext body
+                                html: 'Please click this link to confirm your account: <a href="http://127.0.0.1:3000/confirm-account?uid=' + user._id + '">Confirm</a><br><br>You will need to enter this code : ' + user._id + "." // html body
+                            };
+
+                            transporter.sendMail(mailOptions, function(error, info){
+                                if(error){
+                                    console.log(error);
+                                }else{
+                                    console.log('Message sent: ' + info.response);
+                                }
+                            });
+
+                            return done(null, true, request.flash('registerMessage', 'An email has been sent to your email address, follow instructions to confirm account.'));
                         }
-                        return done(null, newUser);
                     });
+
+                    
 
                     console.log('User ' + newUser.email + 'successfully created.')
                 } else {
@@ -125,7 +153,12 @@ module.exports = function(passport) {
             }
 
             // all is well, return user
-            return done(null, user);
+            if (user.confirmed) {
+                return done(null, user);
+            } else {
+                return done(null, false, request.flash('loginMessage', 'Account has not been confirmed yet.')); // create the loginMessage and save it to session as flashdata
+            }
+            
         });
 
     }));

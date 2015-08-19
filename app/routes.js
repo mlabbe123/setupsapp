@@ -96,6 +96,13 @@ module.exports = function(app, passport) {
         });
     });
 
+    // Confirm account route.
+    app.get('/confirm-account', function(request, response) {
+        response.render('reset_password', {
+            userid: request.query.uid
+        });
+    });
+
     // Recover password route.
     app.get('/recover-password', function(request, response) {
         response.render('recover_password', {
@@ -130,7 +137,8 @@ module.exports = function(app, passport) {
 
     // Register form submission.
     app.post('/register', passport.authenticate('local-register', {
-        successRedirect: '/#/profile/', // redirect to the secure profile section
+        session: false,
+        successRedirect: '/register', // redirect to the secure profile section
         failureRedirect: '/register', // redirect back to the signup page if there is an error
         failureFlash: true // allow flash messages
     }));
@@ -296,6 +304,32 @@ module.exports = function(app, passport) {
                 } else {
                     response.render('login', {
                         message: 'Your password has been updated successfully.'
+                    });
+                }
+            });
+        }
+    });
+
+    // Reset password route.
+    app.post('/confirm-account', function(request, response) {
+        if(request.body.userid !== request.body.confirmationcode) {
+            console.log('The two ids dont match.');
+            response.render('confirm_account', {
+                userid: request.body.userid,
+                message: 'The confirmation code is wrong.'
+            });
+        } else {
+            User.update({_id: request.body.userid}, {confirmed: true}, function(err, numAffected) {
+                if (err) {
+                    console.log('Error updating confirmed state for user: ' + request.body.userid);
+
+                    response.render('confirm_account', {
+                        userid: request.body.userid,
+                        message: 'There has been an error in your request. Please contact admins.'
+                    });
+                } else {
+                    response.render('login', {
+                        user: request.user
                     });
                 }
             });
