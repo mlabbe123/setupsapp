@@ -522,7 +522,7 @@ footer {
 }
 
 .profile-stats-circle2 {
-    border-right: 4px solid adjust-hue($primary_color, -20deg);
+    border-right: 4px solid $primary_color_alt1;
     transform: rotate(90deg);
 
     animation-duration: 0.8s;
@@ -532,7 +532,7 @@ footer {
 }
 
 .profile-stats-circle3 {
-    border-top: 4px solid saturate($primary_color, 20);
+    border-top: 4px solid $primary_color_alt2;
     transform: rotate(180deg);
 
     animation-duration: 1.2s;
@@ -542,7 +542,7 @@ footer {
 }
 
 .profile-stats-circle4 {
-    border-left: 4px solid desaturate($primary_color, 25);
+    border-left: 4px solid $primary_color_alt3;
     transform: rotate(270deg);
 
     animation-duration: 1.6s;
