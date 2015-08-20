@@ -5,7 +5,7 @@ TODO
 
 Before release:
 
-    - Create confirm account with email?
+    - Finish setup detail page
 
     - htaccess
 
@@ -21,14 +21,11 @@ After Release:
 
     - Cleanup callback node (lookin at you upload-setup post request)
 
-    - Enhance profile page
-        - Better deleting setup process
-
     - Tooltip as a module.
 
     - Notification module
 
-    - Finish setup detail page
+    - Enhance setup detail page
 
     - Enhance profile page
 
@@ -39,10 +36,7 @@ After Release:
         - Change your nationality
         - Change your email
         - Change your driving style
-        - Delete yout account
-
-        - Stats:
-            - Animations for stats numbers
+        - Delete your account
 
         - Give option to suggest new sims, cars and tracks to admin. It should send an email to all admins.
 

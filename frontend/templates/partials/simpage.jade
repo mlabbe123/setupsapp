@@ -71,7 +71,7 @@ div(class="fullwidth-wrapper white padded")
                 tr(ng-repeat="setup in setups | filter:{ car:filter_query.car||undefined, car_category:filter_query.car_category||undefined, track:filter_query.track||undefined, author:filter_query.author, type:filter_query.type||undefined, sim_version:filter_query.sim_version||type } | orderBy:'author'")
                     td
                         a(href="setup_files/{{ sim_infos._id }}/{{ setup._id }}", class="icon-download icon-link", tooltip="Download")
-                        //- a(href="#/setups/{{ sim_name }}/{{ setup._id }}/", class="icon-details icon-link", tooltip="See details")
+                        a(href="#/setups/{{ sim_name }}/{{ setup._id }}/", class="icon-details icon-link", tooltip="See details")
                     td {{ setup.car }}
                     td {{ setup.track }}
                     td
