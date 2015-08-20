@@ -28,12 +28,6 @@ div(class="fullwidth-wrapper white padded")
                         h3.setupDetail-overview-list-item-title / Trim
                         span.setupDetail-overview-list-item-content {{ setup.type }}
                     li.setupDetail-overview-list-item
-                        h3.setupDetail-overview-list-item-title / Best Time
-                        span.setupDetail-overview-list-item-content {{ setup.best_time }}
-                    li.setupDetail-overview-list-item
-                        h3.setupDetail-overview-list-item-title / Comments
-                        span.setupDetail-overview-list-item-content {{ setup.comments }}
-                    li.setupDetail-overview-list-item
                         h3.setupDetail-overview-list-item-title / Added date
                         span.setupDetail-overview-list-item-content {{ setup.added_date.display_time }}
                     li.setupDetail-overview-list-item
@@ -48,8 +42,16 @@ div(class="fullwidth-wrapper white padded")
                     li.setupDetail-overview-list-item
                         h3.setupDetail-overview-list-item-title / Sim version
                         span.setupDetail-overview-list-item-content {{ setup.sim_version }}
-                    li.setupDetail-overview-list-item.last-item
-                        <a href="setup_files/{{ simId }}/{{ setup._id }}" class="link icon-download download-link"/>download</a>
+
+                ul.setupDetail-overview-list
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Best Time
+                        span.setupDetail-overview-list-item-content {{ setup.best_time }}
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Comments
+                        span.setupDetail-overview-list-item-content {{ setup.comments }}
+
+                <a href="setup_files/{{ simId }}/{{ setup._id }}" class="link icon-download fixed-download-link"/>download</a>
 
             div.setupDetail-indepth
                 h2.setupDetail-title Specs
