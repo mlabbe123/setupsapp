@@ -506,7 +506,8 @@ footer {
 }
 
 .setupDetail-overview-list-item-content {
-    margin-left: 4.8%;
+    display: inline-block;
+    margin-left: 1.2rem;
     color: $secondary_color;
     font-weight: 700;
     font-size: 1.2rem;
