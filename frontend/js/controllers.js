@@ -82,7 +82,8 @@
             $http.get('/api/get-setup/' + $routeParams.setupId).
                 success(function(data, status, headers, config) {
                     $scope.setup = data;
-                    console.log(data)
+                    $scope.setup.comments = $scope.setup.comments || "User has not specified any comments."
+                    $scope.setup.best_time = $scope.setup.best_time || "User has not specified any best time."
                 }).
                 error(function(data, status, headers, config) {
                     console.log(status);
@@ -128,6 +129,7 @@
                     });
 
                     $scope.setup_details = setupDetailsObj;
+                    console.log($scope.setup_details)
                 }).
                 error(function(data, status, headers, config) {
                     console.log(status);

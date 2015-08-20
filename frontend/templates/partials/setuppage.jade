@@ -5,38 +5,62 @@ div(class="fullwidth-wrapper orange")
             a(href="#/setups/{{ sim_name }}", class="link breadcrumbs-item") {{ sim_name }}
             span(class="breadcrumbs-item current") Setup Detail
 
-div(class="fullwidth-wrapper ac")
+div(class="fullwidth-wrapper ac superparallax", parallax="superparallax")
 
-div(class="fullwidth-wrapper white")
+div(class="fullwidth-wrapper white padded")
     div.content-wrapper
         h1.sim-presentation-title
             span.title-slash /
             span Setup details
 
-        div.setupList-filters-wrapper
-            div(class="setupDetail-wrapper {{sim_name}}")
-                div.setupDetail-overview
-                    ul
-                        li Car: {{ setup.car.name }}
-                        li Track: {{ setup.track.name }}
-                        li Trim: {{ setup.type }}
-                        li Best Time: {{ setup.best_time }}
-                        li Comments: {{ setup.comments }}
-                        li Added date: {{ setup.added_date.display_time }}
-                        li Author: {{ setup.author.display_name }}
-                        li Downloads: {{ setup.downloads }}
-                        li File name: {{ setup.file_name }}
-                        li Sim version: {{ setup.sim_version }}
-                        li <a href="setup_files/{{ sim_infos._id }}/{{ setup.file_name }}"/>download</a>
+        div(class="setupDetail-wrapper {{sim_name}}")
+            div.setupDetail-overview
+                h2.setupDetail-title Overview
 
-                //- div.setupDetail-indepth
-                //-     ul
-                //-         li Fuel: {{ setup_details.fuel }}
-                //-         li Pressure LF: {{ setup_details.pressure_lf }}
-                //-         li Pressure LR: {{ setup_details.pressure_rf }}
-                //-         li Pressure RL: {{ setup_details.pressure_lr }}
-                //-         li Pressure RR: {{ setup_details.pressure_rr }}
-                //-         li Toe out LF: {{ setup_details.toe_out_lf }}
-                //-         li Toe out LR: {{ setup_details.toe_out_lr }}
-                //-         li Toe out RF: {{ setup_details.toe_out_rf }}
-                //-         li Toe out RR: {{ setup_details.toe_out_rr }}
+                ul.setupDetail-overview-list
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Car
+                        span.setupDetail-overview-list-item-content {{ setup.car.name }}
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Track
+                        span.setupDetail-overview-list-item-content {{ setup.track.name }}
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Trim
+                        span.setupDetail-overview-list-item-content {{ setup.type }}
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Best Time
+                        span.setupDetail-overview-list-item-content {{ setup.best_time }}
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Comments
+                        span.setupDetail-overview-list-item-content {{ setup.comments }}
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Added date
+                        span.setupDetail-overview-list-item-content {{ setup.added_date.display_time }}
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Author
+                        span.setupDetail-overview-list-item-content {{ setup.author.display_name }}
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Downloads
+                        span.setupDetail-overview-list-item-content {{ setup.downloads }}
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / File name
+                        span.setupDetail-overview-list-item-content {{ setup.file_name }}
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Sim version
+                        span.setupDetail-overview-list-item-content {{ setup.sim_version }}
+                    li.setupDetail-overview-list-item.last-item
+                        <a href="setup_files/{{ simId }}/{{ setup._id }}" class="link icon-download download-link"/>download</a>
+
+            div.setupDetail-indepth
+                h2.setupDetail-title Specs
+
+                ul
+                    li Fuel: {{ setup_details.fuel }}
+                    li Pressure LF: {{ setup_details.pressure_lf }}
+                    li Pressure LR: {{ setup_details.pressure_rf }}
+                    li Pressure RL: {{ setup_details.pressure_lr }}
+                    li Pressure RR: {{ setup_details.pressure_rr }}
+                    li Toe out LF: {{ setup_details.toe_out_lf }}
+                    li Toe out LR: {{ setup_details.toe_out_lr }}
+                    li Toe out RF: {{ setup_details.toe_out_rf }}
+                    li Toe out RR: {{ setup_details.toe_out_rr }}

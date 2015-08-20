@@ -439,7 +439,7 @@ module.exports = function(app, passport) {
                     // Read the file.
                     console.log(setup);
 
-                    fs.readFile(path.join(__dirname, '../setups_files/', setup.sim._id.toString(), '/', setup.file_name), 'utf8', function (err,data) {
+                    fs.readFile(path.join(__dirname, '../setups_files/', setup.sim._id.toString(), '/', request.params.setupid), 'utf8', function (err,data) {
                         if (err) {
                             return console.log(err);
                         }

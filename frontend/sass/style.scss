@@ -105,7 +105,7 @@ body {
     }
 
     &.padded {
-        padding: $padding * 1.5 0;
+        padding: $padding * 2 0;
     }
 
     &.white_lined {
@@ -447,8 +447,69 @@ footer {
     @include container;
 }
 
+.setupDetail-title {
+    margin-bottom: $padding * 2;
+    font-size: 3rem;
+    font-weight: 700;
+    color: $secondary_color;
+}
+
 .setupDetail-overview {
     @include span(6);
+}
+
+.setupDetail-indepth {
+     @include span(6 at 7);
+}
+
+.setupDetail-overview-list {
+    @include container;
+}
+
+.setupDetail-overview-list-item {
+    display: inline-block;
+    @include span(6);
+
+    padding: $padding;
+    border-bottom: 1px solid $secondary_color;
+
+    &:nth-child(even) {
+        @include span(6 at 7);
+    }
+
+    &.last-item {
+        @include span(12);
+        border-bottom: none;
+        text-align: center;
+    }
+
+    .download-link {
+        display: inline-block;
+        padding: $padding;
+        margin-top: $padding;
+        border: 1px solid $primary_color;
+        background-color: lighten($primary_color, 45);
+        font-size: 1.5rem;
+
+        &:hover {
+            border: 1px solid $secondary_color;
+            background-color: lighten($secondary_color, 35);
+        }
+    }
+}
+
+.setupDetail-overview-list-item-title {
+    margin-bottom: $padding;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: $primary_color;
+}
+
+.setupDetail-overview-list-item-content {
+    margin-left: 4.8%;
+    color: $secondary_color;
+    font-weight: 700;
+    font-size: 1.2rem;
 }
 
 .setupDetail-indepth {
