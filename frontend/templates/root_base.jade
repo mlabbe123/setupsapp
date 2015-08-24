@@ -27,6 +27,9 @@ html(ng-app="setupsSharingApp")
                                         a(href="/#/", class="link icon-home") Home
                                     li.nav-item
                                         a(href="/#/setups/Assetto%20Corsa", class="link icon-setups") Setups
+                                    if user && user.admin
+                                        li.nav-item
+                                            a(href="/admin#/admin", class="link") Admin
 
                             div.login-box
                                 ul.inline-nav

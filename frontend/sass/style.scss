@@ -50,6 +50,14 @@ body {
     width: 100%;
     position: relative;
 
+    &.clear {
+        @include clearfix();
+    }
+
+    &.border-top {
+        border-top: 8px solid $bg_color;
+    }
+
     &.white {
         background-color: $bg_color;
 
@@ -127,8 +135,8 @@ body {
         padding: $padding * 2 0;
     }
 
-    &.white_lined {
-        border-top: 5px solid $bg_color;
+    &.padded-double {
+        padding: $padding * 4 0;
     }
 }
 
@@ -216,7 +224,7 @@ footer {
     height: 50px;
     padding: $padding 0;
     background-color: $primary_color;
-    border-top: 5px solid $bg_color;
+    border-top: 8px solid $bg_color;
     color: $bg_color;
     text-align: center;
 
@@ -250,7 +258,6 @@ footer {
 
 .simSelection-simwrapper-item {
     margin: $padding * 2 0;
-    border: 5px solid $bg_color;
     border-radius: 100%;
     transition: all 0.2s;
 }
@@ -343,11 +350,70 @@ footer {
     animation-fill-mode: both;
 }
 
+.homepage-howto-wrapper {
+    @include span(5);
+
+    text-align: center;
+
+    &:last-child {
+        @include span(5 at 8);
+    }
+}
+
+.homepage-howto-separator {
+    @include span(2);
+
+    text-align: center;
+
+    span {
+        font-size: 4rem;
+        line-height: 20rem;
+    }
+}
+
+.homepage-howto-title {
+    font-size: 2.7rem;
+    font-weight: 700;
+}
+
+.homepage-howto-text {
+    display: block;
+    width: 60%;
+    margin: 0 auto;
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+}
+
 .homepage-stats-col-wrapper {
-    @include span(6);
+    width: 50%;
+    float: left;
+    color: $bg_color;
+    padding: $padding * 3 0;
+
+    &.orange {
+        background-color: $secondary_color;
+    }
+
+    &.orange_alt1 {
+        background-color: $secondary_color_alt1;
+    }
+
+    &.orange_alt2 {
+        background-color: $secondary_color_alt2;
+    }
+
+    &.orange_alt3 {
+        background-color: $secondary_color_alt3;
+    }
+
+    &:nth-child(odd) {
+        border-right: 4px solid $bg_color;
+        border-left: 8px solid $bg_color;
+    }
 
     &:nth-child(even) {
-        @include span(6 at 7);
+        border-left: 4px solid $bg_color;
+        border-right: 8px solid $bg_color;
     }
 }
 
@@ -355,7 +421,6 @@ footer {
     @include container;
     @include span(6);
 
-    padding: $padding * 2 0;
     text-align: center;
 
     &:nth-child(even) {
@@ -550,7 +615,7 @@ footer {
     padding: $padding;
     border-bottom: 1px solid $secondary_color;
 
-    
+
 
     @include huge {
         @include span(6);

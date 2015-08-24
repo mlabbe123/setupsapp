@@ -5,15 +5,15 @@ TODO
 
 Before release:
 
-    - Add all AC cars and tracks!!!
-
-    - Order cars and tracks in setup posting.
-
-    - Adda ll my setups.
+    - Stats api.
 
     - Check out express session for prod.
 
     - pimp those emails!
+
+    - Add all AC cars and tracks!!!
+
+    - Add all my setups.
 
     - htaccess
 
@@ -77,6 +77,7 @@ IDEAS:
         News section.
 
         - New tracks / cars available to post/download
+        - new site functionality
 
 
     - Bookmark / follow user

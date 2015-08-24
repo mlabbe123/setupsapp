@@ -6,7 +6,7 @@
 
 .jumbo-title-subtitle {
     font-size: 1.5rem;
-    margin-left: 6.2%;
+    margin-left: 2.5%;
 }
 
 .title {
@@ -18,7 +18,7 @@
 
 .title--small {
     @extend .title;
-    padding: $padding 0;
+    padding:  0 0 $padding * 2;
     font-size: 2rem;
 }
 

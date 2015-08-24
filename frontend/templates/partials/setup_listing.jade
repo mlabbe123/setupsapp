@@ -16,19 +16,19 @@ div(class="fullwidth-wrapper white padded")
             div.form-block
                 label(for="filter-car", class="label-block") / Car
                 div.form-select-wrapper
-                    select(id="filter-car" ,ng-model="filter_query.car", ng-options="car_filters for car_filters in setup_filters.car_filters")
+                    select(id="filter-car" ,ng-model="filter_query.car", ng-options="car_filters for car_filters in setup_filters.car_filters | orderBy:'toString()'")
                         option(value="") - Every cars -
 
             div.form-block
                 label(for="filter-car-category", class="label-block") / Car Category
                 div.form-select-wrapper
-                    select(id="filter-car-category" ,ng-model="filter_query.car_category", ng-options="car_category_filters for car_category_filters in setup_filters.car_category_filters track by car_category_filters")
+                    select(id="filter-car-category" ,ng-model="filter_query.car_category", ng-options="car_category_filters for car_category_filters in setup_filters.car_category_filters | orderBy:'toString()' track by car_category_filters")
                         option(value="") - Every category -
 
             div.form-block
                 label(for="filter-track", class="label-block") / Track
                 div.form-select-wrapper
-                    select(id="filter-track", ng-model="filter_query.track", ng-options="track_filters for track_filters in setup_filters.track_filters")
+                    select(id="filter-track", ng-model="filter_query.track", ng-options="track_filters for track_filters in setup_filters.track_filters | orderBy:'toString()'")
                         option(value="") - Every tracks -
 
             div.form-block
