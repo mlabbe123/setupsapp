@@ -15,6 +15,15 @@
                 .error(function(data, status, headers, config) {
                     console.log(status);
                 });
+
+            // Get every sims.
+            $http.get('/api/get-user-with-most-downloads/')
+                .success(function(data, status, headers, config) {
+                    console.log(data);
+                })
+                .error(function(data, status, headers, config) {
+                    console.log(status);
+                });
         })
 
         .controller('setupListCtrl', function($scope, $routeParams, $http) {

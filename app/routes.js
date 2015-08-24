@@ -341,6 +341,8 @@ module.exports = function(app, passport) {
     // API SECTION
     // ==============================
 
+    // SIMS ========================
+
     // Retrieve sim infos for specific sim.
     app.get('/api/get-sim-infos/:simname', function(request, response) {
         Sim.findOne({'display_name': request.params.simname}, function(err, sim) {
@@ -363,6 +365,26 @@ module.exports = function(app, passport) {
             }
         });
     });
+
+    // Add new sim.
+    app.post('/api/add-sim/', function(request, response) {
+        var newSim = new Sim({
+            display_name: request.body.simDisplayName,
+            code: request.body.simCode
+        });
+
+        newSim.save(function(err) {
+            if(err) {
+                console.log('error creating sim');
+            } else {
+                console.log('Sim successfuly created');
+                return response.send('ok');
+            }
+        });
+    });
+
+
+    // USERS ========================
 
     // Retrieve every users.
     app.get('/api/get-all-users/', function(request, response) {
@@ -407,6 +429,52 @@ module.exports = function(app, passport) {
             }
         });
     });
+
+    // Retrieve every setups and send back user with most downloads.
+    app.get('/api/get-user-with-most-downloads', function(request, response) {
+        Setup.find({}, {_id:0, downloads:1, author:1})
+            .populate('author')
+            .sort('author')
+            .exec(function(err, setups) {
+                if(err){
+                    return console.log(err);
+                } else {
+                    // we have every setups, group them by user id.
+                    var setupsByUsers = _.groupBy(setups, function(setup) {
+                        return setup.author._id;
+                    })
+
+                    // within each users array, concatenate the downloads field for every setups.
+                    for (var key in setupsByUsers) {
+                       if (setupsByUsers.hasOwnProperty(key)) {
+                        console.log(setupsByUsers[key])
+                           var obj = setupsByUsers[key];
+                            for (var prop in obj) {
+                              // important check that this is objects own property
+                              // not from prototype prop inherited
+                              if(obj.hasOwnProperty(prop)){
+                                //console.log(prop + " = " + obj[prop]);
+                              }
+                           }
+                        }
+                    }
+                }
+            });
+    });
+
+    // Update user display_name.
+    app.post('/api/update-user-displayname/', function(request, response) {
+        User.update({_id: request.body.userId}, {display_name: request.body.newDisplayName}, function(err) {
+            if(err) {
+                console.log('error creating sim');
+            } else {
+                console.log('User display_name successfully updated');
+            }
+        });
+    });
+
+
+    // SETUPS ========================
 
     // Retreive setups specific to a sim.
     app.get('/api/get-setups/:simname', function(request, response) {
@@ -568,6 +636,32 @@ module.exports = function(app, passport) {
             });
     });
 
+    // Delete setup.
+    app.post('/api/delete-setup/', function(request, response) {
+        console.log('delete setup id: ' + request.body.setupId);
+
+        // Delete db setup.
+        Setup.remove({_id: request.body.setupId}, function(err) {
+            if(err) {
+                return response.send('error');
+            } else {
+                // Delete setup file on disk.
+                fs.unlink(path.join(__dirname, '../setups_files/' + request.body.simId + '/' + request.body.setupId), function(err) {
+                    if (err) {
+                        return console.log('error delete setup file: ', err);
+                    }
+
+                    console.log('Setup File ' + __dirname, '../setups_files/' + request.body.simId + '/' + request.body.setupId + ' has been deleted.')
+                });
+
+                return response.send('ok');
+            }
+        });
+    });
+
+
+    // CARS ========================
+
     // Retreive every cars.
     app.get('/api/get-all-cars/', function(request, response) {
 
@@ -594,37 +688,6 @@ module.exports = function(app, passport) {
         });
     });
 
-    // Retreive every tracks.
-    app.get('/api/get-all-tracks/', function(request, response) {
-
-        Track.find()
-            .populate('sim')
-            .exec(function(err, tracks) {
-                if(err){
-                    return console.log(err);
-                } else {
-                    return response.send(tracks);
-                }
-            });
-    });
-
-    // Add new sim.
-    app.post('/api/add-sim/', function(request, response) {
-        var newSim = new Sim({
-            display_name: request.body.simDisplayName,
-            code: request.body.simCode
-        });
-
-        newSim.save(function(err) {
-            if(err) {
-                console.log('error creating sim');
-            } else {
-                console.log('Sim successfuly created');
-                return response.send('ok');
-            }
-        });
-    });
-
     // Add new car.
     app.post('/api/add-car/', function(request, response) {
         var newCar = new Car({
@@ -643,6 +706,23 @@ module.exports = function(app, passport) {
         });
     });
 
+
+    // TRACKS ========================
+
+    // Retreive every tracks.
+    app.get('/api/get-all-tracks/', function(request, response) {
+
+        Track.find()
+            .populate('sim')
+            .exec(function(err, tracks) {
+                if(err){
+                    return console.log(err);
+                } else {
+                    return response.send(tracks);
+                }
+            });
+    });
+
     // Add new track.
     app.post('/api/add-track/', function(request, response) {
         var newTrack = new Track({
@@ -658,42 +738,6 @@ module.exports = function(app, passport) {
                 return response.send('ok');
             }
         });
-    });
-
-    // Update user display_name.
-    app.post('/api/update-user-displayname/', function(request, response) {
-        User.update({_id: request.body.userId}, {display_name: request.body.newDisplayName}, function(err) {
-            if(err) {
-                console.log('error creating sim');
-            } else {
-                console.log('User display_name successfully updated');
-            }
-        });
-    });
-
-    // Delete setup.
-    app.post('/api/delete-setup/', function(request, response) {
-        console.log('delete setup id: ' + request.body.setupId);
-
-        // Delete db setup.
-        Setup.remove({_id: request.body.setupId}, function(err) {
-            if(err) {
-                return response.send('error');
-            } else {
-                // Delete setup file on disk.
-                fs.unlink(path.join(__dirname, '../setups_files/' + request.body.simId + '/' + request.body.setupId), function(err) {
-                    if (err) {
-                        return console.log('error delete setup file: ', err);
-                    }
-
-                    console.log('Setup File ' + __dirname, '../setups_files/' + request.body.simId + '/' + request.body.setupId + ' has been deleted.')
-                });
-
-                return response.send('ok');
-            }
-        });
-
-
     });
 
 
