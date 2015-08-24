@@ -7,11 +7,9 @@ div(class="fullwidth-wrapper home superparallax", parallax="superparallax")
             h2.jumbo-title-subtitle The place to find sim racing setups.
 
 div(class="fullwidth-wrapper white")
-     div.content-wrapper
-        h2.simSelection-title Choose your flavor
-
-div(class="fullwidth-wrapper white")
     div.content-wrapper
+        h2.title Choose your flavor
+
         div.simSelection-simwrapper
             div(ng-repeat="sim in sims", class="simSelection-simwrapper-item")
                 a(href="#/setups/{{ sim.display_name }}", class="simSelection-circle-wrapper")
@@ -20,3 +18,63 @@ div(class="fullwidth-wrapper white")
                     div.simSelection-circle2
                     div.simSelection-circle3
                     div.simSelection-circle4
+
+div(class="fullwidth-wrapper green")
+    div.content-wrapper
+        h2.title How to
+
+div(class="fullwidth-wrapper orange")
+    div.content-wrapper
+
+        div.homepage-stats-col-wrapper
+            h2.title--small This week
+
+            div.homepage-stats-col
+                h2.homepage-stats-title / Most active
+                span.homepage-stats-content GolfWang
+                
+            div.homepage-stats-col
+                h2.homepage-stats-title / Most downloaded
+                span.homepage-stats-content GolfWang
+
+        div.homepage-stats-col-wrapper
+            h2.title--small History of time
+
+            div.homepage-stats-col
+                h2.homepage-stats-title / Most active
+                span.homepage-stats-content GolfWang
+                
+            div.homepage-stats-col
+                h2.homepage-stats-title / Most downloaded
+                span.homepage-stats-content GolfWang
+
+div(class="fullwidth-wrapper orange_alt1")
+    div.content-wrapper
+
+        div.homepage-stats-leftrow
+            h2.homepage-stats-title More setup posted
+            span.homepage-stats-content GolfWang
+            
+        div.homepage-stats-rightrow
+            h2.homepage-stats-title More setups downloads
+            span.homepage-stats-content GolfWang
+
+div(class="fullwidth-wrapper orange_alt2")
+    div.content-wrapper 
+        div.homepage-stats-leftrow
+            h2.homepage-stats-title More setup posted
+            span.homepage-stats-content GolfWang
+            
+        div.homepage-stats-rightrow
+            h2.homepage-stats-title More setups downloads
+            span.homepage-stats-content GolfWang
+
+div(class="fullwidth-wrapper orange_alt3")
+    div.content-wrapper 
+        div.homepage-stats-leftrow
+            h2.homepage-stats-title More setup posted
+            span.homepage-stats-content GolfWang
+            
+        div.homepage-stats-rightrow
+            h2.homepage-stats-title More setups downloads
+            span.homepage-stats-content GolfWang

@@ -9,12 +9,17 @@
     margin-left: 6.2%;
 }
 
-.simSelection-title {
+.title {
     padding: $padding * 2 0;
     font-size: 2.7rem;
     font-weight: bold;
-    color: $secondary_color;
     text-align: center;
+}
+
+.title--small {
+    @extend .title;
+    padding: $padding 0;
+    font-size: 2rem;
 }
 
 .sim-presentation-title {

@@ -82,8 +82,8 @@
             $http.get('/api/get-setup/' + $routeParams.setupId).
                 success(function(data, status, headers, config) {
                     $scope.setup = data;
-                    $scope.setup.comments = $scope.setup.comments || "User has not specified any comments."
-                    $scope.setup.best_time = $scope.setup.best_time || "User has not specified any best time."
+                    $scope.setup.comments = $scope.setup.comments || "No comments."
+                    $scope.setup.best_time = $scope.setup.best_time || "Not specified."
                 }).
                 error(function(data, status, headers, config) {
                     console.log(status);
@@ -125,6 +125,84 @@
                             setupDetailsObj.toe_out_rf = setupItemValue;
                         } else if(setupItemKey === 'TOE_OUT_RR') {
                             setupDetailsObj.toe_out_rr = setupItemValue;
+                        } else if(setupItemKey === 'FF_FEEDBACK') {
+                            setupDetailsObj.ffb = setupItemValue;
+                        } else if(setupItemKey === 'CAMBER_LF') {
+                            setupDetailsObj.camber_lf = setupItemValue;
+                        } else if(setupItemKey === 'CAMBER_RF') {
+                            setupDetailsObj.camber_rf = setupItemValue;
+                        } else if(setupItemKey === 'CAMBER_LR') {
+                            setupDetailsObj.camber_lr = setupItemValue;
+                        } else if(setupItemKey === 'CAMBER_RR') {
+                            setupDetailsObj.camber_rr = setupItemValue;
+                        } else if(setupItemKey === 'REAR_DIFF_PRELOAD') {
+                            setupDetailsObj.rear_diff_preload = setupItemValue;
+                        } else if(setupItemKey === 'CENTER_DIFF_PRELOAD') {
+                            setupDetailsObj.center_diff_preload = setupItemValue;
+                        } else if(setupItemKey === 'DIFF_POWER') {
+                            setupDetailsObj.diff_power = setupItemValue;
+                        } else if(setupItemKey === 'DIFF_COAST') {
+                            setupDetailsObj.diff_coast = setupItemValue;
+                        } else if(setupItemKey === 'ROD_LENGTH_LF') {
+                            setupDetailsObj.rod_length_lf = setupItemValue;
+                        } else if(setupItemKey === 'ROD_LENGTH_RF') {
+                            setupDetailsObj.rod_length_rf = setupItemValue;
+                        } else if(setupItemKey === 'ROD_LENGTH_LR') {
+                            setupDetailsObj.rod_length_lr = setupItemValue;
+                        } else if(setupItemKey === 'ROD_LENGTH_RR') {
+                            setupDetailsObj.rod_length_rr = setupItemValue;
+                        } else if(setupItemKey === 'DAMP_FAST_BUMP_LF') {
+                            setupDetailsObj.damp_fast_bump_lf = setupItemValue;
+                        } else if(setupItemKey === 'DAMP_FAST_BUMP_RF') {
+                            setupDetailsObj.damp_fast_bump_rf = setupItemValue;
+                        } else if(setupItemKey === 'DAMP_FAST_BUMP_LR') {
+                            setupDetailsObj.damp_fast_bump_lr = setupItemValue;
+                        } else if(setupItemKey === 'DAMP_FAST_BUMP_RR') {
+                            setupDetailsObj.damp_fast_bump_rr = setupItemValue;
+                        } else if(setupItemKey === 'DAMP_BUMP_LF') {
+                            setupDetailsObj.damp_bump_lf = setupItemValue;
+                        } else if(setupItemKey === 'DAMP_BUMP_RF') {
+                            setupDetailsObj.damp_bump_rf = setupItemValue;
+                        } else if(setupItemKey === 'DAMP_BUMP_LR') {
+                            setupDetailsObj.damp_bump_lr = setupItemValue;
+                        } else if(setupItemKey === 'DAMP_BUMP_RR') {
+                            setupDetailsObj.damp_bump_rr = setupItemValue;
+                        } else if(setupItemKey === 'DAMP_FAST_REBOUND_LF') {
+                            setupDetailsObj.damp_fast_rebound_lf = setupItemValue;
+                        } else if(setupItemKey === 'DAMP_FAST_REBOUND_RF') {
+                            setupDetailsObj.damp_fast_rebound_rf = setupItemValue;
+                        } else if(setupItemKey === 'DAMP_FAST_REBOUND_LR') {
+                            setupDetailsObj.damp_fast_rebound_lr = setupItemValue;
+                        } else if(setupItemKey === 'DAMP_FAST_REBOUND_RR') {
+                            setupDetailsObj.damp_fast_rebound_rr = setupItemValue;
+                        } else if(setupItemKey === 'DAMP_REBOUND_LF') {
+                            setupDetailsObj.damp_rebound_lf = setupItemValue;
+                        } else if(setupItemKey === 'DAMP_REBOUND_RF') {
+                            setupDetailsObj.damp_rebound_rf = setupItemValue;
+                        } else if(setupItemKey === 'DAMP_REBOUND_LR') {
+                            setupDetailsObj.damp_rebound_lr = setupItemValue;
+                        } else if(setupItemKey === 'DAMP_REBOUND_RR') {
+                            setupDetailsObj.damp_rebound_rr = setupItemValue;
+                        } else if(setupItemKey === 'WING_1') {
+                            setupDetailsObj.front_wing = setupItemValue;
+                        } else if(setupItemKey === 'WING_2') {
+                            setupDetailsObj.rear_wing = setupItemValue;
+                        } else if(setupItemKey === 'FRONT_BIAS') {
+                            setupDetailsObj.front_bias = setupItemValue;
+                        } else if(setupItemKey === 'ENGINE_LIMITER') {
+                            setupDetailsObj.engine_limiter = setupItemValue;
+                        } else if(setupItemKey === 'ARB_FRONT') {
+                            setupDetailsObj.arb_front = setupItemValue;
+                        } else if(setupItemKey === 'ARB_REAR') {
+                            setupDetailsObj.arb_rear = setupItemValue;
+                        } else if(setupItemKey === 'SPRING_RATE_LF') {
+                            setupDetailsObj.spring_rate_lf = setupItemValue;
+                        } else if(setupItemKey === 'SPRING_RATE_RF') {
+                            setupDetailsObj.spring_rate_rf = setupItemValue;
+                        } else if(setupItemKey === 'SPRING_RATE_LR') {
+                            setupDetailsObj.spring_rate_lr = setupItemValue;
+                        } else if(setupItemKey === 'SPRING_RATE_RR') {
+                            setupDetailsObj.spring_rate_rr = setupItemValue;
                         }
                     });
 

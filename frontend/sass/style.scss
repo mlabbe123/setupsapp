@@ -52,20 +52,39 @@ body {
 
     &.white {
         background-color: $bg_color;
+
+        .title {
+            color: $secondary_color;
+        }
     }
 
     &.green {
         background-color: $primary_color;
         color: $bg_color;
+    }
 
-        &.border-top {
-            border-top: 5px solid $secondary_color;
-            border-bottom: 5px solid $secondary_color;
-        }
+    &.orange_alt1 {
+        background-color: $secondary_color_alt1;
+        color: $bg_color;
+        border-top: 8px solid $bg_color;
+    }
+
+    &.orange_alt2 {
+        background-color: $secondary_color_alt2;
+        color: $bg_color;
+        border-top: 8px solid $bg_color;
+    }
+
+    &.orange_alt3 {
+        background-color: $secondary_color_alt3;
+        color: $bg_color;
+        border-top: 8px solid $bg_color;
     }
 
     &.orange {
         background-color: $secondary_color;
+        color: $bg_color;
+        border-top: 8px solid $bg_color;
     }
 
     &.home {
@@ -324,6 +343,44 @@ footer {
     animation-fill-mode: both;
 }
 
+.homepage-stats-col-wrapper {
+    @include span(6);
+
+    &:nth-child(even) {
+        @include span(6 at 7);
+    }
+}
+
+.homepage-stats-col {
+    @include container;
+    @include span(6);
+
+    padding: $padding * 2 0;
+    text-align: center;
+
+    &:nth-child(even) {
+        @include span(6 at 7);
+    }
+}
+
+.homepage-stats-title {
+    margin-bottom: $padding * 1.5;
+    font-size: 1.6rem;
+    // font-weight: 700;
+}
+
+.homepage-stats-content {
+    display: inline-block;
+    padding: $padding / 2;
+    border-bottom: 8px solid $primary_color;
+    border-right: 8px solid $primary_color_alt1;
+    border-top: 8px solid $primary_color_alt2;
+    border-left: 8px solid $primary_color_alt3;
+    font-size: 1.3rem;
+    color: $primary_color_alt3;
+    vertical-align: middle;
+}
+
 
 // ===========================
 // Setup Listings specific content
@@ -470,17 +527,19 @@ footer {
     font-size: 3rem;
     font-weight: 700;
     color: $secondary_color;
+    text-align: center;
 }
 
 .setupDetail-overview {
-    @include span(6);
+    @include span(5);
 }
 
-.setupDetail-indepth {
-     @include span(6 at 7);
+.setupDetail-specs {
+    @include span(6 at 7);
 }
 
-.setupDetail-overview-list {
+.setupDetail-overview-list,
+.setupDetail-specs-list {
     @include container;
 }
 
@@ -491,10 +550,7 @@ footer {
     padding: $padding;
     border-bottom: 1px solid $secondary_color;
 
-    &.last-item {
-        border-bottom: none;
-        text-align: center;
-    }
+    
 
     @include huge {
         @include span(6);
@@ -503,29 +559,66 @@ footer {
             @include span(6 at 7);
         }
 
-        &.last-item {
+        &:last-child {
             @include span(12);
         }
     }
 }
 
 .setupDetail-overview-list-item-title {
+    display: inline;
     margin-bottom: $padding;
     font-size: 1.7rem;
     font-weight: 700;
     color: $primary_color;
+
+    @include huge {
+        display: block;
+    }
 }
 
 .setupDetail-overview-list-item-content {
     display: inline-block;
     margin-left: 1.2rem;
+    padding-top: 0.4rem;
     color: $secondary_color;
     font-weight: 700;
     font-size: 1.2rem;
+
+    @include huge {
+        padding-top: 0;
+    }
 }
 
-.setupDetail-indepth {
-    @include span(6 at 7);
+.setupDetail-specs-section-title {
+    display: block;
+    padding: $padding 0;
+    margin: $padding / 2 0 $padding;
+    border-bottom: 1px solid $primary_color;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: $secondary_color;
+    text-align: center;
+}
+
+.setupDetail-specs-list-item {
+    @include span(6);
+    //padding: $padding / 2 0;
+    margin-bottom: $padding / 2;
+    // background-color: lighten($secondary_color_alt1, 10);
+    text-align: center;
+    color: $primary_color;
+    font-size: 1.2rem;
+    font-weight: 700;
+
+    &:nth-child(even) {
+        @include span(6 at 7);
+    }
+
+    &.centered {
+        @include span(6);
+        @include push(3)
+    }
 }
 
 

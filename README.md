@@ -5,7 +5,15 @@ TODO
 
 Before release:
 
-    - Finish setup detail page
+    - Add all AC cars and tracks!!!
+
+    - Order cars and tracks in setup posting.
+
+    - Adda ll my setups.
+
+    - Check out express session for prod.
+
+    - pimp those emails!
 
     - htaccess
 
@@ -24,8 +32,6 @@ After Release:
     - Tooltip as a module.
 
     - Notification module
-
-    - Enhance setup detail page
 
     - Enhance profile page
 
@@ -48,7 +54,7 @@ After Release:
 
     - Create setup rating system? Since setups are a personal preferences, not sure if necessary. Maybe a report bad or corrupted setup instead?
 
-    - Tidy up angular code with directives.
+    - Tidy up angular code with directives, services and modules.
 
     - Tidy up sass code.
 
@@ -56,6 +62,22 @@ After Release:
 
 
 IDEAS:
+
+    - On home page, put stats like
+        - 'Poster of the history of time'
+        - 'Poster of the week'
+        - 'Poster with most downloads of the history of time'
+        - 'Poster with most downloads of the week'
+
+        Once the site is cool.
+
+        - 'total dl this week'
+        - 'total members'
+
+        News section.
+
+        - New tracks / cars available to post/download
+
 
     - Bookmark / follow user
 

@@ -14,12 +14,12 @@
                     controller: 'homeCtrl'
                 })
                 .when('/setups/:simName', {
-                    templateUrl: 'partials/simpage.html',
+                    templateUrl: 'partials/setup_listing.html',
                     controller: 'setupListCtrl'
                 })
                 // Setup detail page.
                 .when('/setups/:simName/:setupId', {
-                    templateUrl: 'partials/setuppage.html',
+                    templateUrl: 'partials/setup_detail.html',
                     controller: 'setupDetailCtrl'
                 })
                 .when('/profile/:userid', {
@@ -53,11 +53,6 @@
                     templateUrl: 'partials/admin/add_tracks.html',
                     controller: 'addTracksCtrl'
                 })
-                // Author detail page.
-                // .when('/setups/:simName/:setupId', {
-                //     templateUrl: 'partials/simpage.html',
-                //     controller: 'setupListCtrl'
-                // })
                 // .otherwise({
                 //     redirectTo: '/'
                 // })
