@@ -439,14 +439,33 @@ module.exports = function(app, passport) {
                 if(err){
                     return console.log(err);
                 } else {
+                    // We will return this object.
+                    var returnObject = {};
+
+                    // Get site download and setups count stats.
+                    if (setups.length >= 1000) {
+                        returnObject.setups_count = ((parseFloat(25550 / 1000)).toFixed(1)).replace('.0', '') + 'k';
+
+                    } else {
+                        returnObject.setups_count = setups.length;
+                    }
+
+                    var totalSetupDownloads = 0;
+
+                    _.forEach(setups, function(setup) {
+                        totalSetupDownloads += setup.downloads;
+                    });
+
+                    returnObject.setups_downloads_total = totalSetupDownloads;
+
+                    // Get user stats.
                     // we have every setups, group them by user id.
                     var setupsByUsers = _.groupBy(setups, function(setup) {
                         return setup.author._id;
                     });
 
-                    // We will return this object.
-                    var returnObject = {},
-                        highestTotalDownloads = 0,
+
+                    var highestTotalDownloads = 0,
                         highestTotalDownloadsUserName,
                         highestTotalSetupsPosted = 0,
                         highestTotalSetupsPostedUserName;
@@ -477,6 +496,8 @@ module.exports = function(app, passport) {
                             returnObject.user_with_most_downloads_ever = highestTotalDownloadsUserName;
                         }
                     }
+
+                    // Maybe find the poster of the month?
 
                     return response.send(returnObject);
                 }
