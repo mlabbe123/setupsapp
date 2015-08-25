@@ -1,13 +1,15 @@
-var db = require('./config/db'),
-    express = require('express'),
+var express = require('express'),
     app = express(),
     passport = require('passport'),
     flash = require('connect-flash'),
     bodyParser = require('body-parser'),
     session = require('express-session'),
-    fs = require('fs');
+    mongoStore = require('connect-mongo')(session),
+    fs = require('fs'),
+    mongoose = require('mongoose');
 
-    _ = require('lodash');
+// Connection to mongodb.
+mongoose.connect('mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASS + '@ds051738.mongolab.com:51738/setupmarket');
 
 // Express config
 app.use(express.static('static'));
@@ -18,10 +20,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Express session config
 app.use(session({
+    store: new mongoStore({ mongooseConnection: mongoose.connection }),
     secret: "cookie_secret",
     name: "cookie_name",
-    resave: true,
-    saveUninitialized: true
+    resave: false,
+    saveUninitialized: false
 }));
 
 // Passport config

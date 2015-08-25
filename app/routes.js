@@ -1,6 +1,7 @@
 module.exports = function(app, passport) {
     var fs = require('fs'),
         path = require('path'),
+        _ = require('lodash'),
         nodemailer = require('nodemailer'),
         transporter = nodemailer.createTransport({
             service: 'Gmail',

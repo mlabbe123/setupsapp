@@ -5,9 +5,11 @@ TODO
 
 Before release:
 
-    - Stats api.
-
     - Check out express session for prod.
+
+    - QA different browsers:
+        - IE 11
+        - Firefox
 
     - pimp those emails!
 
@@ -24,6 +26,8 @@ Before release:
 After Release:
 
     - Make the filters in simpage fixed position
+
+    - Stop the 'parallax' effect when not in view.
 
     - non angular code in login and register page
 

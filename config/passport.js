@@ -107,7 +107,7 @@ module.exports = function(passport) {
                         }
                     });
 
-                    
+
 
                     console.log('User ' + newUser.email + 'successfully created.')
                 } else {
@@ -143,7 +143,7 @@ module.exports = function(passport) {
             // if no user is found, return the message
             if (!user) {
                 console.log('User not found.');
-                return done(null, false, request.flash('loginMessage', 'No user found.'));
+                return done(null, false, request.flash('loginMessage', 'Wrong email address / password combination.'));
             }
 
             // if the user is found but the password is wrong
@@ -158,7 +158,7 @@ module.exports = function(passport) {
             } else {
                 return done(null, false, request.flash('loginMessage', 'Account has not been confirmed yet.')); // create the loginMessage and save it to session as flashdata
             }
-            
+
         });
 
     }));
