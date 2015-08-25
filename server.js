@@ -9,7 +9,11 @@ var express = require('express'),
     mongoose = require('mongoose');
 
 // Connection to mongodb.
-mongoose.connect('mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASS + '@ds051738.mongolab.com:51738/setupmarket');
+mongoose.connect('mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASS + '@' + process.env.DB_ADDRESS);
+// DELETE THIS ON LAUNCH
+// process.env.DB_USER = mlabbe
+// process.env.DB_PASS = GlaspRob321
+// process.env.DB_ADDRESS = ds051738.mongolab.com:51738/setupmarket
 
 // Express config
 app.use(express.static('static'));

@@ -5,8 +5,6 @@ TODO
 
 Before release:
 
-    - Check out express session for prod.
-
     - QA different browsers:
         - IE 11
         - Firefox
