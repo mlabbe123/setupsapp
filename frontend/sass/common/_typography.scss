@@ -22,6 +22,11 @@
     font-size: 2rem;
 }
 
+.subtitle {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
 .sim-presentation-title {
     @include span(12);
     color: $bg_color;

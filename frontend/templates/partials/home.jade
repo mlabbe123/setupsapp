@@ -6,20 +6,7 @@ div(class="fullwidth-wrapper home superparallax", parallax="superparallax")
                 span Welcome to The Setup Market
             h2.jumbo-title-subtitle The place to find sim racing setups.
 
-div(class="fullwidth-wrapper white")
-    div.content-wrapper
-        h2.title Choose your flavor
-
-        div.simSelection-simwrapper
-            div(ng-repeat="sim in sims", class="simSelection-simwrapper-item")
-                a(href="#/setups/{{ sim.display_name }}", class="simSelection-circle-wrapper")
-                    img(src="images/logo_{{ sim.code }}.png")
-                    div.simSelection-circle
-                    div.simSelection-circle2
-                    div.simSelection-circle3
-                    div.simSelection-circle4
-
-div(class="fullwidth-wrapper green padded-double")
+div(class="fullwidth-wrapper green padded-double border-top")
     div.content-wrapper
         //- h2.title How to
 
@@ -36,6 +23,20 @@ div(class="fullwidth-wrapper green padded-double")
             i.icon-share.huge-icon
             span.homepage-howto-text Register and share your precious setups to the community.
 
+div(class="fullwidth-wrapper white")
+    div.content-wrapper
+        h2.title Choose your flavor
+        h3.subtitle (More sims coming soon)
+
+        div.simSelection-simwrapper
+            div(ng-repeat="sim in sims", class="simSelection-simwrapper-item")
+                a(href="#/setups/{{ sim.display_name }}", class="simSelection-circle-wrapper")
+                    img(src="images/logo_{{ sim.code }}.png")
+                    div.simSelection-circle
+                    div.simSelection-circle2
+                    div.simSelection-circle3
+                    div.simSelection-circle4
+
 
 //- div(class="fullwidth-wrapper white")
 //-     h2.title Users stats
@@ -46,11 +47,11 @@ div(class="fullwidth-wrapper clear border-top")
 
         div.homepage-stats-col
             h2.homepage-stats-title / Most active user
-            span.homepage-stats-content GolfWang
+            span.homepage-stats-content {{ user_stats.user_with_most_setups_ever }}
 
         div.homepage-stats-col
             h2.homepage-stats-title / Most downloaded user
-            span.homepage-stats-content GolfWang
+            span.homepage-stats-content {{ user_stats.user_with_most_downloads_ever }}
 
     div.homepage-stats-col-wrapper.orange_alt1
         h2.title--small History of time
@@ -63,15 +64,15 @@ div(class="fullwidth-wrapper clear border-top")
             h2.homepage-stats-title / Most downloaded user
             span.homepage-stats-content GolfWang
 
-div(class="fullwidth-wrapper clear border-top")
-    div.homepage-stats-col-wrapper.orange_alt2
-        h2.title--small New Cars
+//- div(class="fullwidth-wrapper clear border-top")
+//-     div.homepage-stats-col-wrapper.orange_alt2
+//-         h2.title--small New Cars
 
-        ul
-            li None
+//-         ul
+//-             li None
 
-    div.homepage-stats-col-wrapper.orange_alt3
-        h2.title--small New Tracks
+//-     div.homepage-stats-col-wrapper.orange_alt3
+//-         h2.title--small New Tracks
 
-        ul
-            li None
+//-         ul
+//-             li None

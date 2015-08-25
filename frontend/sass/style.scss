@@ -61,7 +61,8 @@ body {
     &.white {
         background-color: $bg_color;
 
-        .title {
+        .title,
+        .subtitle {
             color: $secondary_color;
         }
     }
@@ -408,12 +409,12 @@ footer {
 
     &:nth-child(odd) {
         border-right: 4px solid $bg_color;
-        border-left: 8px solid $bg_color;
+        //border-left: 8px solid $bg_color;
     }
 
     &:nth-child(even) {
         border-left: 4px solid $bg_color;
-        border-right: 8px solid $bg_color;
+        //border-right: 8px solid $bg_color;
     }
 }
 

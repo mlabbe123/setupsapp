@@ -442,22 +442,43 @@ module.exports = function(app, passport) {
                     // we have every setups, group them by user id.
                     var setupsByUsers = _.groupBy(setups, function(setup) {
                         return setup.author._id;
-                    })
+                    });
+
+                    // We will return this object.
+                    var returnObject = {},
+                        highestTotalDownloads = 0,
+                        highestTotalDownloadsUserName,
+                        highestTotalSetupsPosted = 0,
+                        highestTotalSetupsPostedUserName;
 
                     // within each users array, concatenate the downloads field for every setups.
                     for (var key in setupsByUsers) {
-                       if (setupsByUsers.hasOwnProperty(key)) {
-                        console.log(setupsByUsers[key])
-                           var obj = setupsByUsers[key];
-                            for (var prop in obj) {
-                              // important check that this is objects own property
-                              // not from prototype prop inherited
-                              if(obj.hasOwnProperty(prop)){
-                                //console.log(prop + " = " + obj[prop]);
-                              }
-                           }
+                        if (setupsByUsers.hasOwnProperty(key)) {
+
+                            // Find user with most setups posted.
+                            if (setupsByUsers[key].length >= highestTotalSetupsPosted) {
+                                highestTotalSetupsPosted = setupsByUsers[key].length;
+                                highestTotalSetupsPostedUserName = setupsByUsers[key][0].author.display_name;
+                            }
+
+                            // Find user with most total downloads
+                            var totalUserDownloads = 0;
+
+                            _.forEach(setupsByUsers[key], function(userSetup) {
+                                totalUserDownloads += userSetup.downloads;
+                            });
+
+                            if (totalUserDownloads >= highestTotalDownloads) {
+                                highestTotalDownloads = totalUserDownloads;
+                                highestTotalDownloadsUserName = setupsByUsers[key][0].author.display_name;
+                            }
+
+                            returnObject.user_with_most_setups_ever = highestTotalSetupsPostedUserName;
+                            returnObject.user_with_most_downloads_ever = highestTotalDownloadsUserName;
                         }
                     }
+
+                    return response.send(returnObject);
                 }
             });
     });
