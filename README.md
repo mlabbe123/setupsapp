@@ -35,6 +35,8 @@ After Release:
 
     - Notification module
 
+    - Comments for setup?
+
     - Enhance profile page
 
         - Bulk actions (delete multiple setups)
