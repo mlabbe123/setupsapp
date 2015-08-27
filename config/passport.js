@@ -6,7 +6,7 @@ var nodemailer = require('nodemailer'),
     transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-            user: 'mathieu.labbedb@gmail.com',
+            user: 'thesetupmarket@gmail.com',
             pass: 'GlaspRob321'
         }
     });
@@ -88,11 +88,11 @@ module.exports = function(passport) {
                         } else {
                             // Send confirmation email.
                             var mailOptions = {
-                                from: 'The Setup Market <mathieu.labbedb@gmail.com>', // sender address
+                                from: 'TheSetupMarket <thesetupmarket@gmail.com>', // sender address
                                 to: email,
                                 subject: 'TheSetupMarket - Account Confirmation', // Subject line
-                                text: 'Please click this link to reset your password.', // plaintext body
-                                html: 'Please click this link to confirm your account: <a href="http://127.0.0.1:3000/confirm-account?uid=' + user._id + '">Confirm</a><br><br>You will need to enter this code : ' + user._id + "." // html body
+                                text: 'Please click this link to confirm your account: http://127.0.0.1:3000/confirm-account?uid=' + user._id + '. You will need to enter this code : ' + user._id + '. TheSetupMarket Team.', // plaintext body
+                                html: 'Please click this link to confirm your account: <a href="http://127.0.0.1:3000/confirm-account?uid=' + user._id + '">Confirm</a><br><br>You will need to enter this code : ' + user._id + '. <br><br>TheSetupMarket Team.' // html body
                             };
 
                             transporter.sendMail(mailOptions, function(error, info){

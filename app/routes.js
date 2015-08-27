@@ -6,7 +6,7 @@ module.exports = function(app, passport) {
         transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
-                user: 'mathieu.labbedb@gmail.com',
+                user: 'thesetupmarket@gmail.com',
                 pass: 'GlaspRob321'
             }
         }),
@@ -261,11 +261,11 @@ module.exports = function(app, passport) {
                 console.log('User found.');
                 // Send email.
                 var mailOptions = {
-                    from: 'The Setup Market <mathieu.labbedb@gmail.com>', // sender address
+                    from: 'TheSetupMarket <thesetupmarket@gmail.com>', // sender address
                     to: request.body.email, // list of receivers
-                    subject: 'Reset your password', // Subject line
-                    text: 'Please click this link to reset your password.', // plaintext body
-                    html: 'Please click this link to reset your password.<br><br><a href="http://127.0.0.1:3000/reset-password?uid=' + data._id + '">Reset your password</a>' // html body
+                    subject: 'TheSetupMarket - Reset your password', // Subject line
+                    text: 'Please click this link to reset your password. http://127.0.0.1:3000/reset-password?uid=' + data._id + '. TheSetupMarket Team.', // plaintext body
+                    html: 'Please click this link to reset your password.<br><br><a href="http://127.0.0.1:3000/reset-password?uid=' + data._id + '">Reset your password</a><br><br>TheSetupMarket Team.' // html body
                 };
 
                 transporter.sendMail(mailOptions, function(error, info){
