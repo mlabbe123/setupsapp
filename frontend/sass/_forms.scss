@@ -8,17 +8,17 @@ form {
 }
 
 :-moz-placeholder {
-   color:    #909;
+   color: lighten($primary_color, 20);
    opacity:  1;
 }
 
 ::-moz-placeholder {
-   color:    #909;
+   color: lighten($primary_color, 20);
    opacity:  1;
 }
 
 :-ms-input-placeholder {
-   color:    #909;
+   color: lighten($primary_color, 20);
 }
 
 // Custom classes styles

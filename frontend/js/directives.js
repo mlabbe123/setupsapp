@@ -19,9 +19,9 @@
             return {
                 restrict: 'A',
                 controller: function($scope, $http) {
-                    $scope.deleteSetup = function(setupId, simId) {
+                    $scope.deleteSetup = function(setupId, simId, event) {
 
-                        var ngElement = angular.element(event.srcElement);
+                        var ngElement = angular.element(event.target);
 
                         if (ngElement.hasClass('is-ready-to-delete')) {
                             console.log('hasClass')

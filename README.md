@@ -11,8 +11,6 @@ Before release:
 
     - pimp those emails!
 
-    - Add all AC cars and tracks!!!
-
     - Add all my setups.
 
     - htaccess

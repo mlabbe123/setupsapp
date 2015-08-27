@@ -233,9 +233,10 @@
             });
 
             $scope.uploadFile = function($scope) {
-                var filename = event.target.files[0].name;
-                angular.element(event.srcElement.parentElement.parentElement.querySelector('#setup-file-display-name')).html(filename);
-                angular.element(event.srcElement.parentElement.querySelector('#setup-file-hidden')).val(filename);
+                console.log($scope)
+                var filename = $scope.target.files[0].name;
+                angular.element($scope.target.parentElement.parentElement.querySelector('#setup-file-display-name')).html(filename);
+                angular.element($scope.target.parentElement.querySelector('#setup-file-hidden')).val(filename);
             }
 
             $scope.sim_name = $routeParams.simName;
@@ -296,8 +297,8 @@
                     console.log(status)
                 });
 
-            $scope.updateUsername = function() {
-                var newUsername = angular.element(event.srcElement.parentElement.querySelector('#profile-change-username')).val();
+            $scope.updateUsername = function($event) {
+                var newUsername = angular.element($event.target.parentElement.querySelector('#profile-change-username')).val();
 
                 // Verify if username is free to use.
                 $http.get('/api/get-user-by-name/' + newUsername)

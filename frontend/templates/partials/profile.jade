@@ -43,7 +43,7 @@ div(class="fullwidth-wrapper white padded")
                         label(for="profile-change-username", class="label-block") Username
                         input(id="profile-change-username", class="form-textfield",placeholder="Enter your desired username")
                         div(class="profile-change-username-msg-box msg-box")
-                        button(type="button", class="form-submitbutton", ng-click="updateUsername()") Update
+                        button(type="button", class="form-submitbutton", ng-click="updateUsername($event)") Update
 
                     //- li Change your nationality
                     //- li Change your email
@@ -90,7 +90,7 @@ div(class="fullwidth-wrapper white padded")
                     td
                         a(href="setup_files/{{ setup.simid }}/{{ setup._id }}", class="icon-download icon-link", tooltip="Download")
                         a(href="#/setups/{{ setup.sim }}/{{ setup._id }}/", class="icon-details icon-link", tooltip="See Details")
-                        a(class="icon-error no-href icon-link", ng-click="deleteSetup(setup._id, setup.simid)", ng-show="user.own_profile", tooltip="Delete")
+                        a(class="icon-error no-href icon-link", ng-click="deleteSetup(setup._id, setup.simid, $event)", ng-show="user.own_profile", tooltip="Delete")
                     td {{ setup.file_name }}
                     td {{ setup.sim }}
                     td {{ setup.car }}

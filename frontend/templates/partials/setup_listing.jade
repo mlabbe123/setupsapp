@@ -37,9 +37,6 @@ div(class="fullwidth-wrapper white padded")
 
             div.form-block
                 label(for="filter-type", class="label-block") / Trim
-                //- div(id="filter-type", ng-repeat="type_filter in setup_filters.type_filters")
-                //-     label(for="type_{{ type_filter.label }}", class="label-inline filter-selectable-element", ng-click="selectItem($event)") {{ type_filter.label }}
-                //-     input(type="radio", name="type" id="type_{{ type_filter.label }}", value="{{ type_filter.value }}", ng-model="$parent.filter_query.type", class="is-hidden")
                 div.form-select-wrapper
                     select(id="filter-type", ng-model="filter_query.type", ng-options="type_filters for type_filters in setup_filters.type_filters")
                         option(value="") - Every trim -
