@@ -9,8 +9,6 @@ Before release:
         - IE 11
         - Firefox
 
-    - pimp those emails!
-
     - Add all my setups.
 
     - htaccess
