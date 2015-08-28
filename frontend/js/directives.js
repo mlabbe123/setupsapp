@@ -95,8 +95,13 @@
                 link: function(scope, element, attrs) {
                     var $win = angular.element($window);
 
-                    $win.on('scroll', function(event) {
-                        angular.element(document.querySelector('.' + attrs.parallax)).css('background-position', '0 ' + -Math.sqrt(this.pageYOffset)*3 + 'px');
+                    angular.element($window).bind("scroll", function() {
+                        // TODO: Need to set this outside the scroll listener.
+                        var bgTotalOffset = element[0].offsetHeight + element[0].offsetTop;
+
+                        if (this.pageYOffset < bgTotalOffset) {
+                            angular.element(document.querySelector('.' + attrs.parallax)).css('background-position', '0 ' + -Math.sqrt(this.pageYOffset)*3 + 'px');
+                        }
                     });
                 }
             }

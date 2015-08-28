@@ -19,9 +19,7 @@ Before release:
 
 After Release:
 
-    - Make the filters in simpage fixed position
-
-    - Stop the 'parallax' effect when not in view.
+    - Make the filters in simpage fixed position.
 
     - non angular code in login and register page
 
@@ -67,12 +65,11 @@ IDEAS:
         - 'Poster of the history of time'
         - 'Poster of the week'
         - 'Poster with most downloads of the history of time'
-        - 'Poster with most downloads of the week'
 
         Once the site is cool.
 
-        - 'total dl this week'
         - 'total members'
+        - 'New members this week'
 
         News section.
 
