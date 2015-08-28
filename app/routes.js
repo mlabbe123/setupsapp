@@ -6,8 +6,8 @@ module.exports = function(app, passport) {
         transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
-                user: 'thesetupmarket@gmail.com',
-                pass: 'GlaspRob321'
+                user: process.env.SENDER_USER,
+                pass: process.env.SENDER_PASS
             }
         }),
         multer = require('multer'),
@@ -261,11 +261,11 @@ module.exports = function(app, passport) {
                 console.log('User found.');
                 // Send email.
                 var mailOptions = {
-                    from: 'TheSetupMarket <thesetupmarket@gmail.com>', // sender address
+                    from: 'The Setup Market <thesetupmarket@gmail.com>', // sender address
                     to: request.body.email, // list of receivers
-                    subject: 'TheSetupMarket - Reset your password', // Subject line
-                    text: 'Please click this link to reset your password. http://127.0.0.1:3000/reset-password?uid=' + data._id + '. TheSetupMarket Team.', // plaintext body
-                    html: 'Please click this link to reset your password.<br><br><a href="http://127.0.0.1:3000/reset-password?uid=' + data._id + '">Reset your password</a><br><br>TheSetupMarket Team.' // html body
+                    subject: 'The Setup Market - Reset your password', // Subject line
+                    text: 'Please click this link to reset your password. http://127.0.0.1:3000/reset-password?uid=' + data._id + '. The Setup Market Team.', // plaintext body
+                    html: 'Please click this link to reset your password.<br><br><a href="http://127.0.0.1:3000/reset-password?uid=' + data._id + '">Reset your password</a><br><br>The Setup Market Team.' // html body
                 };
 
                 transporter.sendMail(mailOptions, function(error, info){

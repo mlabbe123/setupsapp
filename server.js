@@ -14,6 +14,9 @@ mongoose.connect('mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASS 
 // process.env.DB_USER = mlabbe
 // process.env.DB_PASS = GlaspRob321
 // process.env.DB_ADDRESS = ds051738.mongolab.com:51738/setupmarket
+// process.env.SENDER_USER = thesetupmarket@gmail.com
+// process.env.SENDER_PASS = GlaspRob321
+// DB_USER=mlabbe DB_PASS=GlaspRob321 DB_ADDRESS=ds051738.mongolab.com:51738/setupmarket SENDER_USER=thesetupmarket@gmail.com SENDER_PASS=GlaspRob321
 
 // Express config
 app.use(express.static('static'));
@@ -45,6 +48,4 @@ var server = app.listen(process.env.PORT || 3000, function () {
 
     var host = server.address().address;
     var port = server.address().port;
-
-    console.log('Example app listening at http://%s:%s', host, port);
 });
