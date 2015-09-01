@@ -5,6 +5,8 @@ TODO
 
 Before release:
 
+    - Session doesnt start after login after account confirmation.
+
     - QA different browsers:
         - IE 11
         - Firefox
@@ -57,6 +59,11 @@ After Release:
     - Tidy up sass code.
 
     - write js unit tests.
+
+    - File Auditing and Intrusion Detection Systems
+        (https://www.digitalocean.com/community/tutorials/7-security-measures-to-protect-your-servers?utm_source=Customerio&utm_medium=Email_Internal&utm_campaign=Email_UbuntuDistroNginxWelcome)
+
+st        https://www.digitalocean.com/community/tutorials/7-security-measures-to-protect-your-servers?utm_source=Customerio&utm_medium=Email_Internal&utm_campaign=Email_UbuntuDistroNginxWelcome
 
 
 IDEAS:
