@@ -4,16 +4,20 @@ setupsapp
 TODO
 
 Before release:
+    
+    - Link to confirm account/reset password in email is 127.0.0.1 (env var?)
 
-    - Session doesnt start after login after account confirmation.
+    - robot.txt
+
+    - Session doesnt start after login after account confirmation. ???
+
+    - git post-push hook for gulp build
 
     - QA different browsers:
         - IE 11
         - Firefox
 
-    - Add all my setups.
-
-    - htaccess
+    - nginx config
 
     - server logs
         - https://github.com/expressjs/morgan ?

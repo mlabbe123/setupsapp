@@ -264,8 +264,8 @@ module.exports = function(app, passport) {
                     from: 'The Setup Market <thesetupmarket@gmail.com>', // sender address
                     to: request.body.email, // list of receivers
                     subject: 'The Setup Market - Reset your password', // Subject line
-                    text: 'Please click this link to reset your password. http://127.0.0.1:3000/reset-password?uid=' + data._id + '. The Setup Market Team.', // plaintext body
-                    html: 'Please click this link to reset your password.<br><br><a href="http://127.0.0.1:3000/reset-password?uid=' + data._id + '">Reset your password</a><br><br>The Setup Market Team.' // html body
+                    text: 'Please click this link to reset your password. ' + config.base_url + '/reset-password?uid=' + data._id + '. The Setup Market Team.', // plaintext body
+                    html: 'Please click this link to reset your password.<br><br><a href="' + config.base_url + '/reset-password?uid=' + data._id + '">Reset your password</a><br><br>The Setup Market Team.' // html body
                 };
 
                 transporter.sendMail(mailOptions, function(error, info){

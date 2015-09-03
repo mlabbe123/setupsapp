@@ -1,4 +1,5 @@
-var express = require('express'),
+var config = require('./config/config'),
+    express = require('express'),
     app = express(),
     passport = require('passport'),
     flash = require('connect-flash'),
@@ -16,10 +17,15 @@ mongoose.connect('mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASS 
 // process.env.DB_ADDRESS = ds051738.mongolab.com:51738/setupmarket
 // process.env.SENDER_USER = thesetupmarket@gmail.com
 // process.env.SENDER_PASS = GlaspRob321
+// process.env.NODE_ENV = PROD || DEV
 // DB_USER=mlabbe DB_PASS=GlaspRob321 DB_ADDRESS=ds051738.mongolab.com:51738/setupmarket SENDER_USER=thesetupmarket@gmail.com SENDER_PASS=GlaspRob321
 
 // Express config
-app.use(express.static('static'));
+// If we are in dev, express will serve the static content, in prod, we let nginx take care of that.
+if (config.node_env === "DEV") {
+    app.use(express.static('static'));
+}
+
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/frontend/templates/');
 app.use(bodyParser.json());

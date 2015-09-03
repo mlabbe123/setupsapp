@@ -91,8 +91,8 @@ module.exports = function(passport) {
                                 from: 'The Setup Market <thesetupmarket@gmail.com>', // sender address
                                 to: email,
                                 subject: 'The Setup Market - Account Confirmation', // Subject line
-                                text: 'Please click this link to confirm your account: http://127.0.0.1:3000/confirm-account?uid=' + user._id + '. You will need to enter this code : ' + user._id + '. The Setup Market Team.', // plaintext body
-                                html: 'Please click this link to confirm your account: <a href="http://127.0.0.1:3000/confirm-account?uid=' + user._id + '">Confirm</a><br><br>You will need to enter this code : ' + user._id + '. <br><br>The Setup Market Team.' // html body
+                                text: 'Please click this link to confirm your account: ' + config.base_url + '/confirm-account?uid=' + user._id + '. You will need to enter this code : ' + user._id + '. The Setup Market Team.', // plaintext body
+                                html: 'Please click this link to confirm your account: <a href="' + config.base_url + '/confirm-account?uid=' + user._id + '">Confirm</a><br><br>You will need to enter this code : ' + user._id + '. <br><br>The Setup Market Team.' // html body
                             };
 
                             transporter.sendMail(mailOptions, function(error, info){
