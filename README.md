@@ -7,16 +7,11 @@ Before release:
     
     - robot.txt
 
-    - git post-push hook for gulp build
-
     - QA different browsers:
         - IE 11
         - Firefox
 
     - nginx config
-
-    - server logs
-        - https://github.com/expressjs/morgan ?
 
 
 After Release:
