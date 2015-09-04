@@ -5,11 +5,7 @@ TODO
 
 Before release:
     
-    - Link to confirm account/reset password in email is 127.0.0.1 (env var?)
-
     - robot.txt
-
-    - Session doesnt start after login after account confirmation. ???
 
     - git post-push hook for gulp build
 
