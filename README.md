@@ -11,7 +11,7 @@ Before release:
         - IE 11
         - Firefox
 
-    - nginx config
+    - nginx config.
 
 
 After Release:
