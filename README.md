@@ -4,6 +4,16 @@ setupsapp
 TODO
 
 Before release:
+
+    - express sessions in db
+
+    - slower moving bg
+
+    - clear download stats
+    
+    - 502, 500, 404 pages
+
+    - verify nodejs logs
     
     - robot.txt
 

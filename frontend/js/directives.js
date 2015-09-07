@@ -9,11 +9,22 @@
             return {
                 restrict: 'A',
                 link: function (scope, element, attrs) {
-                  var onChangeFunc = scope.$eval(attrs.customFileUpload);
-                  element.bind('change', onChangeFunc);
+                    var onChangeFunc = scope.$eval(attrs.customFileUpload);
+                    element.bind('change', onChangeFunc);
                 }
             }
         })
+
+        // .directive('fixedToTop', function($window) {
+        //     return {
+        //         restrict: 'A',
+        //         link: function (scope, element, attrs) {
+        //             angular.element($window).bind("scroll", function() {
+        //                 console.log(element[0].scrollTop);
+        //             });
+        //         }
+        //     }
+        // })
 
         .directive('tooltip', function() {
             return {
