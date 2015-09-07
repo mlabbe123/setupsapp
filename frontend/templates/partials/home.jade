@@ -30,7 +30,7 @@ div(class="fullwidth-wrapper white padded")
         div.simSelection-simwrapper
             div(ng-repeat="sim in sims", class="simSelection-simwrapper-item")
                 a(href="#/setups/{{ sim.display_name }}", class="simSelection-circle-wrapper")
-                    img(src="images/logo_{{ sim.code }}.png")
+                    img(ng-src="images/logo_{{ sim.code }}.png")
                     div.simSelection-circle
                     div.simSelection-circle2
                     div.simSelection-circle3
