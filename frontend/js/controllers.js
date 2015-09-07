@@ -31,7 +31,6 @@
             // Get the sim infos.
             $http.get('/api/get-sim-infos/' + $routeParams.simName).
                 success(function(data, status, headers, config) {
-                    console.log(data)
                     $scope.sim_infos = data;
                 }).
                 error(function(data, status, headers, config) {
@@ -58,7 +57,6 @@
             // Get all the setup filters.
             $http.get('/api/get-setups-filters-by-simname/' + $routeParams.simName).
                 success(function(data, status, headers, config) {
-                    console.log(data)
                     $scope.setup_filters = data;
                 }).
                 error(function(data, status, headers, config) {
@@ -216,7 +214,6 @@
                     });
 
                     $scope.setup_details = setupDetailsObj;
-                    console.log($scope.setup_details)
                 }).
                 error(function(data, status, headers, config) {
                     console.log(status);
@@ -228,12 +225,10 @@
         .controller('submitSetupCtrl', function($scope, $routeParams, SimService) {
 
             SimService.returnSimsFullData().then(function(result) {
-                console.log('result', result);
                 $scope.sims = result;
             });
 
             $scope.uploadFile = function($scope) {
-                console.log($scope)
                 var filename = $scope.target.files[0].name;
                 angular.element($scope.target.parentElement.parentElement.querySelector('#setup-file-display-name')).html(filename);
                 angular.element($scope.target.parentElement.querySelector('#setup-file-hidden')).val(filename);

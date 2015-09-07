@@ -121,6 +121,7 @@ module.exports = function(app, passport) {
     // Logout route.
     app.get('/logout', function(request, response) {
         request.logout();
+        req.session.destroy();
         response.redirect('/');
     });
 
@@ -548,8 +549,6 @@ module.exports = function(app, passport) {
                     return console.log(err);
                 } else {
                     // Read the file.
-                    console.log(setup);
-
                     fs.readFile(path.join(__dirname, '../setups_files/', setup.sim._id.toString(), '/', request.params.setupid), 'utf8', function (err,data) {
                         if (err) {
                             return console.log(err);
@@ -673,7 +672,6 @@ module.exports = function(app, passport) {
                 if(err) {
                     return console.log(err);
                 } else {
-                    console.log(setups)
                     return response.send(setups);
                 }
             });

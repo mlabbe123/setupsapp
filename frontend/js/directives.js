@@ -35,7 +35,6 @@
                         var ngElement = angular.element(event.target);
 
                         if (ngElement.hasClass('is-ready-to-delete')) {
-                            console.log('hasClass')
                             // Delete the setup.
                             $http.post('/api/delete-setup/', {setupId: setupId, simId: simId})
                                 .success(function(data, status, headers, config) {
@@ -63,7 +62,7 @@
                                 // Add class to source element.
                                 ngElement.addClass('is-ready-to-delete');
 
-                                this.newToolTipValue = 'Click again to confirm delete';
+                                this.newToolTipValue = 'Click again to confirm delete (or cancel)';
                             }
                         }
                     }
@@ -111,7 +110,7 @@
                         var bgTotalOffset = element[0].offsetHeight + element[0].offsetTop;
 
                         if (this.pageYOffset < bgTotalOffset) {
-                            angular.element(document.querySelector('.' + attrs.parallax)).css('background-position', '0 ' + -Math.sqrt(this.pageYOffset)*3 + 'px');
+                            angular.element(document.querySelector('.' + attrs.parallax)).css('background-position', '0 ' + -Math.sqrt(this.pageYOffset)/3 + 'px');
                         }
                     });
                 }

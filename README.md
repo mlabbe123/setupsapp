@@ -5,11 +5,7 @@ TODO
 
 Before release:
 
-    - express sessions in db
-
-    - slower moving bg
-
-    - clear download stats
+    - nginx config
     
     - 502, 500, 404 pages
 
@@ -21,7 +17,7 @@ Before release:
         - IE 11
         - Firefox
 
-    - nginx config
+    - clear download stats
 
 
 After Release:
