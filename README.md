@@ -4,8 +4,6 @@ setupsapp
 TODO
 
 Before release:
-
-    - nginx config
     
     - 502, 500, 404 pages
 

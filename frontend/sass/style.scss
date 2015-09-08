@@ -132,6 +132,12 @@ body {
         background-size: cover;
     }
 
+    &.server-error {
+        padding: $padding_mega * 1.5 0;
+        background: url('../images/profile.jpg');
+        background-size: cover;
+    }
+
     &.padded {
         padding: $padding * 2 0;
     }
