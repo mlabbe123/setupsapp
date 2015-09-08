@@ -6,12 +6,12 @@ TODO
 Before release:
 
     - verify nodejs logs
-    
-    - robot.txt
 
     - QA different browsers:
         - IE 11
         - Firefox
+    
+    - robot.txt
 
     - clear download stats
 

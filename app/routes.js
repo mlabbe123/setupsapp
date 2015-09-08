@@ -121,7 +121,7 @@ module.exports = function(app, passport) {
     // Logout route.
     app.get('/logout', function(request, response) {
         request.logout();
-        req.session.destroy();
+        request.session.destroy();
         response.redirect('/');
     });
 
