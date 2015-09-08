@@ -1,0 +1,127 @@
+div(class="fullwidth-wrapper orange")
+    div.content-wrapper
+        div.breadcrumbs-wrapper
+            a(href="#/", class="link breadcrumbs-item") Home
+            a(href="#/setups/{{ sim_name }}", class="link breadcrumbs-item") {{ sim_name }}
+            span(class="breadcrumbs-item current") Setup Detail
+
+div(class="fullwidth-wrapper ac superparallax", parallax="superparallax")
+
+div(class="fullwidth-wrapper white padded")
+    div.content-wrapper
+        h1.sim-presentation-title
+            span.title-slash /
+            span Setup details
+
+        div(class="setupDetail-wrapper {{sim_name}}")
+            div.setupDetail-overview
+                h2.setupDetail-title Overview
+
+                ul.setupDetail-overview-list
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Car
+                        span.setupDetail-overview-list-item-content {{ setup.car.name }}
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Track
+                        span.setupDetail-overview-list-item-content {{ setup.track.name }}
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Trim
+                        span.setupDetail-overview-list-item-content {{ setup.type }}
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Added date
+                        span.setupDetail-overview-list-item-content {{ setup.added_date.display_time }}
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Author
+                        span.setupDetail-overview-list-item-content {{ setup.author.display_name }}
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Downloads
+                        span.setupDetail-overview-list-item-content {{ setup.downloads }}
+                    //- li.setupDetail-overview-list-item
+                    //-     h3.setupDetail-overview-list-item-title / File name
+                    //-     span.setupDetail-overview-list-item-content {{ setup.file_name }}
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Sim version
+                        span.setupDetail-overview-list-item-content {{ setup.sim_version }}
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Best Time
+                        span.setupDetail-overview-list-item-content {{ setup.best_time }}
+                    li.setupDetail-overview-list-item
+                        h3.setupDetail-overview-list-item-title / Comments
+                        span.setupDetail-overview-list-item-content {{ setup.comments }}
+
+                <a href="setup_files/{{ simId }}/{{ setup._id }}" class="link icon-download fixed-download-link"/>download</a>
+
+            div.setupDetail-specs
+                h2.setupDetail-title Specs
+
+                h3.setupDetail-specs-section-title / General
+                ul.setupDetail-specs-list
+                    li.setupDetail-specs-list-item.centered FFB Gain: {{ setup_details.ffb }} %
+                    li.setupDetail-specs-list-item.centered Fuel: {{ setup_details.fuel }} L
+                    li(class="setupDetail-specs-list-item centered", ng-show="setup_details.front_bias") Brake bias (front %): {{ setup_details.front_bias }} %
+                    li(class="setupDetail-specs-list-item centered", ng-show="setup_details.engine_limiter") Engine limiter: {{ setup_details.engine_limiter }} %
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.arb_front") Front ARB: {{ setup_details.arb_front }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.arb_rear") Rear ARB: {{ setup_details.arb_rear }}
+
+                h3.setupDetail-specs-section-title / Tires
+                ul.setupDetail-specs-list
+                    li.setupDetail-specs-list-item Pressure: {{ setup_details.pressure_lf }}
+                    li.setupDetail-specs-list-item Pressure: {{ setup_details.pressure_rf }}
+                    li.setupDetail-specs-list-item Pressure: {{ setup_details.pressure_lr }}
+                    li.setupDetail-specs-list-item Pressure: {{ setup_details.pressure_rr }}
+
+                h3(class="setupDetail-specs-section-title", ng-show="setup_details.front_wing || setup_details.rear_wing") / Aero
+                ul(class="setupDetail-specs-list", ng-show="setup_details.front_wing || setup_details.rear_wing")
+                    li(class="setupDetail-specs-list-item centered", ng-show="setup_details.front_wing") Front wing: {{ setup_details.front_wing }}
+                    li(class="setupDetail-specs-list-item centered", ng-show="setup_details.rear_wing") Rear wing: {{ setup_details.rear_wing }}
+
+                h3(class="setupDetail-specs-section-title", ng-show="setup_details.rear_diff_preload || setup_details.center_diff_preload || setup_details.diff_power || setup_details.diff_coast") / Differential
+                ul(class="setupDetail-specs-list", ng-show="setup_details.rear_diff_preload || setup_details.center_diff_preload || setup_details.diff_power || setup_details.diff_coast")
+                    li(class="setupDetail-specs-list-item centered", ng-show="setup_details.rear_diff_preload") Rear preload: {{ setup_details.rear_diff_preload }}
+                    li(class="setupDetail-specs-list-item centered", ng-show="setup_details.center_diff_preload") Center preload: {{ setup_details.center_diff_preload }}
+                    li(class="setupDetail-specs-list-item centered", ng-show="setup_details.diff_power") Power: {{ setup_details.diff_power }}
+                    li(class="setupDetail-specs-list-item centered", ng-show="setup_details.diff_coast") Coast: {{ setup_details.diff_coast }}
+
+                h3.setupDetail-specs-section-title / Front suspension
+                ul.setupDetail-specs-list
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.toe_out_lf") Toe out: {{ setup_details.toe_out_lf }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.toe_out_rf") Toe out: {{ setup_details.toe_out_rf }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.camber_lf") Camber: {{ setup_details.camber_lf }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.camber_rf") Camber: {{ setup_details.camber_rf }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.rod_length_lf") Rod length: {{ setup_details.rod_length_lf }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.rod_length_rf") Rod length: {{ setup_details.rod_length_rf }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.spring_rate_lf") Spring rate: {{ setup_details.spring_rate_lf }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.spring_rate_rf") Spring rate: {{ setup_details.spring_rate_rf }}
+
+                h3.setupDetail-specs-section-title / Rear suspension
+                ul.setupDetail-specs-list
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.toe_out_lr") Toe out: {{ setup_details.toe_out_lr }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.toe_out_rr") Toe out: {{ setup_details.toe_out_rr }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.camber_lr") Camber: {{ setup_details.camber_lr }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.camber_rr") Camber: {{ setup_details.camber_rr }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.rod_length_lr") Rod length: {{ setup_details.rod_length_lr }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.rod_length_rr") Rod length: {{ setup_details.rod_length_rr }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.spring_rate_lr") Spring rate: {{ setup_details.spring_rate_lr }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.spring_rate_rr") Spring rate: {{ setup_details.spring_rate_rr }}
+
+                h3(class="setupDetail-specs-section-title", ng-show="setup_details.damp_fast_bump_lf || setup_details.damp_bump_lf || setup_details.damp_fast_rebound_lf || setup_details.damp_rebound_lf") / Front dampers
+                ul(class="setupDetail-specs-list", ng-show="setup_details.damp_fast_bump_lf || setup_details.damp_bump_lf || setup_details.damp_fast_rebound_lf || setup_details.damp_rebound_lf")
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.damp_fast_bump_lf") Fast bump: {{ setup_details.damp_fast_bump_lf }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.damp_fast_bump_rf") Fast bump: {{ setup_details.damp_fast_bump_rf }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.damp_bump_lf") Bump: {{ setup_details.damp_bump_lf }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.damp_bump_rf") Bump: {{ setup_details.damp_bump_rf }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.damp_fast_rebound_lf") Fast rebound: {{ setup_details.damp_fast_rebound_lf }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.damp_fast_rebound_rf") Fast rebound: {{ setup_details.damp_fast_rebound_rf }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.damp_rebound_lf") Rebound: {{ setup_details.damp_rebound_lf }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.damp_rebound_rf") Rebound: {{ setup_details.damp_rebound_rf }}
+
+                h3(class="setupDetail-specs-section-title", ng-show="setup_details.damp_fast_bump_lr || damp_bump_lr.damp_bump_lf || setup_details.damp_fast_rebound_lr || setup_details.damp_rebound_lr") / Rear dampers
+                ul(class="setupDetail-specs-list", ng-show="setup_details.damp_fast_bump_lr || setup_details.damp_bump_lr || setup_details.damp_fast_rebound_lr || setup_details.damp_rebound_lr")
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.damp_fast_bump_lr") Fast bump: {{ setup_details.damp_fast_bump_lr }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.damp_fast_bump_rr") Fast bump: {{ setup_details.damp_fast_bump_rr }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.damp_bump_lr") Bump: {{ setup_details.damp_bump_lr }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.damp_bump_rr") Bump: {{ setup_details.damp_bump_rr }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.damp_fast_rebound_lr") Fast rebound: {{ setup_details.damp_fast_rebound_lr }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.damp_fast_rebound_rr") Fast rebound: {{ setup_details.damp_fast_rebound_rr }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.damp_rebound_lr") Rebound: {{ setup_details.damp_rebound_lr }}
+                    li(class="setupDetail-specs-list-item", ng-show="setup_details.damp_rebound_rr") Rebound: {{ setup_details.damp_rebound_rr }}

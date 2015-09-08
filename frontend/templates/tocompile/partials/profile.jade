@@ -1,0 +1,100 @@
+div(class="fullwidth-wrapper orange")
+    div.content-wrapper
+        div.breadcrumbs-wrapper
+            a(href="#/", class="link breadcrumbs-item") Home
+            span(class="breadcrumbs-item current") Profile
+
+div(class="fullwidth-wrapper profile superparallax", parallax="superparallax")
+
+div(class="fullwidth-wrapper white padded")
+    div.content-wrapper
+        h1.sim-presentation-title
+            span.title-slash /
+            span Profile
+
+        div.profile-details
+            div.profile-details-stats-wrapper
+                h2(class="section-title", ng-if="user.own_profile") / Your stats
+                h2(class="section-title", ng-if="!user.own_profile") / {{ user.display_name }}'s stats
+
+                ul.profile-stats-list
+                    li.profile-stats-list-item
+                        div.profile-stats-circle-wrapper
+                            div.profile-stats-circle
+                                span.profile-stats-circle-inner {{ setups_count }}
+                            div.profile-stats-circle2
+                            div.profile-stats-circle3
+                            div.profile-stats-circle4
+                        span.profile-stats-list-title Number of setup posted
+                    li.profile-stats-list-item
+                        div.profile-stats-circle-wrapper
+                            div.profile-stats-circle
+                                span.profile-stats-circle-inner {{ total_downloads }}
+                            div.profile-stats-circle2
+                            div.profile-stats-circle3
+                            div.profile-stats-circle4
+                        span.profile-stats-list-title Total downloads
+
+            div(class="profile-details-changes-wrapper", ng-if="user.own_profile")
+                h2.section-title / Change your profile
+
+                ul.profile-changes-list
+                    li.profile-changes-list-item
+                        label(for="profile-change-username", class="label-block") Username
+                        input(id="profile-change-username", class="form-textfield",placeholder="Enter your desired username")
+                        div(class="profile-change-username-msg-box msg-box")
+                        button(type="button", class="form-submitbutton", ng-click="updateUsername($event)") Update
+
+                    //- li Change your nationality
+                    //- li Change your email
+                    //- li Change your driving style
+                    //- li Delete yout account
+
+        div.profile-setupList
+            h2(class="section-title", ng-if="user.own_profile") / Your uploaded setups
+            h2(class="section-title", ng-if="!user.own_profile") / {{ user.display_name }}'s uploaded setups
+
+            table.setupList-setups-table
+                tr
+                    th / Actions
+                    th
+                        span(class="orderable", ng-click="order('file_name')", tooltip="Order by file name")
+                            span / File Name
+                            i(ng-class="{'icon-downarrow':reverse && predicate === 'file_name', 'icon-uparrow':!reverse && predicate === 'file_name'}")
+                    th
+                        div.form-select-wrapper(tooltip="Filter by sim")
+                            select(ng-model="filter_query.sim", ng-options="sim_filters for sim_filters in setup_filters.sim_filters")
+                                option(value="") / Sims
+                    th
+                        div.form-select-wrapper(tooltip="Filter by car")
+                            select(ng-model="filter_query.car", ng-options="car_filters for car_filters in setup_filters.car_filters")
+                                option(value="") / Cars
+                    th
+                        div.form-select-wrapper(tooltip="Filter by track")
+                            select(ng-model="filter_query.track", ng-options="track_filters for track_filters in setup_filters.track_filters")
+                                option(value="") / Tracks
+                    th
+                        div.form-select-wrapper(tooltip="Filter by trim")
+                            select(ng-model="filter_query.type", ng-options="type_filters for type_filters in setup_filters.type_filters")
+                                option(value="") / Trims
+                    th.visible-huge
+                        span(class="orderable", ng-class="{reverse:reverse}", ng-click="order('downloads')", tooltip="Order By Downloads")
+                            span /&nbsp;Downloads
+                            i(ng-class="{'icon-downarrow':reverse && predicate === 'downloads', 'icon-uparrow':!reverse && predicate === 'downloads'}")
+                    th.visible-huge
+                        span(class="orderable", ng-class="{reverse:reverse}", ng-click="order('added_date.timestamp')", tooltip="Order By Added Date")
+                            span /&nbsp;Added&nbsp;date
+                            i(ng-class="{'icon-downarrow':reverse && predicate === 'added_date.timestamp', 'icon-uparrow':!reverse && predicate === 'added_date.timestamp'}")
+
+                tr(ng-repeat="setup in setups | filter:{ sim:filter_query.sim||undefined, car:filter_query.car||undefined, track:filter_query.track||undefined, type:filter_query.type||undefined } | orderBy:predicate:reverse")
+                    td
+                        a(href="setup_files/{{ setup.simid }}/{{ setup._id }}", class="icon-download icon-link", tooltip="Download")
+                        a(href="#/setups/{{ setup.sim }}/{{ setup._id }}/", class="icon-details icon-link", tooltip="See Details")
+                        a(class="icon-error no-href icon-link", ng-click="deleteSetup(setup._id, setup.simid, $event)", ng-show="user.own_profile", tooltip="Delete")
+                    td {{ setup.file_name }}
+                    td {{ setup.sim }}
+                    td {{ setup.car }}
+                    td {{ setup.track }}
+                    td {{ setup.type }}
+                    td.visible-huge {{ setup.downloads }}
+                    td.visible-huge {{ setup.added_date.display_time }}

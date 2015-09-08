@@ -1,0 +1,12 @@
+table.setupList-setups-table
+    tr
+        th id
+        th Name
+        th Category
+        th sim
+
+    tr(ng-repeat="car in cars")
+        td {{ car._id }}
+        td {{ car.name }}
+        td {{ car.category }}
+        td {{ car.sim.display_name }}

@@ -1,0 +1,77 @@
+div(class="fullwidth-wrapper home superparallax", parallax="superparallax")
+    div.content-wrapper
+        div.mainpage-title
+            h1.jumbo-title
+                span.title-slash /
+                span Welcome to The Setup Market
+            h2.jumbo-title-subtitle The place to find sim racing setups.
+
+div(class="fullwidth-wrapper green padded-double border-top")
+    div.content-wrapper
+
+        div.homepage-howto-wrapper
+            h3.homepage-howto-title Browse
+            i.icon-download.huge-icon
+            span.homepage-howto-text Download setups for the sim and car/track combo of your choice.
+
+        div.homepage-howto-separator
+            span or
+
+        div.homepage-howto-wrapper
+            h3.homepage-howto-title Share
+            i.icon-share.huge-icon
+            span.homepage-howto-text Create an account and share your precious setups to the community.
+
+div(class="fullwidth-wrapper white padded")
+    div.content-wrapper
+        h2.title Choose your flavor
+        h3.subtitle (More sims coming soon)
+
+        div.simSelection-simwrapper
+            div(ng-repeat="sim in sims", class="simSelection-simwrapper-item")
+                a(href="#/setups/{{ sim.display_name }}", class="simSelection-circle-wrapper")
+                    img(ng-src="images/logo_{{ sim.code }}.png")
+                    div.simSelection-circle
+                    div.simSelection-circle2
+                    div.simSelection-circle3
+                    div.simSelection-circle4
+
+
+//- div(class="fullwidth-wrapper white")
+//-     h2.title Users stats
+
+div(class="fullwidth-wrapper clear border-top")
+    div.homepage-stats-col-wrapper.orange
+        h2.title--small.icon-cup Hall of Fame
+
+        div.homepage-stats-col
+            h2.homepage-stats-title / Most active user
+            span.homepage-stats-content {{ user_stats.user_with_most_setups_ever }}
+
+        div.homepage-stats-col
+            h2.homepage-stats-title / Most downloaded user
+            span.homepage-stats-content {{ user_stats.user_with_most_downloads_ever }}
+
+    div.homepage-stats-col-wrapper.orange_alt1
+        h2.title--small.icon-stats Market stats
+
+        div.homepage-stats-col
+            h2.homepage-stats-title / Setup count
+            span.homepage-stats-content {{ user_stats.setups_count }}
+
+        div.homepage-stats-col
+            h2.homepage-stats-title / Downloads count
+            span.homepage-stats-content {{ user_stats.setups_downloads_total }}
+
+//- div(class="fullwidth-wrapper clear border-top")
+//-     div.homepage-stats-col-wrapper.orange_alt2
+//-         h2.title--small New Cars
+
+//-         ul
+//-             li None
+
+//-     div.homepage-stats-col-wrapper.orange_alt3
+//-         h2.title--small New Tracks
+
+//-         ul
+//-             li None

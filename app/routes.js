@@ -786,12 +786,12 @@ module.exports = function(app, passport) {
     // Error pages routes
     // =============================
     app.use(function(req, res, next) {
-        res.status(404).render('static/error_pages/404');
+        res.status(404).render('tocompile/error_pages/404');
     });
 
     app.use(function(err, req, res, next) {
         console.error(err.stack);
-        res.status(500).render('static/error_pages/50x');
+        res.status(500).render('tocompile/error_pages/50x');
     });
 
 

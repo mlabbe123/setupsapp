@@ -1,0 +1,18 @@
+h1 You want to add a sim?
+
+div.form-wrapper
+    form(action="/register", method="post")
+        div.fullwidth-form
+            div.field-block
+                label(for="sim-name-field", class="form-label") Sim Display Name
+                div.form-input-wrapper
+                    input(id="sim-displayname-field", type="text", name="sim_display_name", class="form-textfield", ng-model="simDisplayName")
+
+            div.field-block
+                    label(for="sim-code-field", class="form-label") Sim Code
+                    div.form-input-wrapper
+                        input(id="sim-code-field", type="text", name="sim_code", class="form-textfield", ng-model="simCode")
+
+            button(type="button", class="form-submitbutton", ng-disabled="!simDisplayName||!simCode", ng-click="addSim()") Submit
+
+            div(class="", id="msg-box")
