@@ -89,7 +89,7 @@ gulp.task('jshint', function() {
 gulp.task('jadeprod', function() {
     gulp.src(paths.jade)
         .pipe(jade())
-        .pipe(gulp.dest('static/partials/'));
+        .pipe(gulp.dest('static/'));
 });
 
 // JS prod task
