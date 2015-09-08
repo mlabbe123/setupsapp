@@ -42,7 +42,7 @@
                                     // Tell the user the setup has been deleted.
 
                                     // Remove from the DOM.
-                                    ngElement[0].parentElement.parentElement.remove();
+                                    angular.element(ngElement[0].parentElement.parentElement).remove();
                                 })
                                 .error(function(data, status, headers, config) {
                                     // Tell the user an error occured.
@@ -80,7 +80,6 @@
                     };
 
                     var onMouseLeaveFunc = function() {
-                        console.log('mouseleave!!');
                         angular.element(element[0].querySelector('.tooltip-wrapper')).remove();
                     };
 
