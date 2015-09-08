@@ -53,9 +53,9 @@
                     templateUrl: 'partials/admin/add_tracks.html',
                     controller: 'addTracksCtrl'
                 })
-                // .otherwise({
-                //     redirectTo: '/'
-                // })
+                .otherwise({
+                    redirectTo: '/'
+                })
 
             //$locationProvider.html5Mode(true);
         }]);
