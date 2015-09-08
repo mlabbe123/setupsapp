@@ -38,10 +38,6 @@ module.exports = function(app, passport) {
     // GET requests
     // ===========================
 
-    app.get('/test', function(request, response) {
-        response.render('50x');
-    })
-
     // Home page
     app.get('/', function(request, response) {
         response.render('index', {

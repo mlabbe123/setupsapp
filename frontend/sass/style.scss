@@ -134,7 +134,13 @@ body {
 
     &.server-error {
         padding: $padding_mega * 1.5 0;
-        background: url('../images/profile.jpg');
+        background: url('../images/500_bg.jpg');
+        background-size: cover;
+    }
+
+    &.not-found {
+        padding: $padding_mega * 1.5 0;
+        background: url('../images/404_bg.jpg');
         background-size: cover;
     }
 

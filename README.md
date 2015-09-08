@@ -4,8 +4,6 @@ setupsapp
 TODO
 
 Before release:
-    
-    - 502, 500, 404 pages
 
     - verify nodejs logs
     
