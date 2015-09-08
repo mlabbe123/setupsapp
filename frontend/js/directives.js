@@ -80,7 +80,8 @@
                     };
 
                     var onMouseLeaveFunc = function() {
-                        element[0].querySelector('.tooltip-wrapper').remove();
+                        console.log('mouseleave!!');
+                        angular.element(element[0].querySelector('.tooltip-wrapper')).remove();
                     };
 
                     var onTooltipClick = function() {
