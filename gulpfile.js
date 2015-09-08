@@ -12,7 +12,7 @@ var gulp = require('gulp'),
 
     // paths for src files
     paths = {
-        jade: 'frontend/templates/partials/**/*.jade',
+        jade: 'frontend/templates/static/**/*.jade',
         sass: 'frontend/sass/**/*.scss',
         js: 'frontend/js/**/*.js',
         images: 'frontend/images/**/*',
@@ -36,7 +36,7 @@ gulp.task('jadedev', function() {
         .pipe(jade({
             pretty: true
         }))
-        .pipe(gulp.dest('static/partials/'));
+        .pipe(gulp.dest('static/'));
 });
 
 // JS dev task
