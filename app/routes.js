@@ -100,7 +100,7 @@ module.exports = function(app, passport) {
 
     // Confirm account route.
     app.get('/confirm-account', function(request, response) {
-        response.render('reset_password', {
+        response.render('confirm_account', {
             userid: request.query.uid
         });
     });
