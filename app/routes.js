@@ -272,7 +272,7 @@ module.exports = function(app, passport) {
                     if(error){
                         console.log(error);
                     }else{
-                        console.log('Message sent: ' + info.response);
+                        console.log('RECOVER PASSWORD: Message sent: ' + info.response);
                     }
                 });
             }
