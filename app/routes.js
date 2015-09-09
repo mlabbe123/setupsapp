@@ -18,6 +18,7 @@ module.exports = function(app, passport) {
                 filesize: 10000
             }
         }),
+        config = require('../config/config'),
 
         // Models
         Sim = require('./models/sim'),
@@ -79,9 +80,9 @@ module.exports = function(app, passport) {
         // Up the download counter on the setup in db.
         Setup.update({_id: request.params.setupid, sim: request.params.simid}, {$inc: {downloads: 1}}, function(err, numAffected) {
             if(err) {
-                console.log(err)
+                console.log(err);
             } else {
-                console.log(numAffected)
+                console.log('Setup ' + request.params.setupid + ' downloaded');
             }
         });
 
@@ -196,7 +197,7 @@ module.exports = function(app, passport) {
                     console.log('Error creating setup.')
                 } else {
                     // Setup is in db, file is uploaded, time to rename and move the file in the sim directory.
-                    console.log('Setup successfuly created.', setup)
+                    console.log('Setup successfuly created.', setup._id);
 
                     // Filename of the new setup file will be its id in the db.
                     var setupFileNewName = setup._id;
@@ -219,7 +220,6 @@ module.exports = function(app, passport) {
                                             message: 'There has been an error, please try again.'
                                         });
                                     } else {
-                                        console.log('Setup moved and renamed.');
                                         response.render('submit', {
                                             user: request.user,
                                             message: 'Setup successfully uploaded'
@@ -237,7 +237,6 @@ module.exports = function(app, passport) {
                                         message: 'There has been an error, please try again.'
                                     });
                                 } else {
-                                    console.log('Setup moved and renamed.');
                                     response.render('submit', {
                                         user: request.user,
                                         message: 'Setup successfully uploaded'
@@ -256,17 +255,17 @@ module.exports = function(app, passport) {
         // Get userid from email.
         User.findOne({email: request.body.email}, {_id:1}, function(err, data) {
             if(err) {
-                console.log('Email is not in database.')
-                console.log(err)
+                console.log('RECOVER PASSWORD: Email is not in database.');
+                console.log(err);
             } else {
-                console.log('User found.');
+                console.log('RECOVER PASSWORD: User found.');
                 // Send email.
                 var mailOptions = {
                     from: 'The Setup Market <thesetupmarket@gmail.com>', // sender address
                     to: request.body.email, // list of receivers
                     subject: 'The Setup Market - Reset your password', // Subject line
-                    text: 'Please click this link to reset your password. ' + config.base_url + '/reset-password?uid=' + data._id + '. The Setup Market Team.', // plaintext body
-                    html: 'Please click this link to reset your password.<br><br><a href="' + config.base_url + '/reset-password?uid=' + data._id + '">Reset your password</a><br><br>The Setup Market Team.' // html body
+                    text: 'Please click this link to reset your password. ' + config.base_url + '/reset-password?uid=' + data._id + '. The Setup Market team.', // plaintext body
+                    html: 'Please click this link to reset your password.<br><br><a href="' + config.base_url + '/reset-password?uid=' + data._id + '">Reset your password</a><br><br>The Setup Market team.' // html body
                 };
 
                 transporter.sendMail(mailOptions, function(error, info){
@@ -288,7 +287,7 @@ module.exports = function(app, passport) {
     // Reset password route.
     app.post('/reset-password', function(request, response) {
         if(request.body.pass !== request.body.passconfirm) {
-            console.log('The two password fields dont match.');
+            console.log('RESET PASSWORD: The two password fields dont match.');
             response.render('reset_password', {
                 userid: request.body.userid,
                 message: 'The two password fields dont match.'
@@ -315,7 +314,7 @@ module.exports = function(app, passport) {
     // Reset password route.
     app.post('/confirm-account', function(request, response) {
         if(request.body.userid !== request.body.confirmationcode) {
-            console.log('The two ids dont match.');
+            console.log('RESET PASSWORTD: The two ids dont match.');
             response.render('confirm_account', {
                 userid: request.body.userid,
                 message: 'The confirmation code is wrong.'
@@ -323,7 +322,7 @@ module.exports = function(app, passport) {
         } else {
             User.update({_id: request.body.userid}, {confirmed: true}, function(err, numAffected) {
                 if (err) {
-                    console.log('Error updating confirmed state for user: ' + request.body.userid);
+                    console.log('RESET PASSWORD: Error updating confirmed state for user: ' + request.body.userid);
 
                     response.render('confirm_account', {
                         userid: request.body.userid,
@@ -379,7 +378,6 @@ module.exports = function(app, passport) {
             if(err) {
                 console.log('error creating sim');
             } else {
-                console.log('Sim successfuly created');
                 return response.send('ok');
             }
         });
@@ -510,7 +508,7 @@ module.exports = function(app, passport) {
     app.post('/api/update-user-displayname/', function(request, response) {
         User.update({_id: request.body.userId}, {display_name: request.body.newDisplayName}, function(err) {
             if(err) {
-                console.log('error creating sim');
+                console.log('error creating sim', err);
             } else {
                 console.log('User display_name successfully updated');
             }
@@ -739,9 +737,8 @@ module.exports = function(app, passport) {
 
         newCar.save(function(err) {
             if(err) {
-                console.log('error creating car');
+                console.log('error creating car', err);
             } else {
-                console.log('Car successfuly created');
                 return response.send('ok');
             }
         });
@@ -773,9 +770,8 @@ module.exports = function(app, passport) {
 
         newTrack.save(function(err) {
             if(err) {
-                console.log('error creating track');
+                console.log('error creating track', err);
             } else {
-                console.log('Track successfuly created');
                 return response.send('ok');
             }
         });
@@ -804,7 +800,6 @@ module.exports = function(app, passport) {
         if (request.isAuthenticated()) {
             return next();
         } else {
-            console.log('redirected to home page cause not logged in')
             response.redirect('/');
         }
     }
@@ -813,7 +808,6 @@ module.exports = function(app, passport) {
         if (request.isAuthenticated() && request.user.admin) {
             return next();
         } else {
-            console.log('redirected to home page cause not logged in')
             response.redirect('/#');
         }
     }

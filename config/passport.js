@@ -11,6 +11,8 @@ var nodemailer = require('nodemailer'),
         }
     });
 
+var config = require('./config');
+
 Date.prototype.yyyymmdd = function() {
     var yyyy = this.getFullYear().toString();
     var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
@@ -44,20 +46,6 @@ module.exports = function(passport) {
             return done(null, false, request.flash('registerMessage', 'Are you real?'));
         }
 
-        // process.nextTick(function() {
-        //     User.findOne({ display_name: request.body.username }, function (err, user) {
-        //         if (err) {
-        //             console.log(err);
-        //             return done(err);
-        //         }
-
-        //         if(user) {
-        //             console.log('That username is already taken.')
-        //             return done(null, false, request.flash('registerMessage', 'That username is already taken.'));
-        //         }
-        //     });
-        // });
-
         // asynchronous
         // User.findOne wont fire unless data is sent back
         process.nextTick(function() {
@@ -65,7 +53,7 @@ module.exports = function(passport) {
             // Find one document matching the provided email address.
             User.findOne({ email: email }, function (err, user) {
                 if (err) {
-                    console.log(err)
+                    console.log('REGISTER: Error finding user: ',err);
                     return done(err);
                 }
 
@@ -91,15 +79,15 @@ module.exports = function(passport) {
                                 from: 'The Setup Market <thesetupmarket@gmail.com>', // sender address
                                 to: email,
                                 subject: 'The Setup Market - Account Confirmation', // Subject line
-                                text: 'Please click this link to confirm your account: ' + config.base_url + '/confirm-account?uid=' + user._id + '. You will need to enter this code : ' + user._id + '. The Setup Market Team.', // plaintext body
-                                html: 'Please click this link to confirm your account: <a href="' + config.base_url + '/confirm-account?uid=' + user._id + '">Confirm</a><br><br>You will need to enter this code : ' + user._id + '. <br><br>The Setup Market Team.' // html body
+                                text: 'Please click this link to confirm your account: ' + config.base_url + '/confirm-account?uid=' + user._id + '. You will need to enter this code : ' + user._id + '. The Setup Market team.', // plaintext body
+                                html: 'Please click this link to confirm your account: <a href="' + config.base_url + '/confirm-account?uid=' + user._id + '">Confirm</a><br><br>You will need to enter this code : ' + user._id + '. <br><br>The Setup Market team.' // html body
                             };
 
                             transporter.sendMail(mailOptions, function(error, info){
                                 if(error){
-                                    console.log(error);
+                                    console.log('REGISTER: Error sending mail. ',error);
                                 }else{
-                                    console.log('Message sent: ' + info.response);
+                                    console.log('REGISTER: Message sent: ' + info.response);
                                 }
                             });
 
@@ -109,9 +97,9 @@ module.exports = function(passport) {
 
 
 
-                    console.log('User ' + newUser.email + 'successfully created.')
+                    console.log('REGISTER: User ' + newUser.email + ' successfully created.')
                 } else {
-                    console.log('That email is already taken.')
+                    console.log('REGISTER: That email is already taken.');
                     return done(null, false, request.flash('registerMessage', 'That email address is already taken.'));
                 }
             });
@@ -136,19 +124,19 @@ module.exports = function(passport) {
         User.findOne({ email :  email }, function(err, user) {
             // if there are any errors, return the error before anything else
             if (err) {
-                console.log(err)
+                console.log('LOGIN: Error finding user. ',err);
                 return done(err);
             }
 
             // if no user is found, return the message
             if (!user) {
-                console.log('User not found.');
+                console.log('LOGIN: User not found.');
                 return done(null, false, request.flash('loginMessage', 'Wrong email address / password combination.'));
             }
 
             // if the user is found but the password is wrong
             if (!user.isPasswordValid(password)) {
-                console.log('Oops! Wrong password.')
+                console.log('LOGIN: Wrong password.')
                 return done(null, false, request.flash('loginMessage', 'Wrong email address / password combination.')); // create the loginMessage and save it to session as flashdata
             }
 
