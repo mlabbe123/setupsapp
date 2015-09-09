@@ -5,10 +5,29 @@ TODO
 
 Before release:
 
-    - verify nodejs logs
+    - fonctionnal QA:
+
+        - navigation works CHECK
+
+        setups listing 
+            - sorting, filtering works CHECK
+            - links to detail and download works CHECK
+            - newly added setups appears immediately (IE11)
+
+        Profile page
+            - sorting, filtering works CHECK
+            - setup deleting works CHECK
+            - links to detail and download works CHECK
+            - change username works CHECK
+
+        User creation process CHECK
+
+        Upload of setup process CHECK
+
+        Reset password process CHECK
 
     - QA different browsers:
-        - IE 11
+        - IE 11 CHECK
         - Firefox
     
     - robot.txt
@@ -17,6 +36,8 @@ Before release:
 
 
 After Release:
+
+    - removal of unconfirmed account (daily)
 
     - Make the filters in simpage fixed position.
 
