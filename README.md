@@ -4,31 +4,6 @@ setupsapp
 TODO
 
 Before release:
-
-    - fonctionnal QA:
-
-        - navigation works CHECK
-
-        setups listing 
-            - sorting, filtering works CHECK
-            - links to detail and download works CHECK
-            - newly added setups appears immediately (IE11)
-
-        Profile page
-            - sorting, filtering works CHECK
-            - setup deleting works CHECK
-            - links to detail and download works CHECK
-            - change username works CHECK
-
-        User creation process CHECK
-
-        Upload of setup process CHECK
-
-        Reset password process CHECK
-
-    - QA different browsers:
-        - IE 11 CHECK
-        - Firefox
     
     - robot.txt
 
