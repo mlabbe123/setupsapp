@@ -471,7 +471,35 @@ footer {
 }
 
 .setupList-filters-wrapper {
-    @include span(2);
+    @include under-xlarge {
+        @include span(12);
+
+        .form-block {
+            display: inline-block;
+            margin-bottom: 0.8rem;
+            margin-right: 1.5rem;
+        }
+
+        .label-block {
+            font-size: 1.2rem;
+        }
+
+        .form-select-wrapper {
+            select {
+                height: 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        .form-textfield {
+            padding: 0.43rem;
+            font-size: 1rem;
+        }
+    }
+
+    @include xlarge-and-above {
+        @include span(2);
+    }
 
     &.fixed-positon {
         position: fixed;
@@ -479,13 +507,22 @@ footer {
 }
 
 .setupList-setups-wrapper {
-    @include span(10 at 3);
+    @include span(12);
+
+    @include xlarge-and-above {
+        @include span(10 at 3);
+    }
 }
 
 .setupList-setups-table {
     width: 100%;
     margin: 0 auto;
     color: $bg_color;
+    font-size: 0.9rem;
+
+    @include xlarge-only {
+        font-size: 1rem;
+    }
 
     tr {
         text-align: center;
@@ -513,7 +550,6 @@ footer {
 
     th {
         padding: $padding;
-        font-size: 1rem;
 
         @include huge {
             font-size: 1.2rem;
@@ -525,8 +561,12 @@ footer {
     }
 
     td {
-        padding: $padding / 2;
+        padding: $padding / 5 $padding / 2;
         white-space: nowrap;
+
+        @include xlarge-and-above {
+            padding: $padding / 5 $padding / 2;
+        }
     }
 
     .icon-link {

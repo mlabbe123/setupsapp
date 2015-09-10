@@ -50,11 +50,11 @@ div(class="fullwidth-wrapper white padded")
         div.setupList-setups-wrapper
             table.setupList-setups-table
                 tr
-                    th / Actions
-                    th / Car
-                    th / Track
-                    th / Author
-                    th / Type
+                    th /&nbsp;Actions
+                    th /&nbsp;Car
+                    th /&nbsp;Track
+                    th /&nbsp;Author
+                    th /&nbsp;Type
                     th
                         span(class="orderable", ng-class="{reverse:reverse}", ng-click="order('best_time')", tooltip="Order By Lap Time")
                             span /&nbsp;Best Lap
@@ -67,7 +67,7 @@ div(class="fullwidth-wrapper white padded")
                         span(class="orderable", ng-class="{reverse:reverse}", ng-click="order('added_date.timestamp')", tooltip="Order By Added Date")
                             span /&nbsp;Added Date
                             i(ng-class="{'icon-downarrow':reverse && predicate === 'added_date.timestamp', 'icon-uparrow':!reverse && predicate === 'added_date.timestamp'}")
-                    th / Version
+                    th /&nbsp;Version
 
                 tr(ng-repeat="setup in setups | filter:{ car:filter_query.car||undefined, car_category:filter_query.car_category||undefined, track:filter_query.track||undefined, author:filter_query.author, type:filter_query.type||undefined, sim_version:filter_query.sim_version||type } | orderBy:predicate:reverse")
                     td
