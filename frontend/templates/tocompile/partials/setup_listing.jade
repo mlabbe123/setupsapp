@@ -56,6 +56,10 @@ div(class="fullwidth-wrapper white padded")
                     th / Author
                     th / Type
                     th
+                        span(class="orderable", ng-class="{reverse:reverse}", ng-click="order('best_time')", tooltip="Order By Lap Time")
+                            span /&nbsp;Best Lap
+                            i(ng-class="{'icon-downarrow':reverse && predicate === 'best_time', 'icon-uparrow':!reverse && predicate === 'best_time'}")
+                    th
                         span(class="orderable", ng-class="{reverse:reverse}", ng-click="order('downloads')", tooltip="Order By Downloads")
                             span /&nbsp;Downloads
                             i(ng-class="{'icon-downarrow':reverse && predicate === 'downloads', 'icon-uparrow':!reverse && predicate === 'downloads'}")
@@ -74,6 +78,7 @@ div(class="fullwidth-wrapper white padded")
                     td
                         a(href="#/profile/{{ setup.authorid }}", class="link", tooltip="See user profile") {{ setup.author }}
                     td {{ setup.type }}
+                    td {{ setup.best_time }}
                     td {{ setup.downloads }}
                     td {{ setup.added_date.display_time }}
                     td {{ setup.sim_version }}
