@@ -654,7 +654,6 @@ footer {
 
     @include huge {
         display: block;
-        line-height: 1.4rem;
     }
 }
 
@@ -668,7 +667,7 @@ footer {
 
     &.comments {
         white-space: pre-line;
-        line-height: 
+        line-height: 1.4rem;
     }
 
     @include huge {
