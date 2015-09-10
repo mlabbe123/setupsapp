@@ -183,7 +183,7 @@ module.exports = function(app, passport) {
                 track: request.body.track,
                 type: request.body.trim,
                 best_time: request.body.best_time,
-                comments: request.body.comments,
+                comments: request.body.comments.replace(/<(?:.|\n)*?>/gm, ''),
                 file_name: request.body.setup_name,
                 added_date: {
                     timestamp: now,

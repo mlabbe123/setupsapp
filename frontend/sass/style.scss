@@ -654,6 +654,7 @@ footer {
 
     @include huge {
         display: block;
+        line-height: 1.4rem;
     }
 }
 
@@ -664,6 +665,11 @@ footer {
     color: $secondary_color;
     font-weight: 700;
     font-size: 1.2rem;
+
+    &.comments {
+        white-space: pre-line;
+        line-height: 
+    }
 
     @include huge {
         padding-top: 0;
