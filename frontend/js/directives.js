@@ -15,6 +15,69 @@
             }
         })
 
+        .directive('formatLaptime', function($filter) {
+            return {
+                restrict: 'A',
+                link: function (scope, element, attrs) {
+ 
+                    var onBlurFunc = function(event) {
+                        var ngElement = angular.element(event.srcElement),
+                            laptimeValue = ngElement.val();
+
+                        // Replace every , and : by dots and remove every non numeric char except dots.
+                        laptimeValue = laptimeValue.replace(/[:,]/g,'.').replace(/[^0-9.]/g,'');
+
+                        // Check if laptime begins with a zero.
+                        while(laptimeValue.indexOf('0') === 0) {
+                            // Remove the begining 0s.
+                            laptimeValue = laptimeValue.substring(1);
+                        }
+
+                        // Check if laptime finishes with 3 digits. Then...
+                        var laptimeSplitted = laptimeValue.split('.');
+
+                        // ...Add an x if not 3 digits.
+                        while (laptimeSplitted[laptimeSplitted.length - 1].length < 3) {
+                            laptimeSplitted[laptimeSplitted.length - 1] += 'x';
+                        }
+
+                        // ...Keeps only the first 3 digits if there are more than 3.
+                        if (laptimeSplitted[laptimeSplitted.length - 1].length > 3) {
+                            laptimeSplitted[laptimeSplitted.length - 1] = laptimeSplitted[laptimeSplitted.length - 1].substring(0, 3);
+                        }
+
+                        // For any group that isnt the last, keep only 2 first digits if there are more than 2.
+                        for (var i = 0; i < laptimeSplitted.length - 1; i++) {
+                            if (laptimeSplitted[i] > 2) {
+                                laptimeSplitted[i] = laptimeSplitted[i].substring(0, 2);
+                            }
+                        }
+
+                        // Join the array into one string, the formatted laptime.
+                        laptimeValue = laptimeSplitted.join('.');
+
+                        // Put the formatteds laptime in the DOM.
+                        ngElement.val(laptimeValue);
+                    };
+
+                    var onKeyDownFunc = function(event) {
+                        // Array of allowd char.
+                        var allowedChar = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 190, 36, 37, 38, 39, 7, 8, 9, 46];
+
+                        // Prevent key if not in the allowed keys array.
+                        if (allowedChar.indexOf(event.keyCode) === -1) {
+                            event.preventDefault();
+                        }
+                        // 48 - 57, 96 - 105, 190, 36 - 40, 7 - 9, 46
+                    };
+
+                    // Bind the event listener.
+                    element.bind('change', onBlurFunc);
+                    element.bind('keydown', onKeyDownFunc);
+                }
+            }
+        })
+
         // .directive('fixedToTop', function($window) {
         //     return {
         //         restrict: 'A',
