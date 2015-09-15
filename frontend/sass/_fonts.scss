@@ -48,3 +48,10 @@
 @include print-icon("share", "\e309");
 @include print-icon("stats", "\e041");
 @include print-icon("cup", "\e075");
+@include print-icon("edit", "\e151");
+
+// Icons repositioning.
+.icon-edit:before {
+    left: 1px;
+    top: 4px;
+}

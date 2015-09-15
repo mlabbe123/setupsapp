@@ -22,6 +22,10 @@
                     templateUrl: 'templates/partials/setup_detail.html',
                     controller: 'setupDetailCtrl'
                 })
+                .when('/setups/:simName/edit/:setupId', {
+                    templateUrl: 'templates/partials/setup_edit.html',
+                    controller: 'setupEditCtrl'
+                })
                 .when('/profile/:userid', {
                     templateUrl: 'templates/partials/profile.html',
                     controller: 'userProfileCtrl'

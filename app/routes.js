@@ -640,7 +640,6 @@ module.exports = function(app, passport) {
             });
     });
 
-
     // Retrieve setup by Id.
     app.get('/api/get-setup/:setupid', function(request, response) {
 
@@ -675,9 +674,20 @@ module.exports = function(app, passport) {
             });
     });
 
+    // Update setup.
+    app.post('/api/update-setup/', function(request, response) {
+        Setup.update({_id: request.body.setupId}, {sim_version: request.body.sim_version, type: request.body.trim, best_time: request.body.best_time, comments: request.body.comments}, function(err, numAffected) {
+            if(err) {
+                console.log(err);
+                return response.send('error');
+            } else {
+                return response.send('ok');
+            }
+        });
+    });
+
     // Delete setup.
     app.post('/api/delete-setup/', function(request, response) {
-        console.log('delete setup id: ' + request.body.setupId);
 
         // Delete db setup.
         Setup.remove({_id: request.body.setupId}, function(err) {

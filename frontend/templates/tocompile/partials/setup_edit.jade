@@ -1,0 +1,48 @@
+div(class="fullwidth-wrapper orange")
+    div.content-wrapper
+        div.breadcrumbs-wrapper
+            a(href="#/", class="link breadcrumbs-item") Home
+            a(href="#/setups/{{ sim_name }}", class="link breadcrumbs-item") {{ sim_name }}
+            span(class="breadcrumbs-item current") Edit Setup
+
+div(class="fullwidth-wrapper ac superparallax", parallax="superparallax")
+
+div(class="fullwidth-wrapper white padded")
+    div.content-wrapper
+        h1.sim-presentation-title
+            span.title-slash /
+            span Edit setup
+
+        div(class="form-wrapper")
+            div.fullwidth-form
+                div(class="ng-errorWrapper", ng-show="errorMsg")
+                    span.ng-errorMsg {{errorMsg}}
+
+                form(action="", method="post", id="update-setup-form")
+                    div.field-block
+                        label(for="trimSelect", class="form-label") Trim :
+                        div.form-select-wrapper
+                            select(id="trimSelect", name="trim", ng-model="setup.type")
+                                option(value="base") Base
+                                option(value="qualy") Qualy
+                                option(value="race") Race
+
+                    div.field-block
+                        label(for="versionSelect", class="form-label") Sim Version :
+                        div(class="form-select-wrapper")
+                            select(id="versionSelect", name="version", ng-model="setup.sim_version", ng-options="version for version in sim_infos.versions track by version")
+                                option(value="") - Select -
+
+                    div.field-block
+                        label(for="bestLapInput", class="form-label") Best Lap :
+                        div.form-input-wrapper
+                            input(type="text", id="bestLapInput", class="form-textfield", name="best_time", placeholder="Ex: 1.41.543", ng-model="setup.best_time", format-laptime)
+
+                    div.field-block
+                        label(for="commentsTextarea", class="form-label") Comments / Notes :
+                        div.form-input-wrapper
+                            textarea(id="commentsTextarea", name="comments", class="form-textarea", rows="8", ng-model="setup.comments", placeholder="Some usefull comments...")
+
+                    input(type="checkbox", name="botcheck", class="form-botcheck")
+
+                    button(type="button", class="form-submitbutton", ng-click="updateSetup()") Update

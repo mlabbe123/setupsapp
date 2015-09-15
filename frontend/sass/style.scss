@@ -595,6 +595,13 @@ footer {
             }
         }
 
+        &.icon-edit {
+            &:before {
+                left: 1px;
+                top: 4px;
+            }
+        }
+
         &:hover {
             background-color: $bg_color;
             color: $primary_color;
@@ -606,11 +613,11 @@ footer {
 
         &.icon-error {
             &.is-ready-to-delete {
-                background-color: lighten(red, 10);
+                background-color: lighten($error_color, 10);
                 //transition: all 1s;
 
                 &:hover {
-                    background-color: red;
+                    background-color: $error_color;
                     color: $bg_color;
                     //transform: scale(10%);
                 }
@@ -746,6 +753,20 @@ footer {
     }
 }
 
+
+// ===========================
+// Setup Editing specific content
+// ===========================
+.ng-errorWrapper {
+    text-align: center;
+    padding: $padding;
+}
+
+.ng-errorMsg {
+    color: $error_color;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
 
 // ===========================
 // Profile page specific content

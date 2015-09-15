@@ -222,6 +222,59 @@
             $scope.sim_name = $routeParams.simName;
         })
 
+        .controller('setupEditCtrl', function($scope, $routeParams, $http, $location) {
+            $scope.sim_name = $routeParams.simName;
+
+            // Get sim info to populate the versions dropdown.
+            $http.get('/api/get-sim-infos/' + $routeParams.simName).
+                success(function(data, status, headers, config) {
+                    $scope.sim_infos = data;
+                }).
+                error(function(data, status, headers, config) {
+                    console.log(status);
+                });
+
+            // Get setup info.
+            $http.get('/api/get-setup/' + $routeParams.setupId).
+                success(function(data, status, headers, config) {
+                    $scope.setup = data;
+                }).
+                error(function(data, status, headers, config) {
+                    console.log(status);
+                });
+
+            // Sends update info to API.
+            $scope.updateSetup = function() {
+                // Find the form elements.
+                var $form = angular.element(document.getElementById('update-setup-form')),
+                    trimFieldValue = angular.element(document.getElementById('trimSelect')).val(),
+                    simVersionFieldValue = angular.element(document.getElementById('versionSelect')).val(),
+                    bestLapFieldValue = angular.element(document.getElementById('bestLapInput')).val(),
+                    commentsFieldValue = angular.element(document.getElementById('commentsTextarea')).val();
+
+                // Sanitize the comments field.
+                commentsFieldValue = commentsFieldValue.replace(/<(?:.|\n)*?>/gm, '');
+
+                // Build the params object.
+                var ajaxParams = {
+                    setupId: $routeParams.setupId,
+                    trim: trimFieldValue,
+                    sim_version: simVersionFieldValue,
+                    best_time: bestLapFieldValue,
+                    comments: commentsFieldValue
+                }
+
+                // Ajax post request to the API.
+                $http.post('/api/update-setup/', ajaxParams)
+                    .success(function(data, status, headers, config) {
+                        $location.path('/setups/'+$routeParams.simName+'/'+$routeParams.setupId);
+                    })
+                    .error(function(data, status, headers, config) {
+                        $scope.errorMsg = 'There has been an error for your request. Please try again or contact admins.';
+                    });
+            }
+        })
+
         .controller('submitSetupCtrl', function($scope, $routeParams, SimService) {
 
             SimService.returnSimsFullData().then(function(result) {

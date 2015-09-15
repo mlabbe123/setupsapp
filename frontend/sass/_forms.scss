@@ -115,8 +115,8 @@ form {
     color: $primary_color;
 
     &.has-error {
-        border: 2px solid red;
-        background-color: lighten(red, 45);
+        border: 2px solid $error_color;
+        background-color: lighten($error_color, 45);
     }
 }
 
@@ -225,11 +225,11 @@ form {
     font-size: 1.5em;
 
     &.error {
-        color: red;
+        color: $error_color;
     }
 
     &.success {
-        color: green;
+        color: $success_color;
     }
 }
 
@@ -239,14 +239,14 @@ form {
     font-size: 1.2em;
 
     &.has-error {
-        color: red;
+        color: $error_color;
     }
 }
 
 .form-backendmsg-wrapper {
     padding: $padding 0 $padding * 2;
     font-size: 2em;
-    color: red;
+    color: $error_color;
     text-align: center;
 }
 
