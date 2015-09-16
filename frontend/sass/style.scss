@@ -144,6 +144,10 @@ body {
         background-size: cover;
     }
 
+    &.padded-tiny {
+        padding: $padding / 2 0;
+    }
+
     &.padded {
         padding: $padding * 2 0;
     }
@@ -656,6 +660,46 @@ footer {
     color: $secondary_color;
     text-align: center;
 }
+
+.setupDetail-rating {
+    @include span(6);
+    text-align: center;
+    background-color: $secondary_color;
+
+    &:nth-child(even) {
+        @include span(6 at 7);
+        background-color: $secondary_color_alt1;
+    }
+}
+
+.setupDetail-rating-title {
+    margin-bottom: 0.5rem;
+    line-height: 2rem;
+}
+
+.setupDetail-rating-stars {
+    display: inline-block;
+}
+
+.setupDetail-rating-star {
+    float: right;
+    font-size: 2rem;
+    color: $primary_color;
+
+    &:hover,
+    &:hover ~ &  {
+        @extend .icon-star;
+    }
+}
+
+// .rating > input:checked ~ label, /* show gold star when clicked */
+// .rating:not(:checked) > label:hover, /* hover current star */
+// .rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+// .rating > input:checked + label:hover, /* hover current star when changing rating */
+// .rating > input:checked ~ label:hover,
+// .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+// .rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
 
 .setupDetail-overview {
     @include span(5);

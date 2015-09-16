@@ -49,6 +49,8 @@
 @include print-icon("stats", "\e041");
 @include print-icon("cup", "\e075");
 @include print-icon("edit", "\e151");
+@include print-icon("emptystar", "\e049");
+@include print-icon("star", "\e050");
 
 // Icons repositioning.
 .icon-edit:before {

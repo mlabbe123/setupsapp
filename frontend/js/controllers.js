@@ -220,6 +220,12 @@
                 });
 
             $scope.sim_name = $routeParams.simName;
+
+            if ($scope.ng_user_id === $routeParams.userId) {
+                $scope.is_user_own_setup = true;
+            } else {
+                $scope.is_user_own_setup = false;
+            }
         })
 
         .controller('setupEditCtrl', function($scope, $routeParams, $http, $location) {

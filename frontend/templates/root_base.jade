@@ -17,7 +17,7 @@ html(ng-app="setupsSharingApp")
         //- <base href="/">
     body
         block bodyContent
-            div.mainContainer
+            div(class="mainContainer", ng-init="ng_user_is_logged= #{user ? true : false}; ng_user_id= #{user ? JSON.stringify(user._id) : false}")
                 header.fullwidth-wrapper
                     block header
                         div.content-wrapper
