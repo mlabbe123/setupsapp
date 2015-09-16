@@ -664,11 +664,11 @@ footer {
 .setupDetail-rating {
     @include span(6);
     text-align: center;
-    background-color: $secondary_color;
+    background-color: $secondary_color_alt1;
 
     &:nth-child(even) {
         @include span(6 at 7);
-        background-color: $secondary_color_alt1;
+        background-color: $secondary_color_alt3;
     }
 }
 
@@ -679,6 +679,30 @@ footer {
 
 .setupDetail-rating-stars {
     display: inline-block;
+
+    input[type="radio"] {
+        display: none;
+    }
+
+    input:checked {
+        label {
+            color:red;
+        }
+    }
+
+    & > input:checked ~ label,
+    &:not(:checked) > label:hover,
+    &:not(:checked) > label:hover ~ label {
+        @extend .icon-star;
+        //color: $primary_color_alt1;
+    }
+
+    & > input:checked + label:hover,
+    & > input:checked ~ label:hover,
+    & > label:hover ~ input:checked ~ label,
+    & > input:checked ~ label:hover ~ label {
+        color: lighten($primary_color, 20);
+    }
 }
 
 .setupDetail-rating-star {

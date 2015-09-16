@@ -89,8 +89,23 @@
             $http.get('/api/get-setup/' + $routeParams.setupId).
                 success(function(data, status, headers, config) {
                     $scope.setup = data;
-                    $scope.setup.comments = $scope.setup.comments || "No comments."
-                    $scope.setup.best_time = $scope.setup.best_time || "Not specified."
+                    $scope.setup.comments = $scope.setup.comments || "No comments.";
+                    $scope.setup.best_time = $scope.setup.best_time || "Not specified.";
+
+                    $scope.$watch('setup.rating', function(newValue, oldValue) {
+                        // Update setup rating in db if rating has changed.
+                        if (newValue !== oldValue) {
+                            $http.post('/api/update-setup-rating/', { setupId: $routeParams.setupId, userId: $scope.ng_user_id, setupRating: $scope.setup.rating })
+                                .success(function(data, status, headers, config) {
+                                    console.log('success: ',data);
+                                })
+                                .error(function(data, status, headers, config) {
+                                    console.log(status)
+                                });
+                        }
+                    });
+
+                    $scope.setup.rating = 4;
                 }).
                 error(function(data, status, headers, config) {
                     console.log(status);
@@ -298,15 +313,13 @@
 
         .controller('userProfileCtrl', function($scope, $routeParams, $http) {
 
-            var logged_user_id = angular.element(document.querySelector('#logged-userid')).val();
-
             // Get user information.
             $http.get('/api/get-user-by-id/' + $routeParams.userid)
                 .success(function(data, status, headers, config) {
                     $scope.user = data;
 
                     // If the user is logged in and on it's own profile page.
-                    if(logged_user_id && logged_user_id === $routeParams.userid) {
+                    if($scope.ng_user_id && $scope.ng_user_id === $routeParams.userid) {
                         $scope.user.own_profile = true;
                     } else {
                         $scope.user.own_profile = false;

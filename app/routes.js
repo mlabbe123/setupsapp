@@ -686,6 +686,56 @@ module.exports = function(app, passport) {
         });
     });
 
+    // Update setup rating.
+    app.post('/api/update-setup-rating/', function(request, response) {
+        Setup.findOne({_id: request.body.setupId}, function(err, setup) {
+            if(err) {
+                console.log(err);
+                return response.send('error');
+            } else {
+                if (setup.ratings && setup.ratings.length > 0) {
+                    // If the setup already has ratings, search if the user has already rated it.
+                    _.forEach(setup.ratings, function(rating) {
+                        // If the user has already rated the setup, update his rating.
+                        if (rating.userId === request.body.userId) {
+                            Setup.update({ 'ratings._id': rating._id }, {'$set': {'ratings.$.rating': request.body.setupRating}}, function(err, setup) {
+                                if(err) {
+                                    console.log('SETUP DETAIL: error updating rating. ', err);
+                                    return response.send('error');
+                                } else {
+                                    console.log('SETUP DETAIL: rating successfully updated.');
+                                    return response.send('ok');
+                                }
+                            });
+                        } else {
+                            // If not, add his rating.
+                            Setup.update({ _id: request.body.setupId }, {$push: {'ratings' : {userId: request.body.userId, rating: request.body.setupRating}}}, function(err, setup) {
+                                if(err) {
+                                    console.log('SETUP DETAIL: error pushing rating. ', err);
+                                    return response.send('error');
+                                } else {
+                                    console.log('SETUP DETAIL: rating successfully pushed.');
+                                    return response.send('ok');
+                                }
+                            });
+                        }
+                    });
+
+                } else {
+                    Setup.update({ _id: request.body.setupId }, {$push: {'ratings': {userId: request.body.userId, rating: request.body.setupRating}}}, function(err, setup) {
+                        if(err) {
+                            console.log('SETUP DETAIL: error pushing rating to setup with empty ratings. ', err);
+                            return response.send('error');
+                        } else {
+                            console.log('SETUP DETAIL: rating successfully pushed to setup with empty ratings.');
+                            return response.send('ok');
+                        }
+                    });
+                }
+            }
+        });
+    });
+
     // Delete setup.
     app.post('/api/delete-setup/', function(request, response) {
 

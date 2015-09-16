@@ -11,18 +11,23 @@ div(class="fullwidth-wrapper")
     div.content-wrapper
         h1.sim-presentation-title
             span.title-slash /
-            span Setup details {{allo}}
+            span Setup details
 
-div(class="fullwidth-wrapper orange padded-tiny")
+div(class="fullwidth-wrapper orange")
     div.content-wrapper
         div.setupDetail-rating
             h3(class="setupDetail-rating-title subtitle", ng-hide="is_user_own_setup") Your rating
             div(class="setupDetail-rating-stars", ng-show="ng_user_is_logged && !is_user_own_setup")
-                span(class="setupDetail-rating-star icon-emptystar")
-                span(class="setupDetail-rating-star icon-emptystar")
-                span(class="setupDetail-rating-star icon-emptystar")
-                span(class="setupDetail-rating-star icon-emptystar")
-                span(class="setupDetail-rating-star icon-emptystar")
+                input(id="star5", type="radio", name="setup_rating", value="5", ng-model="setup.rating")
+                label(for="star5", class="setupDetail-rating-star icon-emptystar")
+                input(id="star4", type="radio", name="setup_rating", value="4", ng-model="setup.rating")
+                label(for="star4", class="setupDetail-rating-star icon-emptystar")
+                input(id="star3", type="radio", name="setup_rating", value="3", ng-model="setup.rating")
+                label(for="star3", class="setupDetail-rating-star icon-emptystar")
+                input(id="star2", type="radio", name="setup_rating", value="2", ng-model="setup.rating")
+                label(for="star2", class="setupDetail-rating-star icon-emptystar")
+                input(id="star1", type="radio", name="setup_rating", value="1", ng-model="setup.rating")
+                label(for="star1", class="setupDetail-rating-star icon-emptystar")
             div(ng-hide="ng_user_is_logged")
                 a(href="/login", class="link") Login 
                 span or 

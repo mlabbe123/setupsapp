@@ -22,7 +22,7 @@
                     templateUrl: 'templates/partials/setup_detail.html',
                     controller: 'setupDetailCtrl'
                 })
-                .when('/setups/:simName/edit/:setupId', {
+                .when('/setups/:simName/:userId/edit/:setupId', {
                     templateUrl: 'templates/partials/setup_edit.html',
                     controller: 'setupEditCtrl'
                 })
