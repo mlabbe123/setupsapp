@@ -10,15 +10,11 @@ var config = require('./config/config'),
     mongoose = require('mongoose');
 
 // Connection to mongodb.
-mongoose.connect('mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASS + '@' + process.env.DB_ADDRESS);
-// DELETE THIS ON LAUNCH
-// process.env.DB_USER = mlabbe
-// process.env.DB_PASS = GlaspRob321
-// process.env.DB_ADDRESS = ds051738.mongolab.com:51738/setupmarket
-// process.env.SENDER_USER = thesetupmarket@gmail.com
-// process.env.SENDER_PASS = GlaspRob321
-// process.env.NODE_ENV = PROD || DEV
-// DB_USER=mlabbe DB_PASS=GlaspRob321 DB_ADDRESS=ds051738.mongolab.com:51738/setupmarket SENDER_USER=thesetupmarket@gmail.com SENDER_PASS=GlaspRob321
+if (config.node_env === 'DEV') {
+    mongoose.connect('127.0.0.1:27017/TheSetupMarket');
+} else {
+    mongoose.connect('mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASS + '@' + process.env.DB_ADDRESS);
+}
 
 // Express config
 // If we are in dev, express will serve the static content, in prod, we let nginx take care of that.
