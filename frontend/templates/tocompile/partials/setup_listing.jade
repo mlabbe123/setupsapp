@@ -56,6 +56,10 @@ div(class="fullwidth-wrapper white padded")
                     th /&nbsp;Author
                     th /&nbsp;Type
                     th
+                        span(class="orderable", ng-class="{reverse:reverse}", ng-click="order('rating_sort')", tooltip="Order By Rating")
+                            span /&nbsp;Rating
+                            i(ng-class="{'icon-downarrow':reverse && predicate === 'rating_sort', 'icon-uparrow':!reverse && predicate === 'rating_sort'}")
+                    th
                         span(class="orderable", ng-class="{reverse:reverse}", ng-click="order('best_time')", tooltip="Order By Lap Time")
                             span /&nbsp;Best Lap
                             i(ng-class="{'icon-downarrow':reverse && predicate === 'best_time', 'icon-uparrow':!reverse && predicate === 'best_time'}")
@@ -78,6 +82,19 @@ div(class="fullwidth-wrapper white padded")
                     td
                         a(href="#/profile/{{ setup.authorid }}", class="link", tooltip="See user profile") {{ setup.author }}
                     td {{ setup.type }}
+                    td(ng-if="setup.rating_sort > 0", tooltip="{{ setup.rating_sort }}")
+                        div(class="rating-stars-wrapper", ng-show="setup.rating > 0")
+                            input(id="star5", type="radio" value="5", ng-model="setup.rating", disabled="disabled")
+                            label(class="rating-star--mini icon-emptystar")
+                            input(id="star4", type="radio" value="4", ng-model="setup.rating", disabled="disabled")
+                            label(class="rating-star--mini icon-emptystar")
+                            input(id="star3", type="radio" value="3", ng-model="setup.rating", disabled="disabled")
+                            label(class="rating-star--mini icon-emptystar")
+                            input(id="star2", type="radio" value="2", ng-model="setup.rating", disabled="disabled")
+                            label(class="rating-star--mini icon-emptystar")
+                            input(id="star1", type="radio" value="1", ng-model="setup.rating", disabled="disabled")
+                            label(class="rating-star--mini icon-emptystar")
+                    td(ng-if="setup.rating_sort == 0")
                     td {{ setup.best_time }}
                     td {{ setup.downloads }}
                     td {{ setup.added_date.display_time }}

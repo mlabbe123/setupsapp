@@ -1,0 +1,46 @@
+.rating-stars-wrapper {
+    display: inline-block;
+    vertical-align: middle;
+
+    input[type="radio"] {
+        display: none;
+    }
+
+    & > input:checked ~ label {
+        @extend .icon-star;
+    }
+
+    &.dynamic {
+        &:not(:checked) > label:hover,
+        &:not(:checked) > label:hover ~ label {
+            @extend .icon-star;
+        }
+
+        & > input:checked + label:hover,
+        & > input:checked ~ label:hover,
+        & > label:hover ~ input:checked ~ label,
+        & > input:checked ~ label:hover ~ label {
+            color: lighten($primary_color, 20);
+        }
+    }
+}
+
+.rating-star {
+    float: right;
+    font-size: 2rem;
+    color: $primary_color;
+}
+
+.rating-star--mini {
+    float: right;
+    font-size: 0.75rem;
+    color: $primary_color;
+
+    &:before {
+        padding: 0;
+    }
+
+    @include xlarge-and-above {
+        font-size: 0.9rem;
+    }
+}

@@ -14,6 +14,10 @@
     font-size: 2.7rem;
     font-weight: bold;
     text-align: center;
+
+    &.no-top-padding {
+        padding-top: 0;
+    }
 }
 
 .title--small {

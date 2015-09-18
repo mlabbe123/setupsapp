@@ -16,13 +16,15 @@
 
 @import 'grid_mixins';
 
+@import 'components/newsfeed';
+@import 'components/rating';
+
 // ===========================
 // Native elements styles
 // ===========================
 html,
 body {
     height: 100%;
-    //overflow-x: hidden;
 }
 
 body {
@@ -154,6 +156,54 @@ body {
 
     &.padded-double {
         padding: $padding * 4 0;
+    }
+
+    &.funkyborder {
+        height: 8px;
+        background: $secondary_color;
+        background-image: linear-gradient(
+            to right,
+            $secondary_color,
+            $secondary_color 5%,
+            $secondary_color_alt1 5%,
+            $secondary_color_alt1 10%,
+            $secondary_color_alt2 10%,
+            $secondary_color_alt2 15%,
+            $secondary_color_alt3 15%,
+            $secondary_color_alt3 20%,
+            $secondary_color 20%,
+            $secondary_color 25%,
+            $secondary_color_alt1 25%,
+            $secondary_color_alt1 30%,
+            $secondary_color_alt2 30%,
+            $secondary_color_alt2 35%,
+            $secondary_color_alt3 35%,
+            $secondary_color_alt3 40%,
+            $secondary_color 40%,
+            $secondary_color 45%,
+            $secondary_color_alt1 45%,
+            $secondary_color_alt1 50%,
+            $secondary_color 50%,
+            $secondary_color 55%,
+            $secondary_color_alt1 55%,
+            $secondary_color_alt1 60%,
+            $secondary_color_alt2 60%,
+            $secondary_color_alt2 65%,
+            $secondary_color_alt3 65%,
+            $secondary_color_alt3 70%,
+            $secondary_color 70%,
+            $secondary_color 75%,
+            $secondary_color_alt1 75%,
+            $secondary_color_alt1 80%,
+            $secondary_color_alt2 80%,
+            $secondary_color_alt2 85%,
+            $secondary_color_alt3 85%,
+            $secondary_color_alt3 90%,
+            $secondary_color 90%,
+            $secondary_color 95%,
+            $secondary_color_alt1 95%,
+            $secondary_color_alt1
+        );
     }
 }
 
@@ -475,7 +525,9 @@ footer {
 }
 
 .setupList-filters-wrapper {
-    @include under-xlarge {
+    @include span(2);
+
+    @include xlarge-and-below {
         @include span(12);
 
         .form-block {
@@ -501,20 +553,16 @@ footer {
         }
     }
 
-    @include xlarge-and-above {
-        @include span(2);
-    }
-
     &.fixed-positon {
         position: fixed;
     }
 }
 
 .setupList-setups-wrapper {
-    @include span(12);
+    @include span(10 at 3);
 
-    @include xlarge-and-above {
-        @include span(10 at 3);
+    @include xlarge-and-below {
+        @include span(12);
     }
 }
 
@@ -522,9 +570,9 @@ footer {
     width: 100%;
     margin: 0 auto;
     color: $bg_color;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 
-    @include xlarge-only {
+    @include xlarge-and-above {
         font-size: 1rem;
     }
 
@@ -565,11 +613,12 @@ footer {
     }
 
     td {
-        padding: $padding / 5 $padding / 2;
+        vertical-align: middle;
+        padding: $padding / 3 $padding / 2;
         white-space: nowrap;
 
         @include xlarge-and-above {
-            padding: $padding / 5 $padding / 2;
+            padding: $padding / 3 $padding / 2;
         }
     }
 
@@ -664,66 +713,21 @@ footer {
 .setupDetail-rating {
     @include span(6);
     text-align: center;
-    background-color: $secondary_color_alt1;
 
     &:nth-child(even) {
         @include span(6 at 7);
-        background-color: $secondary_color_alt3;
+    }
+
+    &.alone {
+        @include span(12);
     }
 }
 
 .setupDetail-rating-title {
     margin-bottom: 0.5rem;
     line-height: 2rem;
+    font-weight: 700;
 }
-
-.setupDetail-rating-stars {
-    display: inline-block;
-
-    input[type="radio"] {
-        display: none;
-    }
-
-    input:checked {
-        label {
-            color:red;
-        }
-    }
-
-    & > input:checked ~ label,
-    &:not(:checked) > label:hover,
-    &:not(:checked) > label:hover ~ label {
-        @extend .icon-star;
-        //color: $primary_color_alt1;
-    }
-
-    & > input:checked + label:hover,
-    & > input:checked ~ label:hover,
-    & > label:hover ~ input:checked ~ label,
-    & > input:checked ~ label:hover ~ label {
-        color: lighten($primary_color, 20);
-    }
-}
-
-.setupDetail-rating-star {
-    float: right;
-    font-size: 2rem;
-    color: $primary_color;
-
-    &:hover,
-    &:hover ~ &  {
-        @extend .icon-star;
-    }
-}
-
-// .rating > input:checked ~ label, /* show gold star when clicked */
-// .rating:not(:checked) > label:hover, /* hover current star */
-// .rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
-
-// .rating > input:checked + label:hover, /* hover current star when changing rating */
-// .rating > input:checked ~ label:hover,
-// .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-// .rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
 
 .setupDetail-overview {
     @include span(5);

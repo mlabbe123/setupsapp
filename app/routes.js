@@ -694,10 +694,15 @@ module.exports = function(app, passport) {
                 return response.send('error');
             } else {
                 if (setup.ratings && setup.ratings.length > 0) {
+                    // Flag in case the rating for this userId exist more than once.
+                    var updated = false;
+
                     // If the setup already has ratings, search if the user has already rated it.
                     _.forEach(setup.ratings, function(rating) {
                         // If the user has already rated the setup, update his rating.
-                        if (rating.userId === request.body.userId) {
+                        if (rating.userId === request.body.userId && !updated) {
+                            updated = true;
+
                             Setup.update({ 'ratings._id': rating._id }, {'$set': {'ratings.$.rating': request.body.setupRating}}, function(err, setup) {
                                 if(err) {
                                     console.log('SETUP DETAIL: error updating rating. ', err);
@@ -707,7 +712,9 @@ module.exports = function(app, passport) {
                                     return response.send('ok');
                                 }
                             });
-                        } else {
+
+
+                        } else if (!updated) {
                             // If not, add his rating.
                             Setup.update({ _id: request.body.setupId }, {$push: {'ratings' : {userId: request.body.userId, rating: request.body.setupRating}}}, function(err, setup) {
                                 if(err) {

@@ -2,8 +2,8 @@ $xlarge-min-width: 1201px;
 $xlarge-max-width: 1600px;
 $huge-min-width: 1601px;
 
-@mixin under-xlarge {
-    @media (max-width: #{$xlarge-min-width}) {
+@mixin xlarge-and-below {
+    @media (max-width: #{$huge-min-width}) {
         @content;
     }
 }

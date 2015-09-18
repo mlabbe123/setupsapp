@@ -46,6 +46,30 @@
                         setup.track = setup.track.name;
                         setup.authorid = setup.author._id;
                         setup.author = setup.author.display_name;
+
+                        // Number of ratings for this setup.
+                        var ratingsCount = setup.ratings.length;
+
+                        if (ratingsCount > 0) {
+                            // Total rating.
+                            var totalRating = 0;
+
+                            angular.forEach(setup.ratings, function(rating) {
+                                totalRating += rating.rating;
+                            });
+
+                            setup.rating = Math.round(totalRating / ratingsCount);
+
+                            if ((totalRating / ratingsCount) % 1 !== 0) {
+                                setup.rating_sort = (totalRating / ratingsCount).toFixed(2);
+                            } else {
+                                setup.rating_sort = (totalRating / ratingsCount);
+                            }
+
+                        } else {
+                            setup.rating = '';
+                            setup.rating_sort = 0;
+                        }
                     });
 
                     $scope.setups = data;
@@ -92,10 +116,37 @@
                     $scope.setup.comments = $scope.setup.comments || "No comments.";
                     $scope.setup.best_time = $scope.setup.best_time || "Not specified.";
 
-                    $scope.$watch('setup.rating', function(newValue, oldValue) {
+                    // Number of ratings for this setup.
+                    var ratingsCount = data.ratings.length;
+
+                    if (ratingsCount > 0) {
+                        // Total rating.
+                        var totalRating = 0;
+
+                        angular.forEach(data.ratings, function(rating) {
+                            totalRating += rating.rating;
+
+                            if (rating.userId === $scope.ng_user_id) {
+                                $scope.setup.own_rating = rating.rating;
+                            }
+                        });
+
+                        $scope.setup.community_rating = Math.round(totalRating / ratingsCount);
+
+                        if ((totalRating / ratingsCount) % 1 !== 0) {
+                            $scope.setup.community_rating_tooltip = (totalRating / ratingsCount).toFixed(2);
+                        } else {
+                            $scope.setup.community_rating_tooltip = (totalRating / ratingsCount);
+                        }
+                    } else {
+                        $scope.setup.community_rating = 0;
+                        $scope.setup.own_rating = 0;
+                    }
+
+                    $scope.$watch('setup.own_rating', function(newValue, oldValue) {
                         // Update setup rating in db if rating has changed.
                         if (newValue !== oldValue) {
-                            $http.post('/api/update-setup-rating/', { setupId: $routeParams.setupId, userId: $scope.ng_user_id, setupRating: $scope.setup.rating })
+                            $http.post('/api/update-setup-rating/', { setupId: $routeParams.setupId, userId: $scope.ng_user_id, setupRating: $scope.setup.own_rating })
                                 .success(function(data, status, headers, config) {
                                     console.log('success: ',data);
                                 })
@@ -104,8 +155,6 @@
                                 });
                         }
                     });
-
-                    $scope.setup.rating = 4;
                 }).
                 error(function(data, status, headers, config) {
                     console.log(status);
