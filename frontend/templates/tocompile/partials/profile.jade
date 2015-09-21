@@ -90,8 +90,8 @@ div(class="fullwidth-wrapper white padded")
                     td
                         a(href="setup_files/{{ setup.simid }}/{{ setup._id }}", class="icon-download icon-link", tooltip="Download")
                         a(href="#/setups/{{ setup.sim }}/{{ ng_user_id }}/{{ setup._id }}/", class="icon-details icon-link", tooltip="See Details")
-                        a(href="#/setups/{{ setup.sim }}/{{ ng_user_id }}/edit/{{ setup._id }}/", class="icon-edit icon-link", tooltip="Edit setup")
-                        a(class="icon-error no-href icon-link", ng-click="deleteSetup(setup._id, setup.simid, $event)", ng-show="user.own_profile", tooltip="Delete")
+                        a(href="#/setups/{{ setup.sim }}/{{ ng_user_id }}/edit/{{ setup._id }}/", class="icon-edit icon-link", ng-if="user.own_profile", tooltip="Edit setup")
+                        a(class="icon-error no-href icon-link", ng-click="deleteSetup(setup._id, setup.simid, $event)", ng-if="user.own_profile", tooltip="Delete")
                     td {{ setup.file_name }}
                     td {{ setup.sim }}
                     td {{ setup.car }}

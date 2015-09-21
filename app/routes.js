@@ -69,11 +69,11 @@ module.exports = function(app, passport) {
     });
 
     // Profile page.
-    app.get('/profile', isUserLoggedIn, function(request, response) {
-        response.render('profile', {
-            user: request.user
-        });
-    });
+    // app.get('/profile', isUserLoggedIn, function(request, response) {
+    //     response.render('profile', {
+    //         user: request.user
+    //     });
+    // });
 
     // Download setups.
     app.get('/setup_files/:simid/:setupid', function(request, response) {

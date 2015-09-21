@@ -17,9 +17,9 @@ div(class="fullwidth-wrapper funkyborder")
 
 div(class="fullwidth-wrapper white padded-tiny")
     div.content-wrapper
-        div(class="setupDetail-rating", ng-hide="is_user_own_setup")
+        div(class="setupDetail-rating", ng-if="!is_user_own_setup")
             h3(class="setupDetail-rating-title subtitle") Your rating
-            div(class="rating-stars-wrapper dynamic", ng-show="ng_user_is_logged && !is_user_own_setup")
+            div(class="rating-stars-wrapper dynamic", ng-if="ng_user_is_logged")
                 input(id="star5", type="radio", name="setup_rating", value="5", ng-model="setup.own_rating")
                 label(for="star5", class="rating-star icon-emptystar")
                 input(id="star4", type="radio", name="setup_rating", value="4", ng-model="setup.own_rating")
@@ -30,7 +30,7 @@ div(class="fullwidth-wrapper white padded-tiny")
                 label(for="star2", class="rating-star icon-emptystar")
                 input(id="star1", type="radio", name="setup_rating", value="1", ng-model="setup.own_rating")
                 label(for="star1", class="rating-star icon-emptystar")
-            div(ng-hide="ng_user_is_logged")
+            div(ng-if="!ng_user_is_logged")
                 a(href="/login", class="link") Login 
                 span or 
                 a(href="/register", class="link") Register 
