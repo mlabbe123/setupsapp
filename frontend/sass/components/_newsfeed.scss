@@ -7,6 +7,15 @@
     @include container();
     margin-bottom: $padding * 2;
 
+    .link {
+        font-weight: 700;
+        color: $primary_color_alt3;
+
+        &:hover {
+            color: $bg_color;
+        }
+    }
+
     &:nth-child(even) {
         .newsFeed-item-date { 
             background-color: $primary_color;
@@ -14,6 +23,14 @@
 
         .newsFeed-title {
             color: $primary_color;
+        }
+
+        .link {
+            color: $primary_color;
+
+            &:hover {
+                color: $bg_color;
+            }
         }
     }
 }
@@ -23,10 +40,8 @@
 
     padding: $padding;
     background-color: $primary_color_alt3;
-    font-size: 2rem;
     font-weight: 700;
     text-align: center;
-    
     &:nth-child(even) {
         background-color: $primary_color;
     }
@@ -35,20 +50,24 @@
 .newsFeed-item-date-month {
     display: inline-block;
     margin-bottom: 0.5rem;
+    font-size: 2rem;
 }
 
-.newsFeed-item-date-date {
+.newsFeed-item-date-day {
     display: inline-block;
+    font-size: 3rem;
 }
 
 .newsFeed-item-content {
     @include span(10 at 3);
+    @include container();
 
+    padding-left: $padding / 2;
 }
 
 .newsFeed-title {
     display: inline-block;
-    padding: 0 0.5rem 0.5rem;
+    padding-bottom: $padding / 2;
     color: $primary_color_alt3;
     font-size: 1.6rem;
     font-weight: 700;
@@ -56,43 +75,21 @@
 
 .newsFeed-text {
     display: block;
-    padding-left: $padding / 2;
     padding-bottom: $padding;
     font-size: 1.2rem;
     line-height: 1.6rem;
 }
 
-// No gb color theme
-// .newsFeed {
-//     width: 60%;
-//     margin: 0 auto;
-// }
+.newFeed-sbslist-wrapper {
+    @include span(6);
 
-// .newsFeed-item {
-//     // margin: $padding 0;
-//     padding-left: $padding / 2;
-//     border-left: 8px solid $primary_color_alt3;
+    &:nth-child(even) {
+        @include span(6 at 7);
+    }
+}
 
-//     &:nth-child(even) {
-//         border-left: 8px solid $primary_color;
-
-//         .newsFeed-title {
-//             color: $primary_color;
-//         }
-//     }
-// }
-
-// .newsFeed-title {
-//     margin-bottom: $padding;
-//     padding-top: $padding / 2;
-//     font-size: 1.6rem;
-//     color: $primary_color_alt3;
-// }
-
-// .newsFeed-text {
-//     display: block;
-//     padding-left: $padding;
-//     padding-bottom: $padding;
-//     font-size: 1.2rem;
-//     line-height: 1.6rem;
-// }
+.newFeed-sbslist {
+    li {
+        margin-bottom: $padding / 3;
+    }
+}
