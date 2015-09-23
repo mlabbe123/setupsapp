@@ -60,6 +60,10 @@ body {
         border-top: 8px solid $bg_color;
     }
 
+    &.orange-border-top {
+        border-top: 8px solid $secondary_color;
+    }
+
     &.white {
         background-color: $bg_color;
 
@@ -283,6 +287,12 @@ header {
 .login-box {
     @include span(6 at 7 of 12);
     text-align: right;
+}
+
+.main-menu-link {
+    &.current {
+        color: $secondary_color;
+    }
 }
 
 // ===========================

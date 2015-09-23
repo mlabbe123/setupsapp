@@ -24,21 +24,20 @@ html(ng-app="setupsSharingApp")
                             ul.main-nav-wrapper
                                 ul.inline-nav
                                     li.nav-item
-                                        a(href="/#/", class="link icon-home") Home
+                                        a(href="/#/", class="link main-menu-link main-menu-link-home icon-home") Home
                                     li.nav-item
-                                        a(href="/#/setups/Assetto%20Corsa", class="link icon-setups") Setups
+                                        a(href="/#/setups/Assetto%20Corsa", class="link main-menu-link main-menu-link-setups icon-setups") Setups
                                     if user && user.admin
                                         li.nav-item
-                                            a(href="/admin#/admin", class="link") Admin
+                                            a(href="/admin#/admin", class="link main-menu-link main-menu-link-admin") Admin
 
                             div.login-box
                                 ul.inline-nav
                                     if user
                                         li.nav-item
-                                            a(href="/#/profile/#{user._id}", class="link icon-profile") #{user.display_name}
-                                            input(type="hidden", id="logged-userid", value="#{user._id}")
+                                            a(href="/#/profile/#{user._id}", class="link main-menu-link main-menu-link-profile icon-profile") #{user.display_name}
                                         li.nav-item
-                                            a(href="/submit-setup", class="link icon-upload") Submit Setup
+                                            a(href="/submit-setup", class="link main-menu-link main-menu-link-submit icon-upload") Submit Setup
                                         li.nav-item
                                             a(href="/logout", class="link icon-logout") Logout
                                     else

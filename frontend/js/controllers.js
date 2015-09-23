@@ -24,6 +24,9 @@
                 .error(function(data, status, headers, config) {
                     console.log(status);
                 });
+
+            angular.element(document.getElementsByClassName('main-menu-link')).removeClass('current');
+            angular.element(document.getElementsByClassName('main-menu-link-home')).addClass('current');
         })
 
         .controller('setupListCtrl', function($scope, $routeParams, $http) {
@@ -96,6 +99,9 @@
                 $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
                 $scope.predicate = predicate;
             };
+
+            angular.element(document.getElementsByClassName('main-menu-link')).removeClass('current');
+            angular.element(document.getElementsByClassName('main-menu-link-setups')).addClass('current');
         })
 
         .controller('setupDetailCtrl', function($scope, $routeParams, $http) {
@@ -293,6 +299,9 @@
             } else {
                 $scope.is_user_own_setup = false;
             }
+
+            angular.element(document.getElementsByClassName('main-menu-link')).removeClass('current');
+            angular.element(document.getElementsByClassName('main-menu-link-setups')).addClass('current');
         })
 
         .controller('setupEditCtrl', function($scope, $routeParams, $http, $location) {
@@ -346,6 +355,9 @@
                         $scope.errorMsg = 'There has been an error for your request. Please try again or contact admins.';
                     });
             }
+
+            angular.element(document.getElementsByClassName('main-menu-link')).removeClass('current');
+            angular.element(document.getElementsByClassName('main-menu-link-profile')).addClass('current');
         })
 
         .controller('submitSetupCtrl', function($scope, $routeParams, SimService) {
@@ -361,6 +373,9 @@
             }
 
             $scope.sim_name = $routeParams.simName;
+
+            angular.element(document.getElementsByClassName('main-menu-link')).removeClass('current');
+            angular.element(document.getElementsByClassName('main-menu-link-submit')).addClass('current');
         })
 
         .controller('userProfileCtrl', function($scope, $routeParams, $http) {
@@ -380,8 +395,6 @@
                 .error(function(data, status, headers, config) {
                     console.log(status)
                 });
-
-
 
             // Get every setups for the user.
             $http.get('/api/get-setups-by-user/' + $routeParams.userid)
@@ -450,6 +463,9 @@
                 $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
                 $scope.predicate = predicate;
             };
+
+            angular.element(document.getElementsByClassName('main-menu-link')).removeClass('current');
+            angular.element(document.getElementsByClassName('main-menu-link-profile')).addClass('current');
         })
 
         .controller('manageUsersCtrl', function($scope, $routeParams, $http) {
