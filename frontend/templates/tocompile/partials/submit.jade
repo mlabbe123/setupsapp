@@ -1,0 +1,83 @@
+div(class="fullwidth-wrapper orange")
+    div.breadcrumbs-wrapper
+        a(href="/#/", class="link breadcrumbs-item") Home
+        span(class="breadcrumbs-item current") Submit Setup
+
+div(class="fullwidth-wrapper register superparallax", parallax="superparallax")
+
+div(class="fullwidth-wrapper white padded")
+    div.content-wrapper
+        h1.sim-presentation-title
+            span.title-slash /
+            span Upload a setup
+
+    div(ng-controller="submitSetupCtrl", class="form-wrapper")
+
+        div(class="notification-container", ng-if="notification.msg")
+            div(class="notification-msg-wrapper", ng-class="{'has-error': notification.status == 'Error', 'has-success': notification.status == 'Success'}")
+                span.notification-msg {{ notification.msg }}
+                span(class="notification-msg-closebutton", ng-click="closeNotification()") x
+
+        div.fullwidth-form
+            form(id="setup-upload-form", action="", method="post", enctype="multipart/form-data")
+                input(id="author-field", type="hidden", ng-model="new_setup.author_userid", ng-init="new_setup.author_userid=ng_user_id")
+
+                div.field-block
+                    label(for="simSelect", class="form-label") Simulation :
+                    div.form-select-wrapper
+                        select(id="simSelect", ng-model="new_setup.sim", ng-options="sim.display_name for sim in sims track by sim.id")
+                            option(value="") - Select -
+
+                div.field-block
+                    label(for="versionSelect", class="form-label") Version :
+                    div(class="form-select-wrapper", ng-class="{'is-disabled': new_setup.sim == undefined}")
+                        select(id="versionSelect", ng-model="new_setup.sim_version", ng-options="version for version in new_setup.sim.versions track by version", ng-disabled="!new_setup.sim")
+                            option(value="") - Select -
+
+                div.field-block
+                    label(for="carSelect", class="form-label") Car :
+                    div(class="form-select-wrapper", ng-class="{'is-disabled': new_setup.sim_version == undefined}")
+                        select(id="carSelect", ng-model="new_setup.car", ng-options="car.name for car in new_setup.sim.cars | orderBy:'name' track by car._id", ng-disabled="!new_setup.sim_version")
+                            option(value="") - Select -
+
+                div.field-block
+                    label(for="trackSelect", class="form-label") Track :
+                    div(class="form-select-wrapper", ng-class="{'is-disabled': new_setup.sim_version == undefined}")
+                        select(id="trackSelect", ng-model="new_setup.track", ng-options="track.name for track in new_setup.sim.tracks | orderBy:'name' track by track._id", ng-disabled="!new_setup.sim_version")
+                            option(value="") - Select -
+
+                div.field-block
+                    label(for="trim", class="form-label") Trim :
+                    div.form-select-wrapper
+                        select(id="trim", ng-model="new_setup.trim", ng-init="new_setup.trim='base'")
+                            option(value="base") Base
+                            option(value="qualy") Qualy
+                            option(value="race") Race
+
+                div.field-block
+                    label(for="setup-file", class="form-label") File :
+                    div.form-fileupload-wrapper
+                        div.form-inputfile-wrapper
+                            span Choose File
+                            input(id="setup-file", type="file", accept=".sto, .ini", file-model="new_setup.file", class="form-button", ng-model="new_setup.file")
+                            input(id="setup-file-hidden", type="hidden", name="setup_name")
+                        div.form-fileupload-info
+                            span File selected:&nbsp;
+                            span(id="setup-file-display-name") {{ new_setup.file.name }}
+
+
+                div.form-separator - Optional -
+
+                div.field-block
+                    label(for="best-time", class="form-label") Best time :
+                    div.form-input-wrapper
+                        input(type="text", id="best-time", class="form-textfield", placeholder="Ex: 1.41.543", format-laptime, ng-model="new_setup.best_laptime")
+
+                div.field-block
+                    label(for="comments", class="form-label") Comments / Notes :
+                    div.form-input-wrapper
+                        textarea(id="comments", class="form-textarea", rows="8", placeholder="Some usefull comments...", ng-model="new_setup.comments")
+
+                input(type="checkbox", class="form-botcheck")
+
+                button(type="button", class="form-submitbutton", ng-disabled="!new_setup.sim||!new_setup.car||!new_setup.track||!new_setup.trim||!new_setup.file", ng-click="submitSetup($event)") Submit
