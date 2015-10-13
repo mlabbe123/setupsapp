@@ -61,17 +61,10 @@ module.exports = function(app, passport) {
     });
 
     // Submit setup page
-    app.get('/submit-setup', isUserLoggedIn, function(request, response) {
-        response.render('submit', {
-            user: request.user,
-            message: request.flash('submitSetupMessage')
-        });
-    });
-
-    // Profile page.
-    // app.get('/profile', isUserLoggedIn, function(request, response) {
-    //     response.render('profile', {
-    //         user: request.user
+    // app.get('/submit-setup', isUserLoggedIn, function(request, response) {
+    //     response.render('submit', {
+    //         user: request.user,
+    //         message: request.flash('submitSetupMessage')
     //     });
     // });
 

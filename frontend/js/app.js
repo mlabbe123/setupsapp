@@ -26,6 +26,10 @@
                     templateUrl: 'templates/partials/setup_edit.html',
                     controller: 'setupEditCtrl'
                 })
+                .when('/submit-setup', {
+                    templateUrl: 'templates/partials/submit.html',
+                    controller: 'submitSetupCtrl'
+                })
                 .when('/profile/:userid', {
                     templateUrl: 'templates/partials/profile.html',
                     controller: 'userProfileCtrl'
