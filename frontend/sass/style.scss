@@ -109,7 +109,7 @@ body {
     }
 
     &.ac {
-        padding: $padding_mega * 1.5 0;
+        padding: $padding 0;
         background: url('../images/ac_bg.jpg');
         background-size: cover;
     }
@@ -156,10 +156,6 @@ body {
 
     &.padded {
         padding: $padding * 2 0;
-    }
-
-    &.padded-double {
-        padding: $padding * 4 0;
     }
 
     &.funkyborder {
@@ -322,7 +318,7 @@ footer {
 // ===========================
 
 .mainpage-title {
-    padding: $padding_mega * 1.2 0;
+    padding: $padding_mega 0;
     color: #fff;
 }
 
@@ -335,7 +331,7 @@ footer {
 }
 
 .simSelection-simwrapper-item {
-    margin: $padding * 2 0;
+    margin: $padding * 2 0 0;
     border-radius: 100%;
     transition: all 0.2s;
 }
@@ -430,11 +426,12 @@ footer {
 
 .homepage-howto-wrapper {
     @include span(5);
-
-    text-align: center;
+    text-align: right;
 
     &:last-child {
-        @include span(5 at 8);
+        @include span(5 at 7);
+        @include last();
+        text-align: left;
     }
 }
 
@@ -444,8 +441,9 @@ footer {
     text-align: center;
 
     span {
-        font-size: 4rem;
-        line-height: 20rem;
+        font-size: 2.7rem;
+        font-weight: 700;
+        // line-height: 20rem;
     }
 }
 
@@ -455,10 +453,10 @@ footer {
 }
 
 .homepage-howto-text {
-    display: block;
+    display: inline-block;
     width: 60%;
     margin: 0 auto;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     line-height: 2.2rem;
 }
 
