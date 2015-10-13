@@ -11,3 +11,6 @@ bower_components/
 
 # compiled builds files #
 static/
+
+# setup files are uploaded in prod #
+setups_files
