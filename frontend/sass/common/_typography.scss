@@ -15,8 +15,12 @@
     font-weight: bold;
     text-align: center;
 
-    &.no-top-padding {
-        padding-top: 0;
+    &.no-padding {
+        padding: 0 0 $padding / 1.5;
+    }
+
+    &.padding-bottom-only {
+        padding: 0 0 $padding * 2;
     }
 }
 
@@ -37,7 +41,6 @@
     font-size: 6rem;
     font-weight: 700;
     line-height: 8rem;
-    margin-top: -10rem;
 }
 
 // Headers
