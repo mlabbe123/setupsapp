@@ -169,26 +169,29 @@ form {
 
 .form-inputfile-wrapper {
     position: relative;
-    width: 12rem;
+    width: 100%;
     height: $padding * 3;
-    background-color: lighten($secondary_color, 10);
-    border-radius: 5px;
-    border: 2px solid $primary_color;
-    color: $primary_color;
-    font-size: 1.1em;
 
     span {
         display: block;
-        line-height: 2.7rem;
+        color: $primary_color;
+        font-size: 1.2rem;
+        line-height: 3rem;
+        text-align: left;
     }
 
     input[type="file"] {
         position: absolute;
+        width: 100%;
         top: 0;
         left: 0;
-        width: 12rem;
-        height: $padding * 3;
+        bottom: 0;
         opacity: 0;
+        cursor: pointer;
+
+        &:hover + span {
+            color: $secondary_color;
+        }
     }
 }
 
@@ -263,7 +266,7 @@ form {
     @include span(12);
     @include container;
 
-    padding: 0 0 $padding * 3;
+    padding: $padding 0 $padding * 3;
     font-size: 2em;
     color: $secondary_color;
 }
