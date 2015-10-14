@@ -614,7 +614,6 @@ module.exports = function(app, passport) {
 
     // Setup form submission.
     app.post('/api/create-setup/', upload.single('file'), function(request, response) {
-        console.log(request.body)
 
         // if (request.body.botcheck !== undefined) {
         //     response.render('submit', {
@@ -626,10 +625,10 @@ module.exports = function(app, passport) {
         // If no setup file attached.
         if(request.body.file_name === undefined) {
             console.log('CREATE SETUP API: Error, no file received.');
-            return {
+            return response.status(500).send({
                 status: 'error',
-                msg: 'Error: No setup file was found.';
-            };
+                msg: 'There has been a server error, please try again.'
+            });
         } else {
             var now = new Date();
 
@@ -650,62 +649,63 @@ module.exports = function(app, passport) {
                 }
             });
 
-        //     // Save the setup in db.
-        //     newSetup.save(function(err, setup) {
-        //         if(err) {
-        //             console.log('Error creating setup.')
-        //         } else {
-        //             // Setup is in db, file is uploaded, time to rename and move the file in the sim directory.
-        //             console.log('Setup successfuly created.', setup._id);
+            // Save the setup in db.
+            newSetup.save(function(err, setup) {
+                if(err) {
+                    console.log('CREATE SETUP API: Error saving setup in db.');
+                    return response.status(500).send({
+                        status: 'error',
+                        msg: 'There has been a server error, please try again.'
+                    });
+                } else {
+                    // Setup is in db, file is uploaded, time to rename and move the file in the sim directory.
+                    // Filename of the new setup file will be its id in the db.
+                    var setupFileNewName = setup._id;
 
-        //             // Filename of the new setup file will be its id in the db.
-        //             var setupFileNewName = setup._id;
+                    // Directory the setup file will be move to.
+                    var setupFilePath = path.join(__dirname, '../setups_files/', setup.sim.toString(), '/');
 
-        //             // Directory the setup file will be move to.
-        //             var setupFilePath = path.join(__dirname, '../setups_files/', setup.sim.toString(), '/');
-
-        //             // Check if path exists, if not, create the dir.
-        //             fs.exists(setupFilePath, function(exists) {
-        //                 if(!exists) {
-        //                     fs.mkdir(setupFilePath, function() {
-        //                         console.log(setupFilePath, ' directory created');
-
-        //                         // Move and rename the file.
-        //                         fs.rename(request.file.destination + request.file.filename, setupFilePath + setupFileNewName, function(err) {
-        //                             if(err) {
-        //                                 console.log(err)
-        //                                 response.render('submit', {
-        //                                     user: request.user,
-        //                                     message: 'There has been an error, please try again.'
-        //                                 });
-        //                             } else {
-        //                                 response.render('submit', {
-        //                                     user: request.user,
-        //                                     message: 'Setup successfully uploaded'
-        //                                 });
-        //                             }
-        //                         });
-        //                     });
-        //                 } else {
-        //                     // Move and rename the file.
-        //                     fs.rename(request.file.destination + request.file.filename, setupFilePath + setupFileNewName, function(err) {
-        //                         if(err) {
-        //                             console.log(err)
-        //                             response.render('submit', {
-        //                                 user: request.user,
-        //                                 message: 'There has been an error, please try again.'
-        //                             });
-        //                         } else {
-        //                             response.render('submit', {
-        //                                 user: request.user,
-        //                                 message: 'Setup successfully uploaded'
-        //                             });
-        //                         }
-        //                     });
-        //                 }
-        //             })
-        //         }
-        //     });
+                    // Check if path exists, if not, create the dir.
+                    fs.exists(setupFilePath, function(exists) {
+                        if(!exists) {
+                            fs.mkdir(setupFilePath, function() {
+                                console.log('SETUP CREATION API: ', setupFilePath, ' directory created');
+                                // Move and rename the file.
+                                fs.rename(request.file.path, setupFilePath + setupFileNewName, function(err) {
+                                    if(err) {
+                                        console.log('SETUP CREATION API: Error moving and renaming file in new sim. ', err)
+                                        return response.status(500).send({
+                                            status: 'error',
+                                            msg: 'There has been an error, please try again.'
+                                        });
+                                    } else {
+                                        return response.status(200).send({
+                                            status: 'success',
+                                            msg: 'Setup successfully uploaded'
+                                        });
+                                    }
+                                });
+                            });
+                        } else {
+                            // Move and rename the file.
+                            fs.rename(request.file.path, setupFilePath + setupFileNewName, function(err) {
+                                if(err) {
+                                    console.log('SETUP CREATION API: Error moving and renaming file. ', err);
+                                    return response.status(500).send({
+                                        status: 'error',
+                                        msg: 'There has been an error, please try again.'
+                                    });
+                                } else {
+                                    return response.status(200).send({
+                                        status: 'success',
+                                        msg: 'Setup successfully uploaded'
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
         }
     });
 
