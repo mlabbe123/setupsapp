@@ -5,20 +5,27 @@
 
     angular.module('setupsSharingAppDirectives', [])
 
-        .directive('customFileUpload', function() {
+        .directive('fileModel', ['$parse', function ($parse) {
             return {
                 restrict: 'A',
-                link: function (scope, element, attrs) {
-                    var onChangeFunc = scope.$eval(attrs.customFileUpload);
-                    element.bind('change', onChangeFunc);
+                link: function(scope, element, attrs) {
+                    var model = $parse(attrs.fileModel);
+                    var modelSetter = model.assign;
+                    
+                    element.bind('change', function(){
+                        scope.$apply(function(){
+                            modelSetter(scope, element[0].files[0]);
+                        });
+                    });
                 }
-            }
-        })
+            };
+        }])
 
         .directive('formatLaptime', function($filter) {
             return {
                 restrict: 'A',
-                link: function (scope, element, attrs) {
+                require: 'ngModel',
+                link: function (scope, element, attrs, ngModelCtrl) {
  
                     var onBlurFunc = function(event) {
                         var ngElement = angular.element(event.srcElement),
@@ -58,6 +65,8 @@
 
                         // Put the formatteds laptime in the DOM.
                         ngElement.val(laptimeValue);
+
+                        updateModel(laptimeValue);
                     };
 
                     var onKeyDownFunc = function(event) {
@@ -68,8 +77,14 @@
                         if (allowedChar.indexOf(event.keyCode) === -1) {
                             event.preventDefault();
                         }
-                        // 48 - 57, 96 - 105, 190, 36 - 40, 7 - 9, 46
                     };
+
+                    var updateModel = function(laptimeValue) {
+                        scope.$apply(function () {
+                            ngModelCtrl.$setViewValue(laptimeValue);
+                            ngModelCtrl.$render();
+                        });
+                    }
 
                     // Bind the event listener.
                     element.bind('change', onBlurFunc);
