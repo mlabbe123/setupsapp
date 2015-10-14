@@ -11,8 +11,17 @@ module.exports = function(app, passport) {
             }
         }),
         multer = require('multer'),
+        storage = multer.diskStorage({
+            destination: function (req, file, cb) {
+                cb(null, path.join(__dirname, '../setups_files/'));
+            },
+            filename: function (req, file, cb) {
+                console.log(file)
+                cb(null, file.originalname);
+            }
+        }),
         upload = multer({
-            dest: path.join(__dirname, '../setups_files/'),
+            storage: storage,
             limits: {
                 files: 1,
                 filesize: 10000
@@ -146,101 +155,6 @@ module.exports = function(app, passport) {
         failureFlash: true // allow flash messages
     }), function(request, response) {
         response.redirect('/#/profile/' + response.req.user._id)
-    });
-
-    // Setup form submission.
-    app.post('/submit-setup', isUserLoggedIn, upload.single('setup_file'), function(request, response, next) {
-
-        if (request.body.botcheck !== undefined) {
-            response.render('submit', {
-                user: request.user,
-                message: 'Are you real?'
-            });
-        }
-
-        // If no setup file attached.
-        if(request.file === undefined) {
-            response.render('submit', {
-                user: request.user,
-                message: 'Please attach a valid setup file.'
-            });
-        } else {
-            var now = new Date();
-
-            // New setup object.
-            var newSetup = new Setup({
-                author: request.body.user_id,
-                sim: request.body.sim,
-                sim_version: request.body.version,
-                car: request.body.car,
-                track: request.body.track,
-                type: request.body.trim,
-                best_time: request.body.best_time,
-                comments: request.body.comments.replace(/<(?:.|\n)*?>/gm, ''),
-                file_name: request.body.setup_name,
-                added_date: {
-                    timestamp: now,
-                    display_time: now.yyyymmdd()
-                }
-            });
-
-            // Save the setup in db.
-            newSetup.save(function(err, setup) {
-                if(err) {
-                    console.log('Error creating setup.')
-                } else {
-                    // Setup is in db, file is uploaded, time to rename and move the file in the sim directory.
-                    console.log('Setup successfuly created.', setup._id);
-
-                    // Filename of the new setup file will be its id in the db.
-                    var setupFileNewName = setup._id;
-
-                    // Directory the setup file will be move to.
-                    var setupFilePath = path.join(__dirname, '../setups_files/', setup.sim.toString(), '/');
-
-                    // Check if path exists, if not, create the dir.
-                    fs.exists(setupFilePath, function(exists) {
-                        if(!exists) {
-                            fs.mkdir(setupFilePath, function() {
-                                console.log(setupFilePath, ' directory created');
-
-                                // Move and rename the file.
-                                fs.rename(request.file.destination + request.file.filename, setupFilePath + setupFileNewName, function(err) {
-                                    if(err) {
-                                        console.log(err)
-                                        response.render('submit', {
-                                            user: request.user,
-                                            message: 'There has been an error, please try again.'
-                                        });
-                                    } else {
-                                        response.render('submit', {
-                                            user: request.user,
-                                            message: 'Setup successfully uploaded'
-                                        });
-                                    }
-                                });
-                            });
-                        } else {
-                            // Move and rename the file.
-                            fs.rename(request.file.destination + request.file.filename, setupFilePath + setupFileNewName, function(err) {
-                                if(err) {
-                                    console.log(err)
-                                    response.render('submit', {
-                                        user: request.user,
-                                        message: 'There has been an error, please try again.'
-                                    });
-                                } else {
-                                    response.render('submit', {
-                                        user: request.user,
-                                        message: 'Setup successfully uploaded'
-                                    });
-                                }
-                            });
-                        }
-                    })
-                }
-            });
-        }
     });
 
     // Recover password submission.
@@ -696,6 +610,103 @@ module.exports = function(app, passport) {
                     return response.send(setups);
                 }
             });
+    });
+
+    // Setup form submission.
+    app.post('/api/create-setup/', upload.single('file'), function(request, response) {
+        console.log(request.body)
+
+        // if (request.body.botcheck !== undefined) {
+        //     response.render('submit', {
+        //         user: request.user,
+        //         message: 'Are you real?'
+        //     });
+        // }
+
+        // If no setup file attached.
+        if(request.body.file_name === undefined) {
+            console.log('CREATE SETUP API: Error, no file received.');
+            return {
+                status: 'error',
+                msg: 'Error: No setup file was found.';
+            };
+        } else {
+            var now = new Date();
+
+            // New setup object.
+            var newSetup = new Setup({
+                author: request.body.user_id,
+                sim: request.body.sim_id,
+                sim_version: request.body.sim_version,
+                car: request.body.car_id,
+                track: request.body.track_id,
+                type: request.body.trim,
+                best_time: request.body.best_laptime,
+                comments: request.body.comments.replace(/<(?:.|\n)*?>/gm, ''),
+                file_name: request.body.file_name,
+                added_date: {
+                    timestamp: now,
+                    display_time: now.yyyymmdd()
+                }
+            });
+
+        //     // Save the setup in db.
+        //     newSetup.save(function(err, setup) {
+        //         if(err) {
+        //             console.log('Error creating setup.')
+        //         } else {
+        //             // Setup is in db, file is uploaded, time to rename and move the file in the sim directory.
+        //             console.log('Setup successfuly created.', setup._id);
+
+        //             // Filename of the new setup file will be its id in the db.
+        //             var setupFileNewName = setup._id;
+
+        //             // Directory the setup file will be move to.
+        //             var setupFilePath = path.join(__dirname, '../setups_files/', setup.sim.toString(), '/');
+
+        //             // Check if path exists, if not, create the dir.
+        //             fs.exists(setupFilePath, function(exists) {
+        //                 if(!exists) {
+        //                     fs.mkdir(setupFilePath, function() {
+        //                         console.log(setupFilePath, ' directory created');
+
+        //                         // Move and rename the file.
+        //                         fs.rename(request.file.destination + request.file.filename, setupFilePath + setupFileNewName, function(err) {
+        //                             if(err) {
+        //                                 console.log(err)
+        //                                 response.render('submit', {
+        //                                     user: request.user,
+        //                                     message: 'There has been an error, please try again.'
+        //                                 });
+        //                             } else {
+        //                                 response.render('submit', {
+        //                                     user: request.user,
+        //                                     message: 'Setup successfully uploaded'
+        //                                 });
+        //                             }
+        //                         });
+        //                     });
+        //                 } else {
+        //                     // Move and rename the file.
+        //                     fs.rename(request.file.destination + request.file.filename, setupFilePath + setupFileNewName, function(err) {
+        //                         if(err) {
+        //                             console.log(err)
+        //                             response.render('submit', {
+        //                                 user: request.user,
+        //                                 message: 'There has been an error, please try again.'
+        //                             });
+        //                         } else {
+        //                             response.render('submit', {
+        //                                 user: request.user,
+        //                                 message: 'Setup successfully uploaded'
+        //                             });
+        //                         }
+        //                     });
+        //                 }
+        //             })
+        //         }
+        //     });
+        }
     });
 
     // Update setup.
