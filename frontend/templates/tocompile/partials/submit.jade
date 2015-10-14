@@ -29,21 +29,15 @@ div(class="fullwidth-wrapper white padded")
                             option(value="") - Select -
 
                 div.field-block
-                    label(for="versionSelect", class="form-label") Version :
-                    div(class="form-select-wrapper", ng-class="{'is-disabled': new_setup.sim == undefined}")
-                        select(id="versionSelect", ng-model="new_setup.sim_version", ng-options="version for version in new_setup.sim.versions track by version", ng-disabled="!new_setup.sim")
-                            option(value="") - Select -
-
-                div.field-block
                     label(for="carSelect", class="form-label") Car :
-                    div(class="form-select-wrapper", ng-class="{'is-disabled': new_setup.sim_version == undefined}")
-                        select(id="carSelect", ng-model="new_setup.car", ng-options="car.name for car in new_setup.sim.cars | orderBy:'name' track by car._id", ng-disabled="!new_setup.sim_version")
+                    div(class="form-select-wrapper", ng-class="{'is-disabled': new_setup.sim == undefined}")
+                        select(id="carSelect", ng-model="new_setup.car", ng-options="car.name for car in new_setup.sim.cars | orderBy:'name' track by car._id", ng-disabled="!new_setup.sim")
                             option(value="") - Select -
 
                 div.field-block
                     label(for="trackSelect", class="form-label") Track :
-                    div(class="form-select-wrapper", ng-class="{'is-disabled': new_setup.sim_version == undefined}")
-                        select(id="trackSelect", ng-model="new_setup.track", ng-options="track.name for track in new_setup.sim.tracks | orderBy:'name' track by track._id", ng-disabled="!new_setup.sim_version")
+                    div(class="form-select-wrapper", ng-class="{'is-disabled': new_setup.sim == undefined}")
+                        select(id="trackSelect", ng-model="new_setup.track", ng-options="track.name for track in new_setup.sim.tracks | orderBy:'name' track by track._id", ng-disabled="!new_setup.sim")
                             option(value="") - Select -
 
                 div.field-block
@@ -55,16 +49,12 @@ div(class="fullwidth-wrapper white padded")
                             option(value="race") Race
 
                 div.field-block
-                    label(for="setup-file", class="form-label") File :
+                    label(class="form-label") File :
                     div.form-fileupload-wrapper
                         div.form-inputfile-wrapper
-                            span Choose File
-                            input(id="setup-file", type="file", accept=".sto, .ini", file-model="new_setup.file", class="form-button", ng-model="new_setup.file")
-                            input(id="setup-file-hidden", type="hidden", name="setup_name")
-                        div.form-fileupload-info
-                            span File selected:&nbsp;
-                            span(id="setup-file-display-name") {{ new_setup.file.name }}
-
+                            input(type="file", accept=".sto, .ini", file-model="new_setup.file", ng-model="new_setup.file")
+                            span(ng-if="!new_setup.file") Choose File
+                            span(ng-if="new_setup.file") {{ new_setup.file.name }}
 
                 div.form-separator - Optional -
 

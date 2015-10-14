@@ -362,7 +362,7 @@
             angular.element(document.getElementsByClassName('main-menu-link-profile')).addClass('current');
         })
 
-        .controller('submitSetupCtrl', function($scope, $routeParams, SimService) {
+        .controller('submitSetupCtrl', function($scope, $routeParams, SimService, uploadSetupService) {
 
             SimService.returnSimsFullData().then(function(result) {
                 $scope.sims = result;
@@ -372,6 +372,10 @@
                 var filename = $scope.target.files[0].name;
                 angular.element($scope.target.parentElement.parentElement.querySelector('#setup-file-display-name')).html(filename);
                 angular.element($scope.target.parentElement.querySelector('#setup-file-hidden')).val(filename);
+            }
+
+            $scope.submitSetup = function(event) {
+                uploadSetupService.upload($scope.new_setup);
             }
 
             $scope.sim_name = $routeParams.simName;
