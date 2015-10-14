@@ -58,5 +58,37 @@
 
                 return SimService;
             }
-        ]);
+        ])
+
+        .service('uploadSetupService', ['$http', function($http) {
+            this.upload = function(setup) {
+                console.log(setup)
+                // FormDate object to store file.
+                var fd = new FormData();
+
+                // Append info to fd.
+                fd.append('file', setup.file);
+                fd.append('file_name', setup.file.name);
+                fd.append('sim_id', setup.sim.id)
+                fd.append('sim_version', setup.sim.versions[setup.sim.versions.length - 1]);
+                fd.append('user_id', setup.author_userid);
+                fd.append('car_id', setup.car._id);
+                fd.append('track_id', setup.track._id);
+                fd.append('trim', setup.trim);
+                fd.append('best_laptime', setup.best_laptime || '');
+                fd.append('comments', setup.comments || '');
+
+                // Ajax call to API.
+                $http.post('/api/create-setup/', fd, {
+                    transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined}
+                })
+                .success(function() {
+
+                })
+                .error(function() {
+
+                });
+            }
+        }]);
 })();
