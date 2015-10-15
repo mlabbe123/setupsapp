@@ -16,11 +16,6 @@ div(class="fullwidth-wrapper white padded")
 
     div(ng-controller="submitSetupCtrl", class="form-wrapper")
 
-        div(class="notification-container", ng-if="notification.msg")
-            div(class="notification-msg-wrapper", ng-class="{'has-error': notification.status == 'Error', 'has-success': notification.status == 'Success'}")
-                span.notification-msg {{ notification.msg }}
-                span(class="notification-msg-closebutton", ng-click="closeNotification()") x
-
         div.fullwidth-form
             form(id="setup-upload-form", action="", method="post", enctype="multipart/form-data")
                 input(id="author-field", type="hidden", ng-model="new_setup.author_userid", ng-init="new_setup.author_userid=ng_user_id")
