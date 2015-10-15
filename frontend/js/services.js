@@ -60,9 +60,13 @@
             }
         ])
 
-        .service('uploadSetupService', ['$http', function($http) {
+        .service('userSession', function() {
+            this.status = '';
+            this.msg = '';
+        })
+
+        .service('uploadSetupService', ['$http', '$location', 'userSession', function($http, $location, userSession) {
             this.upload = function(setup) {
-                console.log(setup)
                 // FormDate object to store file.
                 var fd = new FormData();
 
@@ -83,12 +87,18 @@
                     transformRequest: angular.identity,
                     headers: {'Content-Type': undefined}
                 })
-                .success(function() {
+                .success(function(data, status, headers, config) {
+                    console.log(data.msg);
+                    // Inform user of operation success.
+                    userSession.status = data.status;
+                    userSession.msg = data.msg;
 
+                    // Redirect to profile page.
+                    $location.path('/profile/' + setup.author_userid);
                 })
-                .error(function() {
-
+                .error(function(data, status, headers, config) {
+                    console.log(data.msg);
                 });
-            }
+            };
         }]);
 })();
