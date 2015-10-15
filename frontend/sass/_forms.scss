@@ -51,10 +51,10 @@
 
     .form-select-wrapper {
         &.is-disabled {
-            background-color: transparentize(grey, 0.5);
+            background-color: $disabled_bg_color;
 
             select {
-                color: grey;
+                color: $disabled_color;
             }
         }
     }
