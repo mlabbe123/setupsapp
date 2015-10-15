@@ -17,7 +17,6 @@
                     templateUrl: 'templates/partials/setup_listing.html',
                     controller: 'setupListCtrl'
                 })
-                // Setup detail page.
                 .when('/setups/:simName/:userId/:setupId', {
                     templateUrl: 'templates/partials/setup_detail.html',
                     controller: 'setupDetailCtrl'
