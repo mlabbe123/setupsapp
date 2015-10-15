@@ -78,7 +78,7 @@
         text-align: left;
         color: $primary_color;
         font-size: 1.2rem;
-        line-height: 3rem;
+        line-height: 2.8rem;
     }
 
     .msg-wrapper {
@@ -215,7 +215,7 @@
 .form-inputfile-wrapper {
     position: relative;
     width: 100%;
-    height: $padding * 3;
+    height: 2.8rem;
     padding-left: $padding / 2;
     background-color: lighten($primary_color, 45);
     border-radius: 5px;
@@ -229,7 +229,7 @@
         display: block;
         color: $primary_color;
         font-size: 1.2rem;
-        line-height: 3rem;
+        line-height: 2.8rem;
         text-align: left;
     }
 
