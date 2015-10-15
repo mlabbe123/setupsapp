@@ -61,8 +61,23 @@
         ])
 
         .service('userSession', function() {
-            this.status = '';
-            this.msg = '';
+            var NotificationStatus = '',
+                NotificationMsg = '';
+
+            return {
+                setNotificationStatus: function (status) {
+                    NotificationStatus = status;
+                },
+                setNotificationMsg: function (msg) {
+                    NotificationMsg = msg;
+                },
+                getNotificationStatus: function () {
+                    return NotificationStatus;
+                },
+                getNotificationMsg: function() {
+                    return NotificationMsg;
+                }
+            };
         })
 
         .service('uploadSetupService', ['$http', '$location', 'userSession', function($http, $location, userSession) {
@@ -88,16 +103,20 @@
                     headers: {'Content-Type': undefined}
                 })
                 .success(function(data, status, headers, config) {
-                    console.log(data.msg);
                     // Inform user of operation success.
-                    userSession.status = data.status;
-                    userSession.msg = data.msg;
+                    userSession.setNotificationStatus(data.status);
+                    userSession.setNotificationMsg(data.msg);
 
                     // Redirect to profile page.
                     $location.path('/profile/' + setup.author_userid);
                 })
                 .error(function(data, status, headers, config) {
-                    console.log(data.msg);
+                    // Inform user of operation success.
+                    userSession.setNotificationStatus(data.status);
+                    userSession.setNotificationMsg(data.msg);
+
+                    // Remove loading state from submit button.
+                    angular.element(document.getElementById('submit-button')).prop('disabled', false).removeClass('is-loading icon-loading');
                 });
             };
         }]);

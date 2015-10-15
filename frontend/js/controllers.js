@@ -366,13 +366,19 @@
 
             // Notifications
             $scope.notification = {};
-            $scope.notification.status = userSession.status;
-            $scope.notification.msg = userSession.msg;
+            $scope.notification.status = userSession.getNotificationStatus();
+            $scope.notification.msg = userSession.getNotificationMsg();
+
+            $scope.$watch(userSession.getNotificationMsg, function() {
+                $scope.notification = {};
+                $scope.notification.msg = userSession.getNotificationMsg();
+                $scope.notification.status = userSession.getNotificationStatus();
+            });
 
             $scope.closeNotification = function() {
                 $scope.notification = false;
-                userSession.status = '';
-                userSession.msg = '';
+                userSession.setNotificationStatus('');
+                userSession.setNotificationMsg('');
             };
 
             $timeout(function() {
@@ -394,7 +400,7 @@
                 var $element = angular.element(event.srcElement);
 
                 $element.prop('disabled', 'disabled').addClass('is-loading icon-loading');
-                // uploadSetupService.upload($scope.new_setup);
+                uploadSetupService.upload($scope.new_setup);
             }
 
             $scope.sim_name = $routeParams.simName;
@@ -407,16 +413,23 @@
 
             // Notifications
             $scope.notification = {};
-            $scope.notification.status = userSession.status;
-            $scope.notification.msg = userSession.msg;
+            $scope.notification.status = userSession.getNotificationStatus();
+            $scope.notification.msg = userSession.getNotificationMsg();
+
+            $scope.$watch(userSession.getNotificationMsg, function() {
+                $scope.notification = {};
+                $scope.notification.msg = userSession.getNotificationMsg();
+                $scope.notification.status = userSession.getNotificationStatus();
+            });
 
             $scope.closeNotification = function() {
                 $scope.notification = false;
-                userSession.status = '';
-                userSession.msg = '';
+                userSession.setNotificationStatus('');
+                userSession.setNotificationMsg('');
             };
 
             $timeout(function() {
+                console.log('close it mothafucka')
                 $scope.closeNotification();
             }, 5000);
 

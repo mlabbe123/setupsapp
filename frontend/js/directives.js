@@ -104,7 +104,7 @@
         //     }
         // })
 
-        .directive('tooltip', function() {
+        .directive('tooltip', ['userSession', function(userSession) {
             return {
                 restrict: 'A',
                 controller: function($scope, $http) {
@@ -118,14 +118,16 @@
                                 .success(function(data, status, headers, config) {
 
                                     // Tell the user the setup has been deleted.
+                                    userSession.setNotificationMsg(data.msg);
+                                    userSession.setNotificationStatus(data.status);
 
                                     // Remove from the DOM.
                                     angular.element(ngElement[0].parentElement.parentElement).remove();
                                 })
                                 .error(function(data, status, headers, config) {
                                     // Tell the user an error occured.
-
-                                    console.log(status)
+                                    userSession.setNotificationMsg(data.msg);
+                                    userSession.setNotificationStatus(data.status);
                                 });
                         } else {
                             if (ngElement.hasClass('tooltip-message')) {
@@ -175,7 +177,7 @@
                     element.bind('mouseleave', onMouseLeaveFunc);
                 }
             }
-        })
+        }])
 
         .directive('parallax', function($window) {
             return {
