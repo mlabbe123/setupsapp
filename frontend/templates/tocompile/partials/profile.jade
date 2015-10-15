@@ -3,6 +3,9 @@
 //-         a(href="#/", class="link breadcrumbs-item") Home
 //-         span(class="breadcrumbs-item current") Profile
 
+div(class="notification-wrapper", ng-if="notification.msg", ng-class="{'is-error': notification.status == 'error', 'is-success': notification.status == 'success'}")
+    span {{ notification.msg }}
+
 div(class="fullwidth-wrapper profile superparallax", parallax="superparallax")
     div.content-wrapper
         div.page-title-wrapper
