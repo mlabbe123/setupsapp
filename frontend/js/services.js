@@ -119,5 +119,59 @@
                     angular.element(document.getElementById('submit-button')).prop('disabled', false).removeClass('is-loading icon-loading');
                 });
             };
+
+            this.update = function(setup) {
+                if (setup.file) {
+                    var fd = new FormData();
+
+                    // Append file to FormData object.
+                    fd.append('file', setup.file);
+                    fd.append('file_name', setup.file.name);
+                    fd.append('setup_id', setup._id);
+                    fd.append('trim', setup.type);
+                    fd.append('sim_version', setup.sim_version);
+                    fd.append('best_laptime', setup.best_time || '');
+                    fd.append('comments', setup.comments || '');
+                    fd.append('sim_id', setup.sim_id);
+                    
+                    // Set the ajax url for file upload.
+                    var url = '/api/update-setup-with-file/';
+                    // Set ajax params for file upload.
+                    var params = {
+                        transformRequest: angular.identity,
+                        headers: {'Content-Type': undefined}
+                    };
+                } else {
+                    var fd = {
+                        setup_id: setup._id,
+                        trim: setup.type,
+                        sim_version: setup.sim_version,
+                        best_laptime: setup.best_time,
+                        comments: setup.comments
+                    };
+                    // Set the ajax url for file upload.
+                    var url = '/api/update-setup/';
+                    // Set ajax params for file upload.
+                    var params = {};
+                }
+
+                $http.post(url, fd, params)
+                .success(function(data, status, headers, config) {
+                    // Inform user of operation success.
+                    userSession.setNotificationStatus(data.status);
+                    userSession.setNotificationMsg(data.msg);
+
+                    // Redirect to profile page.
+                    $location.path('/profile/' + setup.author._id);
+                })
+                .error(function(data, status, headers, config) {
+                    // Inform user of operation success.
+                    userSession.setNotificationStatus(data.status);
+                    userSession.setNotificationMsg(data.msg);
+
+                    // Remove loading state from submit button.
+                    angular.element(document.getElementById('submit-button')).prop('disabled', false).removeClass('is-loading icon-loading');
+                });
+            };
         }]);
 })();
