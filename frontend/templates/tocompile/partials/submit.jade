@@ -3,6 +3,9 @@ div(class="fullwidth-wrapper orange")
         a(href="/#/", class="link breadcrumbs-item") Home
         span(class="breadcrumbs-item current") Submit Setup
 
+div(class="notification-wrapper", ng-if="notification.msg", ng-class="{'is-error': notification.status == 'error', 'is-success': notification.status == 'success'}")
+    span {{ notification.msg }}
+
 div(class="fullwidth-wrapper register superparallax", parallax="superparallax")
 
 div(class="fullwidth-wrapper white padded")
@@ -70,4 +73,4 @@ div(class="fullwidth-wrapper white padded")
 
                 input(type="checkbox", class="form-botcheck")
 
-                button(type="button", class="form-submitbutton", ng-disabled="!new_setup.sim||!new_setup.car||!new_setup.track||!new_setup.trim||!new_setup.file", ng-click="submitSetup($event)") Submit
+                button(type="button", id="submit-button", class="form-submitbutton", ng-disabled="!new_setup.sim||!new_setup.car||!new_setup.track||!new_setup.trim||!new_setup.file", ng-click="submitSetup($event)") Submit
