@@ -35,7 +35,11 @@ var setupSchema = new mongoose.Schema({
             userId: String,
             rating: Number
         }
-    ]
+    ],
+    version: {
+        type: Number,
+        default: 1
+    }
 });
 
 module.exports = mongoose.model('Setup', setupSchema);
