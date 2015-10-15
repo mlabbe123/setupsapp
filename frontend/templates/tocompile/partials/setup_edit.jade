@@ -4,6 +4,9 @@
 //-         a(href="#/setups/{{ sim_name }}", class="link breadcrumbs-item") {{ sim_name }}
 //-         span(class="breadcrumbs-item current") Edit Setup
 
+div(class="notification-wrapper", ng-if="notification.msg", ng-class="{'is-error': notification.status == 'error', 'is-success': notification.status == 'success'}")
+    span {{ notification.msg }}
+
 div(class="fullwidth-wrapper ac superparallax", parallax="superparallax")
     div.content-wrapper
         div.page-title-wrapper
@@ -19,6 +22,25 @@ div(class="fullwidth-wrapper white padded")
                     span.ng-errorMsg {{errorMsg}}
 
                 form(action="", method="post", id="update-setup-form")
+
+                    div.field-block
+                        label(class="form-label") Car :
+                        div.form-statictext-wrapper
+                            span.form-statictext {{ setup.car.name }}
+
+                    div.field-block
+                        label(class="form-label") Track :
+                        div.form-statictext-wrapper
+                            span.form-statictext {{ setup.track.name }}
+
+                    div.field-block
+                        label(class="form-label") File :
+                        div.form-fileupload-wrapper
+                            div.form-inputfile-wrapper
+                                input(type="file", accept=".sto, .ini", file-model="setup.file", ng-model="setup.file")
+                                span(ng-if="!setup.file") {{ setup.file_name }}
+                                span(ng-if="setup.file") {{ setup.file.name }}
+
                     div.field-block
                         label(for="trimSelect", class="form-label") Trim :
                         div.form-select-wrapper
@@ -45,4 +67,4 @@ div(class="fullwidth-wrapper white padded")
 
                     input(type="checkbox", name="botcheck", class="form-botcheck")
 
-                    button(type="button", class="form-submitbutton", ng-click="updateSetup()") Update
+                    button(type="button", id="submit-button", class="form-submitbutton", ng-click="updateSetup($event)") Update
