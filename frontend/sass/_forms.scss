@@ -1,8 +1,3 @@
-// Native elements styles
-form {
-    text-align: center;
-}
-
 ::-webkit-input-placeholder {
     color: lighten($primary_color, 20);
 }
@@ -49,13 +44,13 @@ form {
 
     .form-select-wrapper,
     .form-input-wrapper,
-    .form-fileupload-wrapper {
+    .form-fileupload-wrapper,
+    .form-statictext-wrapper {
         @include span(4);
     }
 
     .form-select-wrapper {
         &.is-disabled {
-            border: 2px solid grey;
             background-color: transparentize(grey, 0.5);
 
             select {
@@ -68,6 +63,22 @@ form {
     .form-textarea {
         width: 100%;
         padding: $padding / 1.5;
+    }
+
+    .form-fileupload-wrapper {
+        margin-bottom: $padding;
+    }
+
+    .form-statictext-wrapper {
+        margin-bottom: $padding / 2;
+    }
+
+    .form-statictext {
+        display: inline-block;
+        text-align: left;
+        color: $primary_color;
+        font-size: 1.2rem;
+        line-height: 3rem;
     }
 
     .msg-wrapper {
@@ -109,10 +120,15 @@ form {
     padding: $padding / 1.5;
     margin-bottom: $padding;
     border-radius: 5px;
-    background-color: lighten($primary_color, 50);
+    background-color: lighten($primary_color, 45);
     font-size: 1.1em;
-    border: 2px solid $primary_color;
+    border: none;
     color: $primary_color;
+
+    &:hover,
+    &:focus {
+        background-color: lighten($primary_color, 35);
+    }
 
     &.has-error {
         border: 2px solid $error_color;
@@ -126,9 +142,13 @@ form {
 
 .form-select-wrapper {
     margin-bottom: $padding;
-    background-color: lighten($primary_color, 50);
+    background-color: lighten($primary_color, 45);
     border-radius: 5px;
-    border: 2px solid $primary_color;
+
+    &:hover,
+    &:focus {
+        background-color: lighten($primary_color, 35);
+    }
 
     select {
         width: 100%;
@@ -150,32 +170,39 @@ form {
 }
 
 .form-submitbutton {
+    display: table;
+    margin: 0 auto;
     padding: $padding / 1.5;
-    background-color: lighten($secondary_color, 10);
+    background-color: $secondary_color;
     border-radius: 5px;
-    border: 2px solid $primary_color;
+    border: none;
     color: $primary_color;
     font-size: 1.5em;
     cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+        background-color: $primary_color;
+        color: $secondary_color;
+    }
 
     &.is-disabled,
     &:disabled {
-        background-color: lighten($primary_color, 20);
-        border: 2px solid lighten($secondary_color, 20);
-        color: lighten($secondary_color, 20);
+        background-color: lighten($secondary_color_alt1, 25);
+        color: $secondary_color;
         cursor: not-allowed;
     }
 
     &.is-loading {
         position: relative;
-        color: lighten($primary_color, 20);
+        color: lighten($secondary_color_alt1, 25);
 
         &::before {
             position: absolute;
             top: 50%;
             left: 50%;
             padding: 0;
-            color: lighten($secondary_color, 20);
+            color: $primary_color;
 
             animation-name: loading-spin;
             animation-duration: 2000ms;
@@ -189,6 +216,14 @@ form {
     position: relative;
     width: 100%;
     height: $padding * 3;
+    padding-left: $padding / 2;
+    background-color: lighten($primary_color, 45);
+    border-radius: 5px;
+
+    &:hover,
+    &:focus {
+        background-color: lighten($primary_color, 35);
+    }
 
     span {
         display: block;
@@ -207,12 +242,8 @@ form {
         opacity: 0;
         cursor: pointer;
 
-        &:hover + span {
-            color: $secondary_color;
-        }
-
         &:active + span {
-            color: $secondary_color_alt1;
+            color: $secondary_color;
         }
     }
 }
@@ -291,6 +322,7 @@ form {
     padding: $padding 0 $padding * 3;
     font-size: 2em;
     color: $secondary_color;
+    text-align: center;
 }
 
 // keyframes
