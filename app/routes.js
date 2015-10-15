@@ -753,18 +753,27 @@ module.exports = function(app, passport) {
         // Delete db setup.
         Setup.remove({_id: request.body.setupId}, function(err) {
             if(err) {
-                return response.send('error');
+                return response.status(500).send({
+                    status: 'error',
+                    msg: 'There has been an error, please try again.'
+                });
             } else {
                 // Delete setup file on disk.
                 fs.unlink(path.join(__dirname, '../setups_files/' + request.body.simId + '/' + request.body.setupId), function(err) {
                     if (err) {
-                        return console.log('error delete setup file: ', err);
+                        return response.status(500).send({
+                            status: 'error',
+                            msg: 'There has been an error, please try again.'
+                        });
+                    } else {
+                        console.log('DELETE SETUP API: Setup File ' + __dirname, '../setups_files/' + request.body.simId + '/' + request.body.setupId + ' has been deleted.')
+
+                        return response.status(200).send({
+                            status: 'success',
+                            msg: 'Setup successfully deleted.'
+                        });
                     }
-
-                    console.log('Setup File ' + __dirname, '../setups_files/' + request.body.simId + '/' + request.body.setupId + ' has been deleted.')
                 });
-
-                return response.send('ok');
             }
         });
     });
