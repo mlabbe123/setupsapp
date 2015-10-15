@@ -10,8 +10,10 @@ $primary_color: #40A9A9;
 $secondary_color: #fd9a30;
 
 $error_color: #e54a4a;
+$error_bg_color: lighten($error_color, 30);
 
 $success_color: #63bc22;
+$success_bg_color: lighten($success_color, 40);
 
 $warning_color: #f6cf35;
 $warning_bg_color: lighten($warning_color, 30);
