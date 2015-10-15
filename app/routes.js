@@ -16,7 +16,6 @@ module.exports = function(app, passport) {
                 cb(null, path.join(__dirname, '../setups_files/'));
             },
             filename: function (req, file, cb) {
-                console.log(file)
                 cb(null, file.originalname);
             }
         }),
@@ -711,14 +710,64 @@ module.exports = function(app, passport) {
 
     // Update setup.
     app.post('/api/update-setup/', function(request, response) {
-        Setup.update({_id: request.body.setupId}, {sim_version: request.body.sim_version, type: request.body.trim, best_time: request.body.best_time, comments: request.body.comments}, function(err, numAffected) {
+        Setup.update({_id: request.body.setup_id}, {sim_version: request.body.sim_version, type: request.body.trim, best_time: request.body.best_laptime, comments: request.body.comments}, function(err, numAffected) {
             if(err) {
-                console.log(err);
-                return response.send('error');
+                console.log('UPDATE SETUP API: Error updating setup_id: request.body.setup_id.', err);
+                return response.status(500).send({
+                    status: 'error',
+                    msg: 'There has been a server error, please try again.'
+                });
             } else {
-                return response.send('ok');
+                return response.status(200).send({
+                    status: 'success',
+                    msg: 'Setup updated successfully.'
+                });
             }
         });
+    });
+
+    // Update setup with file.
+    app.post('/api/update-setup-with-file/', upload.single('file'), function(request, response) {
+        if(request.body.file_name === undefined) {
+            console.log('EDIT SETUP WITH FILE API: Error, no file received.');
+            return response.status(500).send({
+                status: 'error',
+                msg: 'There has been a server error, please try again.'
+            });
+        } else {
+            Setup.update({_id: request.body.setup_id}, {file_name: request.body.file_name, sim_version: request.body.sim_version, type: request.body.trim, best_time: request.body.best_laptime, comments: request.body.comments}, function(err, numAffected) {
+                if(err) {
+                    console.log('EDIT SETUP WITH FILE API: Error updating setup_id: request.body.setup_id.', err);
+                    return response.status(500).send({
+                        status: 'error',
+                        msg: 'There has been a server error, please try again.'
+                    });
+                } else {
+                    // Setup is in db, file is uploaded, time to rename and move the file in the sim directory.
+                    // Filename of the new setup file will be its id in the db.
+                    var setupFileNewName = request.body.setup_id;
+
+                    // Directory the setup file will be move to.
+                    var setupFilePath = path.join(__dirname, '../setups_files/', request.body.sim_id.toString());
+
+                    // Move and rename the file.
+                    fs.rename(request.file.path, setupFilePath + setupFileNewName, function(err) {
+                        if(err) {
+                            console.log('EDIT SETUP API: Error moving and renaming file. ', err);
+                            return response.status(500).send({
+                                status: 'error',
+                                msg: 'There has been an error, please try again.'
+                            });
+                        } else {
+                            return response.status(200).send({
+                                status: 'success',
+                                msg: 'Setup successfully reuploaded.'
+                            });
+                        }
+                    });
+                }
+            });
+        }
     });
 
     // Update setup rating.
