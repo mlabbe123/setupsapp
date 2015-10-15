@@ -50,6 +50,7 @@
 @include print-icon("edit", "\e151");
 @include print-icon("emptystar", "\e049");
 @include print-icon("star", "\e050");
+@include print-icon("loading", "\e082");
 
 // Icons repositioning.
 .icon-edit:before {
