@@ -13,4 +13,4 @@ bower_components/
 static/
 
 # setup files are uploaded in prod #
-setups_files
+setups_files/
