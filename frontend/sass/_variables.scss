@@ -19,6 +19,9 @@ $success_bg_color: lighten($success_color, 40);
 $warning_color: #f6cf35;
 $warning_bg_color: lighten($warning_color, 30);
 
+$disabled_color: #9d9f9f;
+$disabled_bg_color: #d2d3d3;
+
 // Alt
 $primary_color_alt1: adjust-hue($primary_color, -40deg);
 $primary_color_alt2: saturate($primary_color, 15);
