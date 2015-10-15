@@ -360,7 +360,22 @@
             angular.element(document.getElementsByClassName('main-menu-link-profile')).addClass('current');
         })
 
-        .controller('submitSetupCtrl', function($scope, $routeParams, SimService, uploadSetupService) {
+        .controller('submitSetupCtrl', function($scope, $routeParams, SimService, uploadSetupService, userSession, $timeout) {
+
+            // Notifications
+            $scope.notification = {};
+            $scope.notification.status = userSession.status;
+            $scope.notification.msg = userSession.msg;
+
+            $scope.closeNotification = function() {
+                $scope.notification = false;
+                userSession.status = '';
+                userSession.msg = '';
+            };
+
+            $timeout(function() {
+                $scope.closeNotification();
+            }, 5000);
 
             SimService.returnSimsFullData().then(function(result) {
                 $scope.sims = result;
@@ -373,7 +388,11 @@
             }
 
             $scope.submitSetup = function(event) {
-                uploadSetupService.upload($scope.new_setup);
+                console.log(event)
+                var $element = angular.element(event.srcElement);
+
+                $element.prop('disabled', 'disabled').addClass('is-loading icon-loading');
+                // uploadSetupService.upload($scope.new_setup);
             }
 
             $scope.sim_name = $routeParams.simName;
@@ -382,7 +401,22 @@
             angular.element(document.getElementsByClassName('main-menu-link-submit')).addClass('current');
         })
 
-        .controller('userProfileCtrl', function($scope, $routeParams, $http) {
+        .controller('userProfileCtrl', function($scope, $routeParams, $http, $timeout, userSession) {
+
+            // Notifications
+            $scope.notification = {};
+            $scope.notification.status = userSession.status;
+            $scope.notification.msg = userSession.msg;
+
+            $scope.closeNotification = function() {
+                $scope.notification = false;
+                userSession.status = '';
+                userSession.msg = '';
+            };
+
+            $timeout(function() {
+                $scope.closeNotification();
+            }, 5000);
 
             // Get user information.
             $http.get('/api/get-user-by-id/' + $routeParams.userid)
