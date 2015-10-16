@@ -704,7 +704,7 @@ module.exports = function(app, passport) {
                 msg: 'There has been a server error, please try again.'
             });
         } else {
-            Setup.update({_id: request.body.setup_id}, {file_name: request.body.file_name, sim_version: request.body.sim_version, type: request.body.trim, best_time: request.body.best_laptime, comments: request.body.comments}, function(err, numAffected) {
+            Setup.update({_id: request.body.setup_id}, {file_name: request.body.file_name, sim_version: request.body.sim_version, type: request.body.trim, best_time: request.body.best_laptime, comments: request.body.comments, $inc: {version: 1}}, function(err, numAffected) {
                 if(err) {
                     console.log('EDIT SETUP WITH FILE API: Error updating setup_id: request.body.setup_id.', err);
                     return response.status(500).send({
