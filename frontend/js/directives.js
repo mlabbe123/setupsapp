@@ -179,4 +179,20 @@
                 }
             }
         });
+
+        // .directive('marketStats', function() {
+        //     return {
+        //         restrict: 'E',
+        //         template: '<div>These are the stats</div>',
+        //         controller: function($scope, $http) {
+        //             $http.get('/api/get-market-stats/')
+        //                 .success(function(data, status, headers, config) {
+        //                     console.log(data);
+        //                 })
+        //                 .error(function(data, status, headers, config) {
+        //                     console.log(data);
+        //                 });
+        //         }
+        //     }
+        // });
 })();

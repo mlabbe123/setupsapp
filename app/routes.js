@@ -342,6 +342,25 @@ module.exports = function(app, passport) {
     // API SECTION
     // ==============================
 
+    // MISC ========================
+
+    // Retreive the market stats.
+    // app.get('/api/get-market-stats/', function(request, response) {
+    //     var marketStats = {};
+
+    //     User.find(function(err, users) {
+    //         if (err) {
+    //             console.log('error retreiving all users');
+    //         } else {
+    //             marketStats.usersCount = users.length;
+
+    //             Setup
+
+    //             console.log('marketStats: ', marketStats);
+    //         }
+    //     });
+    // });
+
     // SIMS ========================
 
     // Retrieve sim infos for specific sim.
