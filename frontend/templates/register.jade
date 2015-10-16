@@ -7,15 +7,13 @@ block mainContent
     //-         span(class="breadcrumbs-item current") Register
 
     div(class="fullwidth-wrapper register superparallax", parallax="superparallax")
-
-    div(class="fullwidth-wrapper white padded")
         div.content-wrapper
             h1.sim-presentation-title
                 span.title-slash /
                 span Register
 
+    div(class="fullwidth-wrapper white padded")
         div.form-wrapper
-
             div.form-backendmsg-wrapper
                 if message && message.length
                     strong #{message}

@@ -7,15 +7,13 @@ block mainContent
     //-         span(class="breadcrumbs-item current") Login
 
     div(class="fullwidth-wrapper login superparallax", parallax="superparallax")
-
-    div(class="fullwidth-wrapper white padded")
         div.content-wrapper
             h1.sim-presentation-title
                 span.title-slash /
                 span Login
 
+    div(class="fullwidth-wrapper white padded")
         div.form-wrapper
-
             div.form-backendmsg-wrapper
                 if message && message.length
                     strong #{message}
