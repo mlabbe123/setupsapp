@@ -340,7 +340,6 @@ body {
 // ===========================
 
 header {
-    background-color: $bg_color;
     border-bottom: 8px solid $primary_color;
 }
 
@@ -701,6 +700,10 @@ footer {
         padding: $padding / 3 $padding / 2;
         white-space: nowrap;
 
+        &.no-side-padding {
+            padding: $padding / 3 0;
+        }
+
         @include xlarge-and-above {
             padding: $padding / 3 $padding / 2;
         }
@@ -711,7 +714,6 @@ footer {
         margin-left: $padding / 2;
         width: 34px;
         height: 34px;
-        //background-color: $primary_color;
         border: 2px solid $bg_color;
         border-radius: 100%;
         color: $bg_color;

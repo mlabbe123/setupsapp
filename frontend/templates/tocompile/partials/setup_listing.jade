@@ -42,7 +42,7 @@ div(class="fullwidth-wrapper white padded")
                         option(value="") - Every trim -
 
             div.form-block
-                label(for="filter-track", class="label-block") / Sim Version
+                label(for="filter-sim-version", class="label-block") / Sim Version
                 div.form-select-wrapper
                     select(id="filter-sim-version", ng-model="filter_query.sim_version", ng-options="sim_version_filters for sim_version_filters in setup_filters.sim_version_filters")
                         option(value="") - Every Version -
@@ -50,6 +50,7 @@ div(class="fullwidth-wrapper white padded")
         div.setupList-setups-wrapper
             table.setupList-setups-table
                 tr
+                    th
                     th /&nbsp;Actions
                     th /&nbsp;Car
                     th /&nbsp;Track
@@ -75,6 +76,8 @@ div(class="fullwidth-wrapper white padded")
 
                 tr(ng-repeat="setup in setups | filter:{ car:filter_query.car||undefined, car_category:filter_query.car_category||undefined, track:filter_query.track||undefined, author:filter_query.author, type:filter_query.type||undefined, sim_version:filter_query.sim_version||type } | orderBy:predicate:reverse")
                     td
+                        span(ng-if="setup.version > 1") v{{ setup.version }}
+                    td.no-side-padding
                         a(href="setup_files/{{ sim_infos._id }}/{{ setup._id }}", class="icon-download icon-link", tooltip="Download")
                         a(href="#/setups/{{ sim_name }}/{{ setup.authorid }}/{{ setup._id }}/", class="icon-details icon-link", tooltip="See details")
                     td {{ setup.car }}

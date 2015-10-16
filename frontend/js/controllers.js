@@ -317,6 +317,11 @@
                 $scope.notification = {};
                 $scope.notification.msg = userSession.getNotificationMsg();
                 $scope.notification.status = userSession.getNotificationStatus();
+
+                $timeout(function() {
+                    console.log('close it mothafucka')
+                    $scope.closeNotification();
+                }, 5000);
             });
 
             $scope.closeNotification = function() {
@@ -374,16 +379,17 @@
                 $scope.notification = {};
                 $scope.notification.msg = userSession.getNotificationMsg();
                 $scope.notification.status = userSession.getNotificationStatus();
+
+                console.log('msg has changed')
+                $timeout(function() {
+                    $scope.closeNotification();
+                }, 5000);
             });
 
             $scope.closeNotification = function() {
                 $scope.notification = false;
                 userSession.setNotificationStatus('');
                 userSession.setNotificationMsg('');
-
-                // $timeout(function() {
-                //     $scope.closeNotification();
-                // }, 5000);
             };
 
             $timeout(function() {
