@@ -114,26 +114,20 @@ body {
         background-size: cover;
     }
 
-    &.iracing {
-        padding: $padding_mega * 1.5 0;
-        background: url('../images/ac_bg.jpg');
-        background-size: cover;
-    }
-
     &.register {
-        padding: $padding_mega * 1.5 0;
+        padding: $padding 0;
         background: url('../images/register_bg.jpg');
         background-size: cover;
     }
 
     &.login {
-        padding: $padding_mega * 1.5 0;
+        padding: $padding 0;
         background: url('../images/login.jpg');
         background-size: cover;
     }
 
     &.profile {
-        padding: $padding_mega * 1.5 0;
+        padding: $padding 0;
         background: url('../images/profile.jpg');
         background-size: cover;
     }
