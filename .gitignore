@@ -11,3 +11,6 @@ bower_components/
 
 # compiled builds files #
 static/
+
+# setups_files folder #
+setups_files/
