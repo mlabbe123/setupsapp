@@ -173,7 +173,7 @@
                         var bgTotalOffset = element[0].offsetHeight + element[0].offsetTop;
 
                         if (this.pageYOffset < bgTotalOffset) {
-                            angular.element(document.querySelector('.' + attrs.parallax)).css('background-position', '0 ' + -(10 * Math.pow(1.5, this.pageYOffset/45)) + 'px');
+                            angular.element(document.querySelector('.' + attrs.parallax)).css('background-position', '0 ' + -(10 * Math.pow(1.5, this.pageYOffset/50)) + 'px');
                         }
                     });
                 }

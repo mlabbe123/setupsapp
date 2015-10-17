@@ -708,22 +708,38 @@ footer {
 }
 
 .setupDetail-rating {
-    @include span(6);
+    @include span(3);
     text-align: center;
 
     &:nth-child(even) {
-        @include span(6 at 7);
+        @include span(3 at 4);
     }
 
     &.alone {
-        @include span(12);
+        @include span(6);
     }
 }
 
-.setupDetail-rating-title {
+.setupDetail-header-title {
     margin-bottom: 0.5rem;
     line-height: 2rem;
     font-weight: 700;
+}
+
+.setupDetail-header-info {
+    color: $primary_color;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.setupDetail-downloads-wrapper {
+    @include span(3 at 7);
+    text-align: center;
+}
+
+.setupDetail-simversion-wrapper {
+    @include span(3 at 10);
+    text-align: center;
 }
 
 .setupDetail-overview {
