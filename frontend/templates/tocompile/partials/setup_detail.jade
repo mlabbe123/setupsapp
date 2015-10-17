@@ -16,7 +16,7 @@ div(class="fullwidth-wrapper funkyborder")
 div(class="fullwidth-wrapper white padded-tiny")
     div.content-wrapper
         div(class="setupDetail-rating", ng-if="!is_user_own_setup")
-            h3(class="setupDetail-rating-title subtitle") Your rating
+            h3(class="setupDetail-header-title subtitle") Your rating
             div(class="rating-stars-wrapper dynamic", ng-if="ng_user_is_logged")
                 input(id="star5", type="radio", name="setup_rating", value="5", ng-model="setup.own_rating")
                 label(for="star5", class="rating-star icon-emptystar")
@@ -35,7 +35,7 @@ div(class="fullwidth-wrapper white padded-tiny")
                 span to rate this setup
 
         div(class="setupDetail-rating", ng-class="{'alone': is_user_own_setup}")
-            h3.setupDetail-rating-title.subtitle Community rating
+            h3.setupDetail-header-title.subtitle Community rating
             div(class="rating-stars-wrapper", ng-show="setup.community_rating > 0", tooltip="{{ setup.community_rating_tooltip }}")
                 input(id="star5", type="radio" value="5", ng-model="setup.community_rating", disabled="disabled")
                 label(class="rating-star icon-emptystar")
@@ -49,7 +49,15 @@ div(class="fullwidth-wrapper white padded-tiny")
                 label(class="rating-star icon-emptystar")
 
             div(ng-show="setup.community_rating === 0")
-                span No ratings yet
+                span.setupDetail-header-info No ratings yet
+
+        div(class="setupDetail-downloads-wrapper")
+            h3(class="setupDetail-header-title subtitle") Downloads
+            span.setupDetail-header-info {{ setup.downloads }}
+
+        div(class="setupDetail-simversion-wrapper")
+            h3(class="setupDetail-header-title subtitle") Sim version
+            span.setupDetail-header-info {{ setup.sim_version }}
 
 div(class="fullwidth-wrapper funkyborder")
 
@@ -74,15 +82,15 @@ div(class="fullwidth-wrapper white padded")
                 li.setupDetail-overview-list-item
                     h3.setupDetail-overview-list-item-title / Author
                     span.setupDetail-overview-list-item-content {{ setup.author.display_name }}
-                li.setupDetail-overview-list-item
-                    h3.setupDetail-overview-list-item-title / Downloads
-                    span.setupDetail-overview-list-item-content {{ setup.downloads }}
+                //- li.setupDetail-overview-list-item
+                //-     h3.setupDetail-overview-list-item-title / Downloads
+                //-     span.setupDetail-overview-list-item-content {{ setup.downloads }}
                 //- li.setupDetail-overview-list-item
                 //-     h3.setupDetail-overview-list-item-title / File name
                 //-     span.setupDetail-overview-list-item-content {{ setup.file_name }}
-                li.setupDetail-overview-list-item
-                    h3.setupDetail-overview-list-item-title / Sim version
-                    span.setupDetail-overview-list-item-content {{ setup.sim_version }}
+                //- li.setupDetail-overview-list-item
+                //-     h3.setupDetail-overview-list-item-title / Sim version
+                //-     span.setupDetail-overview-list-item-content {{ setup.sim_version }}
                 li.setupDetail-overview-list-item
                     h3.setupDetail-overview-list-item-title / Best Time
                     span.setupDetail-overview-list-item-content {{ setup.best_time }}
