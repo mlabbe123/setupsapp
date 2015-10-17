@@ -103,19 +103,16 @@ body {
     }
 
     &.home {
-        //padding: $padding_mega * 1.5 0;
-        background-image: url('../images/bg.jpg');
+        background-image: url('../images/home_bg.jpg');
         background-position: 0 0;
     }
 
     &.ac {
-        padding: $padding 0;
         background: url('../images/ac_bg.jpg');
-        background-size: cover;
+        background-position: 0 0;
     }
 
     &.register {
-        padding: $padding 0;
         background: url('../images/register_bg.jpg');
         background-size: cover;
     }
@@ -127,19 +124,16 @@ body {
     }
 
     &.profile {
-        padding: $padding 0;
         background: url('../images/profile.jpg');
         background-size: cover;
     }
 
     &.server-error {
-        padding: $padding_mega * 1.5 0;
         background: url('../images/500_bg.jpg');
         background-size: cover;
     }
 
     &.not-found {
-        padding: $padding_mega * 1.5 0;
         background: url('../images/404_bg.jpg');
         background-size: cover;
     }
@@ -208,8 +202,13 @@ body {
     margin: 0 auto;
 }
 
-.title-slash {
-    color: $secondary_color;
+.page-title-wrapper {
+    padding: $padding * 1.5 0;
+    color: $bg_color;
+
+    &.home {
+        padding: $padding * 4 0;
+    }
 }
 
 [tooltip] {
@@ -288,6 +287,7 @@ header {
 // ===========================
 // Site Footer
 // ===========================
+
 footer {
     height: 50px;
     padding: $padding 0;
@@ -310,11 +310,6 @@ footer {
 // ===========================
 // Main page specific content
 // ===========================
-
-.mainpage-title {
-    padding: $padding_mega 0;
-    color: #fff;
-}
 
 .simSelection-simwrapper {
     display: flex;

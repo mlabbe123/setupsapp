@@ -1,5 +1,4 @@
 .jumbo-title {
-    padding: 0.5rem 0;
     font-size: 4rem;
     font-weight: bold;
 }
@@ -24,6 +23,10 @@
     }
 }
 
+.title-slash {
+    color: $secondary_color;
+}
+
 .title--small {
     @extend .title;
     padding:  0 0 $padding * 2;
@@ -40,7 +43,6 @@
     color: $bg_color;
     font-size: 6rem;
     font-weight: 700;
-    line-height: 8rem;
 }
 
 // Headers
