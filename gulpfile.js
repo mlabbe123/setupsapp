@@ -55,7 +55,7 @@ gulp.task('sassdev', ['pre-cleanup'], function () {
 });
 
 // jade dev task
-gulp.task('jadedev', function() {
+gulp.task('jadedev', ['pre-cleanup'], function() {
     return gulp.src(paths.jade)
         .pipe(jade({
             pretty: true
