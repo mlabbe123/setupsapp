@@ -11,3 +11,9 @@ bower_components/
 
 # compiled builds files #
 static/
+
+# setups_files #
+setups_files/
+
+# rev manifest #
+rev-manifest.json

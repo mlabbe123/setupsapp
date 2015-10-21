@@ -8,7 +8,10 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     jade = require('gulp-jade'),
     sourcemaps = require('gulp-sourcemaps'),
-    autoprefixer = require('gulp-autoprefixer')
+    autoprefixer = require('gulp-autoprefixer'),
+    rev = require('gulp-rev'),
+    revReplace = require('gulp-rev-replace'),
+    del = require('del'),
 
     // paths for src files
     paths = {
@@ -29,26 +32,16 @@ var gulp = require('gulp'),
 // ===========================
 // Development tasks
 // ===========================
- 
-// jade dev task
-gulp.task('jadedev', function() {
-    gulp.src(paths.jade)
-        .pipe(jade({
-            pretty: true
-        }))
-        .pipe(gulp.dest('static/templates'));
-});
 
 // JS dev task
-gulp.task('jsdev', function() {
-    gulp.src(paths.js)
+gulp.task('jsdev', ['pre-cleanup'], function() {
+    return gulp.src(paths.js)
         .pipe(gulp.dest('static/js/'));
 });
 
 // Sass dev task
-gulp.task('sassdev', function () {
+gulp.task('sassdev', ['pre-cleanup'], function () {
     var config = {};
-
     config.sourceComments = 'map';
 
     return gulp.src(paths.sass)
@@ -58,17 +51,26 @@ gulp.task('sassdev', function () {
         .pipe(sass(config))
         .pipe(autoprefixer())
         .pipe(plumber.stop())
-        .pipe(gulp.dest('static/css'));
+        .pipe(gulp.dest('static/css/'));
+});
+
+// jade dev task
+gulp.task('jadedev', function() {
+    return gulp.src(paths.jade)
+        .pipe(jade({
+            pretty: true
+        }))
+        .pipe(gulp.dest('static/templates'));
 });
 
 // Images dev task
-gulp.task('imagesdev', function() {
+gulp.task('imagesdev', ['pre-cleanup'], function() {
     return gulp.src(paths.images)
         .pipe(gulp.dest('static/images'))
 });
 
 // Fonts dev task
-gulp.task('fontsdev', function() {
+gulp.task('fontsdev', ['pre-cleanup'], function() {
     return gulp.src(paths.fonts)
         .pipe(gulp.dest('static/fonts'))
 });
@@ -85,24 +87,60 @@ gulp.task('jshint', function() {
 // Production tasks
 // ===========================
 
+// cleanup
+gulp.task('pre-cleanup', function() {
+    return del([
+        'static/**/*',
+        'rev-manifest.json'
+    ]);
+});
+
 // jade prod task
-gulp.task('jadeprod', function() {
-    gulp.src(paths.jade)
+gulp.task('jadeprod', ['pre-cleanup'], function() {
+    return gulp.src(paths.jade)
         .pipe(jade())
         .pipe(gulp.dest('static/templates'));
 });
 
+gulp.task('rev-tmpl', ['jadeprod'], function() {
+    return gulp.src('static/templates/partials/*.html')
+        .pipe(rev())
+        .pipe(gulp.dest('static/templates/partials'))
+        .pipe(rev.manifest({
+            base: 'static/',
+            merge: true
+        }))
+        .pipe(gulp.dest('static/'));
+});
+
+gulp.task('rev-replace-tmpl', ['rev-tmpl'], function() {
+    var manifest = gulp.src("./rev-manifest.json");
+
+    return gulp.src('frontend/js/app.js')
+        .pipe(revReplace({
+            manifest: manifest,
+            replaceInExtensions: ['.js']    
+        }))
+        .pipe(gulp.dest('frontend/js'));
+});
+
 // JS prod task
-gulp.task('jsprod', function() {
-  gulp.src(paths.js)
+gulp.task('jsprod', ['pre-cleanup'], function() {
+  return gulp.src(paths.js)
     .pipe(uglify({
         mangle: false
     }))
-    .pipe(gulp.dest('static/js/'));
+    .pipe(rev())
+    .pipe(gulp.dest('static/js/'))
+    .pipe(rev.manifest({
+        base: 'static/',
+        merge: true
+    }))
+    .pipe(gulp.dest('static/'));
 });
 
 // Sass prod task
-gulp.task('sassprod', function () {
+gulp.task('sassprod', ['jsprod'], function () {
     var config = {};
 
     config.outputStyle = 'compressed';
@@ -110,17 +148,35 @@ gulp.task('sassprod', function () {
     return gulp.src(paths.sass)
         .pipe(sass(config))
         .pipe(autoprefixer())
-        .pipe(gulp.dest('static/css'));
+        .pipe(rev())
+        .pipe(gulp.dest('static/css'))
+        .pipe(rev.manifest({
+            base: 'static/',
+            merge: true
+        }))
+        .pipe(gulp.dest('static/'));
+});
+
+// rev replace task
+gulp.task('revreplace', ['jsprod', 'sassprod', 'jadeprod'], function() {
+    var manifest = gulp.src("./rev-manifest.json");
+
+    return gulp.src(['frontend/templates/root_base.jade', 'frontend/templates/register.jade', 'static/js/'])
+        .pipe(revReplace({
+            manifest: manifest,
+            replaceInExtensions: ['.jade', '.js']
+        }))
+        .pipe(gulp.dest('frontend/templates/'));
 });
 
 // Images prod task
-gulp.task('imagesprod', function() {
+gulp.task('imagesprod', ['pre-cleanup'], function() {
     return gulp.src(paths.images)
         .pipe(gulp.dest('static/images'))
 });
 
 // Fonts prod task
-gulp.task('fontsprod', function() {
+gulp.task('fontsprod', ['pre-cleanup'], function() {
     return gulp.src(paths.fonts)
         .pipe(gulp.dest('static/fonts'))
 });
@@ -132,15 +188,15 @@ gulp.task('fontsprod', function() {
 
 // Rerun the task when a file changes
 gulp.task('watch', function() {
-    gulp.watch(paths.jade, ['jadedev']);
     gulp.watch(paths.sass, ['sassdev']);
     gulp.watch(paths.js, ['jsdev']);
+    gulp.watch(paths.jade, ['jadedev']);
     gulp.watch(paths.images, ['imagesdev']);
     gulp.watch(paths.fonts, ['fontsdev']);
 });
 
 // start task
-gulp.task('start', ['watch' ,'jadedev', 'sassdev', 'jsdev', 'imagesdev', 'fontsdev']);
+gulp.task('start', ['pre-cleanup', 'watch' ,'sassdev', 'jsdev', 'jadedev', 'imagesdev', 'fontsdev']);
 
 // To prod task
-gulp.task('toprod', ['jadeprod', 'sassprod', 'jsprod', 'imagesprod', 'fontsprod']);
+gulp.task('toprod', ['pre-cleanup', 'jadeprod', 'rev-tmpl', 'rev-replace-tmpl', 'jsprod', 'sassprod', 'revreplace', 'imagesprod', 'fontsprod']);
