@@ -1,3 +1,5 @@
+.DS_Store/
+
 # sass files #
 .sass-cache
 *.css.map
