@@ -541,18 +541,24 @@ module.exports = function(app, passport) {
     app.get('/api/get-setups/:simname', function(request, response) {
 
         Sim.findOne({'display_name': request.params.simname}, function(err, sim) {
-            Setup.find({ 'sim': sim._id }).
-                populate('author').
-                populate('car').
-                populate('track').
-                populate('sim').
-                exec(function(err, setups) {
-                    if(err){
-                        return console.log(err);
-                    } else {
-                        return response.send(setups);
-                    }
-                });
+            if (err || !sim) {
+                console.log('GET SETUPS API: Error retreiving id for simname: ' + request.params.simname, err);
+                return response.status(500).send(err);
+            } else {
+                Setup.find({ 'sim': sim._id }).
+                    populate('author').
+                    populate('car').
+                    populate('track').
+                    populate('sim').
+                    exec(function(err, setups) {
+                        if(err){ 
+                            console.log('GET SETUPS API: Error finding setups that matches simId: ' + sim._id, err);
+                            return response.status(500).send(err);
+                        } else {
+                            return response.send(setups);
+                        }
+                    });
+            }
         });
     });
 
@@ -581,14 +587,19 @@ module.exports = function(app, passport) {
     app.get('/api/get-setups-filters-by-simname/:simname', function(request, response) {
 
         Sim.findOne({'display_name': request.params.simname}, function(err, sim) {
-            Setup.find({ 'sim': sim._id }).
+            if (err || !sim) {
+                console.log('GET SETUPS FILTERS BY SIMNAME: Error retreiving setups for simname: ' + request.params.simname, err);
+                return response.status(500).send(err);
+            } else {
+                Setup.find({ 'sim': sim._id }).
                 populate('author').
                 populate('car').
                 populate('track').
                 populate('sim').
                 exec(function(err, setups) {
                     if(err){
-                        return console.log(err);
+                        console.log(err);
+                        return response.status(500).send(err);
                     } else {
                         var setup_filters = {};
 
@@ -619,6 +630,7 @@ module.exports = function(app, passport) {
                         return response.send(setup_filters);
                     }
                 });
+            }
         });
     });
 
