@@ -66,23 +66,41 @@ body {
         color: $bg_color;
     }
 
-    @include xlarge-and-above {
-        &.flex {
-            display: flex;
-        }
+    &.flex {
+        display: flex;
+        flex-direction: column;
 
         .side-by-side {
             flex: 1;
-            padding: $padding * 2;
-
-            &:nth-child(even) {
-                border-left: 4px solid $bg_color;
-            }
 
             &:nth-child(odd) {
-                border-right: 4px solid $bg_color;
+                order: 1;
+                border-top: 8px solid $bg_color;
+            }
+
+            @include xlarge-and-above {
+                padding: $padding * 2;
+
+                &:nth-child(even) {
+                    border-left: 4px solid $bg_color;
+                    order: 2;
+                }
+
+                &:nth-child(odd) {
+                    border-right: 4px solid $bg_color;
+                    border-top: none;
+                }
             }
         }
+
+        @include xlarge-and-above {
+            flex-direction: row;
+        }
+    }
+
+    &.flex--row {
+        display: flex;
+        flex-direction: row; 
     }
 
     &.clear {
@@ -109,6 +127,7 @@ body {
     &.choose-flavor {
         background-image: url('../images/flavor_bg1.jpg');
         color: $bg_color;
+        background-attachment: fixed;
     }
 
     &.green {
@@ -140,7 +159,7 @@ body {
     }
 
     &.home {
-        background-image: url('../images/home_bg.jpg');
+        background-image: url('../images/home_bg1.jpg');
         background-position: 0 0;
     }
 
@@ -172,11 +191,13 @@ body {
     }
 
     &.server-error {
+        padding: $padding * 10 0 0;
         background: url('../images/500_bg.jpg');
         background-size: cover;
     }
 
     &.not-found {
+        padding: $padding * 10 0 0;
         background: url('../images/404_bg.jpg');
         background-size: cover;
     }
@@ -516,8 +537,7 @@ footer {
 }
 
 .homepage-stats-col-wrapper {
-    width: 50%;
-    float: left;
+    flex: 1;
     color: $bg_color;
     padding: $padding * 3 0;
 
