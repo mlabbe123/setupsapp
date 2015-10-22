@@ -8,6 +8,11 @@ block mainContent
                 span(class="breadcrumbs-item current") Confirm Account
 
     div(class="fullwidth-wrapper register")
+        div.content-wrapper
+            div.page-title-wrapper
+                h1.jumbo-title
+                    span.title-slash /
+                    span Confirm account
 
     div(class="fullwidth-wrapper white padded")
         div.form-wrapper
@@ -17,8 +22,6 @@ block mainContent
                     strong #{message}
 
             div.fullwidth-form
-                h2.form-title-msg Confirm your account
-
                 form(action="", method="post")
                     div.field-block
                         label(for="confirmation-code", class="form-label")

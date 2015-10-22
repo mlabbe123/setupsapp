@@ -52,6 +52,39 @@ body {
     width: 100%;
     position: relative;
 
+    .side-by-side {
+        padding: $padding * 2;
+    }
+
+    .orange-bg {
+        background-color: $secondary_color;
+        color: $bg_color;
+    }
+
+    .green-bg {
+        background-color: $primary_color;
+        color: $bg_color;
+    }
+
+    @include xlarge-and-above {
+        &.flex {
+            display: flex;
+        }
+
+        .side-by-side {
+            flex: 1;
+            padding: $padding * 2;
+
+            &:nth-child(even) {
+                border-left: 4px solid $bg_color;
+            }
+
+            &:nth-child(odd) {
+                border-right: 4px solid $bg_color;
+            }
+        }
+    }
+
     &.clear {
         @include clearfix();
     }
@@ -61,7 +94,7 @@ body {
     }
 
     &.orange-border-top {
-        border-top: 8px solid $secondary_color;
+        border-top: 8px solid $secondary_color_alt1;
     }
 
     &.white {
@@ -71,6 +104,11 @@ body {
         .subtitle {
             color: $secondary_color;
         }
+    }
+
+    &.choose-flavor {
+        background-image: url('../images/flavor_bg1.jpg');
+        color: $bg_color;
     }
 
     &.green {
@@ -99,7 +137,6 @@ body {
     &.orange {
         background-color: $secondary_color;
         color: $bg_color;
-        //border-top: 8px solid $bg_color;
     }
 
     &.home {
@@ -113,13 +150,19 @@ body {
     }
 
     &.register {
-        background: url('../images/register_bg.jpg');
+        padding: $padding * 10 0 0;
+        background: url('../images/register.jpg');
+        background-size: cover;
+    }
+
+    &.submit {
+        background: url('../images/submit_bg.jpg');
         background-size: cover;
     }
 
     &.login {
-        padding: $padding 0;
-        background: url('../images/login.jpg');
+        padding: $padding * 10 0 0;
+        background: url('../images/register.jpg');
         background-size: cover;
     }
 
@@ -202,8 +245,20 @@ body {
     margin: 0 auto;
 }
 
+.content-flexwrapper {
+    display: flex;
+    align-items: center;
+
+    width: 98%;
+    margin: 0 auto;
+
+    &.padded {
+        padding: $padding / 2 0;
+    }
+}
+
 .page-title-wrapper {
-    padding: $padding * 1.5 0;
+    padding: $padding * 2 0;
     color: $bg_color;
 
     &.home {
@@ -269,12 +324,14 @@ header {
 
 // Main nav
 .main-nav-wrapper {
-    @include span(6 of 12);
+    flex: 1;
+    width: 50%;
 }
 
 // Login box
 .login-box {
-    @include span(6 at 7 of 12);
+    flex: 1;
+    width: 50%;
     text-align: right;
 }
 
@@ -282,6 +339,28 @@ header {
     &.current {
         color: $secondary_color;
     }
+
+    .slash {
+        margin-right: 2px;
+        color: $secondary_color;
+        font-size: 1.3rem;
+        font-weight: 700;
+    }
+}
+
+.main-menu-link-home {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-bottom: 4px solid $primary_color;
+    border-right: 4px solid $primary_color_alt1;
+    border-top: 4px solid $primary_color_alt2;
+    border-left: 4px solid $primary_color_alt3;
+    border-radius: 100%;
+    color: $secondary_color;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
 }
 
 // ===========================
@@ -414,26 +493,14 @@ footer {
 }
 
 .homepage-howto-wrapper {
-    @include span(5);
-    text-align: right;
-
-    &:last-child {
-        @include span(5 at 7);
-        @include last();
-        text-align: left;
-    }
+    text-align: center;
 }
 
 .homepage-howto-separator {
-    @include span(2);
-
-    text-align: center;
-
-    span {
-        font-size: 2.7rem;
-        font-weight: 700;
-        // line-height: 20rem;
-    }
+    height: 1px;
+    width: 50%;
+    margin: $padding * 1.5 auto;
+    background-color: $bg_color;
 }
 
 .homepage-howto-title {
@@ -442,9 +509,8 @@ footer {
 }
 
 .homepage-howto-text {
-    display: inline-block;
-    width: 60%;
-    margin: 0 auto;
+    display: block;
+    margin-top: $padding;
     font-size: 1.5rem;
     line-height: 2.2rem;
 }
