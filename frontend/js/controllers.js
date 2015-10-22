@@ -29,7 +29,7 @@
             angular.element(document.getElementsByClassName('main-menu-link-home')).addClass('current');
         })
 
-        .controller('setupListCtrl', function($scope, $routeParams, $http) {
+        .controller('setupListCtrl', function($scope, $routeParams, $http, $location) {
 
             // Get the sim infos.
             $http.get('/api/get-sim-infos/' + $routeParams.simName).
@@ -78,7 +78,8 @@
                     $scope.setups = data;
                 }).
                 error(function(data, status, headers, config) {
-                    console.log(status)
+                    // console.log(status);
+                    $location.path('/');
                 });
 
             // Get all the setup filters.
@@ -87,7 +88,8 @@
                     $scope.setup_filters = data;
                 }).
                 error(function(data, status, headers, config) {
-                    console.log(status)
+                    // console.log(status);
+                    $location.path('/');
                 });
 
             $scope.sim_name = $routeParams.simName;
