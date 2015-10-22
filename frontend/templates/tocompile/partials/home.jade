@@ -1,13 +1,24 @@
 div(class="fullwidth-wrapper home superparallax", parallax="superparallax")
     div.content-wrapper
         div.page-title-wrapper.home
-            h1.jumbo-title
-                span.title-slash /
-                span Welcome to The Setup Market
+            h1.jumbo-title Welcome to The Setup Market
             h2.jumbo-title-subtitle The place to find sim racing setups.
 
-div(class="fullwidth-wrapper orange padded border-top")
-    div.content-wrapper
+div(class="fullwidth-wrapper flex border-top")
+    div.side-by-side.green-bg
+        div.homepage-howto-wrapper
+            h3.title.padding-bottom-only Download
+            i.icon-download.huge-icon
+            span.homepage-howto-text Browse setups for the sim and car/track combo of your choice.
+
+        div.homepage-howto-separator
+
+        div.homepage-howto-wrapper
+            h3.title.padding-bottom-only Share
+            i.icon-share.huge-icon
+            span.homepage-howto-text Create an account and upload your precious setups for the community.
+
+    div.side-by-side.orange-bg
         h2.title.padding-bottom-only What's new ?
 
         ul.newsFeed
@@ -50,31 +61,15 @@ div(class="fullwidth-wrapper orange padded border-top")
                     h3.newsFeed-title Setup rating implemented
                     span.newsFeed-text A rating system for the setups has been implemented. When logged in, just navigate to a setup's detail page and give it the rating you think it deserves. You can also sort them by their ratings on the listing page.
 
-            li.newsFeed-item
-                div.newsFeed-item-date
-                    span.newsFeed-item-date-month Sept
-                    span.newsFeed-item-date-day 15
-                div.newsFeed-item-content
-                    h3.newsFeed-title Added Setup editing
-                    span.newsFeed-text You can now edit a setup that you have already posted. If you want to change the laptime, trim, AC version or comments, just navigate to your profile and click the edit icon in your posted setup listing.
+            //- li.newsFeed-item
+            //-     div.newsFeed-item-date
+            //-         span.newsFeed-item-date-month Sept
+            //-         span.newsFeed-item-date-day 15
+            //-     div.newsFeed-item-content
+            //-         h3.newsFeed-title Added Setup editing
+            //-         span.newsFeed-text You can now edit a setup that you have already posted. If you want to change the laptime, trim, AC version or comments, just navigate to your profile and click the edit icon in your posted setup listing.
 
-div(class="fullwidth-wrapper green padded border-top")
-    div.content-wrapper
-
-        div.homepage-howto-wrapper
-            h3.homepage-howto-title Browse
-            i.icon-download.huge-icon
-            span.homepage-howto-text Download setups for the sim and car/track combo of your choice.
-
-        div.homepage-howto-separator
-            span or
-
-        div.homepage-howto-wrapper
-            h3.homepage-howto-title Share
-            i.icon-share.huge-icon
-            span.homepage-howto-text Create an account and share your precious setups to the community.
-
-div(class="fullwidth-wrapper white padded orange-border-top")
+div(class="fullwidth-wrapper choose-flavor padded border-top")
     div.content-wrapper
         h2.title.no-padding Choose your flavor
         h3.subtitle (More sims coming soon)

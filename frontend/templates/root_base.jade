@@ -20,16 +20,20 @@ html(ng-app="setupsSharingApp")
             div(class="mainContainer", ng-init="ng_user_is_logged= #{user ? true : false}; ng_user_id= #{user ? JSON.stringify(user._id) : false}")
                 header.fullwidth-wrapper
                     block header
-                        div.content-wrapper
+                        div.content-flexwrapper.padded
                             ul.main-nav-wrapper
                                 ul.inline-nav
                                     li.nav-item
-                                        a(href="/#/", class="link main-menu-link main-menu-link-home icon-home") Home
+                                        a(href="/#/", class="link main-menu-link main-menu-link-home") /
                                     li.nav-item
-                                        a(href="/#/setups/Assetto%20Corsa", class="link main-menu-link main-menu-link-setups icon-setups") Setups
+                                        a(href="/#/setups/Assetto%20Corsa", class="link main-menu-link main-menu-link-setups") 
+                                            span.slash /
+                                            span.name Setups
                                     if user && user.admin
                                         li.nav-item
-                                            a(href="/admin#/admin", class="link main-menu-link main-menu-link-admin") Admin
+                                            a(href="/admin#/admin", class="link main-menu-link main-menu-link-admin") 
+                                                span.slash /
+                                                span.name Admin
 
                             div.login-box
                                 ul.inline-nav

@@ -1,6 +1,10 @@
 .newsFeed {
-    width: 60%;
+    width: 90%;
     margin: 0 auto;
+
+    @include xlarge-only {
+        width: 100%;
+    }
 }
 
 .newsFeed-item {
@@ -38,7 +42,7 @@
 .newsFeed-item-date {
     @include span(2);
 
-    padding: $padding;
+    padding: $padding $padding / 2;
     background-color: $primary_color_alt3;
     font-weight: 700;
     text-align: center;
@@ -50,12 +54,12 @@
 .newsFeed-item-date-month {
     display: inline-block;
     margin-bottom: 0.5rem;
-    font-size: 2rem;
+    font-size: 1.6rem;
 }
 
 .newsFeed-item-date-day {
     display: inline-block;
-    font-size: 3rem;
+    font-size: 2rem;
 }
 
 .newsFeed-item-content {
@@ -76,7 +80,7 @@
 .newsFeed-text {
     display: block;
     padding-bottom: $padding;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     line-height: 1.6rem;
 }
 
