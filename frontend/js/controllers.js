@@ -78,7 +78,6 @@
                     $scope.setups = data;
                 }).
                 error(function(data, status, headers, config) {
-                    // console.log(status);
                     $location.path('/');
                 });
 
@@ -86,9 +85,10 @@
             $http.get('/api/get-setups-filters-by-simname/' + $routeParams.simName).
                 success(function(data, status, headers, config) {
                     $scope.setup_filters = data;
+                    $scope.filter_query = {};
+                    $scope.filter_query.sim_version = data.sim_version_filters[data.sim_version_filters.length - 1];
                 }).
                 error(function(data, status, headers, config) {
-                    // console.log(status);
                     $location.path('/');
                 });
 
@@ -319,7 +319,6 @@
                 $scope.notification.status = userSession.getNotificationStatus();
 
                 $timeout(function() {
-                    console.log('close it mothafucka')
                     $scope.closeNotification();
                 }, 5000);
             });
@@ -331,7 +330,6 @@
             };
 
             $timeout(function() {
-                console.log('close it mothafucka')
                 $scope.closeNotification();
             }, 5000);
 
@@ -350,7 +348,6 @@
             $http.get('/api/get-setup/' + $routeParams.setupId).
                 success(function(data, status, headers, config) {
                     $scope.setup = data;
-                    console.log(data)
                 }).
                 error(function(data, status, headers, config) {
                     console.log(status);
@@ -439,7 +436,6 @@
             };
 
             $timeout(function() {
-                console.log('close it mothafucka')
                 $scope.closeNotification();
             }, 5000);
 

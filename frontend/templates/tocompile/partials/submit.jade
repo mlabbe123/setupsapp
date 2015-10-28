@@ -1,18 +1,20 @@
 div(class="fullwidth-wrapper orange")
-    div.breadcrumbs-wrapper
-        a(href="/#/", class="link breadcrumbs-item") Home
-        span(class="breadcrumbs-item current") Submit Setup
+    //- div.breadcrumbs-wrapper
+    //-     a(href="/#/", class="link breadcrumbs-item") Home
+    //-     span(class="breadcrumbs-item current") Submit Setup
 
 div(class="notification-wrapper", ng-if="notification.msg", ng-class="{'is-error': notification.status == 'error', 'is-success': notification.status == 'success'}")
     span {{ notification.msg }}
 
-div(class="fullwidth-wrapper register superparallax", parallax="superparallax")
+div(class="fullwidth-wrapper submit superparallax", parallax="superparallax")
+    div.content-wrapper
+        div.page-title-wrapper
+            h1.jumbo-title
+                span.title-slash /
+                span Upload a setup
 
 div(class="fullwidth-wrapper white padded")
-    div.content-wrapper
-        h1.sim-presentation-title
-            span.title-slash /
-            span Upload a setup
+    
 
     div(ng-controller="submitSetupCtrl", class="form-wrapper")
 

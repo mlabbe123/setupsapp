@@ -34,13 +34,13 @@ var gulp = require('gulp'),
 // ===========================
 
 // JS dev task
-gulp.task('jsdev', ['pre-cleanup'], function() {
+gulp.task('jsdev', function() {
     return gulp.src(paths.js)
         .pipe(gulp.dest('static/js/'));
 });
 
 // Sass dev task
-gulp.task('sassdev', ['pre-cleanup'], function () {
+gulp.task('sassdev', function () {
     var config = {};
     config.sourceComments = 'map';
 
@@ -55,7 +55,7 @@ gulp.task('sassdev', ['pre-cleanup'], function () {
 });
 
 // jade dev task
-gulp.task('jadedev', ['pre-cleanup'], function() {
+gulp.task('jadedev', function() {
     return gulp.src(paths.jade)
         .pipe(jade({
             pretty: true
@@ -64,13 +64,13 @@ gulp.task('jadedev', ['pre-cleanup'], function() {
 });
 
 // Images dev task
-gulp.task('imagesdev', ['pre-cleanup'], function() {
+gulp.task('imagesdev', function() {
     return gulp.src(paths.images)
         .pipe(gulp.dest('static/images'))
 });
 
 // Fonts dev task
-gulp.task('fontsdev', ['pre-cleanup'], function() {
+gulp.task('fontsdev', function() {
     return gulp.src(paths.fonts)
         .pipe(gulp.dest('static/fonts'))
 });
@@ -187,7 +187,7 @@ gulp.task('fontsprod', ['pre-cleanup'], function() {
 // ===========================
 
 // Rerun the task when a file changes
-gulp.task('watch', function() {
+gulp.task('watch', ['pre-cleanup'],  function() {
     gulp.watch(paths.sass, ['sassdev']);
     gulp.watch(paths.js, ['jsdev']);
     gulp.watch(paths.jade, ['jadedev']);

@@ -58,7 +58,7 @@ div(class="fullwidth-wrapper white padded")
             h2(class="section-title", ng-if="!user.own_profile") / {{ user.display_name }}'s uploaded setups
 
             table.setupList-setups-table
-                tr
+                tr.no-border
                     th / Actions
                     th
                         span(class="orderable", ng-click="order('file_name')", tooltip="Order by file name")

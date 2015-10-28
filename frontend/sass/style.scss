@@ -6,6 +6,7 @@
 @import 'susy_config';
 
 @import 'common/mixins';
+@import 'grid_mixins';
 
 @import 'admin';
 @import 'forms';
@@ -13,8 +14,7 @@
 // @import 'common/breadcrumbs';
 @import 'common/navigation';
 @import 'common/typography';
-
-@import 'grid_mixins';
+@import 'common/table';
 
 @import 'components/newsfeed';
 @import 'components/rating';
@@ -646,136 +646,6 @@ footer {
 
     @include xlarge-and-below {
         @include span(12);
-    }
-}
-
-.setupList-setups-table {
-    width: 100%;
-    margin: 0 auto;
-    color: $bg_color;
-    font-size: 0.8rem;
-
-    @include xlarge-and-above {
-        font-size: 1rem;
-    }
-
-    tr {
-        text-align: center;
-
-        &.table-filters {
-            background-color: $primary_color !important;
-
-            th {
-                padding-top: 0;
-            }
-        }
-
-        @for $i from 1 through 25 {
-            @include print_nthchild_with_bgcolor('10',  #{$i}, $secondary_color);
-        }
-
-        &:nth-child(10n) {
-            background-color: $secondary_color;
-        }
-
-        &:first-child {
-            background-color: $primary_color;
-        }
-    }
-
-    th {
-        padding: $padding;
-
-        @include huge {
-            font-size: 1.2rem;
-        }
-
-        .orderable {
-            cursor: pointer;
-        }
-    }
-
-    td {
-        vertical-align: middle;
-        padding: $padding / 3 $padding / 2;
-        white-space: nowrap;
-
-        &.no-side-padding {
-            padding: $padding / 3 0;
-        }
-
-        @include xlarge-and-above {
-            padding: $padding / 3 $padding / 2;
-        }
-    }
-
-    .icon-link {
-        display: inline-block;
-        margin-left: $padding / 2;
-        width: 34px;
-        height: 34px;
-        border: 2px solid $bg_color;
-        border-radius: 100%;
-        color: $bg_color;
-        font-size: 1.2rem;
-        cursor: pointer;
-        text-decoration: none;
-        transition: all 0.2s;
-
-        &:before {
-            padding: 0;
-            left: 0px;
-            top: 6px;
-        }
-
-        &.icon-download {
-            &:before {
-                top: 5px;
-            }
-        }
-
-        &.icon-edit {
-            &:before {
-                left: 1px;
-                top: 4px;
-            }
-        }
-
-        &:hover {
-            background-color: $bg_color;
-            color: $primary_color;
-        }
-
-        &:first-child {
-            margin-left: 0;
-        }
-
-        &.icon-error {
-            &.is-ready-to-delete {
-                background-color: lighten($error_color, 10);
-                //transition: all 1s;
-
-                &:hover {
-                    background-color: $error_color;
-                    color: $bg_color;
-                    //transform: scale(10%);
-                }
-            }
-        }
-    }
-
-    .link {
-        &:hover {
-            color: $bg_color;
-        }
-    }
-
-    .visible-huge {
-        display: none;
-
-        @include huge {
-            display: table-cell;
-        }
     }
 }
 

@@ -21,6 +21,8 @@ div(class="fullwidth-wrapper white padded")
                 div(class="ng-errorWrapper", ng-show="errorMsg")
                     span.ng-errorMsg {{errorMsg}}
 
+                <a href="/#/profile/{{ setup.author._id }}" class="link icon-left-arrow fixed-download-link"/>Back to profile</a>
+
                 form(action="", method="post", id="update-setup-form")
 
                     div.field-block

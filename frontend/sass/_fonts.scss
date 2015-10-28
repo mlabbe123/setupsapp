@@ -33,7 +33,7 @@
     font-size: 4rem;
 }
 
-@include print-icon("home", "\e021");
+// @include print-icon("home", "\e021");
 @include print-icon("upload", "\e359");
 @include print-icon("profile", "\e035");
 @include print-icon("logout", "\e389");
@@ -51,6 +51,7 @@
 @include print-icon("emptystar", "\e049");
 @include print-icon("star", "\e050");
 @include print-icon("loading", "\e082");
+@include print-icon("left-arrow", "\e211");
 
 // Icons repositioning.
 .icon-edit:before {
