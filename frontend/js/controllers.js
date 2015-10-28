@@ -348,6 +348,7 @@
             $http.get('/api/get-setup/' + $routeParams.setupId).
                 success(function(data, status, headers, config) {
                     $scope.setup = data;
+                    console.log(data)
                 }).
                 error(function(data, status, headers, config) {
                     console.log(status);
