@@ -552,12 +552,12 @@ module.exports = function(app, passport) {
                 if(err){
                     return console.log(err);
                 } else {
-                    var setup_filters = {};
-
-                    var sim_filter = [];
-                    var car_filter = [];
-                    var track_filter = [];
-                    var type_filter = [];
+                    var setup_filters = {},
+                        sim_filter = [],
+                        car_filter = [],
+                        track_filter = [],
+                        type_filter = [],
+                        sim_version_filter = [];
 
                     // Loop through every setup returned to build the filters arrays
                     _.forEach(setups, function(setup) {
@@ -565,12 +565,15 @@ module.exports = function(app, passport) {
                         car_filter.push(setup.car.name);
                         track_filter.push(setup.track.name);
                         type_filter.push(setup['type']);
+                        sim_version_filter.push(setup.sim_version);
+
                     });
 
                     setup_filters.sim_filters = _.uniq(sim_filter);
                     setup_filters.car_filters = _.uniq(car_filter);
                     setup_filters.track_filters = _.uniq(track_filter);
                     setup_filters.type_filters = _.uniq(type_filter);
+                    setup_filters.sim_version_filters = _.uniq(sim_version_filter);
 
                     return response.send(setup_filters);
                 }
