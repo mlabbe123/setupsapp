@@ -22,6 +22,7 @@ var gulp = require('gulp'),
         fonts: 'frontend/fonts/**/*'
     },
 
+    // error handling
     onError = function (err) {
         gutil.beep();
         console.log(err);
@@ -187,7 +188,7 @@ gulp.task('fontsprod', ['pre-cleanup'], function() {
 // ===========================
 
 // Rerun the task when a file changes
-gulp.task('watch', ['pre-cleanup'],  function() {
+gulp.task('watch', ['sassdev', 'jsdev', 'jadedev', 'imagesdev', 'fontsdev'],  function() {
     gulp.watch(paths.sass, ['sassdev']);
     gulp.watch(paths.js, ['jsdev']);
     gulp.watch(paths.jade, ['jadedev']);
@@ -196,7 +197,7 @@ gulp.task('watch', ['pre-cleanup'],  function() {
 });
 
 // start task
-gulp.task('start', ['pre-cleanup', 'watch' ,'sassdev', 'jsdev', 'jadedev', 'imagesdev', 'fontsdev']);
+gulp.task('start', ['pre-cleanup', 'watch']);
 
 // To prod task
 gulp.task('toprod', ['pre-cleanup', 'jadeprod', 'rev-tmpl', 'rev-replace-tmpl', 'jsprod', 'sassprod', 'revreplace', 'imagesprod', 'fontsprod']);

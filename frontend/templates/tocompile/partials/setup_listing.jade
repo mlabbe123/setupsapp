@@ -80,8 +80,8 @@ div(class="fullwidth-wrapper white padded")
                     td.no-side-padding
                         a(href="setup_files/{{ sim_infos._id }}/{{ setup._id }}", class="icon-download icon-link", tooltip="Download")
                         a(href="#/setups/{{ sim_name }}/{{ setup.authorid }}/{{ setup._id }}/", class="icon-details icon-link", tooltip="See details")
-                    td {{ setup.car }}
-                    td {{ setup.track }}
+                    td.max-width {{ setup.car }}
+                    td.max-width {{ setup.track }}
                     td
                         a(href="#/profile/{{ setup.authorid }}", class="link", tooltip="See user profile") {{ setup.author }}
                     td {{ setup.type }}

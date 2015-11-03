@@ -62,6 +62,7 @@ div(class="fullwidth-wrapper white padded")
 
             table.setupList-setups-table
                 tr.no-border
+                    //- th
                     th / Actions
                     th
                         span(class="orderable", ng-click="order('file_name')", tooltip="Order by file name")
@@ -70,29 +71,35 @@ div(class="fullwidth-wrapper white padded")
                     th
                         div.form-select-wrapper(tooltip="Filter by sim")
                             select(ng-model="filter_query.sim", ng-options="sim_filters for sim_filters in setup_filters.sim_filters")
-                                option(value="") / Sims
+                                option(value="") - Sims -
                     th
                         div.form-select-wrapper(tooltip="Filter by car")
                             select(ng-model="filter_query.car", ng-options="car_filters for car_filters in setup_filters.car_filters")
-                                option(value="") / Cars
+                                option(value="") - Cars -
                     th
                         div.form-select-wrapper(tooltip="Filter by track")
                             select(ng-model="filter_query.track", ng-options="track_filters for track_filters in setup_filters.track_filters")
-                                option(value="") / Tracks
+                                option(value="") - Tracks -
                     th
                         div.form-select-wrapper(tooltip="Filter by trim")
                             select(ng-model="filter_query.type", ng-options="type_filters for type_filters in setup_filters.type_filters")
-                                option(value="") / Trims
-                    th.visible-huge
+                                option(value="") - Trims -
+                    th
+                        div.form-select-wrapper(tooltip="Filter by sim version")
+                            select(ng-model="filter_query.sim_version", ng-options="sim_version_filters for sim_version_filters in setup_filters.sim_version_filters")
+                                option(value="") - Sim version -
+                    th
                         span(class="orderable", ng-class="{reverse:reverse}", ng-click="order('downloads')", tooltip="Order By Downloads")
                             span /&nbsp;Downloads
                             i(ng-class="{'icon-downarrow':reverse && predicate === 'downloads', 'icon-uparrow':!reverse && predicate === 'downloads'}")
-                    th.visible-huge
+                    th
                         span(class="orderable", ng-class="{reverse:reverse}", ng-click="order('added_date.timestamp')", tooltip="Order By Added Date")
                             span /&nbsp;Added&nbsp;date
                             i(ng-class="{'icon-downarrow':reverse && predicate === 'added_date.timestamp', 'icon-uparrow':!reverse && predicate === 'added_date.timestamp'}")
 
-                tr(ng-repeat="setup in setups | filter:{ sim:filter_query.sim||undefined, car:filter_query.car||undefined, track:filter_query.track||undefined, type:filter_query.type||undefined } | orderBy:predicate:reverse")
+                tr(ng-repeat="setup in setups | filter:{ sim:filter_query.sim||undefined, car:filter_query.car||undefined, track:filter_query.track||undefined, type:filter_query.type||undefined, sim_version:filter_query.sim_version||undefined } | orderBy:predicate:reverse")
+                    //- td 
+                    //-     span(ng-if="setup.version > 1") v{{ setup.version }}
                     td
                         a(href="setup_files/{{ setup.simid }}/{{ setup._id }}", class="icon-download icon-link", tooltip="Download")
                         a(href="#/setups/{{ setup.sim }}/{{ ng_user_id }}/{{ setup._id }}/", class="icon-details icon-link", tooltip="See Details")
@@ -100,8 +107,9 @@ div(class="fullwidth-wrapper white padded")
                         a(class="icon-error no-href icon-link", ng-click="deleteSetup(setup._id, setup.simid, $event)", ng-if="user.own_profile", tooltip="Delete")
                     td {{ setup.file_name }}
                     td {{ setup.sim }}
-                    td {{ setup.car }}
-                    td {{ setup.track }}
+                    td.max-width {{ setup.car }}
+                    td.max-width {{ setup.track }}
                     td {{ setup.type }}
-                    td.visible-huge {{ setup.downloads }}
-                    td.visible-huge {{ setup.added_date.display_time }}
+                    td {{ setup.sim_version }}
+                    td {{ setup.downloads }}
+                    td {{ setup.added_date.display_time }}

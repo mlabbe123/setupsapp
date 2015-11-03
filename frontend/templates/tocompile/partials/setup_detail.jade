@@ -11,7 +11,7 @@ div(class="fullwidth-wrapper ac superparallax", parallax="superparallax")
                 span.title-slash /
                 span Setup details
 
-div(class="fullwidth-wrapper funkyborder")
+//- div(class="fullwidth-wrapper funkyborder")
 
 div(class="fullwidth-wrapper white padded-tiny")
     div.content-wrapper
@@ -51,6 +51,10 @@ div(class="fullwidth-wrapper white padded-tiny")
             div(ng-show="setup.community_rating === 0")
                 span.setupDetail-header-info No ratings yet
 
+        div(class="setupDetail-version-wrapper")
+            h3(class="setupDetail-header-title subtitle") Setup version
+            span.setupDetail-header-info v{{ setup.version }}
+
         div(class="setupDetail-downloads-wrapper")
             h3(class="setupDetail-header-title subtitle") Downloads
             span.setupDetail-header-info {{ setup.downloads }}
@@ -82,15 +86,12 @@ div(class="fullwidth-wrapper white padded")
                 li.setupDetail-overview-list-item
                     h3.setupDetail-overview-list-item-title / Author
                     span.setupDetail-overview-list-item-content {{ setup.author.display_name }}
+                li.setupDetail-overview-list-item
+                    h3.setupDetail-overview-list-item-title / File name
+                    span.setupDetail-overview-list-item-content {{ setup.file_name }}
                 //- li.setupDetail-overview-list-item
-                //-     h3.setupDetail-overview-list-item-title / Downloads
-                //-     span.setupDetail-overview-list-item-content {{ setup.downloads }}
-                //- li.setupDetail-overview-list-item
-                //-     h3.setupDetail-overview-list-item-title / File name
-                //-     span.setupDetail-overview-list-item-content {{ setup.file_name }}
-                //- li.setupDetail-overview-list-item
-                //-     h3.setupDetail-overview-list-item-title / Sim version
-                //-     span.setupDetail-overview-list-item-content {{ setup.sim_version }}
+                //-     h3.setupDetail-overview-list-item-title / Setup version
+                //-     span.setupDetail-overview-list-item-content v{{ setup.version }}
                 li.setupDetail-overview-list-item
                     h3.setupDetail-overview-list-item-title / Best Time
                     span.setupDetail-overview-list-item-content {{ setup.best_time }}
@@ -105,7 +106,6 @@ div(class="fullwidth-wrapper white padded")
 
             h3.setupDetail-specs-section-title / General
             ul.setupDetail-specs-list
-                li.setupDetail-specs-list-item.centered FFB Gain: {{ setup_details.ffb }} %
                 li.setupDetail-specs-list-item.centered Fuel: {{ setup_details.fuel }} L
                 li(class="setupDetail-specs-list-item centered", ng-show="setup_details.front_bias") Brake bias (front %): {{ setup_details.front_bias }} %
                 li(class="setupDetail-specs-list-item centered", ng-show="setup_details.engine_limiter") Engine limiter: {{ setup_details.engine_limiter }} %
