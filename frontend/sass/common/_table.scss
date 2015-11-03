@@ -72,6 +72,11 @@
             padding: $padding / 3 0;
         }
 
+        &.max-width {
+            max-width: 150px;
+            white-space: normal;
+        }
+
         @include xlarge-and-above {
             padding: $padding / 3 $padding / 2;
         }
@@ -79,13 +84,13 @@
 
     .icon-link {
         display: inline-block;
-        margin-left: $padding / 2;
-        width: 34px;
-        height: 34px;
-        border: 2px solid $bg_color;
+        margin-left: $padding / 4;
+        width: 26px;
+        height: 26px;
+        border: 1px solid $bg_color;
         border-radius: 100%;
         color: $bg_color;
-        font-size: 1.2rem;
+        font-size: 0.9rem;
         cursor: pointer;
         text-decoration: none;
         transition: all 0.2s;
@@ -128,6 +133,20 @@
                     color: $bg_color;
                     //transform: scale(10%);
                 }
+            }
+        }
+
+        @include xlarge-and-above {
+            width: 34px;
+            height: 34px;
+            margin-left: $padding / 2;
+            border: 2px solid $bg_color;
+            font-size: 1.2rem;
+
+            &:before {
+                padding: 0;
+                left: 0px;
+                top: 6px;
             }
         }
     }

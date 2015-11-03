@@ -692,12 +692,17 @@ footer {
 }
 
 .setupDetail-downloads-wrapper {
-    @include span(3 at 7);
+    @include span(2 at 7);
+    text-align: center;
+}
+
+.setupDetail-version-wrapper {
+    @include span(2 at 9);
     text-align: center;
 }
 
 .setupDetail-simversion-wrapper {
-    @include span(3 at 10);
+    @include span(2 at 11);
     text-align: center;
 }
 
