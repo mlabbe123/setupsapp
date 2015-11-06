@@ -940,6 +940,33 @@ module.exports = function(app, passport) {
         });
     });
 
+    // =============================
+    // AC app
+    // =============================
+
+    // Get setups.
+    app.get('/api/get-setups-for-app/:carid/:trackid/', function(request, response) {
+        console.log(request.params)
+
+        Setup.find({ 
+            $or: [
+                // Find setups for this car and track
+                { 'sim': '55c2cddddebcbba924bb2a34', 'car': request.params.carid, 'track': request.params.trackid },
+                // Find setups that have 'Any' as track
+                { 'sim': '55c2cddddebcbba924bb2a34', 'car': request.params.carid, 'track': '55db6db13cc3a26dcae7116d' }
+            ]
+            }).
+            populate('author').
+            exec(function(err, setups) {
+                if(err){ 
+                    console.log('GET SETUPS API: Error finding setups that matches simId: ' + sim._id, err);
+                    return response.status(500).send(err);
+                } else {
+                    return response.send(setups);
+                }
+            });
+    });
+
 
     // =============================
     // Error pages routes
