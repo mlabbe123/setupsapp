@@ -134,6 +134,10 @@
         border: 2px solid $error_color;
         background-color: lighten($error_color, 45);
     }
+
+    &:disabled {
+        background-color: $disabled_bg_color;
+    }
 }
 
 .form-textarea {
