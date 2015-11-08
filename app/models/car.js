@@ -6,6 +6,10 @@ var carSchema = new mongoose.Schema({
         ref: 'Sim'
     },
     name: String,
+    ac_code: {
+        type: String,
+        default: ''
+    },
     category: String
 });
 
