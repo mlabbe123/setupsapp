@@ -1,13 +1,23 @@
-h1 You want to add a track?
-
 div.form-wrapper
     form(action="/register", method="post")
         div.fullwidth-form
+
+            div.field-block
+                label(for="car-sim-field", class="form-label") Sim
+                div.form-select-wrapper
+                    select(id="car-sim-field", name="car_sim", ng-model="trackSim", ng-options="sim.display_name for sim in sims track by sim._id")
+                        option(value="") - Select -
+
             div.field-block
                 label(for="track-name-field", class="form-label") Track Name
                 div.form-input-wrapper
-                    input(id="track-name-field", type="text", name="track_name", class="form-textfield", ng-model="trackName")
+                    input(id="track-name-field", type="text", name="track_name", class="form-textfield", ng-model="trackName", ng-disabled="!trackSim")
 
-            button(type="button", class="form-submitbutton", ng-disabled="!trackName", ng-click="addTrack()") Submit
+            div(class="field-block", ng-if="trackSim.code == 'ac'")
+                label(for="car-name-field", class="form-label") AC track code
+                div.form-input-wrapper
+                    input(id="car-name-field", type="text", name="car_ac_code", class="form-textfield", ng-model="$parent.trackACCode", ng-disabled="!trackSim")
+
+            button(type="button", class="form-submitbutton", ng-disabled="!trackSim||!trackName", ng-click="addTrack()") Submit
 
             div(class="", id="msg-box")

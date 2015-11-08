@@ -1,18 +1,27 @@
-h1 You want to add a car?
-
 div.form-wrapper
     form(action="/register", method="post")
         div.fullwidth-form
             div.field-block
+                label(for="car-sim-field", class="form-label") Sim
+                div.form-select-wrapper
+                    select(id="car-sim-field", name="car_sim", ng-model="carSim", ng-options="sim.display_name for sim in sims track by sim._id")
+                        option(value="") - Select -
+
+            div.field-block
                 label(for="car-name-field", class="form-label") Car Name
                 div.form-input-wrapper
-                    input(id="car-name-field", type="text", name="car_name", class="form-textfield", ng-model="carName")
+                    input(id="car-name-field", type="text", name="car_name", class="form-textfield", ng-model="carName", ng-disabled="!carSim")
 
             div.field-block
                     label(for="car-category-field", class="form-label") Car Category
                     div.form-input-wrapper
-                        input(id="car-category-field", type="text", name="car_category", class="form-textfield", ng-model="carCategory")
+                        input(id="car-category-field", type="text", name="car_category", class="form-textfield", ng-model="carCategory", ng-disabled="!carSim")
 
-            button(type="button", class="form-submitbutton", ng-disabled="!carName||!carCategory", ng-click="addCar()") Submit
+            div(class="field-block", ng-if="carSim.code == 'ac'")
+                label(for="car-name-field", class="form-label") AC car code
+                div.form-input-wrapper
+                    input(id="car-name-field", type="text", name="car_ac_code", class="form-textfield", ng-model="$parent.carACCode", ng-disabled="!carSim")
+
+            button(type="button", class="form-submitbutton", ng-disabled="!carSim||!carName||!carCategory", ng-click="addCar()") Submit
 
             div(class="", id="msg-box")
