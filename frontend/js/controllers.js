@@ -598,16 +598,21 @@
         })
 
         .controller('addCarsCtrl', function($scope, $routeParams, $http) {
-            console.log('add cars');
 
-            // The POST reqeust is not triggering any callbacks since it is out of angular context (why?)
-            // http://stackoverflow.com/questions/17701503/angularjs-http-not-firing-get-call
+            // Get every sims.
+            $http.get('/api/get-all-sims/')
+                .success(function(data, status, headers, config) {
+                    $scope.sims = data;
+                    console.log($scope.sims)
+                })
+                .error(function(data, status, headers, config) {
+                    console.log(status);
+                });
 
             $scope.addCar = function() {
                 if($scope.carName && $scope.carCategory) {
-                    $http.post('/api/add-car/', {carName: $scope.carName, carCategory: $scope.carCategory, sim: '55c2cddddebcbba924bb2a34'})
+                    $http.post('/api/add-car/', { carName: $scope.carName, carCategory: $scope.carCategory, sim: $scope.carSim._id, carACCode: $scope.carACCode })
                         .success(function(data, status, headers, config) {
-                            console.log('success')
                             angular.element(document.querySelector('#msg-box')).html('Car successfully created.')
                         })
                         .error(function(data, status, headers, config) {
@@ -618,6 +623,12 @@
                         });
                 }
             }
+
+            $scope.$watch('carSim', function(newValue, oldValue) {
+                if (newValue && newValue.code !== 'ac') {
+                    $scope.carACCode = '';
+                }
+            });
         })
 
         .controller('addTracksCtrl', function($scope, $routeParams, $http) {
@@ -626,9 +637,19 @@
             // The POST reqeust is not triggering any callbacks since it is out of angular context (why?)
             // http://stackoverflow.com/questions/17701503/angularjs-http-not-firing-get-call
 
+            // Get every sims.
+            $http.get('/api/get-all-sims/')
+                .success(function(data, status, headers, config) {
+                    $scope.sims = data;
+                    console.log($scope.sims)
+                })
+                .error(function(data, status, headers, config) {
+                    console.log(status);
+                });
+
             $scope.addTrack = function() {
                 if($scope.trackName) {
-                    $http.post('/api/add-track/', {trackName: $scope.trackName, sim: '55c2cddddebcbba924bb2a34'})
+                    $http.post('/api/add-track/', {trackName: $scope.trackName, sim: $scope.trackSim._id, trackACCode: $scope.trackACCode })
                         .success(function(data, status, headers, config) {
                             console.log('success')
                             angular.element(document.querySelector('#msg-box')).html('Track successfully created.')
@@ -641,5 +662,11 @@
                         });
                 }
             }
+
+            $scope.$watch('trackSim', function(newValue, oldValue) {
+                if (newValue && newValue.code !== 'ac') {
+                    $scope.trackACCode = '';
+                }
+            });
         })
 })();
