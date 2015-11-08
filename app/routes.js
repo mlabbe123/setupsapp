@@ -892,10 +892,12 @@ module.exports = function(app, passport) {
 
     // Add new car.
     app.post('/api/add-car/', function(request, response) {
+        console.log(request.body)
         var newCar = new Car({
             sim: request.body.sim,
             name: request.body.carName,
-            category: request.body.carCategory
+            category: request.body.carCategory,
+            ac_code: request.body.carACCode || ''
         });
 
         newCar.save(function(err) {
@@ -928,7 +930,8 @@ module.exports = function(app, passport) {
     app.post('/api/add-track/', function(request, response) {
         var newTrack = new Track({
             sim: request.body.sim,
-            name: request.body.trackName
+            name: request.body.trackName,
+            ac_code: request.body.trackACCode || ''
         });
 
         newTrack.save(function(err) {
