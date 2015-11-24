@@ -97,8 +97,8 @@ div(class="fullwidth-wrapper white padded")
                             label(class="rating-star--mini icon-emptystar")
                             input(id="star1", type="radio" value="1", ng-model="setup.rating", disabled="disabled")
                             label(class="rating-star--mini icon-emptystar")
-                    td(ng-if="setup.rating_sort == 0")
-                    td {{ setup.best_time }}
+                    td(ng-if="setup.rating_sort == 0") n/a
+                    td {{ setup.best_time || 'n/a'}}
                     td {{ setup.downloads }}
                     td {{ setup.added_date.display_time }}
                     td {{ setup.sim_version }}

@@ -71,7 +71,7 @@
 
                     var onKeyDownFunc = function(event) {
                         // Array of allowd char.
-                        var allowedChar = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 190, 36, 37, 38, 39, 7, 8, 9, 46];
+                        var allowedChar = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 190, 36, 37, 38, 39, 7, 8, 9, 46, 17, 86, 110];
 
                         // Prevent key if not in the allowed keys array.
                         if (allowedChar.indexOf(event.keyCode) === -1) {
