@@ -203,6 +203,10 @@ body {
         background-size: cover;
     }
 
+    &.padded-small {
+        padding: $padding 0;
+    }
+
     &.padded-tiny {
         padding: $padding / 2 0;
     }
@@ -646,6 +650,20 @@ footer {
 
     @include xlarge-and-below {
         @include span(12);
+    }
+}
+
+.download-tip-wrapper {
+    text-align: center;
+
+    .icon-question {
+        vertical-align: middle;
+        font-size: 2rem;
+    }
+
+    span {
+        padding: 0 1rem;
+        vertical-align: middle;
     }
 }
 
