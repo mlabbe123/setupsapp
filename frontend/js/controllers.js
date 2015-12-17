@@ -85,8 +85,8 @@
             $http.get('/api/get-setups-filters-by-simname/' + $routeParams.simName).
                 success(function(data, status, headers, config) {
                     $scope.setup_filters = data;
-                    $scope.filter_query = {};
-                    $scope.filter_query.sim_version = data.sim_version_filters[data.sim_version_filters.length - 1];
+                    // $scope.filter_query = {};
+                    // $scope.filter_query.sim_version = data.sim_version_filters[data.sim_version_filters.length - 1];
                 }).
                 error(function(data, status, headers, config) {
                     $location.path('/');
