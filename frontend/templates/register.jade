@@ -1,10 +1,6 @@
 extends ./root_base
 
 block mainContent
-    //- div(class="fullwidth-wrapper orange")
-    //-     div.breadcrumbs-wrapper
-    //-         a(href="/#/", class="link breadcrumbs-item") Home
-    //-         span(class="breadcrumbs-item current") Register
 
     div(class="fullwidth-wrapper register superparallax", parallax="superparallax")
         div.content-wrapper
@@ -55,5 +51,4 @@ block jsIncludes
         if(!window.jQuery) {
             document.write('<scr'+'ipt src="js/lib/jquery-1.11.3.min.js"></scr'+'ipt>');
         }
-    script(src="js/lib/lodash.min.js")
     script(src="js/pages/register.js")

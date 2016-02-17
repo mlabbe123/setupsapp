@@ -1,41 +1,48 @@
-var gulp = require('gulp'),
+var gulp = require('gulp');
  
-    // include plug-ins
-    plumber = require('gulp-plumber'),
-    gutil = require('gulp-util'),
-    jshint = require('gulp-jshint'),
-    sass = require('gulp-sass'),
-    uglify = require('gulp-uglify'),
-    jade = require('gulp-jade'),
-    sourcemaps = require('gulp-sourcemaps'),
-    autoprefixer = require('gulp-autoprefixer'),
-    rev = require('gulp-rev'),
-    revReplace = require('gulp-rev-replace'),
-    del = require('del'),
+// include plug-ins
+var plumber = require('gulp-plumber');
+var gutil = require('gulp-util');
+var jshint = require('gulp-jshint');
+var sass = require('gulp-sass');
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var jade = require('gulp-jade');
+var sourcemaps = require('gulp-sourcemaps');
+var autoprefixer = require('gulp-autoprefixer');
+var rev = require('gulp-rev');
+var revReplace = require('gulp-rev-replace');
+var del = require('del');
 
-    // paths for src files
-    paths = {
+// paths for src files
+var paths = {
         jade: 'frontend/templates/tocompile/**/*.jade',
         sass: 'frontend/sass/**/*.scss',
         js: 'frontend/js/**/*.js',
         images: 'frontend/images/**/*',
         fonts: 'frontend/fonts/**/*'
-    },
-
-    // error handling
-    onError = function (err) {
-        gutil.beep();
-        console.log(err);
-        this.emit('end');
     };
+
+// error handling
+var onError = function (err) {
+    gutil.beep();
+    console.log(err);
+    this.emit('end');
+};
 
 
 // ===========================
 // Development tasks
 // ===========================
 
-// JS dev task
-gulp.task('jsdev', function() {
+// JS dev tasks
+gulp.task('jsconcat', function() {
+    return gulp.src(['frontend/js/app.js', 'frontend/js/controllers.js', 'frontend/js/services.js', 'frontend/js/directives.js'])
+        .pipe(concat('main.js'))
+        .pipe(gulp.dest('frontend/js/'));
+});
+
+gulp.task('jscopy', ['jsconcat'], function() {
     return gulp.src(paths.js)
         .pipe(gulp.dest('static/js/'));
 });
@@ -126,7 +133,7 @@ gulp.task('rev-replace-tmpl', ['rev-tmpl'], function() {
 });
 
 // JS prod task
-gulp.task('jsprod', ['pre-cleanup'], function() {
+gulp.task('jsprod', ['jsconcat', 'pre-cleanup'], function() {
   return gulp.src(paths.js)
     .pipe(uglify({
         mangle: false
@@ -188,9 +195,9 @@ gulp.task('fontsprod', ['pre-cleanup'], function() {
 // ===========================
 
 // Rerun the task when a file changes
-gulp.task('watch', ['sassdev', 'jsdev', 'jadedev', 'imagesdev', 'fontsdev'],  function() {
+gulp.task('watch', ['sassdev', 'jsconcat', 'jscopy', 'jadedev', 'imagesdev', 'fontsdev'],  function() {
     gulp.watch(paths.sass, ['sassdev']);
-    gulp.watch(paths.js, ['jsdev']);
+    gulp.watch(paths.js, ['jsconcat', 'jscopy']);
     gulp.watch(paths.jade, ['jadedev']);
     gulp.watch(paths.images, ['imagesdev']);
     gulp.watch(paths.fonts, ['fontsdev']);
@@ -200,4 +207,4 @@ gulp.task('watch', ['sassdev', 'jsdev', 'jadedev', 'imagesdev', 'fontsdev'],  fu
 gulp.task('start', ['pre-cleanup', 'watch']);
 
 // To prod task
-gulp.task('toprod', ['pre-cleanup', 'jadeprod', 'rev-tmpl', 'rev-replace-tmpl', 'jsprod', 'sassprod', 'revreplace', 'imagesprod', 'fontsprod']);
+gulp.task('toprod', ['pre-cleanup', 'jadeprod', 'rev-tmpl', 'rev-replace-tmpl', 'jsconcat', 'jsprod', 'sassprod', 'revreplace', 'imagesprod', 'fontsprod']);
