@@ -24,11 +24,11 @@
                     return $q.all([allSims, allCars, allTracks]).then(function(values) {
                         var sims = [];
 
-                        _.forEach(values[0].data, function(sim) {
+                        values[0].data.forEach(function(sim) {
                             // Searching for every cars that matches the sim id.
                             var simCars = [];
 
-                            _.forEach(values[1].data, function(car) {
+                            values[1].data.forEach(function(car) {
                                 if(car.sim._id === sim._id) {
                                     simCars.push(car);
                                 }
@@ -37,7 +37,7 @@
                             // Searching for every tracks that matches the sim id.
                             var simTracks = [];
 
-                            _.forEach(values[2].data, function(track) {
+                            values[2].data.forEach(function(track) {
                                 if(track.sim._id === sim._id) {
                                     simTracks.push(track);
                                 }

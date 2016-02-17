@@ -71,7 +71,7 @@
                 $.get('/api/get-all-user-displayname',function(users) {
                     var error = false;
 
-                    _.forEach(users, function(user) {
+                    users.forEach(function(user) {
                         if (user.display_name === event.currentTarget.value) {
                             error = true;
                         }

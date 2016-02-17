@@ -43,7 +43,7 @@
             // Get all the setups for the current sim.
             $http.get('/api/get-setups/' + $routeParams.simName).
                 success(function(data, status, headers, config) {
-                    _.forEach(data, function(setup) {
+                    data.forEach(function(setup) {
                         setup.car_category = setup.car.category;
                         setup.car = setup.car.name;
                         setup.track = setup.track.name;
@@ -181,7 +181,7 @@
 
                     var setupDetailsObj = {};
 
-                    _.forEach(data, function(setup_item) {
+                    data.forEach(function(setup_item) {
                         var setupItemArray = setup_item.split(/]/g),
                             setupItemKey = setupItemArray[0],
                             setupItemValue = setupItemArray[1].replace('VALUE=', '');
@@ -462,7 +462,7 @@
 
                     var total_downloads = 0;
 
-                    _.forEach(data, function(setup) {
+                    data.forEach(function(setup) {
                         setup.car = setup.car.name;
                         setup.track = setup.track.name;
                         setup.author = setup.author.display_name;
