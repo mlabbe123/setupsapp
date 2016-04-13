@@ -967,7 +967,7 @@ module.exports = function(app, passport) {
 
     // Retreive car with ac_code.
     app.get('/api/get-car-by-accode/:accode', function(request, response) {
-        Car.find({'ac_code': request.params.accode}, {sim: 0, name: 0, ac_code: 0, category: 0}, function(err, car) {
+        Car.findOne({'ac_code': request.params.accode}, {sim: 0, name: 0, ac_code: 0, category: 0}, function(err, car) {
             if(err){
                 return console.log(err);
             } else {
@@ -978,7 +978,7 @@ module.exports = function(app, passport) {
 
     // Retreive track with ac_code.
     app.get('/api/get-track-by-accode/:accode', function(request, response) {
-        Track.find({'ac_code': request.params.accode}, {sim: 0, name: 0, ac_code: 0}, function(err, track) {
+        Track.findOne({'ac_code': request.params.accode}, {sim: 0, name: 0, ac_code: 0}, function(err, track) {
             if(err){
                 return console.log(err);
             } else {
