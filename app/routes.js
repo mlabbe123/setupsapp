@@ -629,7 +629,7 @@ module.exports = function(app, passport) {
             console.log('CREATE SETUP API: Error, no file received.');
             return response.status(500).send({
                 status: 'error',
-                msg: 'There has been a server error, please try again.'
+                msg: 'There has been a server error (no file received), please try again.'
             });
         } else {
             var now = new Date();
@@ -657,7 +657,7 @@ module.exports = function(app, passport) {
                     console.log('CREATE SETUP API: Error saving setup in db.');
                     return response.status(500).send({
                         status: 'error',
-                        msg: 'There has been a server error, please try again.'
+                        msg: 'There has been a server error (Error saving setup in db), please try again.'
                     });
                 } else {
                     // Setup is in db, file is uploaded, time to rename and move the file in the sim directory.
@@ -678,7 +678,7 @@ module.exports = function(app, passport) {
                                         console.log('SETUP CREATION API: Error moving and renaming file in new sim. ', err)
                                         return response.status(500).send({
                                             status: 'error',
-                                            msg: 'There has been an error, please try again.'
+                                            msg: 'There has been an error (Error creating sim directory), please try again.'
                                         });
                                     } else {
                                         return response.status(200).send({
@@ -695,7 +695,7 @@ module.exports = function(app, passport) {
                                     console.log('SETUP CREATION API: Error moving and renaming file. ', err);
                                     return response.status(500).send({
                                         status: 'error',
-                                        msg: 'There has been an error, please try again.'
+                                        msg: 'There has been an error (Error moving and renaming file), please try again.'
                                     });
                                 } else {
                                     return response.status(200).send({
