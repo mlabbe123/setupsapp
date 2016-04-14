@@ -14,7 +14,8 @@ var userSchema = new mongoose.Schema({
     admin: {
         type: Boolean,
         default: false
-    }
+    },
+    sci: String
 });
 
 // Generate password hash.
