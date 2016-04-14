@@ -993,7 +993,7 @@ module.exports = function(app, passport) {
             if(err){
                 return response.status(500).send('There has been an error while retreiving user for steamCommunityID = ', request.params.sci);
             } else {
-                return response.status(200).send(user);
+                return response.send(user);
             }
         });
     });
