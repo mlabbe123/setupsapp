@@ -324,7 +324,18 @@ module.exports = function(app, passport) {
 
     // Retrieve user by id.
     app.get('/api/get-user-by-id/:userid', function(request, response) {
-        User.findOne({_id: request.params.userid}, function(err, user) {
+        User.findOne({sci: request.params.userid}, function(err, user) {
+            if(err){
+                return console.log(err);
+            } else {
+                return response.send(user);
+            }
+        });
+    });
+
+    // Retrieve user by id.
+    app.get('/api/get-user-by-steamid/:steamid', function(request, response) {
+        User.findOne({_id: request.params.steamid}, function(err, user) {
             if(err){
                 return console.log(err);
             } else {
