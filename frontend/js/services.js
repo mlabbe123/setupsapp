@@ -132,7 +132,7 @@
                     fd.append('sim_version', setup.sim_version);
                     fd.append('best_laptime', setup.best_time || '');
                     fd.append('comments', setup.comments || '');
-                    fd.append('sim_id', setup.sim_id);
+                    fd.append('sim_id', setup.sim._id);
                     
                     // Set the ajax url for file upload.
                     var url = '/api/update-setup-with-file/';

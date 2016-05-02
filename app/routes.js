@@ -762,10 +762,10 @@ module.exports = function(app, passport) {
                     var setupFileNewName = request.body.setup_id;
 
                     // Directory the setup file will be move to.
-                    var setupFilePath = path.join(__dirname, '../setups_files/', request.body.sim_id.toString());
+                    var setupFilePath = path.join(__dirname, '../setups_files/', request.body.sim_id);
 
                     // Move and rename the file.
-                    fs.rename(request.file.path, setupFilePath + setupFileNewName, function(err) {
+                    fs.rename(request.file.path, setupFilePath + '/' + setupFileNewName, function(err) {
                         if(err) {
                             console.log('EDIT SETUP API: Error moving and renaming file. ', err);
                             return response.status(500).send({
