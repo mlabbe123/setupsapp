@@ -71,7 +71,7 @@
 
 .newsFeed-title {
     display: inline-block;
-    padding-bottom: $padding / 2;
+    padding-bottom: $padding;
     color: $primary_color_alt3;
     font-size: 1.6rem;
     font-weight: 700;
@@ -79,7 +79,7 @@
 
 .newsFeed-text {
     display: block;
-    padding-bottom: $padding;
+    padding-bottom: $padding / 2;
     font-size: 1.1rem;
     line-height: 1.6rem;
 }

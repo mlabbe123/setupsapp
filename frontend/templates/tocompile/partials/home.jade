@@ -24,58 +24,37 @@ div(class="fullwidth-wrapper flex border-top")
         ul.newsFeed
             li.newsFeed-item
                 div.newsFeed-item-date
-                    span.newsFeed-item-date-month Nov
-                    span.newsFeed-item-date-day 3
+                    span.newsFeed-item-date-month May
+                    span.newsFeed-item-date-day 7
                 div.newsFeed-item-content
-                    h3.newsFeed-title Setup Re-uploading implemented
-                    span.newsFeed-text You can now re-upload a setup file to an existing setup. If you have made changes to a setup and wish to update it on the site, just go on the edit setup page and change its file. The setups that have been reuploaded will be marked with a 'vX' on the listing.
+                    h3.newsFeed-title Assetto Corsa app released!
+                    span.newsFeed-text You can now download setups directly on the track, just click on the download icon of the setup you want and it will be downloaded in the corresponding car/track setups folder.
+                    span.newsFeed-text Setup upload and update has also never been easier. Just choose the file you want to upload, select the trim and click the upload button. 
+                    div(ng-if="ng_user_id") 
+                        span.newsFeed-text 
+                            span You will need to link your steam account to your The Setup Market account for the upload/update functionality to work, just click on the link button of your The Setup Market 
+                            a(href="#/profile/{{ng_user_id}}", class="link") profile page
+                            span .
+                    div(ng-if="!ng_user_id")
+                        span.newsFeed-text 
+                            span You have to 
+                            a(href="/login", class="link") log in 
+                            span or 
+                            a(href="/register", class="link") create a The Setup Market account 
+                            span in order to use the upload functionality. Once logged in, all you need to enable the app upload feature is to link your steam account with your The Setup Market account by clicking on the link button of your profile page.
+                    span.newsFeed-text 
+                        span You can grab the app at Race Department 
+                        a(href="http://www.racedepartment.com/downloads/the-setup-market.10149/",class="link") here
+                        span .
 
-            li.newsFeed-item
-                div.newsFeed-item-date
-                    span.newsFeed-item-date-month Sept
-                    span.newsFeed-item-date-day 23
-                div.newsFeed-item-content
-                    h3.newsFeed-title New cars and tracks added
-                    span.newsFeed-text With the release of some mod content, new cars and tracks are available for setup uploading:
-                    div.newFeed-sbslist-wrapper
-                        ul.newFeed-sbslist
-                            li
-                                a(href="http://www.racedepartment.com/downloads/corvette-c6r-2013.2852/", class="link", target="_blank") Corvette C6R 2013
-                            li
-                                a(href="http://www.racedepartment.com/downloads/ginetta-g55-gt4.4214/", class="link", target="_blank") Ginetta G55
-                            li
-                                a(href="http://www.racedepartment.com/downloads/ier-car-pack-1-uscc-mod.7348/", class="link", target="_blank") Corvette DP HD (Coyote and Dallara)
-                            li
-                                a(href="http://www.racedepartment.com/downloads/ier-car-pack-1-uscc-mod.7348/", class="link", target="_blank") Oreca FLM09
-                            li
-                                a(href="http://www.racedepartment.com/downloads/caterham-academy.6794/", class="link", target="_blank") Caterham Academy
-
-                    div.newFeed-sbslist-wrapper
-                        ul.newFeed-sbslist
-                            li
-                                a(href="http://www.racedepartment.com/downloads/tor-pozna%C5%84.6118/", class="link", target="_blank") Tor Poznan&#769;
-                            li
-                                a(href="http://www.racedepartment.com/downloads/mills-metropark.7222/", class="link", target="_blank") Mills Metropark
-                            li
-                                a(href="http://www.racedepartment.com/downloads/bridgehampton-race-circuit.6604/", class="link", target="_blank") Bridgehamption race circuit
-                            li
-                                a(href="http://www.racedepartment.com/downloads/road-america-3-0.7095/", class="link", target="_blank") Road America
 
             //- li.newsFeed-item
             //-     div.newsFeed-item-date
-            //-         span.newsFeed-item-date-month Sept
-            //-         span.newsFeed-item-date-day 18
+            //-         span.newsFeed-item-date-month Nov
+            //-         span.newsFeed-item-date-day 3
             //-     div.newsFeed-item-content
-            //-         h3.newsFeed-title Setup rating implemented
-            //-         span.newsFeed-text A rating system for the setups has been implemented. When logged in, just navigate to a setup's detail page and give it the rating you think it deserves. You can also sort them by their ratings on the listing page.
-
-            //- li.newsFeed-item
-            //-     div.newsFeed-item-date
-            //-         span.newsFeed-item-date-month Sept
-            //-         span.newsFeed-item-date-day 15
-            //-     div.newsFeed-item-content
-            //-         h3.newsFeed-title Added Setup editing
-            //-         span.newsFeed-text You can now edit a setup that you have already posted. If you want to change the laptime, trim, AC version or comments, just navigate to your profile and click the edit icon in your posted setup listing.
+            //-         h3.newsFeed-title Setup Re-uploading implemented
+            //-         span.newsFeed-text You can now re-upload a setup file to an existing setup. If you have made changes to a setup and wish to update it on the site, just go on the edit setup page and change its file. The setups that have been reuploaded will be marked with a 'vX' on the listing.
 
 div(class="fullwidth-wrapper choose-flavor padded border-top")
     div.content-wrapper

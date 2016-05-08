@@ -1,4 +1,5 @@
 var LocalStrategy = require('passport-local').Strategy;
+var OpenIDStrategy = require('passport-openid').Strategy;
 
 var User = require('../app/models/user');
 
@@ -150,4 +151,20 @@ module.exports = function(passport) {
         });
 
     }));
+
+    // SteamId retreival.
+    passport.use(new OpenIDStrategy({
+            providerURL: 'http://steamcommunity.com/openid',
+            stateless: true,
+            returnURL: config.base_url + '/auth/openid/return',
+            realm: config.base_url + '/'
+        },
+
+        function(identifier, done) {
+            var user = {};
+            user.userSteamId = identifier.match(/\d+$/)[0];
+            
+            return done(null, user);
+        }
+    )); 
 }

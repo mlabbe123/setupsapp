@@ -48,7 +48,13 @@
 // Headers
 .section-title {
     margin-bottom: $padding;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     color: $primary_color;
+}
+
+// text
+.text {
+    font-size: 0.9rem;
+    line-height: 1.3rem;
 }

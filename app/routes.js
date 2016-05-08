@@ -243,6 +243,24 @@ module.exports = function(app, passport) {
         }
     });
 
+    app.post('/auth/openid', passport.authenticate('openid'));
+
+    // app.get('/auth/openid/return', passport.authenticate('openid', {
+    //    'successRedirect': '/',
+    //    'failureRedirect': '/auth/failure'
+    // }));
+
+    app.get('/auth/openid/return', function(request, response) {
+        var userSteamId = request.query['openid.identity'].match(/\d+$/)[0];
+        User.update({_id: request.user._id}, {sci: userSteamId}, function(err, numAffected) {
+            if(err) {
+                console.log(err);
+                response.redirect('/#/profile/' + request.user._id);
+            } else {
+                response.redirect('/#/profile/' + request.user._id);
+            }
+        });
+    });
 
     // ==============================
     // API SECTION
@@ -445,8 +463,10 @@ module.exports = function(app, passport) {
         User.update({_id: request.body.userId}, {display_name: request.body.newDisplayName}, function(err) {
             if(err) {
                 console.log('error creating sim', err);
+                return response.status(500).send('error');
             } else {
                 console.log('User display_name successfully updated');
+                return response.status(200).send('success');
             }
         });
     });
@@ -724,7 +744,7 @@ module.exports = function(app, passport) {
 
     // Update setup.
     app.post('/api/update-setup/', function(request, response) {
-        Setup.update({_id: request.body.setup_id}, {sim_version: request.body.sim_version, type: request.body.trim, best_time: request.body.best_laptime, comments: request.body.comments}, function(err, numAffected) {
+        Setup.update({_id: request.body.setup_id}, {sim_version: request.body.sim_version, type: request.body.trim, best_time: request.body.best_laptime, comments: request.body.comments, track: request.body.track_id}, function(err, numAffected) {
             if(err) {
                 console.log('UPDATE SETUP API: Error updating setup_id: request.body.setup_id.', err);
                 return response.status(500).send({
@@ -749,7 +769,7 @@ module.exports = function(app, passport) {
                 msg: 'There has been a server error, please try again.'
             });
         } else {
-            Setup.update({_id: request.body.setup_id}, {file_name: request.body.file_name, sim_version: request.body.sim_version, type: request.body.trim, best_time: request.body.best_laptime, comments: request.body.comments, $inc: {version: 1}}, function(err, numAffected) {
+            Setup.update({_id: request.body.setup_id}, {file_name: request.body.file_name, sim_version: request.body.sim_version, type: request.body.trim, best_time: request.body.best_laptime, comments: request.body.comments, track: request.body.track_id, $inc: {version: 1}}, function(err, numAffected) {
                 if(err) {
                     console.log('EDIT SETUP WITH FILE API: Error updating setup_id: request.body.setup_id.', err);
                     return response.status(500).send({

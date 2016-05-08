@@ -47,11 +47,20 @@ div(class="fullwidth-wrapper white padded")
                 ul.profile-changes-list
                     li.profile-changes-list-item
                         label(for="profile-change-username", class="label-block") Username
-                        input(id="profile-change-username", class="form-textfield",placeholder="Enter your desired username")
+                        div.form-inline-group
+                            input(id="profile-change-username", class="form-textfield",placeholder="Enter your desired username")
+                            button(type="button", class="form-submitbutton", ng-click="updateUsername($event)") Update
                         div(class="profile-change-username-msg-box msg-box")
-                        button(type="button", class="form-submitbutton", ng-click="updateUsername($event)") Update
 
-                    //- li Change your nationality
+                    li.profile-changes-list-item
+                        span(class="label-block") Steam account link (needed for in-app upload)
+                        form(action="/auth/openid", method="post")
+                            input(type="hidden", value="{{user}}._id")
+                            div(ng-if="user.sci", class="text") 
+                                span Your account is currently linked with steam. You can use the app to upload and update your setups. Get the app 
+                                a(href="http://www.racedepartment.com/downloads/the-setup-market.10149/", target="_blank", class="link") here
+                                span .
+                            button(type="submit", ng-if="!user.sci", class="form-submitbutton form-submitbutton__steam") Link with your steam account
                     //- li Change your email
                     //- li Change your driving style
                     //- li Delete yout account
@@ -68,10 +77,10 @@ div(class="fullwidth-wrapper white padded")
                         span(class="orderable", ng-click="order('file_name')", tooltip="Order by file name")
                             span / File Name
                             i(ng-class="{'icon-downarrow':reverse && predicate === 'file_name', 'icon-uparrow':!reverse && predicate === 'file_name'}")
-                    th
-                        div.form-select-wrapper(tooltip="Filter by sim")
-                            select(ng-model="filter_query.sim", ng-options="sim_filters for sim_filters in setup_filters.sim_filters")
-                                option(value="") - Sims -
+                    //- th
+                    //-     div.form-select-wrapper(tooltip="Filter by sim")
+                    //-         select(ng-model="filter_query.sim", ng-options="sim_filters for sim_filters in setup_filters.sim_filters")
+                    //-             option(value="") - Sims -
                     th
                         div.form-select-wrapper(tooltip="Filter by car")
                             select(ng-model="filter_query.car", ng-options="car_filters for car_filters in setup_filters.car_filters")
@@ -97,7 +106,7 @@ div(class="fullwidth-wrapper white padded")
                             span /&nbsp;Added&nbsp;date
                             i(ng-class="{'icon-downarrow':reverse && predicate === 'added_date.timestamp', 'icon-uparrow':!reverse && predicate === 'added_date.timestamp'}")
 
-                tr(ng-repeat="setup in setups | filter:{ sim:filter_query.sim||undefined, car:filter_query.car||undefined, track:filter_query.track||undefined, type:filter_query.type||undefined, sim_version:filter_query.sim_version||undefined } | orderBy:predicate:reverse")
+                tr(ng-repeat="setup in setups | filter:{ car:filter_query.car||undefined, track:filter_query.track||undefined, type:filter_query.type||undefined, sim_version:filter_query.sim_version||undefined } | orderBy:predicate:reverse")
                     //- td 
                     //-     span(ng-if="setup.version > 1") v{{ setup.version }}
                     td
@@ -106,7 +115,7 @@ div(class="fullwidth-wrapper white padded")
                         a(href="#/setups/{{ setup.sim }}/{{ ng_user_id }}/edit/{{ setup._id }}/", class="icon-edit icon-link", ng-if="user.own_profile", tooltip="Edit setup")
                         a(class="icon-error no-href icon-link", ng-click="deleteSetup(setup._id, setup.simid, $event)", ng-if="user.own_profile", tooltip="Delete")
                     td {{ setup.file_name }}
-                    td {{ setup.sim }}
+                    //- td {{ setup.sim }}
                     td.max-width {{ setup.car }}
                     td.max-width {{ setup.track }}
                     td {{ setup.type }}
