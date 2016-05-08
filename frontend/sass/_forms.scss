@@ -190,6 +190,12 @@
     cursor: pointer;
     transition: all 0.3s;
 
+    &__steam {
+        display: block;
+        margin: 0.7rem 0 0;
+        font-size: 1.1rem;
+    }
+
     &:hover {
         background-color: $primary_color;
         color: $secondary_color;
@@ -332,6 +338,21 @@
     font-size: 2em;
     color: $secondary_color;
     text-align: center;
+}
+
+.form-inline-group {
+    input {
+        display: inline-block;
+        width: 70%;
+    }
+
+    button {
+        position: relative;
+        top: 2px;
+        display: inline-block;
+        margin-left: 1rem;
+        padding: 0.45rem 0.66667rem;
+    }
 }
 
 // keyframes

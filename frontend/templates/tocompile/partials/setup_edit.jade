@@ -35,8 +35,9 @@ div(class="fullwidth-wrapper white padded")
 
                     div.field-block
                         label(class="form-label") Track :
-                        div.form-statictext-wrapper
-                            span.form-statictext {{ setup.track.name }}
+                        div(class="form-select-wrapper")
+                            select(id="trackSelect", name="version", ng-model="setup.track", ng-options="track.name for track in allTracks | orderBy:'name' track by track._id")
+                                option(value="") - Select -
 
                     div.field-block
                         label(class="form-label") File :

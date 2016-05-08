@@ -10,16 +10,15 @@
 
                 var SimService = {};
 
-                // Get all the sims.
-                var allSims = $http.get('/api/get-all-sims/');
-
-                // Get all the cars.
-                var allCars = $http.get('/api/get-all-cars/');
-
-                // Get all the tracks.
-                var allTracks = $http.get('/api/get-all-tracks/');
-
                 SimService.returnSimsFullData = function() {
+                    // Get all the sims.
+                    var allSims = $http.get('/api/get-all-sims/');
+
+                    // Get all the cars.
+                    var allCars = $http.get('/api/get-all-cars/');
+
+                    // Get all the tracks.
+                    var allTracks = $http.get('/api/get-all-tracks/');
 
                     return $q.all([allSims, allCars, allTracks]).then(function(values) {
                         var sims = [];
@@ -54,6 +53,10 @@
 
                         return sims;
                     });
+                }
+
+                SimService.getAllTracks = function() {
+                    return $http.get('/api/get-all-tracks/');
                 }
 
                 return SimService;
@@ -133,6 +136,7 @@
                     fd.append('best_laptime', setup.best_time || '');
                     fd.append('comments', setup.comments || '');
                     fd.append('sim_id', setup.sim._id);
+                    fd.append('track_id', setup.track._id);
                     
                     // Set the ajax url for file upload.
                     var url = '/api/update-setup-with-file/';
@@ -147,7 +151,8 @@
                         trim: setup.type,
                         sim_version: setup.sim_version,
                         best_laptime: setup.best_time,
-                        comments: setup.comments
+                        comments: setup.comments,
+                        track_id: setup.track._id
                     };
                     // Set the ajax url for file upload.
                     var url = '/api/update-setup/';

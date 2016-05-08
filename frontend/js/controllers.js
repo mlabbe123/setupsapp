@@ -306,7 +306,7 @@
             angular.element(document.getElementsByClassName('main-menu-link-setups')).addClass('current');
         })
 
-        .controller('setupEditCtrl', function($scope, $routeParams, $http, $location, userSession, $timeout, uploadSetupService) {
+        .controller('setupEditCtrl', function($scope, $routeParams, $http, $location, userSession, $timeout, uploadSetupService, SimService) {
 
             // Notifications
             $scope.notification = {};
@@ -334,6 +334,15 @@
             }, 5000);
 
             $scope.sim_name = $routeParams.simName;
+
+            SimService.getAllTracks()
+                .success(function(tracks) {
+                    console.log(tracks)
+                    $scope.allTracks = tracks;
+                })
+                .error(function(err) {
+                    console.log(err)
+                })
 
             // Get sim info to populate the versions dropdown.
             $http.get('/api/get-sim-infos/' + $routeParams.simName).
@@ -490,6 +499,10 @@
                 });
 
             $scope.updateUsername = function($event) {
+                var $element = angular.element(event.srcElement);
+
+                $element.prop('disabled', 'disabled').addClass('is-loading icon-loading');
+
                 var newUsername = angular.element($event.target.parentElement.querySelector('#profile-change-username')).val();
 
                 // Verify if username is free to use.
@@ -497,22 +510,27 @@
                     .success(function(data, status, headers, config) {
                         if(data) {
                             // Tell the user that this username is already in use.
-                            angular.element(document.querySelector('.profile-change-username-msg-box')).html('This username is already in use, please try another one.')
+                            angular.element(document.querySelector('.profile-change-username-msg-box')).html('This username is already in use, please try another one.');
+                            $element.prop('disabled', '').removeClass('is-loading icon-loading');
                         } else {
                             // Update user display_name in db
                             $http.post('/api/update-user-displayname/', {userId: $routeParams.userid, newDisplayName: newUsername})
                                 .success(function(data, status, headers, config) {
-                                    console.log('User display_name updated successfully');
+                                    $element.prop('disabled', '').removeClass('is-loading icon-loading');
+                                    angular.element(document.querySelector('.profile-change-username-msg-box')).html('Username successfully updated.');
                                 })
                                 .error(function(data, status, headers, config) {
-                                    console.log(status)
+                                    console.log(status);
+                                    $element.prop('disabled', '').removeClass('is-loading icon-loading');
+                                    angular.element(document.querySelector('.profile-change-username-msg-box')).html('There has been an error, please try again');
                                 });
                             // Tell the user that his display_name has been change.
-                            angular.element(document.querySelector('.profile-change-username-msg-box')).html('Username successfully updated.');
                         }
                     })
                     .error(function(data, status, headers, config) {
-                        console.log(status)
+                        console.log(status);
+                        $element.prop('disabled', '').removeClass('is-loading icon-loading');
+                        angular.element(document.querySelector('.profile-change-username-msg-box')).html('There has been an error, please try again');
                     });
             }
 
