@@ -54,7 +54,7 @@ module.exports = function(passport) {
             // Find one document matching the provided email address.
             User.findOne({ email: email }, function (err, user) {
                 if (err) {
-                    console.log('REGISTER: Error finding user: ',err);
+                    // console.log('REGISTER: Error finding user: ',err);
                     return done(err);
                 }
 
@@ -88,7 +88,7 @@ module.exports = function(passport) {
                                 if(error){
                                     console.log('REGISTER: Error sending mail. ',error);
                                 }else{
-                                    console.log('REGISTER: Message sent: ' + info.response);
+                                    // console.log('REGISTER: Message sent: ' + info.response);
                                 }
                             });
 
@@ -98,9 +98,9 @@ module.exports = function(passport) {
 
 
 
-                    console.log('REGISTER: User ' + newUser.email + ' successfully created.')
+                    // console.log('REGISTER: User ' + newUser.email + ' successfully created.')
                 } else {
-                    console.log('REGISTER: That email is already taken.');
+                    // console.log('REGISTER: That email is already taken.');
                     return done(null, false, request.flash('registerMessage', 'That email address is already taken.'));
                 }
             });
@@ -125,19 +125,19 @@ module.exports = function(passport) {
         User.findOne({ email :  email }, function(err, user) {
             // if there are any errors, return the error before anything else
             if (err) {
-                console.log('LOGIN: Error finding user. ',err);
+                // console.log('LOGIN: Error finding user. ',err);
                 return done(err);
             }
 
             // if no user is found, return the message
             if (!user) {
-                console.log('LOGIN: User not found.');
+                // console.log('LOGIN: User not found.');
                 return done(null, false, request.flash('loginMessage', 'Wrong email address / password combination.'));
             }
 
             // if the user is found but the password is wrong
             if (!user.isPasswordValid(password)) {
-                console.log('LOGIN: Wrong password.')
+                // console.log('LOGIN: Wrong password.')
                 return done(null, false, request.flash('loginMessage', 'Wrong email address / password combination.')); // create the loginMessage and save it to session as flashdata
             }
 

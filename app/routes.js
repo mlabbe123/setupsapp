@@ -83,7 +83,7 @@ module.exports = function(app, passport) {
             if(err) {
                 console.log(err);
             } else {
-                console.log('Setup ' + request.params.setupid + ' downloaded');
+                // console.log('Setup ' + request.params.setupid + ' downloaded');
             }
         });
 
@@ -161,10 +161,8 @@ module.exports = function(app, passport) {
         // Get userid from email.
         User.findOne({email: request.body.email}, {_id:1}, function(err, data) {
             if(err) {
-                console.log('RECOVER PASSWORD: Email is not in database.');
-                console.log(err);
+                console.log('RECOVER PASSWORD: Email is not in database.', err);
             } else {
-                console.log('RECOVER PASSWORD: User found.');
                 // Send email.
                 var mailOptions = {
                     from: 'The Setup Market <thesetupmarket@gmail.com>', // sender address
@@ -178,7 +176,7 @@ module.exports = function(app, passport) {
                     if(error){
                         console.log(error);
                     }else{
-                        console.log('RECOVER PASSWORD: Message sent: ' + info.response);
+                        // console.log('RECOVER PASSWORD: Message sent: ' + info.response);
                     }
                 });
             }
@@ -193,7 +191,7 @@ module.exports = function(app, passport) {
     // Reset password route.
     app.post('/reset-password', function(request, response) {
         if(request.body.pass !== request.body.passconfirm) {
-            console.log('RESET PASSWORD: The two password fields dont match.');
+            // console.log('RESET PASSWORD: The two password fields dont match.');
             response.render('reset_password', {
                 userid: request.body.userid,
                 message: 'The two password fields dont match.'
@@ -203,7 +201,7 @@ module.exports = function(app, passport) {
 
             User.update({_id: request.body.userid}, {password: tempUser.generateHash(request.body.pass)},  function(err, user) {
                 if(err) {
-                    console.log(err);
+                    // console.log(err);
                     response.render('reset_password', {
                         userid: request.body.userid,
                         message: 'There has been an error processing your request, please try again.'
@@ -220,7 +218,7 @@ module.exports = function(app, passport) {
     // Reset password route.
     app.post('/confirm-account', function(request, response) {
         if(request.body.userid !== request.body.confirmationcode) {
-            console.log('RESET PASSWORTD: The two ids dont match.');
+            // console.log('RESET PASSWORTD: The two ids dont match.');
             response.render('confirm_account', {
                 userid: request.body.userid,
                 message: 'The confirmation code is wrong.'
@@ -228,7 +226,7 @@ module.exports = function(app, passport) {
         } else {
             User.update({_id: request.body.userid}, {confirmed: true}, function(err, numAffected) {
                 if (err) {
-                    console.log('RESET PASSWORD: Error updating confirmed state for user: ' + request.body.userid);
+                    // console.log('RESET PASSWORD: Error updating confirmed state for user: ' + request.body.userid);
 
                     response.render('confirm_account', {
                         userid: request.body.userid,
@@ -254,7 +252,7 @@ module.exports = function(app, passport) {
         var userSteamId = request.query['openid.identity'].match(/\d+$/)[0];
         User.update({_id: request.user._id}, {sci: userSteamId}, function(err, numAffected) {
             if(err) {
-                console.log(err);
+                // console.log(err);
                 response.redirect('/#/profile/' + request.user._id);
             } else {
                 response.redirect('/#/profile/' + request.user._id);
@@ -319,7 +317,7 @@ module.exports = function(app, passport) {
 
         newSim.save(function(err) {
             if(err) {
-                console.log('error creating sim');
+                // console.log('error creating sim');
             } else {
                 return response.send('ok');
             }
@@ -462,10 +460,10 @@ module.exports = function(app, passport) {
     app.post('/api/update-user-displayname/', function(request, response) {
         User.update({_id: request.body.userId}, {display_name: request.body.newDisplayName}, function(err) {
             if(err) {
-                console.log('error creating sim', err);
+                // console.log('error creating sim', err);
                 return response.status(500).send('error');
             } else {
-                console.log('User display_name successfully updated');
+                // console.log('User display_name successfully updated');
                 return response.status(200).send('success');
             }
         });
@@ -479,7 +477,7 @@ module.exports = function(app, passport) {
 
         Sim.findOne({'display_name': request.params.simname}, function(err, sim) {
             if (err || !sim) {
-                console.log('GET SETUPS API: Error retreiving id for simname: ' + request.params.simname, err);
+                // console.log('GET SETUPS API: Error retreiving id for simname: ' + request.params.simname, err);
                 return response.status(500).send(err);
             } else {
                 Setup.find({ 'sim': sim._id }).
@@ -489,7 +487,7 @@ module.exports = function(app, passport) {
                     populate('sim').
                     exec(function(err, setups) {
                         if(err){ 
-                            console.log('GET SETUPS API: Error finding setups that matches simId: ' + sim._id, err);
+                            // console.log('GET SETUPS API: Error finding setups that matches simId: ' + sim._id, err);
                             return response.status(500).send(err);
                         } else {
                             return response.send(setups);
@@ -506,12 +504,12 @@ module.exports = function(app, passport) {
             populate('sim').
             exec(function(err, setup) {
                 if(err){
-                    return console.log(err);
+                    // return console.log(err);
                 } else {
                     // Read the file.
                     fs.readFile(path.join(__dirname, '../setups_files/', setup.sim._id.toString(), '/', request.params.setupid), 'utf8', function (err,data) {
                         if (err) {
-                            return console.log(err);
+                            // return console.log(err);
                         }
 
                         return response.send(data);
@@ -525,7 +523,7 @@ module.exports = function(app, passport) {
 
         Sim.findOne({'display_name': request.params.simname}, function(err, sim) {
             if (err || !sim) {
-                console.log('GET SETUPS FILTERS BY SIMNAME: Error retreiving setups for simname: ' + request.params.simname, err);
+                // console.log('GET SETUPS FILTERS BY SIMNAME: Error retreiving setups for simname: ' + request.params.simname, err);
                 return response.status(500).send(err);
             } else {
                 Setup.find({ 'sim': sim._id }).
@@ -535,7 +533,7 @@ module.exports = function(app, passport) {
                 populate('sim').
                 exec(function(err, setups) {
                     if(err){
-                        console.log(err);
+                        // console.log(err);
                         return response.status(500).send(err);
                     } else {
                         var setup_filters = {};
@@ -581,7 +579,7 @@ module.exports = function(app, passport) {
             populate('sim').
             exec(function(err, setups) {
                 if(err){
-                    return console.log(err);
+                    // return console.log(err);
                 } else {
                     var setup_filters = {},
                         sim_filter = [],
@@ -621,7 +619,7 @@ module.exports = function(app, passport) {
             populate('track').
             exec(function(err, setup) {
                 if(err) {
-                    return console.log(err);
+                    // return console.log(err);
                 } else {
                     return response.send(setup);
                 }
@@ -638,7 +636,7 @@ module.exports = function(app, passport) {
             populate('track').
             exec(function(err, setups) {
                 if(err) {
-                    return console.log(err);
+                    // return console.log(err);
                 } else {
                     return response.send(setups);
                 }
@@ -657,7 +655,7 @@ module.exports = function(app, passport) {
 
         // If no setup file attached.
         if(request.body.file_name === undefined) {
-            console.log('CREATE SETUP API: Error, no file received.');
+            // console.log('CREATE SETUP API: Error, no file received.');
             return response.status(500).send({
                 status: 'error',
                 msg: 'There has been a server error (no file received), please try again.'
@@ -685,7 +683,7 @@ module.exports = function(app, passport) {
             // Save the setup in db.
             newSetup.save(function(err, setup) {
                 if(err) {
-                    console.log('CREATE SETUP API: Error saving setup in db.');
+                    // console.log('CREATE SETUP API: Error saving setup in db.');
                     return response.status(500).send({
                         status: 'error',
                         msg: 'There has been a server error (Error saving setup in db), please try again.'
@@ -702,11 +700,11 @@ module.exports = function(app, passport) {
                     fs.exists(setupFilePath, function(exists) {
                         if(!exists) {
                             fs.mkdir(setupFilePath, function() {
-                                console.log('SETUP CREATION API: ', setupFilePath, ' directory created');
+                                // console.log('SETUP CREATION API: ', setupFilePath, ' directory created');
                                 // Move and rename the file.
                                 fs.rename(request.file.path, setupFilePath + setupFileNewName, function(err) {
                                     if(err) {
-                                        console.log('SETUP CREATION API: Error moving and renaming file in new sim. ', err)
+                                        // console.log('SETUP CREATION API: Error moving and renaming file in new sim. ', err)
                                         return response.status(500).send({
                                             status: 'error',
                                             msg: 'There has been an error (Error creating sim directory), please try again.'
@@ -723,7 +721,7 @@ module.exports = function(app, passport) {
                             // Move and rename the file.
                             fs.rename(request.file.path, setupFilePath + setupFileNewName, function(err) {
                                 if(err) {
-                                    console.log('SETUP CREATION API: Error moving and renaming file. ', err);
+                                    // console.log('SETUP CREATION API: Error moving and renaming file. ', err);
                                     return response.status(500).send({
                                         status: 'error',
                                         msg: 'There has been an error (Error moving and renaming file), please try again.'
@@ -746,7 +744,7 @@ module.exports = function(app, passport) {
     app.post('/api/update-setup/', function(request, response) {
         Setup.update({_id: request.body.setup_id}, {sim_version: request.body.sim_version, type: request.body.trim, best_time: request.body.best_laptime, comments: request.body.comments, track: request.body.track_id}, function(err, numAffected) {
             if(err) {
-                console.log('UPDATE SETUP API: Error updating setup_id: request.body.setup_id.', err);
+                // console.log('UPDATE SETUP API: Error updating setup_id: request.body.setup_id.', err);
                 return response.status(500).send({
                     status: 'error',
                     msg: 'There has been a server error, please try again.'
@@ -763,7 +761,7 @@ module.exports = function(app, passport) {
     // Update setup with file.
     app.post('/api/update-setup-with-file/', upload.single('file'), function(request, response) {
         if(request.body.file_name === undefined) {
-            console.log('EDIT SETUP WITH FILE API: Error, no file received.');
+            // console.log('EDIT SETUP WITH FILE API: Error, no file received.');
             return response.status(500).send({
                 status: 'error',
                 msg: 'There has been a server error, please try again.'
@@ -771,7 +769,7 @@ module.exports = function(app, passport) {
         } else {
             Setup.update({_id: request.body.setup_id}, {file_name: request.body.file_name, sim_version: request.body.sim_version, type: request.body.trim, best_time: request.body.best_laptime, comments: request.body.comments, track: request.body.track_id, $inc: {version: 1}}, function(err, numAffected) {
                 if(err) {
-                    console.log('EDIT SETUP WITH FILE API: Error updating setup_id: request.body.setup_id.', err);
+                    // console.log('EDIT SETUP WITH FILE API: Error updating setup_id: request.body.setup_id.', err);
                     return response.status(500).send({
                         status: 'error',
                         msg: 'There has been a server error, please try again.'
@@ -787,7 +785,7 @@ module.exports = function(app, passport) {
                     // Move and rename the file.
                     fs.rename(request.file.path, setupFilePath + '/' + setupFileNewName, function(err) {
                         if(err) {
-                            console.log('EDIT SETUP API: Error moving and renaming file. ', err);
+                            // console.log('EDIT SETUP API: Error moving and renaming file. ', err);
                             return response.status(500).send({
                                 status: 'error',
                                 msg: 'There has been an error, please try again.'
@@ -808,7 +806,7 @@ module.exports = function(app, passport) {
     app.post('/api/update-setup-rating/', function(request, response) {
         Setup.findOne({_id: request.body.setupId}, function(err, setup) {
             if(err) {
-                console.log(err);
+                // console.log(err);
                 return response.send('error');
             } else {
                 if (setup.ratings && setup.ratings.length > 0) {
@@ -823,10 +821,10 @@ module.exports = function(app, passport) {
 
                             Setup.update({ 'ratings._id': rating._id }, {'$set': {'ratings.$.rating': request.body.setupRating}}, function(err, setup) {
                                 if(err) {
-                                    console.log('SETUP DETAIL: error updating rating. ', err);
+                                    // console.log('SETUP DETAIL: error updating rating. ', err);
                                     return response.send('error');
                                 } else {
-                                    console.log('SETUP DETAIL: rating successfully updated.');
+                                    // console.log('SETUP DETAIL: rating successfully updated.');
                                     return response.send('ok');
                                 }
                             });
@@ -836,10 +834,10 @@ module.exports = function(app, passport) {
                             // If not, add his rating.
                             Setup.update({ _id: request.body.setupId }, {$push: {'ratings' : {userId: request.body.userId, rating: request.body.setupRating}}}, function(err, setup) {
                                 if(err) {
-                                    console.log('SETUP DETAIL: error pushing rating. ', err);
+                                    // console.log('SETUP DETAIL: error pushing rating. ', err);
                                     return response.send('error');
                                 } else {
-                                    console.log('SETUP DETAIL: rating successfully pushed.');
+                                    // console.log('SETUP DETAIL: rating successfully pushed.');
                                     return response.send('ok');
                                 }
                             });
@@ -849,10 +847,10 @@ module.exports = function(app, passport) {
                 } else {
                     Setup.update({ _id: request.body.setupId }, {$push: {'ratings': {userId: request.body.userId, rating: request.body.setupRating}}}, function(err, setup) {
                         if(err) {
-                            console.log('SETUP DETAIL: error pushing rating to setup with empty ratings. ', err);
+                            // console.log('SETUP DETAIL: error pushing rating to setup with empty ratings. ', err);
                             return response.send('error');
                         } else {
-                            console.log('SETUP DETAIL: rating successfully pushed to setup with empty ratings.');
+                            // console.log('SETUP DETAIL: rating successfully pushed to setup with empty ratings.');
                             return response.send('ok');
                         }
                     });
@@ -880,7 +878,7 @@ module.exports = function(app, passport) {
                             msg: 'There has been an error, please try again.'
                         });
                     } else {
-                        console.log('DELETE SETUP API: Setup File ' + __dirname, '../setups_files/' + request.body.simId + '/' + request.body.setupId + ' has been deleted.')
+                        // console.log('DELETE SETUP API: Setup File ' + __dirname, '../setups_files/' + request.body.simId + '/' + request.body.setupId + ' has been deleted.')
 
                         return response.status(200).send({
                             status: 'success',
@@ -923,7 +921,6 @@ module.exports = function(app, passport) {
 
     // Add new car.
     app.post('/api/add-car/', function(request, response) {
-        console.log(request.body)
         var newCar = new Car({
             sim: request.body.sim,
             name: request.body.carName,
@@ -987,10 +984,8 @@ module.exports = function(app, passport) {
             populate('track').
             exec(function(err, setups) {
                 if(err){ 
-                    console.log('GET SETUPS FOR AC APP API: Error finding setups', err);
                     return response.status(500).send(err);
                 } else {
-                    console.log(setups)
                     return response.status(200).send(setups);
                 }
             });
