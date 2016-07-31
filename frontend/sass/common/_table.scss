@@ -152,6 +152,9 @@
     }
 
     .link {
+        color: $bg_color;
+        font-weight: 700;
+
         &:hover {
             color: $bg_color;
         }
