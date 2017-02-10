@@ -486,7 +486,7 @@ module.exports = function(app, passport) {
                     populate('track').
                     populate('sim').
                     exec(function(err, setups) {
-                        if(err){ 
+                        if(err){
                             // console.log('GET SETUPS API: Error finding setups that matches simId: ' + sim._id, err);
                             return response.status(500).send(err);
                         } else {
@@ -802,26 +802,40 @@ module.exports = function(app, passport) {
         }
     });
 
-    // Update setup rating.
-    app.post('/api/update-setup-rating/', function(request, response) {
-        Setup.findOne({_id: request.body.setupId}, function(err, setup) {
-            if(err) {
-                // console.log(err);
-                return response.send('error');
-            } else {
-                if (setup.ratings && setup.ratings.length > 0) {
-                    // Flag in case the rating for this userId exist more than once.
-                    var updated = false;
+    // Update setup rating from app (with steamId).
+    app.post('/api/update-setup-rating-from-app/', function(request, response) {
+      // Make sure we have a user steamId in the request.
+      if(!request.body.userSteamId || !request.body.setupId || !request.body.userRating) {
+        console.log('update-setup-rating-from-app | no userSteamId or setupId or userRating in request.');
+        return response.send('error, no userSteamId provided.');
+      }
 
-                    // If the setup already has ratings, search if the user has already rated it.
-                    _.forEach(setup.ratings, function(rating) {
+      // Check if steamId is found in the user DB.
+      User.findOne({sci: request.body.userSteamId}, function(err, user) {
+        if(err) {
+          console.log('update-setup-rating-from-app | error finding user with steamId.');
+          return response.send('update-setup-rating-from-app | error finding user with steamId');
+        } else {
+          if(user) {
+            Setup.findOne({_id: request.body.setupId}, function(err, setup) {
+                if(err) {
+                    console.log(err);
+                    return response.send('error', err);
+                } else if(!setup) {
+                    console.log('update-setup-rating-from-app | no setup found with provided setupId('+request.body.setupId+')');
+                    return response.send('error');
+                } else {
+                    if (setup.ratings && setup.ratings.length > 0) {
+                        // The setup already has ratings, search if the current user has already rated it.
+                        var currentUserRating = _.find(setup.ratings, function(rating) {
+                          return rating.userId == user._id;
+                        });
+
                         // If the user has already rated the setup, update his rating.
-                        if (rating.userId === request.body.userId && !updated) {
-                            updated = true;
-
-                            Setup.update({ 'ratings._id': rating._id }, {'$set': {'ratings.$.rating': request.body.setupRating}}, function(err, setup) {
+                        if (currentUserRating) {
+                            Setup.update({ 'ratings._id': currentUserRating._id }, {'$set': {'ratings.$.rating': request.body.userRating}}, function(err, setup) {
                                 if(err) {
-                                    // console.log('SETUP DETAIL: error updating rating. ', err);
+                                    console.log('SETUP DETAIL: error updating rating. ', err);
                                     return response.send('error');
                                 } else {
                                     // console.log('SETUP DETAIL: rating successfully updated.');
@@ -830,11 +844,11 @@ module.exports = function(app, passport) {
                             });
 
 
-                        } else if (!updated) {
+                        } else {
                             // If not, add his rating.
-                            Setup.update({ _id: request.body.setupId }, {$push: {'ratings' : {userId: request.body.userId, rating: request.body.setupRating}}}, function(err, setup) {
+                            Setup.update({ _id: request.body.setupId }, {$push: {'ratings' : {userId: user._id, rating: request.body.userRating}}}, function(err, setup) {
                                 if(err) {
-                                    // console.log('SETUP DETAIL: error pushing rating. ', err);
+                                    console.log('SETUP DETAIL: error pushing rating. ', err);
                                     return response.send('error');
                                 } else {
                                     // console.log('SETUP DETAIL: rating successfully pushed.');
@@ -842,8 +856,63 @@ module.exports = function(app, passport) {
                                 }
                             });
                         }
+                    } else {
+                        Setup.update({ _id: request.body.setupId }, {$push: {'ratings': {userId: user._id, rating: request.body.userRating}}}, function(err, setup) {
+                            if(err) {
+                                console.log('SETUP DETAIL: error pushing rating to setup with empty ratings. ', err);
+                                return response.send('error');
+                            } else {
+                                // console.log('SETUP DETAIL: rating successfully pushed to setup with empty ratings.');
+                                return response.send('ok');
+                            }
+                        });
+                    }
+                }
+            });
+          } else {
+            console.log('update-setup-rating-from-app | user steamId not found.');
+            return response.send('update-setup-rating-from-app | user steamId not found');
+          }
+        }
+      });
+    });
+
+    // Update setup rating.
+    app.post('/api/update-setup-rating/', function(request, response) {
+        Setup.findOne({_id: request.body.setupId}, function(err, setup) {
+            if(err) {
+                // console.log(err);
+                return response.send('error');
+            } else {
+                if (setup.ratings && setup.ratings.length > 0) {
+                    // The setup already has ratings, search if the current user has already rated it.
+                    var currentUserRating = _.find(setup.ratings, function(rating) {
+                        return rating.userId == request.body.userId;
                     });
 
+                    // If the user has already rated the setup, update his rating.
+                    if (currentUserRating) {
+                        Setup.update({ 'ratings._id': currentUserRating._id }, {'$set': {'ratings.$.rating': request.body.setupRating}}, function(err, setup) {
+                            if(err) {
+                                // console.log('SETUP DETAIL: error updating rating. ', err);
+                                return response.send('error');
+                            } else {
+                                // console.log('SETUP DETAIL: rating successfully updated.');
+                                return response.send('ok');
+                            }
+                        });
+                    } else {
+                        // If not, add his rating.
+                        Setup.update({ _id: request.body.setupId }, {$push: {'ratings' : {userId: request.body.userId, rating: request.body.setupRating}}}, function(err, setup) {
+                            if(err) {
+                                // console.log('SETUP DETAIL: error pushing rating. ', err);
+                                return response.send('error');
+                            } else {
+                                // console.log('SETUP DETAIL: rating successfully pushed.');
+                                return response.send('ok');
+                            }
+                        });
+                    }
                 } else {
                     Setup.update({ _id: request.body.setupId }, {$push: {'ratings': {userId: request.body.userId, rating: request.body.setupRating}}}, function(err, setup) {
                         if(err) {
@@ -983,7 +1052,7 @@ module.exports = function(app, passport) {
             populate('car').
             populate('track').
             exec(function(err, setups) {
-                if(err){ 
+                if(err){
                     return response.status(500).send(err);
                 } else {
                     return response.status(200).send(setups);
