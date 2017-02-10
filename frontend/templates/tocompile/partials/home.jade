@@ -1,4 +1,4 @@
-div(class="fullwidth-wrapper home superparallax", parallax="superparallax")
+div(class="fullwidth-wrapper home")
     div.content-wrapper
         div.page-title-wrapper.home
             h1.jumbo-title Welcome to The Setup Market
@@ -56,19 +56,19 @@ div(class="fullwidth-wrapper flex border-top")
             //-         h3.newsFeed-title Setup Re-uploading implemented
             //-         span.newsFeed-text You can now re-upload a setup file to an existing setup. If you have made changes to a setup and wish to update it on the site, just go on the edit setup page and change its file. The setups that have been reuploaded will be marked with a 'vX' on the listing.
 
-div(class="fullwidth-wrapper choose-flavor padded border-top")
-    div.content-wrapper
-        h2.title.no-padding Choose your flavor
-        h3.subtitle (More sims coming soon)
-
-        div.simSelection-simwrapper
-            div(ng-repeat="sim in sims", class="simSelection-simwrapper-item")
-                a(href="#/setups/{{ sim.display_name }}", class="simSelection-circle-wrapper")
-                    img(ng-src="images/logo_{{ sim.code }}.png")
-                    div.simSelection-circle
-                    div.simSelection-circle2
-                    div.simSelection-circle3
-                    div.simSelection-circle4
+//- div(class="fullwidth-wrapper choose-flavor padded border-top")
+//-     div.content-wrapper
+//-         h2.title.no-padding Choose your flavor
+//-         h3.subtitle (More sims coming soon)
+//- 
+//-         div.simSelection-simwrapper
+//-             div(ng-repeat="sim in sims", class="simSelection-simwrapper-item")
+//-                 a(href="#/setups/{{ sim.display_name }}", class="simSelection-circle-wrapper")
+//-                     img(ng-src="images/logo_{{ sim.code }}.png")
+//-                     div.simSelection-circle
+//-                     div.simSelection-circle2
+//-                     div.simSelection-circle3
+//-                     div.simSelection-circle4
 
 div(class="fullwidth-wrapper flex--row border-top")
     div.homepage-stats-col-wrapper.orange

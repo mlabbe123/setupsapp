@@ -396,7 +396,7 @@ module.exports = function(app, passport) {
 
                     // Get site download and setups count stats.
                     if (setups.length >= 1000) {
-                        returnObject.setups_count = ((parseFloat(25550 / 1000)).toFixed(1)).replace('.0', '') + 'k';
+                        returnObject.setups_count = ((parseFloat(setups.length / 1000)).toFixed(1)).replace('.0', '') + 'k';
 
                     } else {
                         returnObject.setups_count = setups.length;
@@ -416,7 +416,6 @@ module.exports = function(app, passport) {
                         return setup.author._id;
                     });
 
-
                     var highestTotalDownloads = 0,
                         highestTotalDownloadsUserName,
                         highestTotalSetupsPosted = 0,
@@ -424,7 +423,8 @@ module.exports = function(app, passport) {
 
                     // within each users array, concatenate the downloads field for every setups.
                     for (var key in setupsByUsers) {
-                        if (setupsByUsers.hasOwnProperty(key)) {
+                        // Dont show me in the stats
+                        if (setupsByUsers.hasOwnProperty(key) && key !== '55c2cba1a39491a1247e72df') {
 
                             // Find user with most setups posted.
                             if (setupsByUsers[key].length >= highestTotalSetupsPosted) {

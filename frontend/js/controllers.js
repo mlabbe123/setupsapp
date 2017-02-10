@@ -293,9 +293,6 @@
 
             $scope.sim_name = $routeParams.simName;
 
-            console.log('ng_user_id: ',$scope.ng_user_id)
-            console.log('route: ',$routeParams.userId)
-
             if ($scope.ng_user_id === $routeParams.userId) {
                 $scope.is_user_own_setup = true;
             } else {
