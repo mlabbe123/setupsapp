@@ -11,7 +11,7 @@
                 link: function(scope, element, attrs) {
                     var model = $parse(attrs.fileModel);
                     var modelSetter = model.assign;
-                    
+
                     element.bind('change', function(){
                         scope.$apply(function(){
                             modelSetter(scope, element[0].files[0]);
@@ -26,7 +26,7 @@
                 restrict: 'A',
                 require: 'ngModel',
                 link: function (scope, element, attrs, ngModelCtrl) {
- 
+
                     var onBlurFunc = function(event) {
                         var ngElement = angular.element(event.srcElement),
                             laptimeValue = ngElement.val();
@@ -177,39 +177,5 @@
                     element.bind('mouseleave', onMouseLeaveFunc);
                 }
             }
-        }])
-
-        .directive('parallax', function($window) {
-            return {
-                restrict: 'A',
-                link: function(scope, element, attrs) {
-                    var $win = angular.element($window);
-
-                    angular.element($window).bind("scroll", function() {
-                        // TODO: Need to set this outside the scroll listener.
-                        var bgTotalOffset = element[0].offsetHeight + element[0].offsetTop;
-
-                        if (this.pageYOffset < bgTotalOffset) {
-                            angular.element(document.querySelector('.' + attrs.parallax)).css('background-position', '0 ' + -(10 * Math.pow(1.5, this.pageYOffset/50)) + 'px');
-                        }
-                    });
-                }
-            }
-        });
-
-        // .directive('marketStats', function() {
-        //     return {
-        //         restrict: 'E',
-        //         template: '<div>These are the stats</div>',
-        //         controller: function($scope, $http) {
-        //             $http.get('/api/get-market-stats/')
-        //                 .success(function(data, status, headers, config) {
-        //                     console.log(data);
-        //                 })
-        //                 .error(function(data, status, headers, config) {
-        //                     console.log(data);
-        //                 });
-        //         }
-        //     }
-        // });
+        }]);
 })();
