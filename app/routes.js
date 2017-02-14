@@ -396,8 +396,7 @@ module.exports = function(app, passport) {
 
                     // Get site download and setups count stats.
                     if (setups.length >= 1000) {
-                        returnObject.setups_count = ((parseFloat(setups.length / 1000)).toFixed(1)).replace('.0', '') + 'k';
-
+                        returnObject.setups_count = ((parseFloat(setups.length / 1000)).toFixed(3)).replace('.0', '') + 'k';
                     } else {
                         returnObject.setups_count = setups.length;
                     }
@@ -408,7 +407,11 @@ module.exports = function(app, passport) {
                         totalSetupDownloads += setup.downloads;
                     });
 
-                    returnObject.setups_downloads_total = totalSetupDownloads;
+                    if(totalSetupDownloads >= 1000) {
+                      returnObject.setups_downloads_total = ((parseInt(totalSetupDownloads / 1000))) + 'k';
+                    } else {
+                      returnObject.setups_downloads_total = totalSetupDownloads;
+                    }
 
                     // Get user stats.
                     // we have every setups, group them by user id.
@@ -870,8 +873,37 @@ module.exports = function(app, passport) {
                 }
             });
           } else {
-            console.log('update-setup-rating-from-app | user steamId not found.');
-            return response.send('update-setup-rating-from-app | user steamId not found');
+            var now = new Date();
+
+            // Create a dummy account with steamId@dummy.com
+            var newDummyUser = new User({
+              email: request.body.userSteamId + '@dummyUser.com',
+              password: '123',
+              display_name: request.body.userSteamId,
+              nationality: 'Dummy',
+              join_date: now.yyyymmdd(),
+              confirmed: false,
+              admin: false,
+              sci: request.body.userSteamId
+            });
+
+            newDummyUser.save(function(err) {
+                if(err) {
+                    console.log('error creating user', err);
+                    return response.send('update-setup-rating-from-app | error creting dummyUser');
+                } else {
+                    // console.log('created user successfully');
+                    Setup.update({ _id: request.body.setupId }, {$push: {'ratings': {userId: request.body.userSteamId, rating: request.body.userRating}}}, function(err, setup) {
+                        if(err) {
+                            console.log('SETUP DETAIL: error pushing rating to setup with empty ratings. ', err);
+                            return response.send('error');
+                        } else {
+                            // console.log('SETUP DETAIL: rating successfully pushed to setup with empty ratings.');
+                            return response.send('ok');
+                        }
+                    });
+                }
+            });
           }
         }
       });
