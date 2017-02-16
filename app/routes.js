@@ -394,12 +394,7 @@ module.exports = function(app, passport) {
                     // We will return this object.
                     var returnObject = {};
 
-                    // Get site download and setups count stats.
-                    if (setups.length >= 1000) {
-                        returnObject.setups_count = ((parseFloat(setups.length / 1000)).toFixed(3)).replace('.0', '') + 'k';
-                    } else {
-                        returnObject.setups_count = setups.length;
-                    }
+                    returnObject.setups_count = setups.length;
 
                     var totalSetupDownloads = 0;
 
@@ -408,7 +403,7 @@ module.exports = function(app, passport) {
                     });
 
                     if(totalSetupDownloads >= 1000) {
-                      returnObject.setups_downloads_total = ((parseInt(totalSetupDownloads / 1000))) + 'k';
+                      returnObject.setups_downloads_total = parseFloat(totalSetupDownloads / 1000).toFixed(1) + 'k';
                     } else {
                       returnObject.setups_downloads_total = totalSetupDownloads;
                     }
