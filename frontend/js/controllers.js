@@ -28,7 +28,7 @@
             $scope.testShit = function() {
               $http.post('/api/update-setup-rating-from-app/', {
                 userSteamId: '76561197979887646',
-                setupId: '55fd9bccd73855a33ac36823',
+                setupId: '55e824e176e529cb4014e060',
                 userRating: 1
               })
                 .success(function(data) {
