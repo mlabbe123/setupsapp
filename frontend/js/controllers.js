@@ -25,6 +25,20 @@
                     console.log(status);
                 });
 
+            $scope.testShit = function() {
+              $http.post('/api/update-setup-rating-from-app/', {
+                userSteamId: '76561197979887646',
+                setupId: '55fd9bccd73855a33ac36823',
+                userRating: 1
+              })
+                .success(function(data) {
+                  console.log('data', data)
+                })
+                .error(function(err) {
+                  console.log('err',err)
+                })
+            }
+
             angular.element(document.getElementsByClassName('main-menu-link')).removeClass('current');
             angular.element(document.getElementsByClassName('main-menu-link-home')).addClass('current');
         })

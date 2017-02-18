@@ -823,11 +823,11 @@ module.exports = function(app, passport) {
                     console.log('update-setup-rating-from-app | no setup found with provided setupId('+request.body.setupId+')');
                     return response.send('error');
                 } else {
-                  // console.log('user._id: -'+user._id+'-')
-                  // console.log('setup.author: -'+setup.author+'-')
-                  // console.log('user._id('+user._id+') == setup.author('+setup.author+')',user._id == setup.author)
+                  console.log('user._id: -'+user._id+'-')
+                  console.log('setup.author: -'+setup.author+'-')
+                  console.log('user._id('+user._id+') == setup.author('+setup.author+')',user._id == setup.author)
                     if(user._id == setup.author) {
-                      // console.log('update-setup-rating-from-app | error - cannot rate your own setup')
+                      console.log('update-setup-rating-from-app | error - cannot rate your own setup')
                       return response.status(200).send('update-setup-rating-from-app | error - cannot rate your own setup');
                     }
                     if(setup.ratings && setup.ratings.length > 0) {
