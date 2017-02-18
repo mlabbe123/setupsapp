@@ -823,11 +823,20 @@ module.exports = function(app, passport) {
                     console.log('update-setup-rating-from-app | no setup found with provided setupId('+request.body.setupId+')');
                     return response.send('error');
                 } else {
-                    if (setup.ratings && setup.ratings.length > 0) {
+                  // console.log('user._id: -'+user._id+'-')
+                  // console.log('setup.author: -'+setup.author+'-')
+                  // console.log('user._id('+user._id+') == setup.author('+setup.author+')',user._id == setup.author)
+                    if(user._id == setup.author) {
+                      // console.log('update-setup-rating-from-app | error - cannot rate your own setup')
+                      return response.status(200).send('update-setup-rating-from-app | error - cannot rate your own setup');
+                    }
+                    if(setup.ratings && setup.ratings.length > 0) {
                         // The setup already has ratings, search if the current user has already rated it.
                         var currentUserRating = _.find(setup.ratings, function(rating) {
                           return rating.userId == user._id;
                         });
+                        // 55c2cba1a39491a1247e72df
+                        // 55c2cba1a39491a1247e72df
 
                         // If the user has already rated the setup, update his rating.
                         if (currentUserRating) {
