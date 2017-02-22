@@ -403,7 +403,7 @@ module.exports = function(app, passport) {
                     });
 
                     if(totalSetupDownloads >= 1000) {
-                      returnObject.setups_downloads_total = parseFloat(totalSetupDownloads / 1000).toFixed(1) + 'k';
+                      returnObject.setups_downloads_total = parseInt(totalSetupDownloads / 1000) + ' K';
                     } else {
                       returnObject.setups_downloads_total = totalSetupDownloads;
                     }
