@@ -13,6 +13,7 @@ bower_components/
 
 # compiled builds files #
 static/
+frontend/js/main.js
 
 # setups_files #
 setups_files/
