@@ -659,53 +659,77 @@ module.exports = function(app, passport) {
                 msg: 'There has been a server error (no file received), please try again.'
             });
         } else {
-            var now = new Date();
+            User.findOne({'_id': request.body.user_id}, function(err, user) {
+              if(user.disabled) {
+                return response.status(401).send({
+                    status: 'error',
+                    msg: 'Your account has been disabled. Use the forums for help.'
+                });
+              } else {
+                var now = new Date();
 
-            // New setup object.
-            var newSetup = new Setup({
-                author: request.body.user_id,
-                sim: request.body.sim_id,
-                sim_version: request.body.sim_version,
-                car: request.body.car_id,
-                track: request.body.track_id,
-                type: request.body.trim,
-                best_time: request.body.best_laptime,
-                comments: request.body.comments.replace(/<(?:.|\n)*?>/gm, ''),
-                file_name: request.body.file_name,
-                added_date: {
-                    timestamp: now,
-                    display_time: now.yyyymmdd()
-                }
-            });
+                // New setup object.
+                var newSetup = new Setup({
+                    author: request.body.user_id,
+                    sim: request.body.sim_id,
+                    sim_version: request.body.sim_version,
+                    car: request.body.car_id,
+                    track: request.body.track_id,
+                    type: request.body.trim,
+                    best_time: request.body.best_laptime,
+                    comments: request.body.comments.replace(/<(?:.|\n)*?>/gm, ''),
+                    file_name: request.body.file_name,
+                    added_date: {
+                        timestamp: now,
+                        display_time: now.yyyymmdd()
+                    }
+                });
 
-            // Save the setup in db.
-            newSetup.save(function(err, setup) {
-                if(err) {
-                    // console.log('CREATE SETUP API: Error saving setup in db.');
-                    return response.status(500).send({
-                        status: 'error',
-                        msg: 'There has been a server error (Error saving setup in db), please try again.'
-                    });
-                } else {
-                    // Setup is in db, file is uploaded, time to rename and move the file in the sim directory.
-                    // Filename of the new setup file will be its id in the db.
-                    var setupFileNewName = setup._id;
+                // Save the setup in db.
+                newSetup.save(function(err, setup) {
+                    if(err) {
+                        // console.log('CREATE SETUP API: Error saving setup in db.');
+                        return response.status(500).send({
+                            status: 'error',
+                            msg: 'There has been a server error (Error saving setup in db), please try again.'
+                        });
+                    } else {
+                        // Setup is in db, file is uploaded, time to rename and move the file in the sim directory.
+                        // Filename of the new setup file will be its id in the db.
+                        var setupFileNewName = setup._id;
 
-                    // Directory the setup file will be move to.
-                    var setupFilePath = path.join(__dirname, '../setups_files/', setup.sim.toString(), '/');
+                        // Directory the setup file will be move to.
+                        var setupFilePath = path.join(__dirname, '../setups_files/', setup.sim.toString(), '/');
 
-                    // Check if path exists, if not, create the dir.
-                    fs.exists(setupFilePath, function(exists) {
-                        if(!exists) {
-                            fs.mkdir(setupFilePath, function() {
-                                // console.log('SETUP CREATION API: ', setupFilePath, ' directory created');
+                        // Check if path exists, if not, create the dir.
+                        fs.exists(setupFilePath, function(exists) {
+                            if(!exists) {
+                                fs.mkdir(setupFilePath, function() {
+                                    // console.log('SETUP CREATION API: ', setupFilePath, ' directory created');
+                                    // Move and rename the file.
+                                    fs.rename(request.file.path, setupFilePath + setupFileNewName, function(err) {
+                                        if(err) {
+                                            // console.log('SETUP CREATION API: Error moving and renaming file in new sim. ', err)
+                                            return response.status(500).send({
+                                                status: 'error',
+                                                msg: 'There has been an error (Error creating sim directory), please try again.'
+                                            });
+                                        } else {
+                                            return response.status(200).send({
+                                                status: 'success',
+                                                msg: 'Setup successfully uploaded'
+                                            });
+                                        }
+                                    });
+                                });
+                            } else {
                                 // Move and rename the file.
                                 fs.rename(request.file.path, setupFilePath + setupFileNewName, function(err) {
                                     if(err) {
-                                        // console.log('SETUP CREATION API: Error moving and renaming file in new sim. ', err)
+                                        // console.log('SETUP CREATION API: Error moving and renaming file. ', err);
                                         return response.status(500).send({
                                             status: 'error',
-                                            msg: 'There has been an error (Error creating sim directory), please try again.'
+                                            msg: 'There has been an error (Error moving and renaming file), please try again.'
                                         });
                                     } else {
                                         return response.status(200).send({
@@ -714,27 +738,12 @@ module.exports = function(app, passport) {
                                         });
                                     }
                                 });
-                            });
-                        } else {
-                            // Move and rename the file.
-                            fs.rename(request.file.path, setupFilePath + setupFileNewName, function(err) {
-                                if(err) {
-                                    // console.log('SETUP CREATION API: Error moving and renaming file. ', err);
-                                    return response.status(500).send({
-                                        status: 'error',
-                                        msg: 'There has been an error (Error moving and renaming file), please try again.'
-                                    });
-                                } else {
-                                    return response.status(200).send({
-                                        status: 'success',
-                                        msg: 'Setup successfully uploaded'
-                                    });
-                                }
-                            });
-                        }
-                    });
-                }
-            });
+                            }
+                        });
+                    }
+                });
+              }
+          });
         }
     });
 
