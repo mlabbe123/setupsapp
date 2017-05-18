@@ -478,7 +478,7 @@ module.exports = function(app, passport) {
                 // console.log('GET SETUPS API: Error retreiving id for simname: ' + request.params.simname, err);
                 return response.status(500).send(err);
             } else {
-                Setup.find({ 'sim': sim._id }).
+                Setup.find({ 'sim': sim._id, 'sim_version': { $nin: [1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8] } }).
                     populate('author').
                     populate('car').
                     populate('track').
