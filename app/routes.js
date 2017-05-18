@@ -472,27 +472,22 @@ module.exports = function(app, passport) {
 
     // Retreive setups specific to a sim.
     app.get('/api/get-setups/:simname', function(request, response) {
-
-        Sim.findOne({'display_name': request.params.simname}, function(err, sim) {
-            if (err || !sim) {
-                // console.log('GET SETUPS API: Error retreiving id for simname: ' + request.params.simname, err);
-                return response.status(500).send(err);
-            } else {
-                Setup.find({ 'sim': sim._id, 'sim_version': { $nin: [1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8] } }).
-                    populate('author').
-                    populate('car').
-                    populate('track').
-                    populate('sim').
-                    exec(function(err, setups) {
-                        if(err){
-                            // console.log('GET SETUPS API: Error finding setups that matches simId: ' + sim._id, err);
-                            return response.status(500).send(err);
-                        } else {
-                            return response.send(setups);
-                        }
-                    });
-            }
-        });
+      Setup.find({
+        'sim': "55c2cddddebcbba924bb2a34",
+        'sim_version': { $nin: [1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8] }
+      })
+        .populate('author')
+        .populate('car')
+        .populate('track')
+        .populate('sim')
+        .exec(function(err, setups) {
+              if(err){
+                  // console.log('GET SETUPS API: Error finding setups that matches simId: ' + sim._id, err);
+                  return response.status(500).send(err);
+              } else {
+                  return response.send(setups);
+              }
+          });
     });
 
     // Retreive setup file details.
@@ -518,53 +513,48 @@ module.exports = function(app, passport) {
 
     // Retrieve every setups for the filters in setups listing page.
     app.get('/api/get-setups-filters-by-simname/:simname', function(request, response) {
+      Setup.find({
+        'sim': "55c2cddddebcbba924bb2a34",
+        'sim_version': { $nin: [1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8] }
+      })
+        .populate('author')
+        .populate('car')
+        .populate('track')
+        .populate('sim')
+        .exec(function(err, setups) {
+          if(err){
+              // console.log(err);
+              return response.status(500).send(err);
+          } else {
+              var setup_filters = {};
 
-        Sim.findOne({'display_name': request.params.simname}, function(err, sim) {
-            if (err || !sim) {
-                // console.log('GET SETUPS FILTERS BY SIMNAME: Error retreiving setups for simname: ' + request.params.simname, err);
-                return response.status(500).send(err);
-            } else {
-                Setup.find({ 'sim': sim._id }).
-                populate('author').
-                populate('car').
-                populate('track').
-                populate('sim').
-                exec(function(err, setups) {
-                    if(err){
-                        // console.log(err);
-                        return response.status(500).send(err);
-                    } else {
-                        var setup_filters = {};
+              var car_filter = [];
+              var track_filter = [];
+              var author_filter = [];
+              var type_filter = [];
+              var car_category_filter = [];
+              var sim_version_filter = [];
 
-                        var car_filter = [];
-                        var track_filter = [];
-                        var author_filter = [];
-                        var type_filter = [];
-                        var car_category_filter = [];
-                        var sim_version_filter = [];
+              // Loop through every setup returned to build the filters arrays
+              _.forEach(setups, function(setup) {
+                  car_filter.push(setup.car.name);
+                  track_filter.push(setup.track.name);
+                  author_filter.push(setup.author.display_name);
+                  type_filter.push(setup['type']);
+                  car_category_filter.push(setup.car.category);
+                  sim_version_filter.push(setup.sim_version);
+              });
 
-                        // Loop through every setup returned to build the filters arrays
-                        _.forEach(setups, function(setup) {
-                            car_filter.push(setup.car.name);
-                            track_filter.push(setup.track.name);
-                            author_filter.push(setup.author.display_name);
-                            type_filter.push(setup['type']);
-                            car_category_filter.push(setup.car.category);
-                            sim_version_filter.push(setup.sim_version);
-                        });
+              setup_filters.car_filters = _.uniq(car_filter);
+              setup_filters.track_filters = _.uniq(track_filter);
+              setup_filters.author_filters = _.uniq(author_filter);
+              setup_filters.type_filters = _.uniq(type_filter);
+              setup_filters.car_category_filters = _.uniq(car_category_filter);
+              setup_filters.sim_version_filters = _.uniq(sim_version_filter);
 
-                        setup_filters.car_filters = _.uniq(car_filter);
-                        setup_filters.track_filters = _.uniq(track_filter);
-                        setup_filters.author_filters = _.uniq(author_filter);
-                        setup_filters.type_filters = _.uniq(type_filter);
-                        setup_filters.car_category_filters = _.uniq(car_category_filter);
-                        setup_filters.sim_version_filters = _.uniq(sim_version_filter);
-
-                        return response.send(setup_filters);
-                    }
-                });
-            }
-        });
+              return response.send(setup_filters);
+          }
+      });
     });
 
     // Retrieve every setups for the filters in user profile page.
