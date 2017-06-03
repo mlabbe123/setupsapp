@@ -328,19 +328,19 @@ module.exports = function(app, passport) {
     // USERS ========================
 
     // Retrieve every users.
-    app.get('/api/get-all-users/', function(request, response) {
-        User.find(function(err, users) {
-            if(err){
-                return console.log(err);
-            } else {
-                return response.send(users);
-            }
-        });
-    });
+    // app.get('/api/get-all-users/', function(request, response) {
+    //     User.find({}, {confirmed: 0, password: 0, email: 0}, function(err, users) {
+    //         if(err){
+    //             return console.log(err);
+    //         } else {
+    //             return response.send(users);
+    //         }
+    //     });
+    // });
 
     // Retrieve user by id.
     app.get('/api/get-user-by-id/:userid', function(request, response) {
-        User.findOne({_id: request.params.userid}, function(err, user) {
+        User.findOne({_id: request.params.userid}, {email: 0, password: 0, admin: 0, confirmed: 0, disabled: 0}, function(err, user) {
             if(err){
                 return console.log(err);
             } else {
@@ -351,7 +351,7 @@ module.exports = function(app, passport) {
 
     // Retrieve user by id.
     app.get('/api/get-user-by-steamid/:steamid', function(request, response) {
-        User.findOne({sci: request.params.steamid}, function(err, user) {
+        User.findOne({sci: request.params.steamid}, {email: 0, password: 0, admin: 0, confirmed: 0, disabled: 0}, function(err, user) {
             if(err){
                 return console.log(err);
             } else {
@@ -362,7 +362,7 @@ module.exports = function(app, passport) {
 
     // Retrieve user by display_name.
     app.get('/api/get-user-by-name/:username', function(request, response) {
-        User.findOne({'display_name': request.params.username}, function(err, user) {
+        User.findOne({'display_name': request.params.username}, {email: 0, password: 0, admin: 0, confirmed: 0, disabled: 0}, function(err, user) {
             if(err){
                 return console.log(err);
             } else {
@@ -385,7 +385,7 @@ module.exports = function(app, passport) {
     // Retrieve every setups and send back user with most downloads.
     app.get('/api/get-user-with-most-downloads', function(request, response) {
         Setup.find({}, {_id:0, downloads:1, author:1})
-            .populate('author')
+            .populate('author', 'display_name')
             .sort('author')
             .exec(function(err, setups) {
                 if(err){
@@ -476,7 +476,7 @@ module.exports = function(app, passport) {
         'sim': "55c2cddddebcbba924bb2a34",
         'sim_version': { $nin: [1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8] }
       })
-        .populate('author')
+        .populate('author', 'display_name')
         .populate('car')
         .populate('track')
         .populate('sim')
@@ -517,7 +517,7 @@ module.exports = function(app, passport) {
         'sim': "55c2cddddebcbba924bb2a34",
         'sim_version': { $nin: [1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8] }
       })
-        .populate('author')
+        .populate('author', 'display_name')
         .populate('car')
         .populate('track')
         .populate('sim')
@@ -601,7 +601,7 @@ module.exports = function(app, passport) {
     app.get('/api/get-setup/:setupid', function(request, response) {
 
         Setup.findOne({'_id': request.params.setupid}).
-            populate('author').
+            populate('author', 'display_name').
             populate('sim').
             populate('car').
             populate('track').
@@ -618,7 +618,6 @@ module.exports = function(app, passport) {
     app.get('/api/get-setups-by-user/:userid', function(request, response) {
 
         Setup.find({'author': request.params.userid}).
-            populate('author').
             populate('sim').
             populate('car').
             populate('track').
@@ -1078,7 +1077,7 @@ module.exports = function(app, passport) {
     app.get('/api/get-setups-for-app/', function(request, response) {
 
         Setup.find({ 'sim': '55c2cddddebcbba924bb2a34' }).
-            populate('author').
+            populate('author', 'display_name').
             populate('car').
             populate('track').
             exec(function(err, setups) {
@@ -1114,7 +1113,7 @@ module.exports = function(app, passport) {
 
     // Retrieve user by steam community ID.
     app.get('/api/get-user-by-sci/:sci', function(request, response) {
-        User.findOne({sci: request.params.sci}, function(err, user) {
+        User.findOne({sci: request.params.sci}, {email: 0, password: 0, admin: 0, confirmed: 0, disabled: 0}, function(err, user) {
             if(err){
                 return response.status(500).send('There has been an error while retreiving user for steamCommunityID = ', request.params.sci);
             } else {
