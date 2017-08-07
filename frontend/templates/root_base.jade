@@ -20,6 +20,9 @@ html(ng-app="setupsSharingApp")
             div(class="mainContainer", ng-init="ng_user_is_logged= #{user ? true : false}; ng_user_id= #{user ? JSON.stringify(user._id) : false}")
                 header.fullwidth-wrapper
                     block header
+                        div.maintenance
+                          span Under maintenance. The app and website might be acting slow, we are working on the issue. 
+                      
                         div.content-flexwrapper.padded
                             ul.main-nav-wrapper
                                 ul.inline-nav
