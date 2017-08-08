@@ -122,7 +122,7 @@ module.exports = function(passport) {
 
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
-        User.findOne({ email :  email }, function(err, user) {
+        User.findOne({ email : { $regex: new RegExp("^" + email, "i") } }, function(err, user) {
             // if there are any errors, return the error before anything else
             if (err) {
                 // console.log('LOGIN: Error finding user. ',err);
@@ -163,8 +163,8 @@ module.exports = function(passport) {
         function(identifier, done) {
             var user = {};
             user.userSteamId = identifier.match(/\d+$/)[0];
-            
+
             return done(null, user);
         }
-    )); 
+    ));
 }
