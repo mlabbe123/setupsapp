@@ -615,19 +615,46 @@ module.exports = function(app, passport) {
     });
 
     // Retrieve setups by userid.
-    app.get('/api/get-setups-by-user/:userid', function(request, response) {
+    // Param 'userid' {String} | Required
+    // Param 'carid' {String} | Optional
+    app.get('/api/get-setups-by-user/:userid/:carid?', function(request, response) {
+      if(request.params.userid && request.params.carid) {
+        // For AC app.
+        var carId;
 
-        Setup.find({'author': request.params.userid}).
-            populate('sim').
-            populate('car').
-            populate('track').
-            exec(function(err, setups) {
+        Car.findOne({'_id': request.params.carid}, {'_id': 1}, function(err, car) {
+          carId = car._id;
+
+          Setup.find({
+            'author': request.params.userid,
+            'car': carId
+          })
+            .populate('sim')
+            .populate('car')
+            .populate('track')
+            .exec(function(err, setups) {
                 if(err) {
                     // return console.log(err);
                 } else {
                     return response.send(setups);
                 }
             });
+          });
+
+      } else if(request.params.userid) {
+        // For webapp.
+        Setup.find({'author': request.params.userid}).
+          populate('sim').
+          populate('car').
+          populate('track').
+          exec(function(err, setups) {
+              if(err) {
+                  // return console.log(err);
+              } else {
+                  return response.send(setups);
+              }
+          });
+        }
     });
 
     // Setup form submission.
@@ -1074,19 +1101,46 @@ module.exports = function(app, passport) {
     // =============================
 
     // Get setups.
+    // Param 'car' {String} | required
     app.get('/api/get-setups-for-app/', function(request, response) {
+      var carAcCode
 
-        Setup.find({ 'sim': '55c2cddddebcbba924bb2a34' }).
-            populate('author', 'display_name').
-            populate('car').
-            populate('track').
-            exec(function(err, setups) {
-                if(err){
-                    return response.status(500).send(err);
-                } else {
-                    return response.status(200).send(setups);
-                }
-            });
+      if(request.query.car) {
+        carAcCode = request.query.car;
+
+        var carId
+
+        Car.findOne({'ac_code': carAcCode}, {'_id': 1}, function(err, car) {
+          carId = car._id;
+
+            Setup.find({
+              'car': carId
+            })
+              .populate('author', 'display_name')
+              .populate('car')
+              .populate('track')
+              .exec(function(err, setups) {
+                  if(err){
+                      return response.status(500).send(err);
+                  } else {
+                      return response.status(200).send(setups);
+                  }
+              });
+          });
+      } else {
+        // Will be deprecated soon.
+        Setup.find({})
+          .populate('author', 'display_name')
+          .populate('car')
+          .populate('track')
+          .exec(function(err, setups) {
+              if(err){
+                  return response.status(500).send(err);
+              } else {
+                  return response.status(200).send(setups);
+              }
+          });
+      }
     });
 
     // Retreive car with ac_code.
