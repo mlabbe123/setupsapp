@@ -1033,7 +1033,7 @@ module.exports = function(app, passport) {
     // Retreive cars specific to a provided sim.
     app.get('/api/get-cars-by-sim/:simid', function(request, response) {
 
-        Car.find({'sim': request.params.simid}, function(err, cars) {
+        Car.find({}, function(err, cars) {
             if(err){
                 return console.log(err);
             } else {
@@ -1127,7 +1127,7 @@ module.exports = function(app, passport) {
           });
       } else {
         // Will be deprecated soon.
-        Setup.find({})
+        Setup.find()
           .populate('author', 'display_name')
           .populate('car')
           .populate('track')
