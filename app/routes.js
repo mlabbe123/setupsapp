@@ -473,7 +473,6 @@ module.exports = function(app, passport) {
     // Retreive setups specific to a sim.
     app.get('/api/get-setups/:simname', function(request, response) {
       Setup.find({
-        'sim': "55c2cddddebcbba924bb2a34",
         'sim_version': { $nin: [1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8] }
       })
         .populate('author', 'display_name')
@@ -514,7 +513,6 @@ module.exports = function(app, passport) {
     // Retrieve every setups for the filters in setups listing page.
     app.get('/api/get-setups-filters-by-simname/:simname', function(request, response) {
       Setup.find({
-        'sim': "55c2cddddebcbba924bb2a34",
         'sim_version': { $nin: [1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8] }
       })
         .populate('author', 'display_name')
