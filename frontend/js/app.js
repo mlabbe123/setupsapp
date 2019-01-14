@@ -48,6 +48,10 @@
                     templateUrl: 'templates/partials/admin/manage_tracks.html',
                     controller: 'manageTracksCtrl'
                 })
+                .when('/admin/manage/oldsetups', {
+                    templateUrl: 'templates/partials/admin/delete_old_setups.html',
+                    controller: 'removeOldSetupsCtrl'
+                })
                 .when('/admin/add/sims', {
                     templateUrl: 'templates/partials/admin/add_sims.html',
                     controller: 'addSimsCtrl'
