@@ -1174,6 +1174,54 @@ module.exports = function(app, passport) {
         });
     });
 
+    app.delete('/api/delete-old-setups/', function(request, response) {
+
+        Setup.find({'sim_version': { $nin: [1.12, 1.13, 1.14, 1.15] }})
+          .exec(function(err, setups) {
+            console.log(setups.length)
+            if(err) {
+              return response.status(500).send();
+            }
+            if(!setups.length) {
+              return response.status(200).send('No setups to delete');
+            }
+
+            for(var i=0;i<setups.length;i++) {
+              Setup.findOne({'_id':setups[i]._id}, function(err, setup) {
+                if(err) {
+                  return response.status(500).send('Couldnt find setup in db');
+                }
+
+                Setup.remove({_id:setup._id}, function(err) {
+                  if(err) {
+                    return response.status(500).send('Setup wasnt deleted from db');
+                  }
+
+                  var setupFilePath = path.join(__dirname, '../setups_files/', setup.sim.toString(), '/', setup._id.toString());
+                  // console.log(setupFilePath)
+                  fs.exists(setupFilePath, function(exists) {
+                    if(!exists) {
+                      console.log('setup file not found, id: ', setup._id.toString())
+                      // return response.status(500).send('Setup wasnt found on disk, _id: ' + setup._id.toString());
+                    } else {
+                      console.log('setup file found');
+                      fs.unlink(setupFilePath, function(err) {
+                        if(err) {
+                          console.log('error deleting setup file, path: ', setupFilePath)
+                          // return response.status(500).send('Setup wasnt deleted from disk, _id: ' + setup._id.toString());
+                        }
+                        // return response.status(200).send('Setup successfully removed fromdb and disk');
+                      })
+                    }
+                  })
+                })
+              })
+            }
+
+            return response.status(200).send();
+          });
+    });
+
 
     // =============================
     // Error pages routes

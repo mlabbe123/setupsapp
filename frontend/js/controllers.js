@@ -626,6 +626,28 @@
             }
         })
 
+        .controller('removeOldSetupsCtrl', function($scope, $routeParams, $http) {
+            console.log('remove old sets');
+
+            // The POST reqeust is not triggering any callbacks since it is out of angular context (why?)
+            // http://stackoverflow.com/questions/17701503/angularjs-http-not-firing-get-call
+
+            $scope.deleteOldSetups = function() {
+
+              $http.delete('/api/delete-old-setups/')
+                  .success(function(data, status, headers, config) {
+                      console.log('success')
+                      angular.element(document.querySelector('#msg-box')).html('Old setups deleted.')
+                  })
+                  .error(function(data, status, headers, config) {
+                      console.log(status)
+                  })
+                  .catch(function(error) {
+                      console.log(error)
+                  });
+            }
+        })
+
         .controller('addCarsCtrl', function($scope, $routeParams, $http) {
 
             // Get every sims.
