@@ -1230,7 +1230,7 @@ module.exports = function(app, passport) {
                 try {
                   var hash = Buffer.from(JSON.stringify(uniqueCombo)).toString('base64');
                 } catch(err) {
-                  break;
+                  continue;
                 }
 
                 if(setupsPerCombo.hasOwnProperty(hash)) {
