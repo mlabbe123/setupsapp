@@ -6,6 +6,3 @@ span(ng-if="setupIdsToDelete", style="display: block; text-align: center;")
   {{ setupIdsToDelete.length }} setups will be deleted.
 <br>
 button(ng-if="setupIdsToDelete", type="button", id="delete-button", class="form-submitbutton", ng-click="deleteDuplicatedSetups($event)") Delete!
-<br>
-span(ng-if="success", style="display: block; text-align: center;")
-  DONE!
