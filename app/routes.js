@@ -1227,7 +1227,11 @@ module.exports = function(app, passport) {
                 uniqueCombo['type'] = setupsByUser[user][i]['type'];
                 uniqueCombo['file_name'] = setupsByUser[user][i]['file_name'];
 
-                var hash = Buffer.from(JSON.stringify(uniqueCombo)).toString('base64')
+                try {
+                  var hash = Buffer.from(JSON.stringify(uniqueCombo)).toString('base64');
+                } catch(err) {
+                  break;
+                }
 
                 if(setupsPerCombo.hasOwnProperty(hash)) {
                   setupsPerCombo[hash].push(setupsByUser[user][i]);
