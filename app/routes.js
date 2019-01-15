@@ -1174,6 +1174,140 @@ module.exports = function(app, passport) {
         });
     });
 
+    app.get('/api/prepare-delete-duplicated-setups/', function(request, response) {
+      Setup.find({})
+        .exec(function(err, setups) {
+          var setupsByVersion = {};
+          setupsByVersion['1.12'] = [];
+          setupsByVersion['1.13'] = [];
+          setupsByVersion['1.14'] = [];
+          setupsByVersion['1.15'] = [];
+          for(var i=0; i<setups.length; i++) {
+            if(setupsByVersion.hasOwnProperty(setups[i]['sim_version'])) {
+              setupsByVersion[setups[i]['sim_version']].push(setups[i]);
+            }
+          }
+          console.log('setupsByVersion[1.12].length',setupsByVersion['1.12'].length)
+          console.log('setupsByVersion[1.13].length',setupsByVersion['1.13'].length)
+          console.log('setupsByVersion[1.14].length',setupsByVersion['1.14'].length)
+          console.log('setupsByVersion[1.15].length', setupsByVersion['1.15'].length)
+
+          var setupsToDelete = [];
+
+          for(var version in setupsByVersion) {
+            var setupsByUser = {};
+
+            for(var i=0; i<setupsByVersion[version].length; i++) {
+              if(setupsByUser.hasOwnProperty(setupsByVersion[version][i]['author'])) {
+                setupsByUser[setupsByVersion[version][i]['author']].push(setupsByVersion[version][i])
+              } else {
+                setupsByUser[setupsByVersion[version][i]['author']] = [];
+                setupsByUser[setupsByVersion[version][i]['author']].push(setupsByVersion[version][i]);
+              }
+            }
+
+            for(var key in setupsByUser) {
+              console.log(key + ': ' + setupsByUser[key].length)
+            }
+
+            for(var user in setupsByUser) {
+              console.log(user + '-------------------')
+
+
+              var setupsPerCombo = {};
+
+              for(var i=0; i < setupsByUser[user].length; i++) {
+                var uniqueCombo = {};
+                uniqueCombo['car'] = setupsByUser[user][i]['car'];
+                uniqueCombo['track'] = setupsByUser[user][i]['track'];
+                uniqueCombo['type'] = setupsByUser[user][i]['type'];
+                uniqueCombo['file_name'] = setupsByUser[user][i]['file_name'];
+
+                var hash = Buffer.from(JSON.stringify(uniqueCombo)).toString('base64')
+
+                if(setupsPerCombo.hasOwnProperty(hash)) {
+                  setupsPerCombo[hash].push(setupsByUser[user][i]);
+                } else {
+                  setupsPerCombo[hash] = [];
+                  setupsPerCombo[hash].push(setupsByUser[user][i]);
+                }
+              }
+
+              for(combo in setupsPerCombo) {
+                if(setupsPerCombo[combo].length <= 1) {
+                  continue;
+                }
+                console.log(combo, ': ', setupsPerCombo[combo].length);
+                console.log('before sort-----------------')
+                for(var i=0; i<setupsPerCombo[combo].length; i++) {
+                  console.log(setupsPerCombo[combo][i]['added_date']['timestamp'])
+                }
+
+                setupsPerCombo[combo].sort(function(a,b){
+                  // Turn your strings into dates, and then subtract them
+                  // to get a value that is either negative, positive, or zero.
+                  return new Date(b['added_date']['timestamp']) - new Date(a['added_date']['timestamp']);
+                });
+                console.log('after sort-----------------')
+
+                for(var i=0; i<setupsPerCombo[combo].length; i++) {
+                  console.log(setupsPerCombo[combo][i]['added_date']['timestamp'])
+                }
+
+                setupsPerCombo[combo].shift();
+                console.log('after shift-----------------')
+
+                for(var i=0; i<setupsPerCombo[combo].length; i++) {
+                  setupsToDelete.push(setupsPerCombo[combo][i]['_id']);
+                }
+              }
+            }
+          }
+          console.log(setupsToDelete.length + ' setups will be deleted')
+          return response.status(200).send(setupsToDelete);
+        })
+    });
+
+    app.post('/api/delete-duplicated-setups/', function(request, response) {
+      for(var i=0; i<request.body.setupIdsToDelete.length; i++) {
+        Setup.findOne({_id:request.body.setupIdsToDelete[i]}, function(err, setup) {
+          if(err) {
+            return response.status(500).send('Couldnt find setup in db');
+          }
+
+          Setup.remove({_id:setup._id}, function(err) {
+            if(err) {
+              return response.status(500).send('Couldnt remove setup in db');
+            }
+
+            var setupFilePath = path.join(__dirname, '../setups_files/', setup.sim.toString(), '/', setup._id.toString());
+
+            fs.exists(setupFilePath, function(exists) {
+              if(!exists) {
+                console.log('setup file not found, id: ', setup._id.toString())
+                // return response.status(500).send('Setup wasnt found on disk, _id: ' + setup._id.toString());
+              } else {
+                console.log('setup file found');
+                fs.unlink(setupFilePath, function(err) {
+                  if(err) {
+                    console.log('error deleting setup file, path: ', setupFilePath)
+                    // return response.status(500).send('Setup wasnt deleted from disk, _id: ' + setup._id.toString());
+                  }
+                  // return response.status(200).send('Setup successfully removed fromdb and disk');
+                })
+              }
+            })
+          })
+
+        });
+
+        if(i == request.body.setupIdsToDelete.length - 1) {
+          return response.status(200).send();
+        }
+      }
+    });
+
+
     app.delete('/api/delete-old-setups/', function(request, response) {
 
         Setup.find({'sim_version': { $nin: [1.12, 1.13, 1.14, 1.15] }})

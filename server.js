@@ -18,7 +18,7 @@ if (config.node_env === 'DEV') {
 
 // Express config
 // If we are in dev, express will serve the static content, in prod, we let nginx take care of that.
-if (config.node_env === "DEV") {
+if (config.node_env === "DEV" || process.env.FORCE_STATIC) {
     app.use(express.static('static'));
 }
 

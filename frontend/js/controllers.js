@@ -646,6 +646,35 @@
                       console.log(error)
                   });
             }
+
+            $scope.getDuplicatedSetups = function() {
+
+              $http.get('/api/prepare-delete-duplicated-setups/')
+                  .success(function(data, status, headers, config) {
+                      console.log('success', data)
+                      $scope.setupIdsToDelete = data;
+                      angular.element(document.querySelector('#msg-box')).html('Duplicated setups deleted.')
+                  })
+                  .error(function(data, status, headers, config) {
+                      console.log(status)
+                  })
+                  .catch(function(error) {
+                      console.log(error)
+                  });
+            }
+
+            $scope.deleteDuplicatedSetups = function() {
+              $http.post('/api/delete-duplicated-setups/', { setupIdsToDelete: $scope.setupIdsToDelete })
+                  .success(function(data, status, headers, config) {
+                      $scope.success = true;
+                  })
+                  .error(function(data, status, headers, config) {
+                      console.log(status)
+                  })
+                  .catch(function(error) {
+                      console.log(error)
+                  });
+            }
         })
 
         .controller('addCarsCtrl', function($scope, $routeParams, $http) {
