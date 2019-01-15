@@ -1109,6 +1109,10 @@ module.exports = function(app, passport) {
         var carId
 
         Car.findOne({'ac_code': carAcCode}, {'_id': 1}, function(err, car) {
+          if(!car) {
+            return response.status(500).send(err);
+          }
+
           carId = car._id;
 
             Setup.find({
